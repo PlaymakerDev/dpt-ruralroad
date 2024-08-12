@@ -1,0 +1,17 @@
+.label {
+  margin: 0;
+  height: auto;
+  font-weight: 500;
+  color: var(--main-black);
+  font-size: 0.9rem;
+}
+
+.required::after {
+  display: inline-block;
+  margin-left: 4px;
+  color: #ff4d4f;
+  font-size: 14px;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  content: "*";
+}

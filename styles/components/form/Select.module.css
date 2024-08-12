@@ -1,0 +1,33 @@
+
+.container {
+  background: none;
+  border: none;
+  padding: 0;
+  height: 38px;
+  display: inline-block;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.select {
+  color: var(--color-text-gray);
+  font-size: 0.9rem;
+  border: 1px solid var(--color-gray-2);
+  border-radius: 4px;
+  width: 100%;
+  background: none;
+  /* height: 36.78px !important; */
+}
+
+.select_error {
+  border: 1px solid var(--color-red);
+}
+
+.select_error:hover {
+  border: 1px solid var(--color-red);
+}
+
+.select_error.ant-select-open {
+  border: 1px solid var(--color-red);
+  box-shadow: 0 0 0 2px var(--color-antd-shadow-red);
+}

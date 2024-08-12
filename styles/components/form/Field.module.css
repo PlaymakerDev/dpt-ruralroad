@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.label {
+  color: var(--primary-color);
+  margin-bottom: 6px;
+}
+
+.star {
+  color: #ff4d4f;
+}
+
+.error {
+  color: #ff4d4f;
+  min-height: 22px;
+}

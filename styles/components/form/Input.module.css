@@ -1,0 +1,24 @@
+
+.container {
+  position: relative;
+}
+
+.unit,
+.suffix {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  color: var(--main-black);
+  cursor: default;
+}
+.suffix {
+  line-height: 0px;
+}
+
+.unit::before {
+  content: '';
+  height: 150%;
+  margin-right: 6px;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}

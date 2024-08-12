@@ -1,0 +1,44 @@
+.main_menu {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 12px;
+  box-shadow: 0px 2px 4px 0px #0000001f;
+  margin-bottom: 25px;
+}
+.menu_link {
+  color: #2b2b2b;
+}
+
+.navigationDrawer .ant-drawer-header {
+  background-color: #c10022 !important;
+}
+
+.navButton {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.avatarIcon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.menuButton {
+  display: none !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .horizontalMenu {
+    display: none !important;
+  }
+  .menuButton {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 643px) {
+  .main_menu {
+    border-radius: 0px;
+  }
+}

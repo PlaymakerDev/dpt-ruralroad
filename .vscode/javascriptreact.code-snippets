@@ -1,0 +1,22 @@
+{
+	"ReactCompMemoJS": {
+		"prefix": [
+			"rcmt"
+		],
+		"body": [
+			"import React from 'react'",
+			"",
+			"const ${TM_FILENAME_BASE} = (props) => {",
+			"\tconst {${3}} = props",
+			"",
+			"\treturn (",
+			"\t\t<div>${1:index}</div>",
+			"\t)",
+			"}",
+			"",
+			"export default React.memo(${TM_FILENAME_BASE})",
+			""
+		],
+		"description": "React Components Memo JS"
+	}
+}

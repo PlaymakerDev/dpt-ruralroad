@@ -1,0 +1,23 @@
+.loginImage {
+  width: 100%;
+}
+
+.rowContainer {
+  height: -webkit-fill-available;
+}
+
+.imageColumn {
+  display: block !important;
+}
+
+@media screen and (max-width: 1199px) {
+  .imageColumn {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1670px) {
+  .loginImage {
+    width: calc(100% - 8rem);
+  }
+}
