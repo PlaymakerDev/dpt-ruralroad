@@ -1,3 +1,4 @@
+import DashboardFooter from "../components/DashboardFooter"
 import DesktopLayout from "./DasktopLayout"
 import MobileLayout from "./MobileLayout"
 import TabletLayout from "./TabletLayout"
@@ -8,6 +9,7 @@ const DashboardLayout = () => {
     <DesktopLayout/>
     <TabletLayout/>
     <MobileLayout/>
+    <DashboardFooter/>
     </>
 
   )

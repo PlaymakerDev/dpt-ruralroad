@@ -2,6 +2,7 @@ import DashboardNav from '../components/DashboardNav'
 import { Layout } from 'antd';
 import DashboardContent from '../components/DashboardContent';
 import DashboardLayout from '../layout/DashboardLayout';
+import DashboardFooter from '../components/DashboardFooter';
 
 const DashboardScreen = () => {
 

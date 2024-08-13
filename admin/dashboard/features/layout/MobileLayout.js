@@ -8,7 +8,7 @@ import Webcam from "../components/Webcam";
 const MobileLayout = () => {
   return (
     <>
-    <div className='md:hidden grid grid-cols-1 gap-4 w-full border-2 border-black mx-auto justify-items-center h-96'>
+    <div className='md:hidden grid grid-cols-1 gap-4 w-full mx-auto justify-items-center'>
       {/* Content */}
       <div className=' flex items-center justify-center text-white w-full h-full'><DashboardDetail/></div>
       <div className=' text-white w-full h-full'><RandomTruck/></div>
