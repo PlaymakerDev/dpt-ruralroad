@@ -9,6 +9,7 @@ const DashboardContent = ({children}) => {
     <Content
         style={{
           padding: '36px',
+          backgroundColor:'#030918'
         }}
       >
         <div
