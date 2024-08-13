@@ -1,0 +1,55 @@
+/* styles/TetrisGrid.module.css */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 คอลัมน์ */
+  grid-gap: 4px; /* ระยะห่างระหว่างกล่อง */
+  width: 100%;
+  max-width: 1200px; /* กำหนดขนาดสูงสุดของกริด */
+  margin: 0 auto; /* จัดกลางกริด */
+}
+
+.item {
+  background-color: #00aaff;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+
+.item1 {
+  grid-column: span 4;
+  grid-row: span 1;
+}
+
+.item2 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.item3 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.item4 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.item5 {
+  grid-column: span 3;
+  grid-row: span 1;
+}
+
+.item6 {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+/* ตั้งค่าความสูงของแต่ละแถว */
+.gridContainer {
+  grid-template-rows: repeat(6, 100px); /* ตัวอย่างความสูง */
+}
