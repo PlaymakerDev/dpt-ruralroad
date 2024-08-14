@@ -1,14 +1,20 @@
-import { Card } from 'antd';
+
+import Image from 'next/image';
+import doe1 from '@/public/images/doe1.gif'
 
 const Webcam = () => {
+  
   return (
     <>
-    <Card title="Card title" style={{ width: '100%',height:'100%',borderRadius:10 }}>
-    <Card type="inner" title="Inner Card title" extra={<a href="#">More</a>}>
-      Inner Card content
-    </Card>
-    
-  </Card>
+    <div className='w-full h-full bg-blue-700 rounded-lg overflow-hidden border border-blue-500'>
+    <Image 
+        src={doe1} 
+        alt="Example Image" 
+        width={500} 
+        height={300} 
+        layout="fixed" 
+      />
+    </div>
 
   </>
   )

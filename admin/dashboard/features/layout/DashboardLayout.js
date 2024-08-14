@@ -8,7 +8,7 @@ const DashboardLayout = () => {
     <>
     <DesktopLayout/>
     <TabletLayout/>
-    <MobileLayout/>
+    <MobileLayout/> 
     <DashboardFooter/>
     </>
 
