@@ -34,3 +34,11 @@ button {
   border-color: var(--lightblue-color) !important;
   color: #1E4066 !important;
 }
+
+.bg-gradient {
+  background: linear-gradient(#56E4EE, #000000, #56E4EE);
+}
+
+.border-lightblue {
+  border-color: #56E4EE;
+}
