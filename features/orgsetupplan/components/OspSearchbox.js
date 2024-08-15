@@ -5,6 +5,8 @@ import '../style/opssearch.module.css'; // Import the CSS file
 const OspSearchbox = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 20 }, (_, i) => currentYear - i);
+  const team = Array.from({ length: 10 }, (_, i) => i + 1);
+
 
   return (
     <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4 p-4 px-8'>
@@ -13,7 +15,7 @@ const OspSearchbox = () => {
         <div className='flex flex-col'>
           <Typography.Text className='text-white'>ปีงบประมาณ</Typography.Text>
           <Select
-            defaultValue={currentYear}
+            defaultValue={'เลือกปีงบประมาณ'}
             style={{ width: 200, color: 'white' }}
             onChange={(value) => console.log('Selected Year:', value)}
           >
@@ -27,13 +29,13 @@ const OspSearchbox = () => {
         <div className='flex flex-col'>
           <Typography.Text className='text-white'>หน่วยงาน</Typography.Text>
           <Select
-            defaultValue={currentYear}
+            defaultValue={'เลือกหน่วยงาน'}
             style={{ width: 250, color: 'white' }}
             onChange={(value) => console.log('Selected Year:', value)}
           >
-            {years.map(year => (
-              <Select.Option key={year} value={year} className="custom-option">
-                {year}
+            {team.map(team => (
+              <Select.Option key={team} value={team} className="custom-option">
+                หน่วยงาน {team}
               </Select.Option>
             ))}
           </Select>
