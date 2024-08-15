@@ -1,14 +1,14 @@
 import React from 'react'
 import DashboardScreen from '@/features/admin/dashboard/screen'
-import { Layout } from '@/components/layout'
+import { PageLayout } from '@/components/layout'
 
 const DashboardPage = (props) => {
   const { } = props
 
   return (
-    <Layout>
+    <PageLayout>
       <DashboardScreen />
-    </Layout>
+    </PageLayout>
   )
 }
 

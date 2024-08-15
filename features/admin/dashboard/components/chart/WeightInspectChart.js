@@ -1,4 +1,6 @@
 import React from 'react'
+import { Avatar, Card, Col, Row, Typography } from 'antd'
+import { TruckOutlined } from '@ant-design/icons'
 import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -17,7 +19,7 @@ const WeightInspectChart = (props) => {
         { x: new Date('2024-08-06').getTime(), y: 60 },
         { x: new Date('2024-08-07').getTime(), y: 70 },
         { x: new Date('2024-08-08').getTime(), y: 91 }
-    ]
+      ]
     },
     {
       name: 'North',
@@ -30,7 +32,7 @@ const WeightInspectChart = (props) => {
         { x: new Date('2024-08-06').getTime(), y: 60 },
         { x: new Date('2024-08-07').getTime(), y: 70 },
         { x: new Date('2024-08-08').getTime(), y: 91 }
-    ]
+      ]
     },
     {
       name: 'Central',
@@ -43,7 +45,7 @@ const WeightInspectChart = (props) => {
         { x: new Date('2024-08-06').getTime(), y: 60 },
         { x: new Date('2024-08-07').getTime(), y: 70 },
         { x: new Date('2024-08-08').getTime(), y: 91 }
-    ]
+      ]
     }
   ]
 
@@ -73,8 +75,8 @@ const WeightInspectChart = (props) => {
       }
     },
     legend: {
-      position: 'top',
-      horizontalAlign: 'left'
+      // position: 'top',
+      // horizontalAlign: 'left'
     },
     xaxis: {
       type: 'datetime'
@@ -82,13 +84,53 @@ const WeightInspectChart = (props) => {
   }
 
   return (
-    <div>
-      <Chart
-        series={series}
-        options={options}
-        type='area'
-      />
-    </div>
+    <Card className='bg-gradient border-lightblue !w-full !h-full'>
+      <section>
+        <Row gutter={[16, 16]} align={'middle'}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
+            <Typography.Title level={4} className='!m-0'>แผนงานและผลการจัดตั้งหน่วยชั่งเคลื่อนที่</Typography.Title>
+            <Typography.Text>ประจำปีงบประมาณ 2567</Typography.Text>
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
+            <section className='flex flex-wrap justify-between'>
+              <div className='flex gap-3 items-center'>
+                <div className='flex'>
+                  <Avatar
+                    icon={<TruckOutlined />}
+                    className='!bg-[#56E4EE]'
+                    size={'large'}
+                    />
+                </div>
+                <div className='flex flex-col'>
+                  <Typography.Title level={5} className='!m-0'>175 ครั้ง</Typography.Title>
+                  <Typography.Text>แผนที่วางไว้</Typography.Text>
+                </div>
+              </div>
+              <div className='flex gap-3 items-center'>
+                <div className='flex'>
+                  <Avatar
+                    icon={<TruckOutlined />}
+                    className='!bg-[#E81A1A]'
+                    size={'large'}
+                  />
+                </div>
+                <div className='flex flex-col'>
+                  <Typography.Title level={5} className='!m-0'>175 ครั้ง</Typography.Title>
+                  <Typography.Text>แผนที่วางไว้</Typography.Text>
+                </div>
+              </div>
+            </section>
+          </Col>
+        </Row>
+      </section>
+      <section className='mt-5'>
+        <Chart
+          series={series}
+          options={options}
+          type='area'
+        />
+      </section>
+    </Card>
   )
 }
 

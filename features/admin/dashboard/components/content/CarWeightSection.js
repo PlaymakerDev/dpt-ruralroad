@@ -6,11 +6,9 @@ const CarWeightSection = (props) => {
   const { } = props
 
   return (
-    <div>
-      <Card>
+      <Card className='bg-gradient border-lightblue !w-full !h-full'>
         <WeightUnitInspectChart />
       </Card>
-    </div>
   )
 }
 

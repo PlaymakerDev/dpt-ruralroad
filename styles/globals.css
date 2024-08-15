@@ -36,9 +36,9 @@ button {
 }
 
 .bg-gradient {
-  background: linear-gradient(#56E4EE, #000000, #56E4EE);
+  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;
 }
 
 .border-lightblue {
-  border-color: #56E4EE;
+  border-color: #56E4EE50 !important;
 }
