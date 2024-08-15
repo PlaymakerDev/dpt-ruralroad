@@ -1,45 +1,28 @@
 import React from 'react';
-import {  Table } from 'antd';
+import { Table } from 'antd';
 import '@/features/orgsetupplan/style/tableblack.module.css';
+import { Pagination } from 'antd';
+import { dataSource, columns } from './mockupdata';
 
-const dataSource = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-];
 
 const OpsTable = () => {
   return (
-    <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4'   style={{ color: 'black'  }}>
-      <Table dataSource={dataSource} columns={columns}  className='custom-table'/>;
-    </section>
+    <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4'>
+    <div className='rounded-lg overflow-hidden'>
+      <div className='overflow-auto'>
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          pagination={false}
+          className='rounded-lg bg-transparent'
+          style={{ minWidth: '100%' }} // ให้ตารางขยายเต็มความกว้างของคอนเทนเนอร์
+        />
+      </div>
+    </div>
+
+    <Pagination align="center" style={{ margin: 20 }} defaultCurrent={1} total={50} />
+  </section>
   )
 }
 

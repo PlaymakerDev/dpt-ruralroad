@@ -9,12 +9,12 @@ const OspSearchbox = () => {
   return (
     <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4 p-4 px-8'>
       <Typography.Title level={5} className='text-white'>ค้นหา</Typography.Title>
-      <div className='flex flex-row gap-4'>
+      <div className='flex flex-row flex-wrap gap-4'>
         <div className='flex flex-col'>
-          <Typography.Text>ปีงบประมาณ</Typography.Text>
+          <Typography.Text className='text-white'>ปีงบประมาณ</Typography.Text>
           <Select
             defaultValue={currentYear}
-            style={{ width: 200, color: 'black' }}
+            style={{ width: 200, color: 'white' }}
             onChange={(value) => console.log('Selected Year:', value)}
           >
             {years.map(year => (
@@ -25,10 +25,10 @@ const OspSearchbox = () => {
           </Select>
         </div>
         <div className='flex flex-col'>
-          <Typography.Text>หน่วยงาน</Typography.Text>
+          <Typography.Text className='text-white'>หน่วยงาน</Typography.Text>
           <Select
             defaultValue={currentYear}
-            style={{ width: 250, color: 'black' }}
+            style={{ width: 250, color: 'white' }}
             onChange={(value) => console.log('Selected Year:', value)}
           >
             {years.map(year => (
@@ -45,7 +45,8 @@ const OspSearchbox = () => {
         <button className='rounded-lg ml-auto text-white w-40'>เพิ่มข้อมูล</button>
       </div>
     </section>
-    
+
+
   );
 };
 

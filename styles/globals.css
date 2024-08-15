@@ -29,16 +29,16 @@ body {
 }
 
 button {
-  cursor: pointer !important;
+  cursor: pointer ;
   background-color: var(--lightblue-color) ;
-  border-color: var(--lightblue-color) !important;
+  border-color: var(--lightblue-color) ;
   color: #1E4066;
 }
 
 .bg-gradient {
-  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;
+  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) ;
 }
 
 .border-lightblue {
-  border-color: #56E4EE50 !important;
+  border-color: #56E4EE50 ;
 }
