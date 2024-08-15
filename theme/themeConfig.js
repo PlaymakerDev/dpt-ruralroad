@@ -1,14 +1,9 @@
 const theme = {
-	components: {
-		Collapse: {
-			contentBg: '#030918'
-		}
-	},
 	token: {
 		fontSize: 14,
-		colorPrimary: '#FFFFFF',
+		colorPrimary: 'red',
 		fontFamily: 'IBMPlexSansThai-Regular',
-		// colorText: '#FFFFFF',
+		colorText: '#FFFFFF',
 	}
 }
 
