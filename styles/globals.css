@@ -29,20 +29,17 @@ body {
 }
 
 button {
-  cursor: pointer ;
+  cursor: pointer !important;
   background-color: var(--lightblue-color) ;
-  border-color: var(--lightblue-color) ;
+  border-color: var(--lightblue-color) !important;
   color: #1E4066;
 }
 
 .bg-gradient {
-  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) ;
+  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;
 }
 
 .border-lightblue {
-<<<<<<< HEAD
-  border-color: #56E4EE50 ;
-=======
   border-color: #56E4EE50 !important;
 }
 
@@ -52,5 +49,4 @@ button {
 
 .odd-row {
   background-color: #6f00ff; 
->>>>>>> 4a90ab08a9d0edd277d1c846b350aba392750e59
 }
