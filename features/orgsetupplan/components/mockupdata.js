@@ -129,7 +129,7 @@ const generateDataSource = (numRows) => {
   
   return data;
 };
-export const dataSource = generateDataSource(10); // Change 10 to the number of rows you need
+export const dataSource = generateDataSource(7); // Change 10 to the number of rows you need
 
 
 
