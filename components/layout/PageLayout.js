@@ -22,7 +22,7 @@ const PageLayout = (props) => {
             <Content
               style={{
                 padding: '2.5rem',
-                backgroundColor: '#000000'
+                backgroundColor: '#030918'
               }}
             >
               {children}

@@ -30,9 +30,9 @@ body {
 
 button {
   cursor: pointer !important;
-  background-color: var(--lightblue-color) !important;
+  background-color: var(--lightblue-color) ;
   border-color: var(--lightblue-color) !important;
-  color: #1E4066 !important;
+  color: #1E4066;
 }
 
 .bg-gradient {

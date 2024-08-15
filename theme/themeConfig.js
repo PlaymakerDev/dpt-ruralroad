@@ -8,7 +8,7 @@ const theme = {
 		fontSize: 14,
 		colorPrimary: '#FFFFFF',
 		fontFamily: 'IBMPlexSansThai-Regular',
-		colorText: '#FFFFFF',
+		// colorText: '#FFFFFF',
 	}
 }
 
