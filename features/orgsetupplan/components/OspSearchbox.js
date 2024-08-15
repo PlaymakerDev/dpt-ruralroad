@@ -17,7 +17,7 @@ const OspSearchbox = () => {
           <Typography.Text className='text-white'>ปีงบประมาณ</Typography.Text>
           <Select
             defaultValue={'เลือกปีงบประมาณ'}
-            style={{ width: 200, color: 'white' }}
+            style={{ width: 200, color: 'black' }}
             onChange={(value) => console.log('Selected Year:', value)}
           >
             {years.map(year => (
@@ -41,7 +41,7 @@ const OspSearchbox = () => {
             ))}
           </Select>
         </div>
-        <div className='flex-1 flex items-end gap-4'>
+        <div className='flex-1 flex flex-wrap items-end gap-4'>
           <button className='rounded-lg text-white w-32 h-8'><SearchOutlined style={{ marginRight: 8 }} />ค้นหา</button>
           <p className='text-white'>ล้างการค้นหา</p>
           <button className='rounded-lg ml-auto text-white w-40 h-8'>+ เพิ่มข้อมูล</button>
