@@ -32,20 +32,21 @@ const TableTrollway = (props) => {
 
   return (
     <ConfigProvider
-    theme={{
-      components: {
-        Table: {
-          headerBg: '#194250'
+      theme={{
+        components: {
+          Table: {
+            headerBg: '#194250'
+          }
+        },
+        token: {
+          colorText: 'black'
         }
-      },
-      token: {
-        colorText: 'black'
-      }
-    }}
+      }}
     >
       <Table
         dataSource={data}
         columns={columns}
+        scroll={{ x: 1600 }}
       />
     </ConfigProvider>
   )
