@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Select } from 'antd';
 import '../style/opssearch.module.css'; // Import the CSS file
+import { SearchOutlined } from '@ant-design/icons';
 
 const OspSearchbox = () => {
   const currentYear = new Date().getFullYear();
@@ -40,11 +41,12 @@ const OspSearchbox = () => {
             ))}
           </Select>
         </div>
-        <button className='rounded-lg text-white w-32'>ค้นหา</button>
-        <div className='flex-1 flex items-center '>
+        <div className='flex-1 flex items-end gap-4'>
+          <button className='rounded-lg text-white w-32 h-8'><SearchOutlined style={{ marginRight: 8 }} />ค้นหา</button>
           <p className='text-white'>ล้างการค้นหา</p>
+          <button className='rounded-lg ml-auto text-white w-40 h-8'>+ เพิ่มข้อมูล</button>
         </div>
-        <button className='rounded-lg ml-auto text-white w-40'>เพิ่มข้อมูล</button>
+
       </div>
     </section>
 
