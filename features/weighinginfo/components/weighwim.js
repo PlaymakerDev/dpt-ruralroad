@@ -29,17 +29,18 @@ const columns = [
 const data = [
   {
     key: '1',
-    date: '15 สิงหาคม 2567',
-    sation: 'ปักกิ่ง',
-    weighcar: '156',
-    weighover: '666',
+    date: '20 สิงหาคม 2567',
+    sation: 'หมูกรอบ',
+    weighcar: '16',
+    weighover: '466',
   },
+  
   {
     key: '2',
-    date: '17 สิงหาคม 2567',
-    sation: 'เกาหลีเหนือ',
-    weighcar: '189',
-    weighover: '72',
+    date: '13 สิงหาคม 2567',
+    sation: 'ข้าวผัด',
+    weighcar: '19',
+    weighover: '112',
   },
   
 ];
@@ -47,15 +48,13 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
-const Weightable = () => {
+const Weighwim = () => {
   return (
     <div>
       <Fieldtable />
-      <Table columns={columns} dataSource={data} onChange={onChange}
-      rowClassName={(data, index) => (index % 2 === 0 ? 'even-row' : 'odd-row')} />
-      
+      <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
   )
 }
 
-export default Weightable
+export default Weighwim

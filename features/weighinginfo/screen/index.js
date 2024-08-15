@@ -1,12 +1,10 @@
 import React from 'react'
-import FieldTable from '../components/fieldtable'
-import Weightab from '../components/weightab'
-import Weightable from '../components/weightable'
+import Tabtable from '../components/tabtable'
 
 const WeighinfoPage = () => {
   return (
     <div>
-      <Weightab />
+      <Tabtable />
     </div>
   )
 }

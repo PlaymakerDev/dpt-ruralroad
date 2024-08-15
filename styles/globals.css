@@ -42,3 +42,11 @@ button {
 .border-lightblue {
   border-color: #56E4EE50 !important;
 }
+
+.even-row {
+  background-color: #ff0000; 
+}
+
+.odd-row {
+  background-color: #6f00ff; 
+}
