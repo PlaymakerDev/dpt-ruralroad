@@ -28,12 +28,12 @@ body {
   --lightred-color: #FF4A4D;
 }
 
-button {
+/* button {
   cursor: pointer !important;
   background-color: var(--lightblue-color) ;
   border-color: var(--lightblue-color) !important;
   color: #1E4066;
-}
+} */
 
 .bg-gradient {
   background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;

@@ -8,7 +8,7 @@ const LiveTrackingSection = (props) => {
   return (
     <Row gutter={[30, 30]}>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-        <Card className='bg-gradient border-lightblue !w-full !h-full'>
+        <Card className='!w-full !h-full'>
           <Image
             src='https://th.mouser.com/blog/Portals/11/Vehicle%20Detection%20AI_Theme%20Image_min.jpg'
             alt='traffic-tracking'
@@ -16,7 +16,7 @@ const LiveTrackingSection = (props) => {
         </Card>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-        <Card className='bg-gradient border-lightblue !w-full !h-full'>
+        <Card className='!w-full !h-full'>
           <Image
             src='https://th.mouser.com/blog/Portals/11/Vehicle%20Detection%20AI_Theme%20Image_min.jpg'
             alt='traffic-tracking'
@@ -24,7 +24,7 @@ const LiveTrackingSection = (props) => {
         </Card>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-        <Card className='bg-gradient border-lightblue !w-full !h-full'>
+        <Card className='!w-full !h-full'>
           <Image
             src='https://th.mouser.com/blog/Portals/11/Vehicle%20Detection%20AI_Theme%20Image_min.jpg'
             alt='traffic-tracking'
@@ -32,7 +32,7 @@ const LiveTrackingSection = (props) => {
         </Card>
       </Col>
       <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-        <Card className='bg-gradient border-lightblue !w-full !h-full'>
+        <Card className='!w-full !h-full'>
           <Image
             src='https://th.mouser.com/blog/Portals/11/Vehicle%20Detection%20AI_Theme%20Image_min.jpg'
             alt='traffic-tracking'

@@ -1,5 +1,14 @@
 .navbar {
   display: block !important;
+  background-color: #030918 !important;
+}
+
+.header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3rem !important;
+  width: 100% !important;
+  background-color: #030918 !important;
 }
 
 .sidebar {
@@ -10,7 +19,14 @@
   .navbar {
     display: none !important;
   }
+
+  .header {
+    display: block !important;
+    padding: 0 !important;
+  }
+
   .sidebar {
     display: block !important;
+    height: 100% !important;
   }
 }

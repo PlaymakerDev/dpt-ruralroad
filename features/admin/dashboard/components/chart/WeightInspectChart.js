@@ -84,7 +84,7 @@ const WeightInspectChart = (props) => {
   }
 
   return (
-    <Card className='bg-gradient border-lightblue !w-full !h-full'>
+    <Card className='!w-full !h-full'>
       <section>
         <Row gutter={[16, 16]} align={'middle'}>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>

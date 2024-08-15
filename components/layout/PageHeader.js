@@ -1,14 +1,15 @@
 import React from 'react'
-import { Layout, Menu } from 'antd'
-import { HomeOutlined, TruckOutlined, FileTextOutlined, SettingOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import { Button, Layout, Menu } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined, HomeOutlined, TruckOutlined, FileTextOutlined, SettingOutlined, VideoCameraOutlined } from '@ant-design/icons'
 import DPTLogo from '@/public/images/dpt-logo.svg'
 import Image from 'next/image'
+import styles from '@/styles/components/layout/Layout.module.css'
 
 const { Header } = Layout
 
 
 const PageHeader = (props) => {
-  const { } = props
+  const { collapsed, setCollapsed } = props
 
   const items = [
     {
@@ -39,20 +40,25 @@ const PageHeader = (props) => {
   ]
 
   return (
-    <Header
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '3rem',
-        width: '100%'
-      }}
-    >
+    <Header className={styles.header}>
+      <div className={styles.sidebar}>
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          style={{
+            fontSize: '16px',
+            width: 64,
+            height: 64,
+          }}
+        />
+      </div>
       <Image
         src={DPTLogo}
         alt='nav-icon'
         width={50}
         height={50}
-        className='block m-auto'
+        className={`${styles.navbar} block m-auto`}
       />
       <Menu
         theme='dark'
@@ -63,8 +69,9 @@ const PageHeader = (props) => {
           minWidth: 0,
 
         }}
+        className={styles.navbar}
       />
-    </Header>
+    </Header >
   )
 }
 

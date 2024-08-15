@@ -3,11 +3,12 @@ import { Layout, Menu } from 'antd'
 import { HomeOutlined, TruckOutlined, FileTextOutlined, SettingOutlined, VideoCameraOutlined } from '@ant-design/icons'
 import DPTLogo from '@/public/images/dpt-logo.svg'
 import Image from 'next/image'
+import styles from '@/styles/components/layout/Layout.module.css'
 
 const { Sider } = Layout
 
 const PageSidebar = (props) => {
-  const { } = props
+  const {  collapsed} = props
 
   const items = [
     {
@@ -41,12 +42,10 @@ const PageSidebar = (props) => {
     <Sider
       trigger={null}
       collapsible
-      collapsed={false}
-      style={{
-        height: '100%',
-      }}
+      collapsed={collapsed}
+      className={styles.sidebar}
     >
-      <section className='my-8'>
+      <section className='my-3'>
         <Image
           src={DPTLogo}
           alt='nav-icon'
