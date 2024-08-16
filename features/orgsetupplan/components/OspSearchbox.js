@@ -46,7 +46,10 @@ const OspSearchbox = () => {
 
   console.log(yearsOption);
   return (
-    <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4 p-4 px-8'>
+    <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4 p-2 pt-8 px-8'>
+      <Typography.Title level={4}>
+        ค้นหา
+      </Typography.Title>
       <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
         <Row gutter={[30, 16]} align={'middle'}>
           <Col xs={24} sm={24} md={8} lg={6} xl={6} xxl={6}>

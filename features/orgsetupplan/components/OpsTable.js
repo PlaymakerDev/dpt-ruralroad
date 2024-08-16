@@ -10,21 +10,30 @@ const OpsTable = () => {
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
 
+  const oddTable = (_, rowIndex) => ({
+    style: {
+      backgroundColor: rowIndex % 2 === 0 ? '#205466' : '#194250', // Even rows get #56E4EE, odd rows get white
+    },
+  });
+
   const columns = [
     {
       title: 'ลำดับ',
       dataIndex: 'no',
       key: 'no',
+      onCell: oddTable,
     },
     {
       title: 'รหัสปลายทาง',
       dataIndex: 'locate',
       key: 'locate',
+      onCell: oddTable,
     },
     {
       title: 'รวม',
       dataIndex: 'total',
       key: 'total',
+      onCell: oddTable,
     },
     {
       title: 'ตุลาคม',
@@ -99,7 +108,7 @@ const OpsTable = () => {
           />
           <Button
             type="text"
-            icon={<DeleteOutlined className="red-icon" />}
+            icon={<DeleteOutlined className="red-icon" style={{ color: '#FF4A4A' }} />}
             onClick={() => handleDelete(record)}
           />
         </span>
@@ -169,7 +178,7 @@ const OpsTable = () => {
                 }
               },
               token: {
-                colorText: 'black'
+                colorText: 'white'
               }
             }}
           >
