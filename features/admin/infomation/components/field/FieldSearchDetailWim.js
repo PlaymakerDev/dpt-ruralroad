@@ -3,7 +3,7 @@ import { Form, Field, useForm } from '@/components/form'
 import { Button, Col, Row, Typography } from 'antd'
 import { SearchOutlined  } from '@ant-design/icons'
 
-const FieldSearchWeigh = (props) => {
+const FieldSearchDetailWim = (props) => {
   const { } = props
 
   const form = useForm({
@@ -24,12 +24,6 @@ const FieldSearchWeigh = (props) => {
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
       <Row gutter={[30, 16]} align={'middle'}>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
-          <Field.DatePicker
-            label='วันที่'
-            name='date'
-          />
-        </Col>
         <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
           <Field.DatePicker
             label='วันที่'
@@ -63,4 +57,4 @@ const FieldSearchWeigh = (props) => {
   )
 }
 
-export default React.memo(FieldSearchWeigh)
+export default React.memo(FieldSearchDetailWim)

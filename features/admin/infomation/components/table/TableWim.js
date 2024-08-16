@@ -1,8 +1,10 @@
 import React from 'react'
-import { Table, ConfigProvider } from 'antd'
+import { Table, ConfigProvider, Button } from 'antd'
+import { RightOutlined  } from '@ant-design/icons'
+
 
 const TableWim = (props) => {
-  const { } = props
+  const { setStepWim } = props
 
   const data = [
     {
@@ -47,6 +49,20 @@ const TableWim = (props) => {
       dataIndex: 'weighover',
       align: 'center',
     },
+    {
+      title: '',
+      key: 'operation',
+      align: 'center',
+      render: () => 
+          <Button
+        icon={<RightOutlined />}
+        size='smail'
+        htmlType='submit'
+        type='primary'
+        onClick={()=> setStepWim(2)}
+        >
+          </Button>
+    }
   ]
 
   return (

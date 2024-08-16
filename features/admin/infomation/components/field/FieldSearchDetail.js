@@ -3,7 +3,7 @@ import { Form, Field, useForm } from '@/components/form'
 import { Button, Col, Row, Typography } from 'antd'
 import { SearchOutlined  } from '@ant-design/icons'
 
-const FieldSearchWeigh = (props) => {
+const FieldSearchDetail = (props) => {
   const { } = props
 
   const form = useForm({
@@ -63,4 +63,4 @@ const FieldSearchWeigh = (props) => {
   )
 }
 
-export default React.memo(FieldSearchWeigh)
+export default React.memo(FieldSearchDetail)

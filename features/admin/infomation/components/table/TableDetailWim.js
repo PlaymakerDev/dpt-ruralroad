@@ -1,24 +1,20 @@
 import React from 'react'
 import { Table, ConfigProvider , Button } from 'antd'
-import { RightOutlined  } from '@ant-design/icons'
+import { TruckOutlined } from '@ant-design/icons'
 
-const TableWeigh = (props) => {
-  const { setStep } = props
+const TableDetailWim = (props) => {
+  const {setModalWim} = props
 
   const data = [
       {
         key: "1",
         date: "15 สิงหาคม 2567",
-        sation: "ปักกิ่ง",
-        weighcar: "156",
-        weighover: "666",
-      },
-      {
-        key: "2",
-        date: "17 สิงหาคม 2567",
-        sation: "เกาหลีเหนือ",
-        weighcar: "189",
-        weighover: "72",
+        li: "55-555",
+        typecar: "ประเภท 2 3เพลา6",
+        car: "-",
+        wei: "14,000 ตัน",
+        pow: "6เพลา",
+        staus: "ปกติ"
       },
   ]
 
@@ -34,18 +30,33 @@ const TableWeigh = (props) => {
       align: 'center',
     },
     {
-      title: "สถานี",
-      dataIndex: "sation",
+      title: "ทะเบียน",
+      dataIndex: "li",
       align: 'center',
     },
     {
-      title: "จำนวนรถเข้าชั่ง",
-      dataIndex: "weighcar",
+      title: "ประเภทรถ",
+      dataIndex: "typecar",
       align: 'center',
     },
     {
-      title: "รถบรรทุกน้ำหนักเกิน",
-      dataIndex: "weighover",
+      title: "ลักษณะรถ",
+      dataIndex: "car",
+      align: 'center',
+    },
+    {
+      title: "น้ำหนักที่ชั่ง",
+      dataIndex: "wei",
+      align: 'center',
+    },
+    {
+      title: "เพลา",
+      dataIndex: "pow",
+      align: 'center',
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "staus",
       align: 'center',
     },
     {
@@ -54,11 +65,11 @@ const TableWeigh = (props) => {
       align: 'center',
       render: () => 
           <Button
-        icon={<RightOutlined />}
+        icon={<TruckOutlined />}
         size='smail'
         htmlType='submit'
         type='primary'
-        onClick={()=> setStep(2)}
+        onClick={() => setModalWim(true)}
         >
           </Button>
     },
@@ -84,4 +95,4 @@ const TableWeigh = (props) => {
   )
 }
 
-export default React.memo(TableWeigh)
+export default React.memo(TableDetailWim)

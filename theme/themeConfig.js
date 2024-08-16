@@ -14,6 +14,11 @@ const theme = {
 		},
 		Button: {
 			colorPrimary: '#00EEFF88',
+		},
+		Table: {
+			headerBg: '#194250',
+			rowHoverBg	: '#199999',
+			borderColor : 'transparent',
 		}
 	},
 	token: {

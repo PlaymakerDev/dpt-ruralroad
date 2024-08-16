@@ -1,14 +1,21 @@
 import React, { useCallback, useState } from 'react'
-import { Card } from 'antd'
+import { Card , Modal } from 'antd'
 import { TabWeigh, TabWim, TabMove, TabSum } from '../components/tab-content'
+import { TruckModal, WimModal } from '../components/modal'
 
 const InfomationScreen = (props) => {
   const { } = props
+
   const [tabKey, setTabKey] = useState('weigh')
+
+  const [ModalTruck, setModalTruck] = useState(false);
+
+  const [ModalWim, setModalWim] = useState(false);
 
   const onTabUpdate = useCallback((targetTab) => {
     setTabKey(targetTab)
   }, [])
+
 
   const tabList = [
     {
@@ -29,23 +36,24 @@ const InfomationScreen = (props) => {
     },
   ];
 
-  
-
   const content = {
-    weigh: <TabWeigh />,
+    weigh: <TabWeigh setModalTruck={setModalTruck}/>,
     wim: <TabWim />,
     move: <TabMove />,
     sum: <TabSum />
   }
 
   return (
+    <>
     <Card
-      className='!bg-pink-500'
       tabList={tabList}
       onTabChange={(e) => onTabUpdate(e)}
-    >
+      >
       {content[tabKey]}
     </Card>
+      <TruckModal open={ModalTruck} setOpen={setModalTruck} />
+      <WimModal openWim={ModalWim} setOpenWim={setModalWim} />
+      </>
   )
 }
 
