@@ -59,7 +59,7 @@ const AddDataModal = () => {
           <Field.Select
             label={'ข้อมูลสายทาง'}
             name='Route'
-            options={RouteData}
+            // options={RouteData}
           />
         </Col>
       </Row>
