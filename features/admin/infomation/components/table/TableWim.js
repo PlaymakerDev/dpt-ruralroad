@@ -66,18 +66,6 @@ const TableWim = (props) => {
   ]
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Table: {
-            headerBg: '#194250'
-          }
-        },
-        token: {
-          colorText: 'black'
-        }
-      }}
-    >
       <Table
         dataSource={data}
         columns={columns}
@@ -86,7 +74,6 @@ const TableWim = (props) => {
           position: ['bottomCenter']}}
         scroll={{ x: 1600 }}
       />
-    </ConfigProvider>
   )
 }
 

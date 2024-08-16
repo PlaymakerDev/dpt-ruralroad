@@ -67,18 +67,6 @@ const TableSum = (props) => {
   ]
 
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-          Table: {
-            headerBg: '#194250'
-          }
-        },
-        token: {
-          colorText: 'black'
-        }
-      }}
-    >
       <Table
         dataSource={data}
         columns={columns}
@@ -87,7 +75,6 @@ const TableSum = (props) => {
           position: ['bottomCenter']}}
         scroll={{ x: 1600 }}
       />
-    </ConfigProvider>
   )
 }
 

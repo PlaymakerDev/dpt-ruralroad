@@ -65,13 +65,6 @@ const TableWeigh = (props) => {
   ]
 
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorText: 'black'
-        }
-      }}
-    >
       <Table
         dataSource={data}
         columns={columns}
@@ -80,7 +73,6 @@ const TableWeigh = (props) => {
           position: ['bottomCenter']}}
         scroll={{ x: 1600 }}
       />
-    </ConfigProvider>
   )
 }
 
