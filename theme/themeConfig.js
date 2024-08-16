@@ -1,5 +1,13 @@
 const theme = {
 	components: {
+		Drawer: {
+			colorBgElevated: '#030918'
+
+		},
+		Table: {
+			headerBg: '#163B49',
+			rowHoverBg: '#232d4e'
+		},
 		Modal: {
 			headerBg: '#17213A',
 			contentBg: '#17213A',

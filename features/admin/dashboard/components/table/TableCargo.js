@@ -53,6 +53,9 @@ const TableCargo = (props) => {
     <Table
       dataSource={data}
       columns={columns}
+      pagination={{
+        position: ['bottomCenter']
+      }}
     />
   )
 }

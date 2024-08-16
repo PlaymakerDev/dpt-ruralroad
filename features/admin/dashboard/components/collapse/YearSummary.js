@@ -1,25 +1,39 @@
-import React from 'react'
-import { Collapse } from 'antd'
-import TableSummary from './TableSummary';
-import ConfigProvider from 'antd';
+import React, { useState } from 'react'
+import { Card, Row, Col, Typography, Flex } from 'antd'
+import Image from 'next/image'
+import ArrowUp from '@/public/images/arrow-up.svg'
+import { DrawerYearSummary } from '../drawer'
 
 const YearSummary = (props) => {
   const { } = props
-
-  const items = [
-    {
-      key: '1',
-      label: 'ประวัติสรุปผลรายปี',
-      children: <TableSummary />,
-    },
-  ];
+  const [open, setOpen] = useState(false)
 
   return (
-    <Collapse
-      defaultActiveKey={['1']}
-      className='bg-gradient border-lightblue'
-      items={items}
-    />
+    <>
+      <Card className='!cursor-pointer' onClick={() => setOpen(true)}>
+        <Row gutter={[16, 16]} align={'middle'}>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+            <Flex
+              align='center'
+              gap={10}
+            >
+              <Image
+                src={ArrowUp}
+                alt='arrow-up'
+              />
+              <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ประวัติสรุปผลรายปี</Typography.Text>
+            </Flex>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='lg:!text-end'>
+            <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>
+          </Col>
+        </Row>
+      </Card>
+      <DrawerYearSummary
+        open={open}
+        setOpen={setOpen}
+      />
+    </>
   )
 }
 

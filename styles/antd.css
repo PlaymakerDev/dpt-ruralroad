@@ -1,3 +1,7 @@
-.ant-table-row {
-  background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;
+.ant-table-wrapper .ant-table {
+  background: #030918 !important;
+}
+
+.ant-table-wrapper .ant-table .ant-table-row:nth-child(odd) {
+  background: #101524 !important;
 }
