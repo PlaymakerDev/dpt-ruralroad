@@ -5,7 +5,7 @@ const RouteCard = (props) => {
   const { } = props
 
   return (
-    <Card className='bg-gradient border-lightblue !w-full !h-full !bg-slate-500'>
+    <Card className='!w-full !h-full'>
       <Typography.Title level={4}>5 อันดับสายทางที่มีปริมาณรถมากที่สุด</Typography.Title>
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>

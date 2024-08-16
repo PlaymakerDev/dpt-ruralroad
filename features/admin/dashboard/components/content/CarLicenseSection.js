@@ -13,7 +13,7 @@ const CarLicenseSection = (props) => {
   }
 
   return (
-    <Card className='bg-gradient border-lightblue !w-full !h-full'>
+    <Card className='!w-full !h-full'>
       <Row gutter={[30, 30]}>
         <Col xs={24} sm={24} md={16} lg={24} xl={24} xxl={24}>
           <div className='text-center'>

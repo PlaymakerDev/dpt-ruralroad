@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Layout } from 'antd'
 import { PageHeader, PageSidebar } from '../layout'
-import styles from '@/styles/components/layout/Layout.module.css'
 
 const { Content } = Layout
 
 const PageLayout = (props) => {
   const { children } = props
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <main>
       <Layout>
-        <aside className={styles.sidebar}>
-          <PageSidebar />
+        <aside>
+          <PageSidebar
+            collapsed={collapsed}
+          />
         </aside>
         <Layout>
-          <nav className={styles.navbar}>
-            <PageHeader />
+          <nav>
+            <PageHeader
+              collapsed={collapsed}
+              setCollapsed={setCollapsed}
+            />
           </nav>
           <Layout>
             <Content
