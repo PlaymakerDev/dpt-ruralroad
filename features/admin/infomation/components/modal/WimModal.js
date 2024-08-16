@@ -4,27 +4,25 @@ import { Modal, Row, Col, Card } from 'antd'
 const Content = (props) => {
   const { } = props
   return (
-  <>
     <Row gutter={[30, 16]} align={'middle'}>
-        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-            <Card title="Card title" bordered={false}>
-                Card content
-            </Card>
-        </Col>
-      </Row>
-  </>  
+      <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+        <Card title="Card title" bordered={false}>
+          Card content
+        </Card>
+      </Col>
+    </Row>
   )
 }
 
 const WimModal = (props) => {
-  const { openWim, setOpenWim } = props
+  const { open, setOpen } = props
 
   return (
-    <Modal  
+    <Modal
       title="รายละเอียดรถบรรทุก"
-      open={openWim}
+      open={open}
       destroyOnClose
-      onCancel={() => setOpenWim(false)}
+      onCancel={() => setOpen(false)}
       width={1000}
       footer={false}
     >

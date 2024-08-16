@@ -3,12 +3,12 @@ import { FieldSearchDetail } from '../field'
 import { TableDetail } from '../table'
 
 const Detail = (props) => {
-  const {setModalTruck} = props
+  const { setOpen } = props
 
   return (
     <>
       <FieldSearchDetail />
-      <TableDetail setModalTruck={setModalTruck}/>
+      <TableDetail setOpen={setOpen} />
     </>
   )
 }

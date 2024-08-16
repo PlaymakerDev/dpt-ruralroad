@@ -1,33 +1,46 @@
 import React, { useMemo, useState } from "react";
 import { FieldSearchWim } from "../field";
 import { TableWim } from "../table";
-import DetailWim from "../detail/DetailWim";
+import DetailWIM from "../detail/DetailWim";
 
+const MainPageWIM = (props) => {
+  const { setStep } = props;
+  
+  return (
+    <div>
+      <FieldSearchWim />
+      <TableWim setStep={setStep} />
+    </div>
+  )
+}
 
 const TabWim = (props) => {
-  const {setModalWim} = props;
-  const [stepWim, setStepWim] = useState(1);
+  const { setOpen } = props;
+  const [step, setStep] = useState(1);
 
   const renderDetailWim = useMemo(() => {
-    switch (stepWim) {
+    switch (step) {
       case 1:
         return (
-          <div>
-            <FieldSearchWim />
-            <TableWim setStepWim={setStepWim} />
-          </div>
+          <MainPageWIM
+            setStep={setStep}
+          />
         );
       case 2:
-        return <DetailWim setStepWim={setStepWim} setModalWim={setModalWim} />;
+        return (
+          <DetailWIM
+            setStep={setStep}
+            setOpen={setOpen} />
+        );
       default:
         return null;
     }
-  }, [stepWim]);
+  }, [step, setOpen]);
 
   return (
-  <>
-  {renderDetailWim}
-  </>
+    <>
+      {renderDetailWim}
+    </>
   );
 };
 
