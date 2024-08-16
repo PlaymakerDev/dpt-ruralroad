@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useForm, Form, Field } from '@/components/form'
-import { Button } from 'antd'
+import { Button , Col } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 
 const Fieldtablemove = (props) => {
@@ -37,7 +37,7 @@ const Fieldtablemove = (props) => {
           <label class="text-gray-700 cursor-pointer">
             ล้างการค้นหา
           </label>
-          <Button className='flex justify-end'>
+          <Button>
             เพิ่มข้อมูล
           </Button>
         </Form>
