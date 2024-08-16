@@ -1,10 +1,10 @@
 import React from 'react'
 import { Table, ConfigProvider, Button } from 'antd'
-import { RightOutlined  } from '@ant-design/icons'
+import { RightOutlined } from '@ant-design/icons'
 
 
 const TableWim = (props) => {
-  const { setStepWim } = props
+  const { setStep } = props
 
   const data = [
     {
@@ -20,7 +20,7 @@ const TableWim = (props) => {
       sation: 'ข้าวผัด',
       weighcar: '19',
       weighover: '112',
-    },  
+    },
   ]
 
   const columns = [
@@ -53,27 +53,30 @@ const TableWim = (props) => {
       title: '',
       key: 'operation',
       align: 'center',
-      render: () => 
+      render: () => {
+        return (
           <Button
-        icon={<RightOutlined />}
-        size='smail'
-        htmlType='submit'
-        type='primary'
-        onClick={()=> setStepWim(2)}
-        >
-          </Button>
+            icon={<RightOutlined />}
+            size='smail'
+            htmlType='submit'
+            type='primary'
+            onClick={() => setStep(2)}
+          />
+        )
+      }
     }
   ]
 
   return (
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{
-          total:10,
-          position: ['bottomCenter']}}
-        scroll={{ x: 1600 }}
-      />
+    <Table
+      dataSource={data}
+      columns={columns}
+      pagination={{
+        total: 10,
+        position: ['bottomCenter']
+      }}
+    // scroll={{ x: 1600 }}
+    />
   )
 }
 

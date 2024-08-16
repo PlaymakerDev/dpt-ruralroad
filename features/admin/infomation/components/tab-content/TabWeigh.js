@@ -4,7 +4,7 @@ import TableWeigh from "../table/TableWeigh";
 import Detail from "../detail/Detail";
 
 const TabWeigh = (props) => {
-  const {setModalTruck} = props;
+  const { setOpen } = props;
   const [step, setStep] = useState(1);
 
   const renderDetail = useMemo(() => {
@@ -17,16 +17,16 @@ const TabWeigh = (props) => {
           </div>
         );
       case 2:
-        return <Detail setStep={setStep} setModalTruck={setModalTruck} />;
+        return <Detail setStep={setStep} setOpen={setOpen} />;
       default:
         return null;
     }
-  }, [step]);
+  }, [step, setOpen]);
 
   return (
-  <>
-  {renderDetail}
-  </>
+    <>
+      {renderDetail}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Button, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const FormSearchCargo = (props) => {
-  const {} = props;
+  const { } = props;
 
   const form = useForm({
     initialValues: {
@@ -23,7 +23,7 @@ const FormSearchCargo = (props) => {
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Typography>ค้นหา</Typography>
+      <Typography.Title level={4}>ค้นหา</Typography.Title>
       <Row gutter={[30, 16]} align={"middle"}>
         <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
           <Field.Input label="ชื่อสิ่งของที่บรรทุก" name="report_name" />
@@ -42,20 +42,12 @@ const FormSearchCargo = (props) => {
         <Col xs={24} sm={24} md={6} lg={4} xl={4} xxl={2}>
           <Typography.Text
             className="!cursor-pointer !block !text-center md:!text-start !text-white"
-            type="success"
+            // type="success"
           >
             ล้างข้อมูล
           </Typography.Text>
         </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={24}
-          lg={10}
-          xl={10}
-          xxl={16}
-          className="lg:text-end"
-        >
+        <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={16} className="lg:text-end">
           <Button
             icon={<PlusOutlined />}
             size="large"

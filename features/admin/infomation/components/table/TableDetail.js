@@ -1,47 +1,47 @@
 import React from 'react'
-import { Table, ConfigProvider , Button } from 'antd'
+import { Table, ConfigProvider, Button } from 'antd'
 import { TruckOutlined } from '@ant-design/icons'
 
 const TableDetail = (props) => {
-  const {setModalTruck} = props
+  const { setOpen } = props
 
   const data = [
-      {
-        key: "1",
-        date: "15 สิงหาคม 2567",
-        sation: "ปักกิ่ง",
-        type: "16",
-        cargo: "ยาดอง",
-        li: "55-555",
-        wei: "14.6",
-        weiover: "00.00",
-        weiyes: "25.00",
-        staus: "ไม่เกินพิกัด",
-      },
-      {
-        key: "2",
-        date: "05 สิงหาคม 2567",
-        sation: "ห้องขัง",
-        type: "10",
-        cargo: "ม้า",
-        li: "23-334",
-        wei: "30.00",
-        weiover: "5.00",
-        weiyes: "25.00",
-        staus: "เกินพิกัด",
-      },
-      {
-        key: "3",
-        date: "20 สิงหาคม 2567",
-        sation: "ปักกิ่ง",
-        type: "6",
-        cargo: "เป็ด",
-        li: "09-583",
-        wei: "24.00",
-        weiover: "00.00",
-        weiyes: "25.00",
-        staus: "ไม่เกินพิกัด",
-      },
+    {
+      key: "1",
+      date: "15 สิงหาคม 2567",
+      sation: "ปักกิ่ง",
+      type: "16",
+      cargo: "ยาดอง",
+      li: "55-555",
+      wei: "14.6",
+      weiover: "00.00",
+      weiyes: "25.00",
+      staus: "ไม่เกินพิกัด",
+    },
+    {
+      key: "2",
+      date: "05 สิงหาคม 2567",
+      sation: "ห้องขัง",
+      type: "10",
+      cargo: "ม้า",
+      li: "23-334",
+      wei: "30.00",
+      weiover: "5.00",
+      weiyes: "25.00",
+      staus: "เกินพิกัด",
+    },
+    {
+      key: "3",
+      date: "20 สิงหาคม 2567",
+      sation: "ปักกิ่ง",
+      type: "6",
+      cargo: "เป็ด",
+      li: "09-583",
+      wei: "24.00",
+      weiover: "00.00",
+      weiyes: "25.00",
+      staus: "ไม่เกินพิกัด",
+    },
 
   ]
 
@@ -100,27 +100,28 @@ const TableDetail = (props) => {
       title: '',
       key: 'operation',
       align: 'center',
-      render: () => 
-          <Button
-        icon={<TruckOutlined />}
-        size='smail'
-        htmlType='submit'
-        type='primary'
-        onClick={() => setModalTruck(true)}
+      render: () =>
+        <Button
+          icon={<TruckOutlined />}
+          size='smail'
+          htmlType='submit'
+          type='primary'
+          onClick={() => setOpen(true)}
         >
-          </Button>
+        </Button>
     },
   ]
 
   return (
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{
-          total:10,
-          position: ['bottomCenter']}}
-        scroll={{ x: 1600 }}
-      />
+    <Table
+      dataSource={data}
+      columns={columns}
+      pagination={{
+        // total: 10,
+        position: ['bottomCenter']
+      }}
+    // scroll={{ x: 1600 }}
+    />
   )
 }
 

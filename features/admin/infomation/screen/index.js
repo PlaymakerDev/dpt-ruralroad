@@ -1,25 +1,24 @@
 import React, { useCallback, useState } from 'react'
-import { Card , Modal } from 'antd'
-import { TabWeigh, TabWim, TabMove, TabSum } from '../components/tab-content'
-import { TruckModal, WimModal } from '../components/modal'
+import { Card } from 'antd'
+import { TabWeigh as Weight, TabWim as WIM, TabMove as Move, TabSum as Sum } from '../components/tab-content'
+import { TruckModal as ModalCargo, WimModal as ModalWIM } from '../components/modal'
+
+const INIT_MODAL = false
 
 const InfomationScreen = (props) => {
   const { } = props
-
+  // STATE
   const [tabKey, setTabKey] = useState('weigh')
-
-  const [ModalTruck, setModalTruck] = useState(false);
-
-  const [ModalWim, setModalWim] = useState(false);
+  const [openCargo, setOpenCargo] = useState(INIT_MODAL);
+  const [openWIM, setOpenWIM] = useState(INIT_MODAL);
 
   const onTabUpdate = useCallback((targetTab) => {
     setTabKey(targetTab)
   }, [])
 
-
   const tabList = [
     {
-      key: 'weigh',
+      key: 'weight',
       tab: 'ข้อมูลรถเข้าชั่งสถานี',
     },
     {
@@ -37,23 +36,29 @@ const InfomationScreen = (props) => {
   ];
 
   const content = {
-    weigh: <TabWeigh setModalTruck={setModalTruck}/>,
-    wim: <TabWim />,
-    move: <TabMove />,
-    sum: <TabSum />
+    weight: <Weight setOpen={setOpenCargo} />,
+    wim: <WIM setOpen={setOpenWIM}/>,
+    move: <Move />,
+    sum: <Sum />
   }
 
   return (
     <>
-    <Card
-      tabList={tabList}
-      onTabChange={(e) => onTabUpdate(e)}
+      <Card
+        tabList={tabList}
+        onTabChange={(e) => onTabUpdate(e)}
       >
-      {content[tabKey]}
-    </Card>
-      <TruckModal open={ModalTruck} setOpen={setModalTruck} />
-      <WimModal openWim={ModalWim} setOpenWim={setModalWim} />
-      </>
+        {content[tabKey]}
+      </Card>
+      <ModalCargo
+        open={openCargo}
+        setOpen={setOpenCargo}
+      />
+      <ModalWIM
+        open={openWIM}
+        setOpen={setOpenWIM}
+      />
+    </>
   )
 }
 

@@ -3,13 +3,15 @@ import FieldSearchDetailWim from '../field/FieldSearchDetailWim'
 import TableDetailWim from '../table/TableDetailWim'
 
 const DetailWim = (props) => {
-  const {setModalWim} = props
+  const { setOpen } = props
 
   return (
-    <>
-    <FieldSearchDetailWim />
-    <TableDetailWim setModalWim={setModalWim}/>
-    </>
+    <div>
+      <FieldSearchDetailWim />
+      <TableDetailWim
+        setOpen={setOpen}
+      />
+    </div>
   )
 }
 

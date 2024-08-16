@@ -1,25 +1,25 @@
 import React from 'react'
-import { Table, ConfigProvider , Button } from 'antd'
-import { RightOutlined  } from '@ant-design/icons'
+import { Table, ConfigProvider, Button } from 'antd'
+import { RightOutlined } from '@ant-design/icons'
 
 const TableWeigh = (props) => {
   const { setStep } = props
 
   const data = [
-      {
-        key: "1",
-        date: "15 สิงหาคม 2567",
-        sation: "ปักกิ่ง",
-        weighcar: "156",
-        weighover: "666",
-      },
-      {
-        key: "2",
-        date: "17 สิงหาคม 2567",
-        sation: "เกาหลีเหนือ",
-        weighcar: "189",
-        weighover: "72",
-      },
+    {
+      key: "1",
+      date: "15 สิงหาคม 2567",
+      sation: "ปักกิ่ง",
+      weighcar: "156",
+      weighover: "666",
+    },
+    {
+      key: "2",
+      date: "17 สิงหาคม 2567",
+      sation: "เกาหลีเหนือ",
+      weighcar: "189",
+      weighover: "72",
+    },
   ]
 
   const columns = [
@@ -52,27 +52,27 @@ const TableWeigh = (props) => {
       title: '',
       key: 'operation',
       align: 'center',
-      render: () => 
-          <Button
-        icon={<RightOutlined />}
-        size='smail'
-        htmlType='submit'
-        type='primary'
-        onClick={()=> setStep(2)}
-        >
-          </Button>
+      render: () =>
+        <Button
+          icon={<RightOutlined />}
+          size='smail'
+          htmlType='submit'
+          type='primary'
+          onClick={() => setStep(2)}
+        />
     },
   ]
 
   return (
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{
-          total:10,
-          position: ['bottomCenter']}}
-        scroll={{ x: 1600 }}
-      />
+    <Table
+      dataSource={data}
+      columns={columns}
+      pagination={{
+        // total: 10,
+        position: ['bottomCenter']
+      }}
+    // scroll={{ x: 1600 }}
+    />
   )
 }
 
