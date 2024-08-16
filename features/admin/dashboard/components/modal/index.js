@@ -1,0 +1,1 @@
+export { default as ModalCargoDetail } from './ModalCargoDetail'

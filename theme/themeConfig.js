@@ -1,5 +1,10 @@
 const theme = {
 	components: {
+		Modal: {
+			headerBg: '#17213A',
+			contentBg: '#17213A',
+			footerBg: '#17213A'
+		},
 		Input: {
 			colorText: '#000000',
 		},
