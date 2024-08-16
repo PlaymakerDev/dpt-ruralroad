@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from "antd";
+import { Table, Pagination } from "antd";
 import Fieldtable from './fieldtable';
 
 const columns = [
@@ -44,15 +44,13 @@ const data = [
   },
   
 ];
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
 
 const Weighwim = () => {
   return (
     <div>
       <Fieldtable />
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table columns={columns} dataSource={data} pagination={false} />
+      <Pagination align="center" style={{ margin: 20 }} defaultCurrent={1} total={50} />
     </div>
   )
 }
