@@ -34,6 +34,14 @@ const TableCollaborate = (props) => {
       department: 'ขทช.ศรีสะเกษ',
       collaboration: 'อส.ทช'
     },
+    {
+      title: 'สายทาง - ลบ.4003',
+      collab_img1: 'https://i.scdn.co/image/ab67616d0000b273d97e2c6ea1bfebc2b6090e2f',
+      collab_img2: 'https://image.api.playstation.com/vulcan/ap/rnd/202405/2210/28867e1a0757cd5b7b6eff2315351a9307a78f3b8c4b9a7f.png',
+      date: '02 กันยายน 2565',
+      department: 'ขทช.ลพบุรี',
+      collaboration: 'ขนส่งจังหวัด, ตำรวจ'
+    },
   ]
 
   return (

@@ -19,7 +19,7 @@ const DetailCard = (props) => {
       </section>
       <section className='mt-3'>
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
             <figure className='h-60 relative overflow-hidden rounded-lg'>
               <Image
                 src={data.collab_img1}
@@ -31,7 +31,7 @@ const DetailCard = (props) => {
               />
             </figure>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
             <figure className='h-60 relative overflow-hidden rounded-lg'>
               <Image
                 src={data.collab_img2}
