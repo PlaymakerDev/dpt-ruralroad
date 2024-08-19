@@ -7,7 +7,7 @@ const DetailCard = (props) => {
   const { index, data } = props
 
   return (
-    <Card>
+    <Card className='!h-full'>
       <section>
         <div className='flex flex-wrap items-center gap-x-3'>
           <NextImage

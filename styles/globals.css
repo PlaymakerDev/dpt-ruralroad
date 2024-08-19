@@ -47,5 +47,9 @@ body {
 
 .container {
   background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20);
-  border-color: #56E4EE50;
+  border: 1px solid #56E4EE50;
+}
+
+.border {
+  border: 1px solid #56E4EE50;
 }
