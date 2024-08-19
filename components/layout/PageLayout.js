@@ -12,7 +12,7 @@ const PageLayout = (props) => {
     <main>
       <Layout
         style={{
-          height: "100vh"
+          height: "100%"
         }}
       >
         <aside>
