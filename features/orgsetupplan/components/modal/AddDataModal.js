@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Col, Row } from 'antd';
 import { Form, Field, useForm } from '@/components/form';
 
@@ -36,7 +36,7 @@ const AddDataModal = () => {
     { th: 'สิงหาคม', en: 'August' },
     { th: 'กันยายน', en: 'September' }
   ];
-  
+
 
   const RouteData = [{
     value: '1124',
@@ -46,8 +46,16 @@ const AddDataModal = () => {
     label: 'Route B'
   }];
 
+  const buildValue = useCallback((values, next) => {
+    next(values)
+  }, [])
+
+  const handlerSubmit = useCallback((values) => {
+    console.log(values)
+  }, [])
+
   return (
-    <Form form={form}>
+    <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
       <Row gutter={[0, 0]} align={'middle'}>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
           <Field.Input
@@ -59,7 +67,7 @@ const AddDataModal = () => {
           <Field.Select
             label={'ข้อมูลสายทาง'}
             name='Route'
-            // options={RouteData}
+          // options={RouteData}
           />
         </Col>
       </Row>
@@ -74,6 +82,7 @@ const AddDataModal = () => {
           </Col>
         ))}
       </Row>
+      <button type='submit'>SUBMIT</button>
     </Form>
   );
 };

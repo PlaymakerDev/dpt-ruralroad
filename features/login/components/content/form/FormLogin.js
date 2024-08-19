@@ -9,15 +9,20 @@ const FormLogin = (props) => {
   const { } = props
 
   const form = useForm({
-    initialValue: '',
+    initialValues: {
+      username: '',
+      password: ''
+    },
     rules: ''
   })
+
+  console.log(form)
 
   const buildValue = useCallback((values, next) => {
     next(values)
   }, [])
 
-  const handerSubmit = useCallback((values) => {
+  const handlerSubmit = useCallback((values) => {
     console.log(values)
   }, [])
 
@@ -38,7 +43,7 @@ const FormLogin = (props) => {
           </section>
         </section>
         <section className='mt-10'>
-          <Form form={form} handerSubmit={[buildValue, handerSubmit]}>
+          <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
             <Field.Input
               label='ชื่อผู้ใช้งาน'
               name='username'
@@ -46,11 +51,11 @@ const FormLogin = (props) => {
               className={styles.loginField}
               style={{
                 backgroundColor: '#1282C260',
-                padding: '12px 12px', 
+                padding: '12px 12px',
                 border: 'none',
                 color: '#FFFFFF'
               }}
-              />
+            />
             <Field.Password
               label='รหัสผ่าน'
               name='password'
@@ -58,12 +63,14 @@ const FormLogin = (props) => {
               className={styles.loginField}
               style={{
                 backgroundColor: '#1282C260',
-                padding: '12px 12px', 
+                padding: '12px 12px',
                 border: 'none',
                 color: '#FFFFFF'
               }}
             />
             <Button
+              type='primary'
+              htmlType='submit'
               size='large'
               block
               className='!w-full !h-12 !text-base !font-IBMPlexSansThaiBold'

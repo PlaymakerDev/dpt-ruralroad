@@ -1,5 +1,7 @@
 import React from 'react'
 import { Drawer, Typography, Table } from 'antd'
+import Image from 'next/image'
+import ArrowDown from '@/public/images/arrow-down.svg'
 
 const Content = (props) => {
   const { } = props
@@ -71,12 +73,19 @@ const DrawerYearSummary = (props) => {
 
   return (
     <Drawer
-      title={<Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ประวัติสรุปผลรายปี</Typography.Text>}
+      title={<Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular' strong>ประวัติสรุปผลรายปี</Typography.Text>}
       placement={'bottom'}
       // width={500}
+      height={'70%'}
       onClose={() => setOpen(false)}
       open={open}
-      extra={<Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>}
+      closeIcon={
+        <Image
+          src={ArrowDown}
+          alt='arrow-down'
+        />
+      }
+      extra={<Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular' strong>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>}
       // classNames={{
       //   header: 'my-3'
       // }}

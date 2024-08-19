@@ -10,7 +10,11 @@ const PageLayout = (props) => {
 
   return (
     <main>
-      <Layout>
+      <Layout
+        style={{
+          height: "100vh"
+        }}
+      >
         <aside>
           <PageSidebar
             collapsed={collapsed}

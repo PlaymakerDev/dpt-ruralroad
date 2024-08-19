@@ -21,11 +21,11 @@ const YearSummary = (props) => {
                 src={ArrowUp}
                 alt='arrow-up'
               />
-              <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ประวัติสรุปผลรายปี</Typography.Text>
+              <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular' strong>ประวัติสรุปผลรายปี</Typography.Text>
             </Flex>
           </Col>
           <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='lg:!text-end'>
-            <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular'>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>
+            <Typography.Text className='!text-xl !font-IBMPlexSansThaiRegular' strong>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>
           </Col>
         </Row>
       </Card>
