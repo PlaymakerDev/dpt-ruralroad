@@ -35,10 +35,10 @@ const ResponseModal = ({ firstline, secondline, icon, visible, onClose }) => {
         {getIcon()}
       </Row>
       <Row justify="center" align="middle">
-        <Typography.Text>{firstline}</Typography.Text>
+        <Typography.Title level={5}>{firstline}</Typography.Title>
       </Row>
       <Row justify="center" align="middle">
-        <Typography.Text>{secondline}</Typography.Text>
+        <Typography.Title level={5}>{secondline}</Typography.Title>
       </Row>
     </Modal>
   );
