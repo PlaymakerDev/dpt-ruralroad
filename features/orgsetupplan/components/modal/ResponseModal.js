@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Typography, Button, Modal, Row } from 'antd';
 import ErrorIco from '@/public/ErrorIco';
 import SuccessIco from '@/public/SuccessIco';
