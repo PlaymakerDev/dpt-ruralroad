@@ -56,7 +56,7 @@ const OspSearchbox = () => {
             <Field.Select
               label='ปีงบประมาณ'
               name='financial_year'
-              // options={yearsOption}
+            // options={yearsOption}
             />
           </Col>
           <Col xs={24} sm={24} md={8} lg={6} xl={6} xxl={6}>
@@ -103,8 +103,21 @@ const OspSearchbox = () => {
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        okText="ยืนยัน"
+        cancelText="ยกเลิก"
+        cancelButtonProps={{
+          style: { color: 'white', }
+        }}
+        footer={[
+          <Button key="submit" type="primary" onClick={handleOk}>
+            ยืนยัน
+          </Button>,
+          <Button key="back" onClick={handleCancel} style={{ color: 'white',backgroundColor: 'transparent', borderColor: 'transparent' }}>
+          ยกเลิก
+        </Button>,
+        ]}
       >
-        <AddDataModal/>
+        <AddDataModal />
       </Modal>
     </section>
   );

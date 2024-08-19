@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { Table, ConfigProvider, Button, Modal, Pagination } from 'antd';
+import { Table, ConfigProvider, Button, Modal, Pagination, Row, Col } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import '@/features/orgsetupplan/style/tableblack.module.css';
 import '@/features/orgsetupplan/style/osp.module.css';
-import Typography from 'antd/es/typography/Typography';
+import EditDataModal from './modal/EditDataModal';
+import ConfirmDelete from './modal/ConfirmDelete';
+import ResponseModal from './modal/ResponseModal';
 
 const OpsTable = () => {
   const [isEditModalVisible, setEditModalVisible] = useState(false);
   const [isDeleteModalVisible, setDeleteModalVisible] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
+  const [isResponseModal, setIsResponseModal] = useState(false)
+  const [responseModalData, setResponseModalData] = useState({
+    icon: '',
+    firstline: '',
+    secondline: ''
+  })
 
   const oddTable = (_, rowIndex) => ({
     style: {
@@ -156,16 +164,55 @@ const OpsTable = () => {
   const handleCancel = () => {
     setEditModalVisible(false);
     setDeleteModalVisible(false);
+    setIsResponseModal(false)
   };
 
   const handleConfirmDelete = () => {
-    // Handle delete logic here
-    console.log('Deleting record:', currentRecord);
     setDeleteModalVisible(false);
   };
 
+  const responseModalScreen = (e) => {
+    console.log(e);
+    handleCancel()
+    switch (e) {
+      case "edit-success":
+        setResponseModalData({
+          icon: 'success',
+          firstline: 'บันทึกข้อมูลสำเร็จ',
+          secondline: ''
+        })
+        break;
+      case 'edit-error':
+        setResponseModalData({
+          icon: 'error',
+          firstline: 'บันทึกข้อมูลไม่สำเร็จ',
+          secondline: 'กรุณาลองใหม่อีกครั้ง'
+        })
+        break;
+      case 'delete-success':
+        setResponseModalData({
+          icon: 'success',
+          firstline: 'ลบข้อมูลสำเร็จ',
+          secondline: ''
+        })
+        break;
+      case 'delete-error':
+        setResponseModalData({
+          icon: 'error',
+          firstline: 'ลบข้อมูลไม่สำเร็จ',
+          secondline: 'กรุณาลองใหม่อีกครั้ง'
+        })
+        break;
+      default:
+        setResponseModalData({
+          icon: 'error',
+          firstline: 'No Data',
+          secondline: 'No Data'
+        })
+    }
+    setIsResponseModal(true)
+  }
   const dataSource = generateDataSource(7);
-
   return (
     <section className='w-full bg-gradient border border-lightblue rounded-lg mt-4'>
       <div className='rounded-lg overflow-hidden'>
@@ -191,41 +238,105 @@ const OpsTable = () => {
           </ConfigProvider>
         </div>
       </div>
-
       <Pagination align="center" style={{ margin: 20 }} defaultCurrent={1} total={50} />
-
       {/* Edit Modal */}
       <Modal
         title="แก้ไขข้อมูล"
         open={isEditModalVisible}
         onCancel={handleCancel}
-        footer={null}
+        okText="ยืนยัน"
+        cancelText="ยกเลิก"
+        cancelButtonProps={{
+          style: { color: 'white', }
+        }}
+        footer={[
+          <Button key="submit" type="primary" onClick={() => responseModalScreen('edit-success')}>
+            ยืนยัน
+          </Button>,
+          <Button key="back" onClick={() => responseModalScreen('edit-error')} style={{ color: 'white', backgroundColor: 'transparent', borderColor: 'transparent' }}>
+            ยกเลิก
+          </Button>,
+        ]}
       >
-        <div>
-          <Typography.Title level={5}>
-            รหัสปลายทาง {currentRecord?.locate}
-          </Typography.Title>
-          {/* Add your edit form or other content here */}
-          <p>Here you can add a form or other details to edit the record.</p>
-        </div>
-
+        <EditDataModal />
       </Modal>
-
       {/* Delete Modal */}
       <Modal
-        title="ต้องการลบหรือไม่"
+        title=""
         open={isDeleteModalVisible}
         onOk={handleConfirmDelete}
         onCancel={handleCancel}
+        closable={false}
+        footer={
+          <Row justify="center" gutter={[16, 16]}>
+            <Col>
+              <Button key="submit" type="primary" onClick={() => responseModalScreen('delete-error')} style={{ color: '#A4A4A4', backgroundColor: 'white', borderColor: 'white' }}>
+                ยกเลิก
+              </Button>
+            </Col>
+            <Col>
+              <Button key="submit" type="primary" onClick={() => responseModalScreen('delete-success')} style={{ color: 'white', backgroundColor: '#56E4EE', borderColor: '#56E4EE' }}>
+                ยืนยัน
+              </Button>
+            </Col>
+          </Row>
+        }
       >
-        <div>
-          <Typography.Title level={5}>
-            รหัสปลายทาง {currentRecord?.locate}
-          </Typography.Title>
-          <p>หากทำการลบแล้วจะไม่สามารถกู้คืนข้อมูลได้อีก</p>
-        </div>
-
+        <ConfirmDelete />
       </Modal>
+
+      <ResponseModal
+        visible={isResponseModal}
+        onClose={handleCancel}
+        icon={responseModalData.icon} // or "error"
+        firstline={responseModalData.firstline}
+        secondline={responseModalData.secondline}
+      />
+      {/* Is Success Modal */}
+      {/* <Modal
+        title=""
+        open={isSuccessModalVisible}
+        onOk={handleCancel}
+        onCancel={handleCancel}
+        closable={false}
+        footer={
+          <Row justify="center">
+            <Col>
+              <Button key="submit" type="primary" onClick={handleCancel}>
+                ตกลง
+              </Button>
+            </Col>
+          </Row>
+        }
+      >
+        <ResponseModal
+          type={'success'}
+          firstline={'บันทึกข้อมูลสำเร็จ'} />
+
+      </Modal> */}
+      {/* Is Error Modal */}
+      {/* <Modal
+        title=""
+        open={isErrorModalVisible}
+        onOk={handleCancel}
+        onCancel={handleCancel}
+        closable={false}
+        footer={
+          <Row justify="center">
+            <Col>
+              <Button key="submit" type="primary" onClick={handleCancel}>
+                ตกลง
+              </Button>
+            </Col>
+          </Row>
+        }
+      >
+        <ResponseModal
+          type={'error'}
+          firstline={'บันทึกข้อมูลไม่สำเร็จ'}
+          secondline={'กรุณาลองใหม่อีกครั้ง'} />
+
+      </Modal> */}
     </section >
   );
 };
