@@ -23,7 +23,7 @@ const FormSearchRole = (props) => {
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Typography>ค้นหา</Typography>
+      <Typography.Title level={4}>ค้นหา</Typography.Title>
       <Row gutter={[30, 16]} align={"middle"}>
         <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
           <Field.Input label="ชื่อตำแหน่งงาน" name="report_name" />
