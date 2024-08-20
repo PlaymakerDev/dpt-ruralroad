@@ -3,7 +3,7 @@ import { Table, ConfigProvider, Pagination, Button, Modal } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Color } from "antd/es/color-picker";
 
-const TableTrollway = (props) => {
+const TableUser = (props) => {
   const { setOpen } = props;
 
   const showModal = useCallback(() => {
@@ -15,78 +15,72 @@ const TableTrollway = (props) => {
 
   const data = [
     {
-      column_1: "ตก.4049",
-      column_2: "จ.3 ผังเมืองรวมเมืองตาก",
-      column_3: "ป่ามะม่วง",
-      column_4: "เมืองตาก",
-      column_5: "ตาก",
-      column_6: "แขวงทางหลวงชนบทตาก",
-      column_7: "3.513",
+      column_1: "adisai_t",
+      column_2: "นายอดิศัย ทองไทย",
+      column_3: "แขวงทางหลวงชนบทพังงา",
+      column_4: "นายช่างโยธาอาวุโส",
+      column_5: "หัวหน้าหน่วยชั่งน้ำหนัก  ",
+      column_6: "ผู้ใช้งาน",
     },
     {
-      column_1: "ตก.4049",
-      column_2: "จ.3 ผังเมืองรวมเมืองตาก",
-      column_3: "ป่ามะม่วง",
-      column_4: "เมืองตาก",
-      column_5: "ตาก",
-      column_6: "แขวงทางหลวงชนบทตาก",
-      column_7: "3.513",
+      column_1: "adisai_t",
+      column_2: "นายอดิศัย ทองไทย",
+      column_3: "แขวงทางหลวงชนบทพังงา",
+      column_4: "นายช่างโยธาอาวุโส",
+      column_5: "หัวหน้าหน่วยชั่งน้ำหนัก  ",
+      column_6: "ผู้ใช้งาน",
+      
     },
     {
-      column_1: "ตก.4049",
-      column_2: "จ.3 ผังเมืองรวมเมืองตาก",
-      column_3: "ป่ามะม่วง",
-      column_4: "เมืองตาก",
-      column_5: "ตาก",
-      column_6: "แขวงทางหลวงชนบทตาก",
-      column_7: "3.513",
+      column_1: "adisai_t",
+      column_2: "นายอดิศัย ทองไทย",
+      column_3: "แขวงทางหลวงชนบทพังงา",
+      column_4: "นายช่างโยธาอาวุโส",
+      column_5: "หัวหน้าหน่วยชั่งน้ำหนัก  ",
+      column_6: "ผู้ใช้งาน",
+      
     },
     {
-      column_1: "ตก.4049",
-      column_2: "จ.3 ผังเมืองรวมเมืองตาก",
-      column_3: "ป่ามะม่วง",
-      column_4: "เมืองตาก",
-      column_5: "ตาก",
-      column_6: "แขวงทางหลวงชนบทตาก",
-      column_7: "3.513",
+      column_1: "adisai_t",
+      column_2: "นายอดิศัย ทองไทย",
+      column_3: "แขวงทางหลวงชนบทพังงา",
+      column_4: "นายช่างโยธาอาวุโส",
+      column_5: "หัวหน้าหน่วยชั่งน้ำหนัก  ",
+      column_6: "ผู้ใช้งาน",
+      
     },
   ];
 
   const columns = [
     {
-      title: "รหัสสายทาง",
+      title: "Username",
       key: "column_1",
       dataIndex: "column_1",
     },
     {
-      title: "ชื่อสายทาง",
+      title: "ชื่อ-นามสกุล",
       key: "column_2",
       dataIndex: "column_2",
     },
     {
-      title: "ตำบล",
+      title: "หน่วย",
       key: "column_3",
       dataIndex: "column_3",
     },
     {
-      title: "อำเภอ",
+      title: "ตำแหน่ง",
       key: "column_4",
       dataIndex: "column_4",
     },
     {
-      title: "จังหวัด",
+      title: "หน้าที่",
       key: "column_5",
       dataIndex: "column_5",
     },
     {
-      title: "หน่วยงาน",
+      title: "กลุ่ม",
       key: "column_6",
       dataIndex: "column_6",
-    },
-    {
-      title: "ระยะทาง ",
-      key: "column_7",
-      dataIndex: "column_7",
     },
 
     {
@@ -95,12 +89,7 @@ const TableTrollway = (props) => {
       render: () => (
         <span style={{ display: "flex", alignItems: "center" }}>
           <span style={{ display: "flex", alignItems: "center" }}>
-            <Button
-              type="text"
-              icon={<EditOutlined />}
-              onClick={() => setOpen(true)}
-              style={{ marginRight: 8 }}
-            />
+            
             <Button
               type="text"
               icon={
@@ -141,4 +130,4 @@ const TableTrollway = (props) => {
   );
 };
 
-export default React.memo(TableTrollway);
+export default React.memo(TableUser);

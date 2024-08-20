@@ -3,7 +3,7 @@ import { Form, Field, useForm } from "@/components/form";
 import { Button, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
-const FormSearchTrollway = (props) => {
+const FormSearchUser = (props) => {
   const {} = props;
 
   const form = useForm({
@@ -26,7 +26,7 @@ const FormSearchTrollway = (props) => {
       <Typography.Title level={4}>ค้นหา</Typography.Title>
       <Row gutter={[30, 16]} align={"middle"}>
         <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
-          <Field.Input label="ชื่อรายงาน" name="report_name" />
+          <Field.Input label="ชื่อผู้ใช้งาน" name="report_username" />
         </Col>
         <Col xs={24} sm={24} md={6} lg={4} xl={4} xxl={2}>
           <Button
@@ -70,4 +70,4 @@ const FormSearchTrollway = (props) => {
   );
 };
 
-export default React.memo(FormSearchTrollway);
+export default React.memo(FormSearchUser);
