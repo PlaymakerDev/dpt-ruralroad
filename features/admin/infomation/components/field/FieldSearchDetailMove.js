@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { Form, Field, useForm } from '@/components/form'
 import { Button, Col, Row, Typography } from 'antd'
-import { SearchOutlined  } from '@ant-design/icons'
+import { SearchOutlined , PlusOutlined } from '@ant-design/icons'
 
-const FieldSearchWim = (props) => {
+const FieldSearchDetailMove = (props) => {
   const { } = props
 
   const form = useForm({
@@ -29,13 +29,13 @@ const FieldSearchWim = (props) => {
             ค้นหา
           </Typography.Text>
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
+        <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
           <Field.DatePicker
             label='วันที่'
             name='date'
           />
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
+        <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
           <Field.Select
             label='สถานี'
             name='sation'
@@ -57,9 +57,19 @@ const FieldSearchWim = (props) => {
             ล้างข้อมูล
           </Typography.Text>
         </Col>
+        <Col xs={24} sm={24} md={12} lg={4} xl={6} xxl={12}  className='!flex !justify-end' >
+          <Button
+            icon={<PlusOutlined />}
+            size='large'
+            type='primary'
+          >
+            เพิ่มข้อมูล
+          </Button>
+        
+        </Col>
       </Row>
     </Form>
   )
 }
 
-export default React.memo(FieldSearchWim)
+export default React.memo(FieldSearchDetailMove)

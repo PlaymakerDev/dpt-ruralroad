@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, ConfigProvider, Button } from 'antd'
+import { Table , Button } from 'antd'
 import { TruckOutlined } from '@ant-design/icons'
 
 const TableDetail = (props) => {
@@ -103,9 +103,9 @@ const TableDetail = (props) => {
       render: () =>
         <Button
           icon={<TruckOutlined />}
-          size='smail'
+          size='small'
           htmlType='submit'
-          type='primary'
+          type='text'
           onClick={() => setOpen(true)}
         >
         </Button>
@@ -120,7 +120,7 @@ const TableDetail = (props) => {
         // total: 10,
         position: ['bottomCenter']
       }}
-    // scroll={{ x: 1600 }}
+    scroll={{ x: 1600 }}
     />
   )
 }

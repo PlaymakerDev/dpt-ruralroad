@@ -8,7 +8,7 @@ const INIT_MODAL = false
 const InfomationScreen = (props) => {
   const { } = props
   // STATE
-  const [tabKey, setTabKey] = useState('weigh')
+  const [tabKey, setTabKey] = useState('weight')
   const [openCargo, setOpenCargo] = useState(INIT_MODAL);
   const [openWIM, setOpenWIM] = useState(INIT_MODAL);
 

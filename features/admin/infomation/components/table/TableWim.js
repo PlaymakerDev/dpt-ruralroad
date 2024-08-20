@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, ConfigProvider, Button } from 'antd'
+import { Table, Button } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 
 
@@ -57,9 +57,9 @@ const TableWim = (props) => {
         return (
           <Button
             icon={<RightOutlined />}
-            size='smail'
+            size='small'
             htmlType='submit'
-            type='primary'
+            type='text'
             onClick={() => setStep(2)}
           />
         )
