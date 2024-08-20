@@ -3,7 +3,7 @@ import { Table, Button } from 'antd'
 import { DeleteOutlined , TruckOutlined , CheckCircleOutlined , FileImageOutlined} from '@ant-design/icons'
 
 const TableDetailMove = (props) => {
-  const { } = props
+  const { setOpen , setOpenPic } = props
 
   const data = [
     {
@@ -84,6 +84,7 @@ const TableDetailMove = (props) => {
           size='small'
           htmlType='submit'
           type='text'
+          onClick={() => setOpenPic(true)}
         />
     },
     {
@@ -113,6 +114,7 @@ const TableDetailMove = (props) => {
           size='small'
           htmlType='submit'
           type='text'
+          onClick={() => setOpen(true)}
         />
         </span>
     }

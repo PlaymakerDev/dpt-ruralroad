@@ -48,19 +48,6 @@ const TableWeigh = (props) => {
       dataIndex: "weighover",
       align: 'center',
     },
-    {
-      title: '',
-      key: 'operation',
-      align: 'center',
-      render: () =>
-        <Button
-          icon={<RightOutlined />}
-          size='small'
-          htmlType='submit'
-          type='text'
-          onClick={() => setStep(2)}
-        />
-    },
   ]
 
   return (

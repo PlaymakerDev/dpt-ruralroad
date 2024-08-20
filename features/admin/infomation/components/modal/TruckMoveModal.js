@@ -1,0 +1,166 @@
+import React from 'react'
+import { Modal, Row, Col, Card, Typography } from 'antd'
+import { InfoCircleOutlined , TruckOutlined , CheckCircleOutlined , InboxOutlined} from '@ant-design/icons';
+
+const Content = (props) => {
+  const { } = props
+  return (
+  <>
+    <Row gutter={[30, 16]} align={'middle'}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='text-left'>
+            <Typography.Text className='text-base'>
+                สถานี นครศรีธรรมราช
+            </Typography.Text>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} className='text-right'>
+            <Typography.Text className='text-base'>
+                13 ธันวาคม 2567 16:31:53
+            </Typography.Text>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+        <Card>
+          <div className="flex flex-col items-center">
+            <Typography.Text className='text-lg'>
+              ทะเบียนหัวลาก
+            </Typography.Text>
+            <Typography.Text className='text-lg'>
+              65-3535 พระนครศรีอยุธยา
+            </Typography.Text>
+          </div>
+        </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                <div className="flex flex-col items-center">
+                    <InfoCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        น้ำหนักที่ชั่งได้
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        35.5 ตัน
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                <div className="flex flex-col items-center">
+                    <InfoCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        น้ำหนักที่ชั่งได้
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        35.5 ตัน
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                <div className="flex flex-col items-center">
+                    <InfoCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        น้ำหนักที่ชั่งได้
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        35.5 ตัน
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                <div className="flex flex-col items-center">
+                    <InfoCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        กำหนด
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        50.5 ตัน
+                    </Typography.Text>
+                </div>            
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                 <div className="flex flex-col items-center">
+                    <InfoCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        น้ำหนักที่เกิน
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold text-red-600'>
+                        10 ตัน
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                 <div className="flex flex-col items-center">
+                    <TruckOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        ประเภท
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        20
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                 <div className="flex flex-col items-center">
+                    <CheckCircleOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        สถานะเข้าชั่ง
+                    </Typography.Text>
+                    <Typography.Text className='text-red-600 text-xl font-bold '>
+                        เกินพิกัด
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6} xxl={6}>
+            <Card>
+                 <div className="flex flex-col items-center">
+                    <InboxOutlined className='text-3xl'/>
+                    <Typography.Text className='text-base p-2'>
+                        สิ่งของ
+                    </Typography.Text>
+                    <Typography.Text className='text-xl font-bold'>
+                        ม้า
+                    </Typography.Text>
+                </div>
+            </Card>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+          <Card>
+
+          </Card>
+        </Col>
+        
+      </Row>
+  </>  
+  )
+}
+
+const MoveModal = (props) => {
+  const { open, setOpen } = props
+
+  return (
+    <Modal  
+      title={<span className="text-2xl font-bold">รายละเอียดรถบรรทุก</span>}      
+      open={open}
+      destroyOnClose
+      onCancel={() => setOpen(false)}
+      width={1200}
+      footer={false}
+    >
+      <main className='my-5'>
+        <Content />
+      </main>
+    </Modal>
+  )
+}
+
+export default React.memo(MoveModal)
