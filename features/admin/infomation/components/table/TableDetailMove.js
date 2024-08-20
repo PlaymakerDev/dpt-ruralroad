@@ -1,92 +1,120 @@
 import React from 'react'
 import { Table, Button } from 'antd'
-import { RightOutlined } from '@ant-design/icons'
+import { DeleteOutlined , TruckOutlined , CheckCircleOutlined , FileImageOutlined} from '@ant-design/icons'
 
 const TableDetailMove = (props) => {
   const { } = props
 
   const data = [
     {
-      key: '1',
-      date: '20 สิงหาคม 2567',
-      timestart: '13:30',
-      timeend: '15.50',
-      duty: 'ตลิ่งชัน',
-      code: 'กกน.123',
-      wtf: 'กช.',
-      manyin: '1',
-      over: '1',
+      key: "1",
+      date: "15 สิงหาคม 2567",
+      time: "32:42:32",
+      li: "ทะเบียน : 55-555",
+      province: "จังหวัด : ราชบุรี",
+      typecar: "ประเภท 2",
+      pow: "6 เพลา 22 เส้น",
+      weight: "12,000 ตัน" ,
+      weiover: "15,000 ตัน",
+      staus: "น้ำหนักปกติ"
     },
-    {
-      key: '2',
-      date: '25 สิงหาคม 2567',
-      timestart: '16:30',
-      timeend: '18.50',
-      duty: 'น่านไง',
-      code: 'วดฟ.789',
-      wtf: '-',
-      manyin: '10',
-      over: '5',
-    },  
   ]
 
   const columns = [
     {
-      title: 'ลำดับ',
-      dataIndex: 'key',
+      title: "ลำดับ",
+      dataIndex: "key",
       align: 'center',
     },
     {
-      title: 'วันที่',
-      dataIndex: 'date',
+      title: "วันที่ / เวลา",
+      dataIndex: "date",
+      align: 'center',
+      render: (text, record) => (
+        <div>
+          {record.date}<br />
+          {record.time}
+        </div>
+      ),
+    },
+    {
+      title: "ทะเบียน",
+      dataIndex: "li",
+      align: 'center',
+      render: (text, record) => (
+        <div>
+          {record.li}<br />
+          {record.province}
+        </div>
+      )
+    },
+    {
+      title: "ประเภทรถ",
+      dataIndex: "typecar",
+      align: 'center',
+      render: (text, record) => (
+        <div>
+          {record.typecar}<br />
+          {record.pow}
+        </div>
+      )
+    },
+    {
+      title: "น้ำหนักรวม(ตัน)",
+      dataIndex: "weight",
       align: 'center',
     },
     {
-      title: 'เวลาจัดตั้ง',
-      dataIndex: 'timestart',
+      title: "น้ำหนักกฏหมาย(ตัน)",
+      dataIndex: "weiover",
       align: 'center',
     },
     {
-      title: 'เวลาสิ้นสุด',
-      dataIndex: 'timeend',
+      title: "สถานะ",
+      dataIndex: "staus",
       align: 'center',
     },
     {
-      title: 'หน่วยที่จัดตั้ง',
-      dataIndex: 'duty',
+      title: 'รูปรถเข้าชั่ง',
+      key: 'operation',
       align: 'center',
+      render: () =>
+        <Button
+          icon={<FileImageOutlined />}
+          size='small'
+          htmlType='submit'
+          type='text'
+        />
     },
     {
-      title: 'รหัสสายทาง',
-      dataIndex: 'code',
+      title: 'ยอมรับ',
+      key: 'operation',
       align: 'center',
-    },
-    {
-      title: 'บูรณาการ',
-      dataIndex: 'wtf',
-      align: 'center',
-    },
-    {
-      title: 'จำนวนรถเข้าชั่ง',
-      dataIndex: 'manyin',
-      align: 'center',
-    },
-    {
-      title: 'น้ำหนักเกิน',
-      dataIndex: 'over',
-      align: 'center',
+      render: () =>
+        <Button
+          icon={<CheckCircleOutlined />}
+          size='small'
+          htmlType='submit'
+          type='text'
+        />
     },
     {
       title: '',
       key: 'operation',
       align: 'center',
       render: () =>
+        <span>
         <Button
-          icon={<RightOutlined />}
+          type="text"
+          icon={<DeleteOutlined className="red-icon" style={{ color: '#FF4A4A' }} />}
+         />
+        <Button
+          icon={<TruckOutlined />}
           size='small'
           htmlType='submit'
           type='text'
         />
+        </span>
     }
   ]
 
