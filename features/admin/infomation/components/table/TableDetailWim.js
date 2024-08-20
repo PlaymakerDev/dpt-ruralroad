@@ -1,6 +1,9 @@
 import React from 'react'
-import { Table, ConfigProvider, Button } from 'antd'
+import { Table, Button } from 'antd'
 import { TruckOutlined } from '@ant-design/icons'
+import Image from 'next/image'
+import BigTruck from '@/public/images/big-truck.svg'
+
 
 const TableDetailWim = (props) => {
   const { setOpen } = props
@@ -9,9 +12,11 @@ const TableDetailWim = (props) => {
     {
       key: "1",
       date: "15 สิงหาคม 2567",
-      li: "55-555",
+      time: "32:42:32",
+      li: "ทะเบียน : 55-555",
+      province: "จังหวัด : ราชบุรี",
       typecar: "ประเภท 2 3เพลา6",
-      car: "-",
+      car: BigTruck,
       wei: "14,000 ตัน",
       pow: "6เพลา",
       staus: "ปกติ"
@@ -25,14 +30,26 @@ const TableDetailWim = (props) => {
       align: 'center',
     },
     {
-      title: "วันที่",
+      title: "วันที่ / เวลา",
       dataIndex: "date",
       align: 'center',
+      render: (text, record) => (
+        <div>
+          {record.date}<br />
+          {record.time}
+        </div>
+      ),
     },
     {
       title: "ทะเบียน",
       dataIndex: "li",
       align: 'center',
+      render: (text, record) => (
+        <div>
+          {record.li}<br />
+          {record.province}
+        </div>
+      )
     },
     {
       title: "ประเภทรถ",
@@ -43,6 +60,9 @@ const TableDetailWim = (props) => {
       title: "ลักษณะรถ",
       dataIndex: "car",
       align: 'center',
+      render: (text) => (
+        <Image src={text} alt="" /> 
+      ),
     },
     {
       title: "น้ำหนักที่ชั่ง",
@@ -66,9 +86,9 @@ const TableDetailWim = (props) => {
       render: () =>
         <Button
           icon={<TruckOutlined />}
-          size='smail'
+          size='small'
           htmlType='submit'
-          type='primary'
+          type='text'
           onClick={() => setOpen(true)}
         >
         </Button>
@@ -83,7 +103,7 @@ const TableDetailWim = (props) => {
         // total: 10,
         position: ['bottomCenter']
       }}
-    // scroll={{ x: 1600 }}
+    scroll={{ x: 1600 }}
     />
   )
 }

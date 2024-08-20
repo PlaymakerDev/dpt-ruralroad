@@ -23,7 +23,13 @@ const FieldSearchWeigh = (props) => {
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Row gutter={[30, 16]} align={'middle'}>
+      <Row gutter={[30, 16]} align={'middle'} className='!mr-0.5 !ml-0.5 mb-4 pt-4 pb-4 border border-lightblue rounded-lg'>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+          <Typography.Text 
+            className='text-xl font-bold text-left'>
+            ค้นหา
+          </Typography.Text>
+        </Col>
         <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
           <Field.DatePicker
             label='วันที่'

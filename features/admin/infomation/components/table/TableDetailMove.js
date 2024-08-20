@@ -2,8 +2,8 @@ import React from 'react'
 import { Table, Button } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 
-const TableMove = (props) => {
-  const { setStep } = props
+const TableDetailMove = (props) => {
+  const { } = props
 
   const data = [
     {
@@ -85,7 +85,6 @@ const TableMove = (props) => {
           icon={<RightOutlined />}
           size='small'
           htmlType='submit'
-          onClick={() => setStep(2)}
           type='text'
         />
     }
@@ -104,4 +103,4 @@ const TableMove = (props) => {
   )
 }
 
-export default React.memo(TableMove)
+export default React.memo(TableDetailMove)

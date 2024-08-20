@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, ConfigProvider, Button } from 'antd'
+import { Table, Button } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 
 const TableWeigh = (props) => {
@@ -55,9 +55,9 @@ const TableWeigh = (props) => {
       render: () =>
         <Button
           icon={<RightOutlined />}
-          size='smail'
+          size='small'
           htmlType='submit'
-          type='primary'
+          type='text'
           onClick={() => setStep(2)}
         />
     },
@@ -71,7 +71,7 @@ const TableWeigh = (props) => {
         // total: 10,
         position: ['bottomCenter']
       }}
-    // scroll={{ x: 1600 }}
+    scroll={{ x: 1600 }}
     />
   )
 }
