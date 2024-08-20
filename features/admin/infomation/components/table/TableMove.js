@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table, Button } from 'antd'
-import { RightOutlined } from '@ant-design/icons'
+import { RightOutlined,DeleteOutlined } from '@ant-design/icons'
 
 const TableMove = (props) => {
   const { setStep } = props
@@ -81,13 +81,19 @@ const TableMove = (props) => {
       key: 'operation',
       align: 'center',
       render: () =>
+        <span>
+        <Button
+            type="text"
+            icon={<DeleteOutlined className="red-icon" style={{ color: '#FF4A4A' }} />}
+        />
         <Button
           icon={<RightOutlined />}
           size='small'
           htmlType='submit'
           onClick={() => setStep(2)}
           type='text'
-        />
+          />
+          </span>
     }
   ]
 
