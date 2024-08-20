@@ -1,6 +1,9 @@
-import { Table, Button } from 'antd';
+import React, { useState } from 'react';
+import { Table, Button, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import '@/features/orgsetupplan/style/osp.module.css';
+
+
 export const columns = [
   {
     title: 'ลำดับ',
@@ -82,28 +85,28 @@ export const columns = [
     key: 'actions',
     render: (_, record) => (
       <span style={{ display: 'flex', alignItems: 'center' }}>
-       <span style={{ display: 'flex', alignItems: 'center' }}>
-        <Button 
-          type="text" 
-          icon={<EditOutlined />} 
-          onClick={() => handleEdit(record.key)}
-          style={{ marginRight: 8 }}
-        />
-        <Button 
-          type="text" 
-          icon={<DeleteOutlined className="red-icon" />} 
-          onClick={() => handleDelete(record.key)}
-        />
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          <Button
+            type="text"
+            icon={<EditOutlined />}
+            // onClick={() => handleEdit(record.key)}
+            style={{ marginRight: 8 }}
+          />
+          <Button
+            type="text"
+            icon={<DeleteOutlined className="red-icon" />}
+          // onClick={() => handleDelete(record.key)}
+          />
+        </span>
       </span>
-    </span>
     ),
   },
-  
+
 ];
 
 const generateDataSource = (numRows) => {
   const data = [];
-  
+
   for (let i = 1; i <= numRows; i++) {
     data.push({
       key: i.toString(),
@@ -126,7 +129,7 @@ const generateDataSource = (numRows) => {
       'delete': 0,
     });
   }
-  
+
   return data;
 };
 export const dataSource = generateDataSource(7); // Change 10 to the number of rows you need

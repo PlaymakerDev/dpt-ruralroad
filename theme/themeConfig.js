@@ -1,5 +1,9 @@
 const theme = {
 	components: {
+		Tabs: {
+			inkBarColor: '#56E4EE',
+			colorBorderSecondary: '#D9D9D9'
+		},
 		Drawer: {
 			colorBgElevated: '#030918'
 		},
