@@ -1,6 +1,8 @@
 import React from 'react'
 import { Table , Button } from 'antd'
 import { TruckOutlined } from '@ant-design/icons'
+import Image from "next/image";
+import iconcar from "@/public/images/iconcar.svg";
 
 const TableDetail = (props) => {
   const { setOpen } = props
@@ -102,7 +104,7 @@ const TableDetail = (props) => {
       align: 'center',
       render: () =>
         <Button
-          icon={<TruckOutlined />}
+          icon={iconcar}
           size='small'
           htmlType='submit'
           type='text'
