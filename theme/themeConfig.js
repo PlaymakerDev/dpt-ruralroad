@@ -2,7 +2,13 @@ const theme = {
 	components: {
 		Tabs: {
 			inkBarColor: '#56E4EE',
-			colorBorderSecondary: '#D9D9D9'
+			colorBorderSecondary: '#C2C2C2',
+			itemActiveColor : '#ffffff',
+			itemColor : '#C2C2C2',
+			colorText: '#ffffff',
+			itemSelectedColor:'#ffffff',
+			itemHoverColor:'#ffffff'
+
 		},
 		Drawer: {
 			colorBgElevated: '#030918'
@@ -14,7 +20,9 @@ const theme = {
 		Modal: {
 			headerBg: '#17213A',
 			contentBg: '#17213A',
-			footerBg: '#17213A'
+			footerBg: '#17213A',
+			titleColor: '#ffffff',
+			colorIcon: '#ffffff',
 		},
 		Input: {
 			colorText: '#000000',
@@ -33,6 +41,11 @@ const theme = {
 			colorPrimaryHover: '#ffffff',
 			borderRadius: 50,
 		},
+		Image: {
+			// colorBgMask: 'rgba(255, 255, 255, 1)',
+			// colorBgContainerDisabled : 'rgba(255, 255, 255, 1)',
+			colorTextLightSolid : '#fff',
+				},
 		// Table: {
 		// 	headerBg: '#194250',
 		// 	rowHoverBg	: '#199999',
