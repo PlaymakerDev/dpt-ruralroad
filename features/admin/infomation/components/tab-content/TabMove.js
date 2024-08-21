@@ -4,7 +4,7 @@ import DetailMove from "../detail/DetailMove";
 import { TableMove } from "../table";
 
 const TabMove= (props) => {
-  const { setOpen , setOpenPic } = props;
+  const { setOpen , setOpenPic} = props;
   const [step, setStep] = useState(1);
 
   const renderDetail = useMemo(() => {

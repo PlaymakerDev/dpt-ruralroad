@@ -1,6 +1,6 @@
 import React from 'react'
-import { Table, Button } from 'antd'
-import { DeleteOutlined , TruckOutlined , CheckCircleOutlined , FileImageOutlined} from '@ant-design/icons'
+import { Table, Button, Typography } from 'antd'
+import { DeleteOutlined , TruckOutlined , CheckCircleOutlined , FileImageOutlined , PlusOutlined} from '@ant-design/icons'
 
 const TableDetailMove = (props) => {
   const { setOpen , setOpenPic } = props
@@ -121,7 +121,19 @@ const TableDetailMove = (props) => {
   ]
 
   return (
-
+    <>
+      <div className='flex justify-between items-center mb-4'>
+        <Typography.Text className='!text-lg font-bold'>
+          ข้อมูลรถเข้าชั่ง
+        </Typography.Text>
+        <Button
+            icon={<PlusOutlined />}
+            size='large'
+            type='primary'
+          >
+            เพิ่มข้อมูล
+        </Button>
+      </div>
       <Table
         dataSource={data}
         columns={columns}
@@ -130,6 +142,7 @@ const TableDetailMove = (props) => {
           position: ['bottomCenter']}}
         scroll={{ x: 1600 }}
       />
+    </>
   )
 }
 
