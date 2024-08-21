@@ -23,36 +23,38 @@ const FieldSearchSum = (props) => {
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Row gutter={[30, 16]} align={'middle'} className='!mr-0.5 !ml-0.5 mb-4 pt-4 pb-4 border border-lightblue rounded-lg'>
+    <Row gutter={[30, 16]} align={'middle'} className='!mr-0.5 !ml-0.5 mb-4 pt-4 pb-4 border border-lightblue rounded-lg'>
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <Typography.Text className='text-xl font-bold text-left'>
+          <Typography.Text className='!text-xl !font-bold !text-left'>
             ค้นหา
           </Typography.Text>
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
+        <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
           <Field.DatePicker
-            label='วันที่'
+            label='จากวันที่'
             name='date'
           />
         </Col>
-        <Col xs={24} sm={24} md={12} lg={8} xl={6} xxl={4}>
+        <Col xs={24} sm={24} md={24} lg={3} xl={2} xxl={2}>
           <Button
             icon={<SearchOutlined />}
             size='large'
-            className=' !w-auto'
+            className='!w-full lg:!w-auto'
             htmlType='submit'
             type='primary'
-            >
+          >
             ค้นหา
           </Button>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={4} xl={4} xxl={4}>
           <Typography.Text
-            className='p-2'
+            className='!cursor-pointer !block !text-center lg:!text-start'
           >
-            ล้างข้อมูล
+            ล้างการค้นหา
           </Typography.Text>
         </Col>
       </Row>
-    </Form>
+    </Form> 
   )
 }
 

@@ -3,7 +3,7 @@ import { Table, Button, Typography } from 'antd'
 import { DeleteOutlined , TruckOutlined , CheckCircleOutlined , FileImageOutlined , PlusOutlined} from '@ant-design/icons'
 
 const TableDetailMove = (props) => {
-  const { setOpen , setOpenPic } = props
+  const { setOpen , setOpenPic , setOpenAdd} = props
 
   const data = [
     {
@@ -130,7 +130,8 @@ const TableDetailMove = (props) => {
             icon={<PlusOutlined />}
             size='large'
             type='primary'
-          >
+            onClick={() => setOpenAdd(true)}
+            >
             เพิ่มข้อมูล
         </Button>
       </div>
