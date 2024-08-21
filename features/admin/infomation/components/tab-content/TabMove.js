@@ -4,7 +4,7 @@ import DetailMove from "../detail/DetailMove";
 import { TableMove } from "../table";
 
 const TabMove= (props) => {
-  const { setOpen , setOpenPic} = props;
+  const { setOpen , setOpenPic , setOpenAdd} = props;
   const [step, setStep] = useState(1);
 
   const renderDetail = useMemo(() => {
@@ -12,16 +12,16 @@ const TabMove= (props) => {
       case 1:
         return (
           <div>
-            <FieldSearchMove />
+            <FieldSearchMove setOpenAdd={setOpenAdd}/>
             <TableMove setStep={setStep} />
           </div>
         );
       case 2:
-        return <DetailMove setStep={setStep} setOpen={setOpen} setOpenPic={setOpenPic} />;
+        return <DetailMove setStep={setStep} setOpen={setOpen} setOpenPic={setOpenPic} setOpenAdd={setOpenAdd} />;
       default:
         return null;
     }
-  }, [step, setOpen , setOpenPic]);
+  }, [step, setOpen , setOpenPic , setOpenAdd]);
 
   return (
     <>
