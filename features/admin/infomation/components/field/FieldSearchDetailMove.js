@@ -109,7 +109,7 @@ const FieldSearchDetailMove = (props) => {
                     การร่วมบูรณาการ
                   </Typography.Text>
               </Col>
-              <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6} className='!flex !flex-col'>
+              <Col xs={24} sm={24} md={24} lg={18} xl={18} xxl={18} className='!flex !flex-col'>
                   <Typography.Text className='!text-base !font-bold !text-left'>
                     แยก ทล.2044(กม ที่ 33+100)-บ้านโคกสี
                   </Typography.Text>
