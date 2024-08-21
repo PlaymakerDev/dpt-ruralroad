@@ -5,3 +5,14 @@
 .ant-table-wrapper .ant-table .ant-table-row:nth-child(odd) {
   background: #101524 !important;
 }
+
+/* Override the close button background for the Preview image component */
+.ant-image-preview-operations-operation .anticon-close {
+  background-color: #ffffff; /* Your desired background color */
+  border-radius: 50%; /* Optional: make it circular */
+  padding: 5px; /* Optional: adjust padding */
+}
+
+.ant-image-preview-close{
+  background: #56E4EE !important; 
+}
