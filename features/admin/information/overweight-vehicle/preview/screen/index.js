@@ -1,10 +1,13 @@
 import React from 'react'
+import { MainContent } from '../components/content'
 
 const PreviewScreen = (props) => {
   const { id } = props
 
   return (
-    <div>{id}</div>
+    <section>
+      <MainContent />
+    </section>
   )
 }
 

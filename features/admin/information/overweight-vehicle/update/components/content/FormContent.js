@@ -2,9 +2,11 @@ import React, { useCallback } from 'react'
 import { useForm, Form } from '@/components/form'
 import { DriverInformation, VehicleInformation, ArrestInformation, ImprisonmentInformation } from '../form'
 import { Button } from 'antd'
+import { useRouter } from 'next/router'
 
 const FormContent = (props) => {
   const { } = props
+  const router = useRouter()
 
   const form = useForm({
     // DRIVER INFO
@@ -18,7 +20,7 @@ const FormContent = (props) => {
     province: '',
     // VEHICLE INFORMATION
     vehicle_model: '',
-    vehicle_license: '',
+    tractor_unit_license_plate: '',
     tractor_unit_province: '',
     trailer_license_plate: '',
     trailer_province: '',
@@ -80,6 +82,7 @@ const FormContent = (props) => {
             htmlType='button'
             size='large'
             className='!w-full lg:!w-auto'
+            onClick={() => router.push('/admin/information/overweight-vehicle/overview')}
           >
             ยกเลิก
           </Button>
