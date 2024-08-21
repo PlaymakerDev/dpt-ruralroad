@@ -1,13 +1,12 @@
-import { Typography } from 'antd'
 import React from 'react'
+import MainContent from '../components/content/MainContent'
 
 const UpdateScreen = (props) => {
   const { id } = props
 
   return (
     <section>
-      <Typography.Title level={3}>ข้อมูลบันทึกจับกุม</Typography.Title>
-      {id}
+      <MainContent/>
     </section>
   )
 }

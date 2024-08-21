@@ -3,7 +3,7 @@ import FieldSearchDetailMove from '../field/FieldSearchDetailMove'
 import TableDetailMove from '../table/TableDetailMove'
 
 const DetailMove = (props) => {
-  const { setOpen , setOpenPic} = props
+  const { setOpen , setOpenPic , setOpenAdd} = props
   
   return (
     <div>
@@ -11,6 +11,7 @@ const DetailMove = (props) => {
       <TableDetailMove
         setOpen={setOpen}
         setOpenPic={setOpenPic}
+        setOpenAdd={setOpenAdd}
       />
     </div>
   )

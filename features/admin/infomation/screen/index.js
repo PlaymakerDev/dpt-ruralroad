@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { Card } from 'antd'
 import { TabWeigh as Weight, TabWim as WIM, TabMove as Move, TabSum as Sum } from '../components/tab-content'
-import { TruckModal as ModalCargo, WimModal as ModalWIM , TruckMoveModal , ModalPic } from '../components/modal'
+import { TruckModal as ModalCargo, WimModal as ModalWIM , TruckMoveModal , ModalPic , FormMove } from '../components/modal'
 
 const INIT_MODAL = false
 
@@ -13,6 +13,7 @@ const InfomationScreen = (props) => {
   const [openWIM, setOpenWIM] = useState(INIT_MODAL);
   const [openMove, setOpenMove] = useState(INIT_MODAL);
   const [openPic, setOpenPic] = useState(INIT_MODAL);
+  const [openAdd, setOpenAdd] = useState(INIT_MODAL);
 
   const onTabUpdate = useCallback((targetTab) => {
     setTabKey(targetTab)
@@ -40,7 +41,7 @@ const InfomationScreen = (props) => {
   const content = {
     weight: <Weight setOpen={setOpenCargo} />,
     wim: <WIM setOpen={setOpenWIM}/>,
-    move: <Move setOpen={setOpenMove} setOpenPic={setOpenPic}/>,
+    move: <Move setOpen={setOpenMove} setOpenPic={setOpenPic} setOpenAdd={setOpenAdd}/>,
     sum: <Sum />
   }
 
@@ -67,6 +68,10 @@ const InfomationScreen = (props) => {
       <ModalPic
         openPic={openPic}
         setOpenPic={setOpenPic}
+      />
+      <FormMove
+        openAdd={openAdd}
+        setOpenAdd={setOpenAdd}
       />
     </>
   )
