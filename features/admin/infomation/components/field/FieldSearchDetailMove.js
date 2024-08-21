@@ -1,6 +1,11 @@
 import React, { useCallback } from 'react'
 import { Button, Card, Col, Row, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import Image from "next/image";
+import move1 from "@/public/images/move1.svg";
+import move2 from "@/public/images/move2.svg";
+
+
 
 const FieldSearchDetailMove = (props) => {
   const { } = props
@@ -117,9 +122,7 @@ const FieldSearchDetailMove = (props) => {
         <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
             <Row gutter={[30, 16]} align={'middle'}>
               <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                  <Card className='!mb-4'>
-
-                  </Card>
+                  <Image src={move1} className='!mb-4' />
                   <Button
                 icon={<PlusOutlined />}
                 size='large'
@@ -130,9 +133,7 @@ const FieldSearchDetailMove = (props) => {
               </Button>
               </Col>
               <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-                  <Card className='!mb-4'>
-
-                  </Card>
+                  <Image src={move2} className='!mb-4' />
                   <Button
                 icon={<PlusOutlined />}
                 size='large'
