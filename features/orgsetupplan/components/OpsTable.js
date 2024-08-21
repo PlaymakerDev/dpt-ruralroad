@@ -238,7 +238,7 @@ const OpsTable = () => {
           </ConfigProvider>
         </div>
       </div>
-      <Pagination align="center" style={{ margin: 20 }} defaultCurrent={1} total={50} />
+      <Pagination align="center" style={{ margin: 20 }} defaultCurrent={1} total={10000} defaultPageSize={10} showSizeChanger={false}  />
       {/* Edit Modal */}
       <Modal
         title="แก้ไขข้อมูล"
