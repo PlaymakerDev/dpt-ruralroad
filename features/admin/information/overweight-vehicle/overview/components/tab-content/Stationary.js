@@ -1,10 +1,19 @@
 import React from 'react'
+import { FormSearchStationary } from '../form'
+import { TableStationary } from '../table'
 
 const Stationary = (props) => {
   const { } = props
 
   return (
-    <div>index</div>
+    <div>
+      <section>
+        <FormSearchStationary />
+      </section>
+      <section className='mt-5'>
+        <TableStationary />
+      </section>
+    </div>
   )
 }
 
