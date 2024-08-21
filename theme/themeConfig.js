@@ -26,6 +26,13 @@ const theme = {
 		Button: {
 			colorPrimary: '#00EEFF88',
 		},
+		Pagination: {
+			itemActiveBg: '#2b303d',
+			itemBg: 'transparent',
+			colorPrimary: '#ffffff',
+			colorPrimaryHover: '#ffffff',
+			borderRadius: 50,
+		},
 		// Table: {
 		// 	headerBg: '#194250',
 		// 	rowHoverBg	: '#199999',

@@ -79,7 +79,6 @@ const OspSearchbox = () => {
           <Col xs={24} sm={24} md={4} lg={4} xl={2} xxl={2}>
             <Typography.Text
               className='!cursor-pointer !block !text-center md:!text-start'
-              type='success'
             >
               ล้างข้อมูล
             </Typography.Text>
