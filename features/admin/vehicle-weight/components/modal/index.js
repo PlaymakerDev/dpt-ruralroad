@@ -1,1 +1,5 @@
 export { default as ModalWeightDetail } from './ModalWeightDetail'
+export { default as ModalWIMDetail } from './ModalWIMDetail'
+export { default as ModalAddMobileDepartment } from './ModalAddMobileDepartment'
+export { default as ModalImagePreview } from './ModalImagePreview'
+export { default as ModalVehicleDetail } from './ModalVehicleDetail'

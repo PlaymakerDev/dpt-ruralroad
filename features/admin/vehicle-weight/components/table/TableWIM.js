@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Button } from 'antd'
+import { Table } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
 
 const TableWIM = (props) => {
@@ -64,7 +64,10 @@ const TableWIM = (props) => {
       width: 100,
       render: () => {
         return (
-          <RightOutlined className='!cursor-pointer' />
+          <RightOutlined
+            className='!cursor-pointer'
+            onClick={() => setStep(2)}
+          />
         )
       }
 

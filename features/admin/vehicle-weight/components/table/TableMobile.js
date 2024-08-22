@@ -3,7 +3,7 @@ import { Table, Typography } from "antd";
 import { DeleteOutlined, RightOutlined } from "@ant-design/icons";
 
 const TableMobile = (props) => {
-  const { } = props;
+  const { setStep } = props;
 
   const data = [
     {
@@ -152,6 +152,7 @@ const TableMobile = (props) => {
             />
             <RightOutlined
               className='!cursor-pointer'
+              onClick={() => setStep(2)}
             />
           </div>
         )
