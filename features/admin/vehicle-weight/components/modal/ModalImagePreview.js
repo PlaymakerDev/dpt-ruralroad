@@ -112,7 +112,7 @@ const Content = (props) => {
               showUploadList={false}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
-                  setFrontVehicle(true);
+                  setLoadingFrontVehicle(true);
                   return;
                 }
                 if (file.file.status === 'done') {
