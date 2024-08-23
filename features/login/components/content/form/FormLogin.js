@@ -16,8 +16,6 @@ const FormLogin = (props) => {
     rules: ''
   })
 
-  console.log(form)
-
   const buildValue = useCallback((values, next) => {
     next(values)
   }, [])

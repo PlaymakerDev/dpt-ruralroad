@@ -42,10 +42,10 @@ const PageLayout = (props) => {
           setOpen={setOpen}
         />
       </header>
-      <section className='py-5 px-8'>
+      <section className='pt-5 px-8'>
         {breadcrumb}
       </section>
-      <main className='px-8'>
+      <main className='py-5 px-8'>
         {children}
       </main>
       <aside

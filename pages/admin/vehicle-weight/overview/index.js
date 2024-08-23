@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
-import VehicleWeightScreen from '@/features/admin/vehicle-weight/screen'
+import VehicleWeightScreen from '@/features/admin/vehicle-weight/overview/screen'
 import { Breadcrumb } from 'antd'
 
 const VehicleWeightPage = (props) => {
@@ -34,7 +34,7 @@ const VehicleWeightPage = (props) => {
   const renderBreadcrumb = useMemo(() => {
     return (
       <Breadcrumb separator='>'>
-        <Breadcrumb.Item>ตั้งค่าระบบ</Breadcrumb.Item>
+        <Breadcrumb.Item>ข้อมูลรถเข้าชั่ง</Breadcrumb.Item>
         <Breadcrumb.Item>{findTab}</Breadcrumb.Item>
       </Breadcrumb>
     )

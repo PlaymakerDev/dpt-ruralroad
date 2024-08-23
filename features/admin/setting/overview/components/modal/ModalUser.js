@@ -1,14 +1,20 @@
 import React, { useCallback } from "react";
-
 import { Modal, Row, Col } from "antd";
 import { Form, Field, useForm } from "@/components/form";
 
 const Content = (props) => {
-  const {} = props;
+  const { } = props;
 
   const form = useForm({
     initialValues: {
-      report_role: "",
+      username: '',
+      prefix: '',
+      first_name: '',
+      last_name: '',
+      department: '',
+      permission: '',
+      position: '',
+      role: ''
     },
     rules: {},
   });
@@ -21,26 +27,81 @@ const Content = (props) => {
     console.log(values);
   }, []);
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Row gutter={[30, 16]} align={"middle"}>
-        <Col xs={24} sm={24} md={12} lg={6} xl={6} xxl={4}>
-          <Field.Input label="รหัสสายทาง" name="report_trollway" />
-          <Field.Input label="ชื่อสายทาง" name="report_name" />
-          <Field.Select label="จังหวัด" name="report_name" />
-          <Field.Select label="ตำบล" name="report_name" />
-          <Field.Select label="อำเภอ" name="report_name" />
-          <Field.Select label="หน่วยงาน" name="report_name" />
-          <Field.Input label="ระยะทาง" name="report_name" />
-        </Col>
-      </Row>
+      <section>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Input
+              label='Username'
+              name='username'
+              placeholder='Username'
+            />
+          </Col>
+        </Row>
+      </section>
+      <section className="mt-3">
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Input
+              label='คำนำหน้า'
+              name='prefix'
+              placeholder='คำนำหน้า'
+            />
+          </Col>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Input
+              label='ชื่อ'
+              name='first_name'
+              placeholder='ชื่อ'
+            />
+          </Col>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Input
+              label='นามสกุล'
+              name='last_name'
+              placeholder='นามสกุล'
+            />
+          </Col>
+          <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+            <Field.Select
+              label='หน่วยงาน'
+              name='department'
+              placeholder='หน่วยงาน'
+              optKeys={['value', 'label']}
+              options={[]}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Select
+              label='สิทธิ์การเข้าใช้งาน'
+              name='permisison'
+              placeholder='สิทธิ์การเข้าใช้งาน'
+              optKeys={['value', 'label']}
+              options={[]}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+            <Field.Select
+              label='ตำแหน่ง'
+              name='position'
+              placeholder='ตำแหน่ง'
+              optKeys={['value', 'label']}
+              options={[]}
+            />
+          </Col>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+            <Field.Select
+              label='หน้าที่'
+              name='role'
+              placeholder='หน้าที่'
+              optKeys={['value', 'label']}
+              options={[]}
+            />
+          </Col>
+        </Row>
+      </section>
     </Form>
   );
 };
@@ -50,15 +111,25 @@ const ModalUser = (props) => {
 
   return (
     <Modal
-      title="เพิ่มข้อมูล"
+      title="เพิ่มข้อมูลผู้ใช้งาน"
       open={open}
       destroyOnClose
-      onCancel={() => setOpen(false)}
-      width={1400}
-      onOk={() => setOpen(false)}
-      footer={true}
+      onCancel={() => setOpen({ open: false })}
+      width={700}
+      okText='บันทึก'
+      cancelText='ยกเลิก'
+      okButtonProps={{
+        htmlType: 'submit',
+        type: 'primary',
+        size: 'large'
+      }}
+      cancelButtonProps={{
+        htmlType: 'button',
+        type: 'text',
+        size: 'large'
+      }}
     >
-      <main className="my-5">
+      <main className='my-5'>
         <Content />
       </main>
     </Modal>

@@ -15,14 +15,14 @@ const Content = (props) => {
       province_head : '',
       license_plate_trailer : '',
       province_trailer : '',
-      pow_1 : '',
-      pow_2 : '',
-      pow_3 : '',
-      pow_4 : '',
-      pow_5 : '',
-      pow_6 : '',
-      pow_7 : '',
-      pow_8 : '',
+      axie_1 : '',
+      axie_2 : '',
+      axie_3 : '',
+      axie_4 : '',
+      axie_5 : '',
+      axie_6 : '',
+      axie_7 : '',
+      axie_8 : '',
 
     },
     rules: {},
@@ -106,56 +106,56 @@ const Content = (props) => {
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 1"
-            name="pow_1"
+            name="axie_1"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 2"
-            name="pow_2"
+            name="axie_2"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 3"
-            name="pow_3"
+            name="axie_3"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 4"
-            name="pow_4"
+            name="axie_4"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 5"
-            name="pow_5"
+            name="axie_5"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 6"
-            name="pow_6"
+            name="axie_6"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 7"
-            name="pow_7"
+            name="axie_7"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
             label="เพลาที่ 8"
-            name="pow_8"
+            name="axie_8"
             placeholder="น้ำหนัก (ตัน)"
           />
         </Col>

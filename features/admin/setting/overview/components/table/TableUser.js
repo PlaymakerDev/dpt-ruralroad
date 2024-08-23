@@ -1,9 +1,9 @@
 import React from "react";
 import { Table } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const TableUser = (props) => {
-  const { } = props;
+  const { setOpen } = props;
 
   const data = [
     {
@@ -88,7 +88,15 @@ const TableUser = (props) => {
       width: 100,
       render: () => {
         return (
-          <DeleteOutlined className='!cursor-pointer !text-[#FF4a4a]' />
+          <div className='inline-flex flex-wrap items-center gap-5'>
+            <EditOutlined
+              className='!cursor-pointer'
+              onClick={() => setOpen({ open: true })}
+            />
+            <DeleteOutlined
+              className='!cursor-pointer !text-[#FF4a4a]'
+            />
+          </div>
         )
       }
     },

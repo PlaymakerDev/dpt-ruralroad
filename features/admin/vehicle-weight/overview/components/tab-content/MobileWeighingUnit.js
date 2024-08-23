@@ -4,7 +4,7 @@ import { TableMobile } from '../table'
 import { FormMobileDetail, TableMobileDetail } from '../detail'
 import { Button, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { ModalImagePreview, ModalVehicleDetail, ModalAddMobileVehicleWeight } from '../modal'
+import { ModalImagePreview, ModalVehicleDetail, ModalAddMobileVehicleWeight, ModalAddMobileDepartment } from '../modal'
 
 const INIT_MODAL = { open: false }
 
@@ -13,11 +13,10 @@ const MobileWeighingUnit = (props) => {
   // SET STEP
   const [step, setStep] = useState(1)
   // SET OPEN MODAL
+  const [openMobile, setOpenMobile] = useState(INIT_MODAL)
   const [openPreview, setOpenPreview] = useState(INIT_MODAL)
   const [openAddVehicle, setOpenAddVehicle] = useState(INIT_MODAL)
   const [openVehicle, setOpenVehicle] = useState(INIT_MODAL)
-
-  console.log(openVehicle)
 
   const getDetail = useMemo(() => {
     switch (step) {
@@ -25,11 +24,17 @@ const MobileWeighingUnit = (props) => {
         return (
           <>
             <section>
-              <FormSearchMobile />
+              <FormSearchMobile
+                setOpen={setOpenMobile}
+              />
             </section>
             <section className='mt-5'>
               <TableMobile setStep={setStep} />
             </section>
+            <ModalAddMobileDepartment
+              open={openMobile.open}
+              setOpen={setOpenMobile}
+            />
           </>
         )
       case 2:
@@ -46,7 +51,7 @@ const MobileWeighingUnit = (props) => {
                   size='large'
                   icon={<PlusOutlined />}
                   className='!w-full lg:!w-auto'
-                  onClick={() => setOpenAddVehicle ({ open: true })}
+                  onClick={() => setOpenAddVehicle({ open: true })}
                 >
                   เพิ่มข้อมูลรถที่เข้าชั่ง
                 </Button>
@@ -75,7 +80,7 @@ const MobileWeighingUnit = (props) => {
       default:
         return null
     }
-  }, [step ,openAddVehicle ,openPreview, openVehicle])
+  }, [step, openAddVehicle, openPreview, openVehicle, openMobile])
 
   return (
     <div>

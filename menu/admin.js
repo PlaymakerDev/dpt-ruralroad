@@ -9,7 +9,7 @@ const menu = [
   },
   {
     icon: "TruckOutlined",
-    path: "/admin/vehicle-weight",
+    path: "/admin/vehicle-weight/overview",
     path_list: [],
     label: "ข้อมูลรถเข้าชั่ง",
     label_key: "vehicle_weight",
@@ -37,7 +37,7 @@ const menu = [
       },
       {
         label: 'รายงาน',
-        path: '/admin/information/report'
+        path: '/admin/information/report/overview'
       },
     ],
     label: "ข้อมูล",

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Table } from 'antd'
 import { FileTextOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
 
 const TableSummary = (props) => {
   const { setStep } = props
+  const router = useRouter()
 
   const data = [
     {
@@ -67,16 +69,19 @@ const TableSummary = (props) => {
     },
     {
       title: "",
-      key: 'report',
-      dataIndex: "report",
+      key: 'action',
+      dataIndex: "action",
       align: 'center',
       width: 50,
       render: () => {
         return (
-          <FileTextOutlined  className='!cursor-pointer' />
-          )
-        }
+          <FileTextOutlined
+            className='!cursor-pointer'
+            onClick={() => router.push('/admin/vehicle-weight/preview/1')}
+          />
+        )
       }
+    }
   ]
 
   return (

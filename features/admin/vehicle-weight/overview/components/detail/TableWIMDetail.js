@@ -150,7 +150,6 @@ const TableWIMDetail = (props) => {
       align: 'center',
       width: 100,
       render: (item, record) => {
-        console.log(item)
         if (Number(item) === 0) {
           return (
             <Space direction='vertical'>

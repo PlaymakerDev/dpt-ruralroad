@@ -66,9 +66,9 @@ const FormContent = (props) => {
       <section>
         <DriverInformation />
       </section>
-      <section className='mt-5'>
+      {/* <section className='mt-5'>
         <VehicleInformation />
-      </section>
+      </section> */}
       <section className='mt-5'>
         <ArrestInformation />
       </section>

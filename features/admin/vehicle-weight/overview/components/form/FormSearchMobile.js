@@ -1,15 +1,11 @@
-import React, { useCallback , useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Form, Field, useForm } from "@/components/form";
 import { Button, Card, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
-import { ModalAddMobileDepartment } from '../modal'
-
-const INIT_MODAL = { open: false }
 
 const FormSearchMobile = (props) => {
-  const { } = props;
-  const [openMobile, setOpenMobile] = useState(INIT_MODAL)
-  
+  const { setOpen } = props;
+
   const form = useForm({
     initialValues: {
       from_date: '',
@@ -91,15 +87,11 @@ const FormSearchMobile = (props) => {
                 size='large'
                 icon={<PlusOutlined />}
                 className='!w-full 2xl:!w-auto'
-                onClick={() => setOpenMobile({ open: true })}
+                onClick={() => setOpen({ open: true })}
               >
                 เพิ่มข้อมูล
               </Button>
             </fieldset>
-              <ModalAddMobileDepartment
-                open={openMobile.open}
-                setOpen={setOpenMobile}
-              />
           </Col>
         </Row>
       </Form>

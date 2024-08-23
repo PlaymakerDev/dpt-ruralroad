@@ -10,7 +10,7 @@ const DetailCard = (props) => {
     <div className='card-container rounded-lg'>
       <div className='flex items-center'>
         <figure className='bg-[#FFFFFF17] p-5 rounded-l-lg'>
-          <Cardboard width='2.5rem' height='2.5rem' className='block m-auto' />
+          <Cardboard width='1.5rem' height='1.5rem' className='block m-auto' />
         </figure>
         <section className='w-full flex items-center flex-wrap justify-between px-5 py-3 gap-3'>
           <Typography.Text className='!text-lg'>{data.description}</Typography.Text>

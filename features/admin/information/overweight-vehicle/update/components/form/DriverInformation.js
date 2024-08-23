@@ -6,54 +6,50 @@ const DriverInformation = (props) => {
   const { } = props
 
   return (
-    <Card>
-      <Typography.Title level={5}>ข้อมูลคนขับรถ</Typography.Title>
-      <section>
+    <Card
+      title='ข้อมูลคนขับรถ'
+      classNames={{
+        header: '!bg-[#56E4EE23]'
+      }}
+    >
+      <section >
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Input
               label='ชื่อ-สกุล'
               name='name'
               placeholder='ชื่อ-สกุล'
             />
           </Col>
-        </Row>
-      </section>
-      <section className='mt-5'>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Input
               label='บ้านเลขที่'
               name='house_no'
               placeholder='บ้านเลขที่'
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Input
               label='หมู่'
               name='village_no'
               placeholder='หมู่'
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Input
               label='ซอย'
               name='alley'
               placeholder='ซอย'
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Input
               label='ถนน'
               name='road'
               placeholder='ถนน'
             />
           </Col>
-        </Row>
-      </section>
-      <section className='mt-5'>
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Select
               label='ตำบล/แขวง'
               name='district'
@@ -62,7 +58,7 @@ const DriverInformation = (props) => {
               options={[]}
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Select
               label='อำเภอ/เขต'
               name='sub_district'
@@ -71,7 +67,7 @@ const DriverInformation = (props) => {
               options={[]}
             />
           </Col>
-          <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6}>
             <Field.Select
               label='จังหวัด'
               name='province'

@@ -41,6 +41,7 @@ const DetailCentralManagement = (props) => {
                 <DetailCard
                   index={index}
                   data={item}
+                  url={'/admin/information/report/preview/1'}
                 />
               </Col>
             )
