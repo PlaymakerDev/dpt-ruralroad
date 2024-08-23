@@ -1,8 +1,25 @@
 const theme = {
 	components: {
+		Menu: {
+			darkItemSelectedBg: '#4CCAD220',
+			darkSubMenuItemBg: 'transparent',
+			horizontalItemBorderRadius: '9999px',
+			horizontalLineHeight: '2.5rem',
+			darkItemSelectedColor: '#56E4EE',
+		},
+		DatePicker: {
+			optionSelectedColor: '#000000',
+			colorText: '#000000',
+		},
+		Select: {
+			// colorBgElevated: '#030918',
+			// optionSelectedBg: '#4CCAD220',
+			optionSelectedColor: '#000000',
+			colorText: '#000000'
+		},
 		Dropdown: {
 			colorBgElevated: '#030918',
-			controlItemBgHover: '#4CCAD220'
+			controlItemBgHover: '#4CCAD220',
 		},
 		Tabs: {
 			inkBarColor: '#56E4EE',
