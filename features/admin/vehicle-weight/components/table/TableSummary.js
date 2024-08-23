@@ -1,6 +1,6 @@
 import React from 'react'
-import { Table, Button } from 'antd'
-import { RightOutlined } from '@ant-design/icons'
+import { Table } from 'antd'
+import { FileTextOutlined } from '@ant-design/icons'
 
 const TableSummary = (props) => {
   const { setStep } = props
@@ -65,6 +65,18 @@ const TableSummary = (props) => {
       dataIndex: "total",
       width: 100
     },
+    {
+      title: "",
+      key: 'report',
+      dataIndex: "report",
+      align: 'center',
+      width: 50,
+      render: () => {
+        return (
+          <FileTextOutlined  className='!cursor-pointer' />
+          )
+        }
+      }
   ]
 
   return (
