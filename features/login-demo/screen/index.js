@@ -1,4 +1,4 @@
-import FormLogin from "../components/formlogin";
+import FormLoginDemo from "../components/FormLogin";
 
 const LoginPage2Screen = () => {
   return (
@@ -14,8 +14,8 @@ const LoginPage2Screen = () => {
         alignItems: 'center',
       }}
     >
-      <div className='text-white rounded-xl p-10 bg-black bg-opacity-50'>
-        <FormLogin />
+      <div className='text-white rounded-xl p-4 bg-black bg-opacity-70'>
+        <FormLoginDemo />
       </div>
     </div>
   );

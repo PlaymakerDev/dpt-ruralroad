@@ -1,4 +1,4 @@
-import LoginPage2Screen from "@/features/login2/screen"
+import LoginPage2Screen from "@/features/login-demo/screen"
 
 const LoginPage2 = () => {
   return (
