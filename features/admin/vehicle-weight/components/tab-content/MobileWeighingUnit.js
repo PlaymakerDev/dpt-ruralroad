@@ -4,7 +4,7 @@ import { TableMobile } from '../table'
 import { FormMobileDetail, TableMobileDetail } from '../detail'
 import { Button, Typography } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
-import { ModalAddMobileDepartment, ModalImagePreview, ModalVehicleDetail } from '../modal'
+import { ModalImagePreview, ModalVehicleDetail, ModalAddMobileVehicleWeight } from '../modal'
 
 const INIT_MODAL = { open: false }
 
@@ -13,8 +13,8 @@ const MobileWeighingUnit = (props) => {
   // SET STEP
   const [step, setStep] = useState(1)
   // SET OPEN MODAL
-  const [openMobile, setOpenMobile] = useState(INIT_MODAL)
   const [openPreview, setOpenPreview] = useState(INIT_MODAL)
+  const [openAddVehicle, setOpenAddVehicle] = useState(INIT_MODAL)
   const [openVehicle, setOpenVehicle] = useState(INIT_MODAL)
 
   console.log(openVehicle)
@@ -46,7 +46,7 @@ const MobileWeighingUnit = (props) => {
                   size='large'
                   icon={<PlusOutlined />}
                   className='!w-full lg:!w-auto'
-                  onClick={() => setOpenMobile({ open: true })}
+                  onClick={() => setOpenAddVehicle ({ open: true })}
                 >
                   เพิ่มข้อมูลรถที่เข้าชั่ง
                 </Button>
@@ -58,13 +58,13 @@ const MobileWeighingUnit = (props) => {
                 />
               </div>
             </section>
-            <ModalAddMobileDepartment
-              open={openMobile.open}
-              setOpen={setOpenMobile}
-            />
             <ModalImagePreview
               open={openPreview.open}
               setOpen={setOpenPreview}
+            />
+            <ModalAddMobileVehicleWeight
+              open={openAddVehicle.open}
+              setOpen={setOpenAddVehicle}
             />
             <ModalVehicleDetail
               open={openVehicle.open}
@@ -75,7 +75,7 @@ const MobileWeighingUnit = (props) => {
       default:
         return null
     }
-  }, [step, openMobile, openPreview, openVehicle])
+  }, [step ,openAddVehicle ,openPreview, openVehicle])
 
   return (
     <div>
