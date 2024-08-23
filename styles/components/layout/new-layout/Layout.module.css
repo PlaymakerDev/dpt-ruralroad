@@ -1,0 +1,29 @@
+.avatarIcon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.navbarExtraMenu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.menuButton {
+  display: none !important;
+}
+
+@media screen and (max-width: 1061px) {
+  .navbarMenu {
+    display: none !important;
+  }
+
+  .navbarExtraMenu {
+    display: none !important;
+  }
+
+  .menuButton {
+    display: block !important;
+  }
+}

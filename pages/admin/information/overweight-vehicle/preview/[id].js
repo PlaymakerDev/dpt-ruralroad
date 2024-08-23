@@ -1,5 +1,5 @@
 import React from 'react'
-import { PageLayout } from '@/components/layout'
+import PageLayout from '@/components/layout/new-layout/PageLayout'
 import PreviewScreen from '@/features/admin/information/overweight-vehicle/preview/screen'
 import { useRouter } from 'next/router'
 

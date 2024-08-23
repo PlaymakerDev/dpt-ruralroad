@@ -7,7 +7,7 @@ const DetailCard = (props) => {
   const { data, setOpen } = props
 
   return (
-    <div className='container rounded-lg'>
+    <div className='card-container rounded-lg'>
       <div className='flex items-center'>
         <figure className='bg-[#FFFFFF17] p-5 rounded-l-lg'>
           <Cardboard width='2.5rem' height='2.5rem' className='block m-auto' />

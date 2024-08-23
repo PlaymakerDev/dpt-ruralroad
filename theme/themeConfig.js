@@ -1,14 +1,17 @@
 const theme = {
 	components: {
+		Dropdown: {
+			colorBgElevated: '#030918',
+			controlItemBgHover: '#4CCAD220'
+		},
 		Tabs: {
 			inkBarColor: '#56E4EE',
 			colorBorderSecondary: '#C2C2C2',
-			itemActiveColor : '#ffffff',
-			itemColor : '#C2C2C2',
+			itemActiveColor: '#ffffff',
+			itemColor: '#C2C2C2',
 			colorText: '#ffffff',
-			itemSelectedColor:'#ffffff',
-			itemHoverColor:'#ffffff'
-
+			itemSelectedColor: '#ffffff',
+			itemHoverColor: '#ffffff'
 		},
 		Drawer: {
 			colorBgElevated: '#030918'
@@ -44,8 +47,8 @@ const theme = {
 		Image: {
 			// colorBgMask: 'rgba(255, 255, 255, 1)',
 			// colorBgContainerDisabled : 'rgba(255, 255, 255, 1)',
-			colorTextLightSolid : '#fff',
-				},
+			colorTextLightSolid: '#fff',
+		},
 		// Table: {
 		// 	headerBg: '#194250',
 		// 	rowHoverBg	: '#199999',

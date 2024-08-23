@@ -3,10 +3,11 @@ import { Card } from "antd";
 import { Trollway, Cargo, Role, User } from "../components/tab-content";
 
 const SettingScreen = (props) => {
-  const { } = props;
+  const { setCurrentStep } = props;
   const [tabKey, setTabKey] = useState("trollway");
 
   const onTabUpdate = useCallback((targetTab) => {
+    setCurrentStep(targetTab)
     setTabKey(targetTab);
   }, []);
 

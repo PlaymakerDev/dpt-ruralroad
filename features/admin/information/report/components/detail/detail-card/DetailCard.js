@@ -6,7 +6,7 @@ const DetailCard = (props) => {
   const { data } = props
 
   return (
-    <div className='container rounded-lg'>
+    <div className='card-container rounded-lg'>
       <div className='flex items-center gap-5'>
         <figure className='bg-[#FFFFFF17] p-5 rounded-l-lg'>
           <FileOutlined className='!text-xl'/>

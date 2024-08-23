@@ -8,10 +8,11 @@ import {
 } from "../components/tab-content";
 
 const VehicleWeightScreen = (props) => {
-  const { } = props;
+  const { setCurrentStep } = props;
   const [tabKey, setTabKey] = useState("station");
 
   const onTabUpdate = useCallback((targetTab) => {
+    setCurrentStep(targetTab)
     setTabKey(targetTab);
   }, []);
 
