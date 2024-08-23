@@ -86,8 +86,8 @@ const FormMobileDetail = (props) => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={6} xl={6} xxl={6}>
               <div className='flex flex-col flex-wrap'>
-                <Typography.Text className='!text-lg' strong>โพนทอง-เมยวดี</Typography.Text>
-                <Typography.Text className='!text-[#56E4EE]'>อำเภอ</Typography.Text>
+                <Typography.Text className='!text-lg' strong>ทช., ขนส่งจัดหวัด</Typography.Text>
+                <Typography.Text className='!text-[#56E4EE]'>การร่วมบูรณาการ</Typography.Text>
               </div>
             </Col>
             <Col xs={24} sm={24} md={24} lg={18} xl={18} xxl={18}>
