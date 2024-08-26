@@ -16,3 +16,15 @@
 .ant-image-preview-close{
   background: #56E4EE !important; 
 }
+
+.ant-pagination-item:hover {
+  background: #2b303d; /* Background color on hover */
+  color: #ffffff; /* Text color on hover */
+  border: none; /* Remove border on hover */
+}
+
+.ant-pagination-item-active {
+  background: #2b303d; /* Active item background color */
+  color: #ffffff; /* Text color for active item */
+  border: none !important; /* Remove border for active item */
+}

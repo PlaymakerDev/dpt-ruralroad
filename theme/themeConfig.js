@@ -58,7 +58,7 @@ const theme = {
 		Pagination: {
 			itemActiveBg: '#2b303d',
 			itemBg: 'transparent',
-			colorPrimary: '#ffffff',
+			colorPrimary: '#ffffff',	
 			colorPrimaryHover: '#ffffff',
 			borderRadius: 50,
 		},
