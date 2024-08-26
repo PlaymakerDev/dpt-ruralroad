@@ -154,7 +154,7 @@ const Content = (props) => {
         </Col>
         <Col xs={24} sm={12} md={12} lg={3} xl={3} xxl={3}>
           <Field.Input
-            label="เพลาที่ 8"
+            label="เพลา (อื่นๆ)"
             name="axie_8"
             placeholder="น้ำหนัก (ตัน)"
           />

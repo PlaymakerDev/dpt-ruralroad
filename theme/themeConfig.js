@@ -35,6 +35,7 @@ const theme = {
 		},
 		Table: {
 			headerBg: '#163B49',
+			headerSplitColor: 'transparent',
 			rowHoverBg: '#232d4e'
 		},
 		Modal: {
