@@ -16,7 +16,7 @@ const nextConfig = {
     localeDetection: false,
   },
   output: 'standalone',
-  // basePath: '/',
+  basePath: '/webnew',
 };
 
 module.exports = nextConfig;
