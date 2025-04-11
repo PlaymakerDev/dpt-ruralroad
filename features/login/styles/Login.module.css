@@ -8,7 +8,7 @@ justifyContent: 'center',
 alignItems: 'center', */
 
 .form_container {
-  background-image: url('/images/truckbg.png');
+  background-image: url('/webnew/images/truckbg.png');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
