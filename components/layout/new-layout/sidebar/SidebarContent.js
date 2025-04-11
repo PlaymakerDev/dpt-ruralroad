@@ -2,22 +2,32 @@ import React, { useCallback, useMemo } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
+  ProductOutlined,
   HomeOutlined,
   TruckOutlined,
   FileTextOutlined,
-  SettingOutlined
+  SettingOutlined,
+  VideoCameraOutlined
 } from '@ant-design/icons'
 import { ConfigProvider, Menu } from 'antd';
+import { CCTVIcon, PaperIcon, TruckIcon } from '@/components/icon'
 
 const mappingTransaction = {
-  HomeOutlined,
+  // HomeOutlined,
+  // TruckOutlined,
+  // FileTextOutlined,
+  // SettingOutlined,
+  // VideoCameraOutlined
+  ProductOutlined,
   TruckOutlined,
-  FileTextOutlined,
-  SettingOutlined
+  PaperIcon,
+  SettingOutlined,
+  CCTVIcon,
+  TruckIcon
 }
 
 const PageSidebar = (props) => {
-  const { menu } = props
+  const { menu, user } = props
   const { pathname, push } = useRouter()
 
   const Icon = useCallback((iconName, { ...props }) => {
@@ -29,19 +39,20 @@ const PageSidebar = (props) => {
   }, [])
 
   const renderItems = useMemo(() => {
-    const newList = menu['ADMIN']?.map((item, index) => {
+    const newList = menu[user?.map_group_name]?.map((item, index) => {
       if (!!item.path_list?.length) {
         return {
           key: `${index + 1}.0`,
           label: item.label,
-          icon: Icon(item.icon, {}),
+          icon: Icon(item.icon, { ...(pathname.startsWith(item.path_active) && { color: "#56E4EE" }) }),
           path: item.path,
+          path_active: item.path_active,
           children: item?.path_list?.map((sub_item, sub_index) => {
             return {
               key: `${index + 1}.${sub_index + 1}`,
               label: sub_item.label,
               path: sub_item.path,
-              onClick: () => push(sub_item.path)
+              ...(pathname !== sub_item.path && { onClick: () => push(sub_item.path) })
             }
           })
         }
@@ -49,14 +60,15 @@ const PageSidebar = (props) => {
         return {
           key: `${index + 1}.0`,
           label: item.label,
-          icon: Icon(item.icon, {}),
+          icon: Icon(item.icon, { ...(pathname.startsWith(item.path_active) && { color: "#56E4EE" }) }),
           path: item.path,
-          onClick: () => push(item.path)
+          path_active: item.path_active,
+          ...(pathname !== item.path && { onClick: () => push(item.path) })
         }
       }
     })
     return newList
-  }, [menu, push, Icon])
+  }, [menu, push, Icon, user])
 
   // GET PATH LIST
   const findIndex = renderItems?.find(item => item.path === pathname)

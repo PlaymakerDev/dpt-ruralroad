@@ -6,14 +6,15 @@ import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 const PreviewContent = (props) => {
-  const { } = props
+  const { path } = props
   // GET DEFAULT LAYOUT
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   return (
     <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
       <Viewer
-        fileUrl="https://pdfobject.com/pdf/sample.pdf"
+        // fileUrl="https://pdfobject.com/pdf/sample.pdf"
+        fileUrl={path}
         plugins={[
           defaultLayoutPluginInstance,
         ]}

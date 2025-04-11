@@ -2,11 +2,14 @@ import React from 'react'
 import { MainContent } from '../components/content'
 
 const PreviewScreen = (props) => {
-  const { id } = props
+  const { id, description } = props
 
   return (
     <section>
-      <MainContent />
+      <MainContent
+        id={id}
+        description={description}
+      />
     </section>
   )
 }

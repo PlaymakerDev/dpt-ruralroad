@@ -2,19 +2,24 @@ import React from 'react'
 import { Card, Col, Row, Typography, Image } from 'antd'
 import NextImage from 'next/image'
 import TrafficCone from '@/public/images/traffic-cone.svg'
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import config from '@/config'
+
+dayjs.extend(customParseFormat);
 
 const DetailCard = (props) => {
-  const { index, data } = props
-
+  const { index, data, loading } = props
   return (
-    <Card className='!h-full'>
+    <Card className='!h-full' loading={loading}>
       <section>
         <div className='flex flex-wrap items-center gap-x-3'>
           <NextImage
             src={TrafficCone}
             alt='traffic-cone'
           />
-          <Typography.Title level={4} className='!m-0' underline>{data.title}</Typography.Title>
+          <Typography.Title level={4} className='!m-0' underline>สายทาง - {data.way_code}</Typography.Title>
         </div>
       </section>
       <section className='mt-3'>
@@ -22,7 +27,8 @@ const DetailCard = (props) => {
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
             <figure className='h-60 relative overflow-hidden rounded-lg'>
               <Image
-                src={data.collab_img1}
+                // src={`${config.hostBackend}/${data.image_path1}`}
+                src={data.image_path1}
                 alt='collaboration-image'
                 width={'100%'}
                 height={'100%'}
@@ -34,7 +40,8 @@ const DetailCard = (props) => {
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
             <figure className='h-60 relative overflow-hidden rounded-lg'>
               <Image
-                src={data.collab_img2}
+                // src={`${config.hostBackend}/${data.image_path2}`}
+                src={data.image_path2}
                 alt='collaboration-image'
                 width={'100%'}
                 height={'100%'}
@@ -46,8 +53,8 @@ const DetailCard = (props) => {
         </Row>
       </section>
       <section className='mt-3'>
-        <div className='px-3 py-1 rounded-3xl bg-[#FFFFFF31] w-36 text-center'>
-          <Typography.Text className='!text-md'>{data.date}</Typography.Text>
+        <div className='px-3 py-1 rounded-3xl bg-[#FFFFFF31] w-40 text-center'>
+          <Typography.Text className='!text-md'>{dayjs(data.create_date, 'DD/MM/YYYY').locale('th').format('DD MMMM YYYY') || '-'}</Typography.Text>
         </div>
       </section>
       <section className='mt-3'>
@@ -56,7 +63,7 @@ const DetailCard = (props) => {
             <Typography.Text className='!text-xl'>หน่วยงาน</Typography.Text>
           </Col>
           <Col xs={24} sm={12} md={16} lg={16} xl={12} xxl={16}>
-            <Typography.Text className='!text-xl' strong>{data.department}</Typography.Text>
+            <Typography.Text className='!text-xl' strong>{data.department_name2 || '-'}</Typography.Text>
           </Col>
         </Row>
         <Row gutter={[16, 0]} className='mt-3'>
@@ -64,7 +71,7 @@ const DetailCard = (props) => {
             <Typography.Text className='!text-xl'>ร่วมบูรณาการ</Typography.Text>
           </Col>
           <Col xs={24} sm={12} md={16} lg={16} xl={12} xxl={16}>
-            <Typography.Text className='!text-xl' strong>{data.collaboration}</Typography.Text>
+            <Typography.Text className='!text-xl' strong>{data.collaboration || '-'}</Typography.Text>
           </Col>
         </Row>
       </section>

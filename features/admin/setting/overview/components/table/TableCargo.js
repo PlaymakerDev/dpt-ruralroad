@@ -1,12 +1,14 @@
-import React, { useMemo } from 'react'
-import { Col, Empty, Row, Spin } from 'antd'
+import React, { useCallback, useMemo } from 'react'
+import { Col, Empty, message, Modal, Row, Spin, Typography } from 'antd'
 import { CargoDetailCard } from './detail-card'
+import useDeleteAPI from '@/utils/hooks/api/useDeleteAPI'
 
 const TableCargo = (props) => {
-  const { setOpen } = props
+  const { setOpen, dataList, loading, funcGet } = props
+  const [apiDelete, loadingDelete] = useDeleteAPI('overlay')
 
   let page = 1
-  let pageSize = 10
+  let pageSize = 14
 
   const startIndex = useMemo(() => {
     return (page - 1) * pageSize;
@@ -16,32 +18,74 @@ const TableCargo = (props) => {
     return startIndex + pageSize;
   }, [startIndex, pageSize]);
 
+  const handlerDelete = useCallback(async (gid) => {
+    const response = await apiDelete(`/api/v1/masters/goods/${gid}`, {}, {}, false)
+    if (response?.success) {
+      funcGet({})
+      message.success('ลบข้อมูลสำเร็จ')
+    } else {
+      message.error('ไม่สามารถลบข้อมูลได้')
+    }
+  }, [apiDelete, funcGet])
+
+  const confirmDelete = useCallback((data) => {
+    Modal.confirm({
+      title: 'ยืนยันการลบข้อมูล ?',
+      content: 'ท่านต้องการลบข้อมูลสิ่งของบรรทุกใช่หรือไม่',
+      okText: 'ยืนยัน',
+      cancelText: 'ยกเลิก',
+      onOk: () => handlerDelete(data.gid),
+      okButtonProps: {
+        loading: loadingDelete
+      }
+    })
+  }, [handlerDelete, loadingDelete])
+
   const data = [
     {
-      description: 'รายงานรวม'
+      description: 'ไม้ยางพารา'
     },
     {
-      description: 'กราฟภาพรวมทั้งประเทศ'
+      description: 'แกลบ'
     },
     {
-      description: 'กสท.04 ราย สทช.'
+      description: 'กากปาล์ม'
     },
     {
-      description: 'กสท.05 ราย จังหวัด'
+      description: 'ยางมะตอยผสมร้อน'
+    },
+    {
+      description: 'ไม้สับ'
+    },
+    {
+      description: 'ไม้ยาง'
+    },
+    {
+      description: 'หินกรวด'
+    },
+    {
+      description: 'ปาล์มน้ำมัน'
+    },
+    {
+      description: 'โครงอลูมิเนียม'
+    },
+    {
+      description: 'โครงหลังคาเหล็ก'
     },
   ]
 
   return (
-    <Spin spinning={false}>
-      {data?.length !== 0 ?
+    <Spin spinning={loading}>
+      {dataList?.overview?.data?.length !== 0 ?
         <Row gutter={[30, 30]}>
-          {data?.slice(startIndex, endIndex).map((item, index) => {
+          {dataList?.overview?.data?.slice(startIndex, endIndex).map((item, index) => {
             return (
               <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} key={index}>
                 <CargoDetailCard
                   index={index}
                   data={item}
                   setOpen={setOpen}
+                  confirmDelete={confirmDelete}
                 />
               </Col>
             )
@@ -52,7 +96,7 @@ const TableCargo = (props) => {
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <div className='p-12'>
               <Empty
-                description='No Data'
+                description={<Typography.Text className='!text-white'>No Data</Typography.Text>}
               />
             </div>
           </Col>

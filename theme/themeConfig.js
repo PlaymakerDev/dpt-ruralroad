@@ -7,19 +7,47 @@ const theme = {
 			horizontalLineHeight: '2.5rem',
 			darkItemSelectedColor: '#56E4EE',
 		},
-		DatePicker: {
-			optionSelectedColor: '#000000',
-			colorText: '#000000',
+		Spin: {
+			colorBgContainer: '#030918',
+			colorBgMask: '#030918'
 		},
-		Select: {
-			// colorBgElevated: '#030918',
-			// optionSelectedBg: '#4CCAD220',
-			optionSelectedColor: '#000000',
-			colorText: '#000000'
+		Progress: {
+			colorText: '#FFFFFF'
 		},
-		Dropdown: {
-			colorBgElevated: '#030918',
-			controlItemBgHover: '#4CCAD220',
+		Breadcrumb: {
+			itemColor: '#FFFFFF',
+			lastItemColor: '#FFFFFF',
+			linkColor: '#FFFFFF',
+			linkHoverColor: '#FFFFFF',
+			separatorColor: '#FFFFFF50',
+		},
+		Badge: {
+			colorTextHeading: '#FFFFFF',
+			colorTextDescription: '#FFFFFF',
+			colorText: '#FFFFFF',
+		},
+		Drawer: {
+			colorBgElevated: '#030918'
+		},
+		Modal: {
+			headerBg: '#17213A',
+			contentBg: '#17213A',
+			footerBg: '#17213A',
+			titleColor: '#ffffff',
+			colorIcon: '#ffffff',
+			titleFontSize: '1.6rem',
+		},
+		Card: {
+			colorBgContainer: 'linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20)',
+			colorBorderSecondary: '#56E4EE50',
+			// colorTextHeading: '#FFFFFF',
+			// colorTextDescription: '#FFFFFF',
+			// colorText: '#FFFFFF',
+		},
+		Typography: {
+			colorTextHeading: '#FFFFFF',
+			colorTextDescription: '#FFFFFF',
+			colorText: '#FFFFFF',
 		},
 		Tabs: {
 			inkBarColor: '#56E4EE',
@@ -30,55 +58,39 @@ const theme = {
 			itemSelectedColor: '#ffffff',
 			itemHoverColor: '#ffffff'
 		},
-		Drawer: {
-			colorBgElevated: '#030918'
-		},
 		Table: {
 			headerBg: '#163B49',
 			headerSplitColor: 'transparent',
-			rowHoverBg: '#232d4e'
-		},
-		Modal: {
-			headerBg: '#17213A',
-			contentBg: '#17213A',
-			footerBg: '#17213A',
-			titleColor: '#ffffff',
-			colorIcon: '#ffffff',
-		},
-		Input: {
-			colorText: '#000000',
-		},
-		Card: {
-			colorBgContainer: 'linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20)',
-			colorBorderSecondary: '#56E4EE50',
+			rowHoverBg: '#232d4e',
+			rowSelectedBg: '#232d4e',
+			rowSelectedHoverBg: '#232d4e',
+			bodySortBg: 'transparent',
+			headerSortActiveBg: '#163B49',
+			headerSortHoverBg: '#163B49',
+			fixedHeaderSortActiveBg: '#163B49',
+			colorTextHeading: '#FFFFFF',
+			colorTextDescription: '#FFFFFF',
+			colorText: '#FFFFFF',
 		},
 		Button: {
 			colorPrimary: '#00EEFF88',
+			colorTextHeading: '#FFFFFF',
+			colorTextDescription: '#FFFFFF',
+			colorText: '#FFFFFF',
 		},
 		Pagination: {
 			itemActiveBg: '#2b303d',
 			itemBg: 'transparent',
-			colorPrimary: '#ffffff',	
+			colorPrimary: '#ffffff',
 			colorPrimaryHover: '#ffffff',
 			borderRadius: 50,
+			colorText: '#ffffff'
 		},
-		Image: {
-			// colorBgMask: 'rgba(255, 255, 255, 1)',
-			// colorBgContainerDisabled : 'rgba(255, 255, 255, 1)',
-			colorTextLightSolid: '#fff',
-		},
-		// Table: {
-		// 	headerBg: '#194250',
-		// 	rowHoverBg	: '#199999',
-		// 	borderColor : 'transparent',
-		// }
 	},
 	token: {
 		fontSize: 14,
 		fontFamily: 'IBMPlexSansThai-Regular',
-		colorTextHeading: '#FFFFFF',
-		colorTextDescription: '#FFFFFF',
-		colorText: '#FFFFFF',
+		colorPrimary: '#0075E9',
 	},
 }
 

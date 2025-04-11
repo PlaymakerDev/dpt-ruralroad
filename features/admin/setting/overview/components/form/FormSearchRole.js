@@ -4,7 +4,7 @@ import { Button, Card, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const FormSearchRole = (props) => {
-  const { setOpen } = props;
+  const { setOpen, handlerSearch } = props;
 
   const form = useForm({
     initialValues: {
@@ -18,8 +18,10 @@ const FormSearchRole = (props) => {
   }, []);
 
   const handlerSubmit = useCallback((values) => {
-    console.log(values);
-  }, []);
+    handlerSearch({ search: values?.role || '' })
+  }, [handlerSearch]);
+
+  const { setValues } = form
 
   return (
     <Card>
@@ -40,6 +42,7 @@ const FormSearchRole = (props) => {
               <Button
                 type='primary'
                 size='large'
+                htmlType="submit"
                 icon={<SearchOutlined />}
                 // className='!w-full 2xl:!w-auto'
                 className='!w-full'
@@ -56,6 +59,14 @@ const FormSearchRole = (props) => {
                 size='large'
                 // className='!w-full 2xl:!w-auto'
                 className='!w-full'
+                onClick={() => {
+                  setValues({
+                    role: null,
+                  })
+                  handlerSubmit({
+                    role: null,
+                  })
+                }}
               >
                 ล้างการค้นหา
               </Button>
@@ -69,7 +80,7 @@ const FormSearchRole = (props) => {
                 size='large'
                 icon={<PlusOutlined />}
                 className='!w-full lg:!w-auto'
-                onClick={() => setOpen({ open: true })}
+                onClick={() => setOpen({ open: true, data: {}, type: 'create' })}
               >
                 เพิ่มข้อมูล
               </Button>

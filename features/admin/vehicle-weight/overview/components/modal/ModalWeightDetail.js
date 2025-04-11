@@ -1,18 +1,73 @@
-import React from "react";
-import { Modal, Row, Col, Typography, Card, Flex, Image } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import { Modal, Row, Col, Typography, Flex, Image } from "antd";
+import NextImage from "next/image";
 import { TruckOutlined, CheckCircleOutlined } from '@ant-design/icons'
-import Cardboard from "@/components/icon/Cardboard";
-import Weight from "@/components/icon/Weight";
+import { Cardboard, Weight, TruckIcon } from "@/components/icon";
+import { VEHICLE_PROPERTIES, WEIGHT_STATUS } from "@/utils/constant";
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import useGetAPI from "@/utils/hooks/api/useGetAPI";
+import { getAllProvince } from "@/store/features/masterSlice";
+import WheelHorizontal from "@/public/images/truck-img/wheel-type/WheelHorizontal";
+const _ = require('lodash');
+
+dayjs.extend(customParseFormat);
 
 const Content = (props) => {
-  const { } = props;
+  const { info } = props;
+
+  const [fallbacks, setFallbacks] = useState({
+    image1: false,
+    image2: false,
+  });
+
+  const handleError = (imageName) => {
+    setFallbacks((prev) => ({ ...prev, [imageName]: true }));
+  };
+
+  const handleShow = (imageName) => {
+    setFallbacks((prev) => ({ ...prev, [imageName]: false }));
+  };
+  // const [apiGetProvince, loadingProvince, masterProvince] = useGetAPI('overlay', {
+  //   funcDispatch: getAllProvince, reducerName: 'master', reducerKey: 'province'
+  // })
+
+  // useEffect(() => {
+  //   apiGetProvince('/api/v1/masters/provinces_all', {}, false, {})
+  // }, [])
+
+  // const result = _.find(masterProvince.all, { pid: Number(info?.log?.lp_head_province_id)});
+
+  const truckType = info?.log?.vehicle_class_id
+  const displayType = info?.log?.display_type
+  const wheelData = {
+    left: {
+      wheel1: info?.log?.axle_left_1 || 0,
+      wheel2: info?.log?.axle_left_2 || 0,
+      wheel3: info?.log?.axle_left_3 || 0,
+      wheel4: info?.log?.axle_left_4 || 0,
+      wheel5: info?.log?.axle_left_5 || 0,
+      wheel6: info?.log?.axle_left_6 || 0,
+      wheel7: info?.log?.axle_left_7 || 0,
+    },
+    right: {
+      wheel1: info?.log?.axle_right_1 || 0,
+      wheel2: info?.log?.axle_right_2 || 0,
+      wheel3: info?.log?.axle_right_3 || 0,
+      wheel4: info?.log?.axle_right_4 || 0,
+      wheel5: info?.log?.axle_right_5 || 0,
+      wheel6: info?.log?.axle_right_6 || 0,
+      wheel7: info?.log?.axle_right_7 || 0,
+    }
+  }
 
   return (
     <div>
       <section>
         <Flex align="center" justify="space-between" gap={'0.3rem'} wrap>
-          <Typography.Text>สถานี นครศรีธรรมราช</Typography.Text>
-          <Typography.Text>13 ธันวาคม 2567 16:31:53</Typography.Text>
+          <Typography.Text>สถานี {info?.log?.station?.station_name || '-'}</Typography.Text>
+          <Typography.Text>{dayjs(info?.log?.station?.last_update).locale('th').format('DD MMMM BBBB HH:mm:ss') || '-'}</Typography.Text>
         </Flex>
       </section>
       <section className="mt-3">
@@ -22,12 +77,12 @@ const Content = (props) => {
               <div className="border rounded-lg p-5 h-full lg:h-36">
                 <div className="flex flex-wrap items-center justify-evenly gap-3 h-full">
                   <div className="flex flex-col flex-wrap items-center">
-                    <Typography.Text>ทะเบียนหัวลาก</Typography.Text>
-                    <Typography.Text className="!text-xl" strong>65-3535</Typography.Text>
+                    <Typography.Text className="!text-lg">ทะเบียนหัวลาก</Typography.Text>
+                    <Typography.Text className="!text-xl" strong>{info?.log?.lp_head_no || '-'}</Typography.Text>
                   </div>
                   <div className="flex flex-col flex-wrap items-center">
-                    <Typography.Text>จังหวัดหัวลาก</Typography.Text>
-                    <Typography.Text className="!text-xl" strong>พระนครศรีอยุธยา</Typography.Text>
+                    <Typography.Text className="!text-lg">จังหวัดหัวลาก</Typography.Text>
+                    <Typography.Text className="!text-xl" strong>{info?.log?.lp_head_province?.name || '-'}</Typography.Text>
                   </div>
                 </div>
               </div>
@@ -36,33 +91,39 @@ const Content = (props) => {
               <Row gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <Weight width='2.5rem' height='2.5rem' className='block m-auto' />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        <Weight width='2.5rem' height='2.5rem' />
+                      </section>
                       <section className="flex flex-col text-center">
                         <Typography.Text>น้ำหนักที่ชั่งได้</Typography.Text>
-                        <Typography.Text className="!text-xl" strong>35.5 ตัน</Typography.Text>
+                        <Typography.Text className="!text-xl" strong>{info?.log?.gross_weight || '-'} ตัน</Typography.Text>
                       </section>
                     </div>
                   </div>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <Weight width='2.5rem' height='2.5rem' className='block m-auto' />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        <Weight width='2.5rem' height='2.5rem' />
+                      </section>
                       <section className="flex flex-col text-center">
-                        <Typography.Text className="!text-xs">น้ำหนักที่กฎหมายกำหนด</Typography.Text>
-                        <Typography.Text className="!text-xl" strong>50.5 ตัน</Typography.Text>
+                        <Typography.Text className="!text-base lg:!text-xs">น้ำหนักที่กฎหมายกำหนด</Typography.Text>
+                        <Typography.Text className="!text-xl" strong>{info?.log?.legal_weight || '-'} ตัน</Typography.Text>
                       </section>
                     </div>
                   </div>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <Weight width='2.5rem' height='2.5rem' className='block m-auto' />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        <Weight width='2.5rem' height='2.5rem' />
+                      </section>
                       <section className="flex flex-col text-center">
                         <Typography.Text>น้ำหนักที่เกิน</Typography.Text>
-                        <Typography.Text className="!text-xl !text-[#56E4EE]" strong>00 ตัน</Typography.Text>
+                        <Typography.Text className={`!text-xl ${Number(info?.log?.gross_weight) < Number(info?.log?.legal_weight) ? '!text-[#56E4EE]' : '!text-[#DC3912]'}`} strong>{info?.log?.grossweight_over || '0'} ตัน</Typography.Text>
                       </section>
                     </div>
                   </div>
@@ -73,33 +134,40 @@ const Content = (props) => {
               <Row gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <TruckOutlined className="!block !m-auto !text-3xl" />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        {/* <TruckOutlined className="!text-3xl" /> */}
+                        <TruckIcon width={37} height={30} customFill='#FFFFFF' />
+                      </section>
                       <section className="flex flex-col text-center">
                         <Typography.Text>ประเภท</Typography.Text>
-                        <Typography.Text className="!text-xl" strong>20</Typography.Text>
+                        <Typography.Text className="!text-xl" strong>{info?.log?.vehicle_class_id || '-'}</Typography.Text>
                       </section>
                     </div>
                   </div>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <CheckCircleOutlined className="!block !m-auto !text-3xl" />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        <CheckCircleOutlined className="!text-3xl !text-white" />
+                      </section>
                       <section className="flex flex-col text-center">
                         <Typography.Text>สถานะเข้าชั่ง</Typography.Text>
-                        <Typography.Text className="!text-xl !text-[#56E4EE]" strong>ไม่เกินพิกัด</Typography.Text>
+                        <Typography.Text className={`!text-xl ${info?.log?.is_over_weight === 'N' ? '!text-[#56E4EE]' : '!text-[#DC3912]'}`} strong>{WEIGHT_STATUS[info?.log?.is_over_weight] || '-'}</Typography.Text>
                       </section>
                     </div>
                   </div>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <div className="border rounded-lg p-3 h-full lg:h-36">
-                    <div className="flex flex-col text-center gap-3 h-full">
-                      <Cardboard width='2.5rem' height='2.5rem' className='block m-auto' />
+                    <div className="flex flex-col justify-center text-center gap-3 h-full">
+                      <section className="flex items-center justify-center">
+                        <Cardboard width='2.5rem' height='2.5rem' />
+                      </section>
                       <section className="flex flex-col text-center">
                         <Typography.Text>สิ่งของที่บรรทุก</Typography.Text>
-                        <Typography.Text className="!text-xl" strong>มันสำปะหลัง</Typography.Text>
+                        <Typography.Text className="!text-xl" strong>{info?.log?.material_name || '-'}</Typography.Text>
                       </section>
                     </div>
                   </div>
@@ -114,14 +182,18 @@ const Content = (props) => {
                   <Typography.Title level={5}>รูปทะเบียนรถ</Typography.Title>
                   <figure className='h-60 lg:h-40 relative overflow-hidden rounded-lg'>
                     <Image
-                      src={'https://i.scdn.co/image/ab67616d0000b273cc68eea0db7110e3b8cca14e'}
+                      // src={'https://i.scdn.co/image/ab67616d0000b273cc68eea0db7110e3b8cca14e'}
+                      src={info?.log?.image_01_name}
                       alt='collaboration-image'
                       width={'100%'}
                       height={'100%'}
-                      className='object-cover object-center'
-                      fallback='data:image/png;base64,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'
+                      className='object-contain object-center'
+                      onError={() => { handleError('image1') }}
+                      preview={!fallbacks.image1}
+                      fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
                     />
                   </figure>
+                  
                 </div>
               </Col>
               <Col xs={24} sm={24} md={12} lg={24} xl={24} xxl={24}>
@@ -129,12 +201,15 @@ const Content = (props) => {
                   <Typography.Title level={5}>รูปรถบรรทุก</Typography.Title>
                   <figure className='h-60 lg:h-40 relative overflow-hidden rounded-lg'>
                     <Image
-                      src={'https://i.scdn.co/image/ab67616d0000b273d97e2c6ea1bfebc2b6090e2f'}
+                      // src={'https://i.scdn.co/image/ab67616d0000b273d97e2c6ea1bfebc2b6090e2f'}
+                      src={info?.log?.image_02_name}
                       alt='collaboration-image'
                       width={'100%'}
                       height={'100%'}
-                      className='object-cover object-center'
-                      fallback='data:image/png;base64,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'
+                      className='object-contain object-center'
+                      onError={() => { handleError('image2') }}
+                      preview={!fallbacks.image2}
+                      fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
                     />
                   </figure>
                 </div>
@@ -143,19 +218,66 @@ const Content = (props) => {
           </Col>
         </Row>
       </section>
+      <section className="mt-3">
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <div className="p-5 h-full">
+              <figcaption className="flex flex-col flex-wrap gap-5 h-full">
+                <NextImage
+                  src={VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.vehicle?.image}
+                  alt='vehicle'
+                  width={VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.vehicle?.width}
+                  height={VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.vehicle?.height}
+                  className='block m-auto w-fit'
+                />
+                <div className="text-center">
+                  <Typography.Text>{VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.properties?.vehicle_description}</Typography.Text>
+                </div>
+              </figcaption>
+            </div>
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
+            <div className="bg-black rounded-lg p-5 h-full">
+              <div className="h-full flex justify-center items-center">
+                <WheelHorizontal
+                  displayType={displayType}
+                  type={truckType}
+                  leftwheel1={wheelData?.left?.wheel1}
+                  leftwheel2={wheelData?.left?.wheel2}
+                  leftwheel3={wheelData?.left?.wheel3}
+                  leftwheel4={wheelData?.left?.wheel4}
+                  leftwheel5={wheelData?.left?.wheel5}
+                  leftwheel6={wheelData?.left?.wheel6}
+                  leftwheel7={wheelData?.left?.wheel7}
+                  rightwheel1={wheelData?.right?.wheel1}
+                  rightwheel2={wheelData?.right?.wheel2}
+                  rightwheel3={wheelData?.right?.wheel3}
+                  rightwheel4={wheelData?.right?.wheel4}
+                  rightwheel5={wheelData?.right?.wheel5}
+                  rightwheel6={wheelData?.right?.wheel6}
+                  rightwheel7={wheelData?.right?.wheel7}
+                />
+              </div>
+              {displayType == 0 ? <div className="text-center -mt-8">
+                <Typography.Text>{info?.log?.gross_weight || '-'} ตัน</Typography.Text>
+              </div> : ''}
+            </div>
+          </Col>
+        </Row>
+      </section>
     </div>
   );
 };
 
 const ModalWeightDetail = (props) => {
-  const { open, setOpen } = props;
+  const { open, info, setOpen } = props;
 
   return (
     <Modal
       title="รายละเอียดรถบรรทุก"
       open={open}
       destroyOnClose
-      onCancel={() => setOpen({ open: false })}
+      onCancel={() => setOpen({ open: false, info: {} })}
       width={1000}
       okText='บันทึก'
       cancelText='ยกเลิก'
@@ -172,7 +294,9 @@ const ModalWeightDetail = (props) => {
       footer={false}
     >
       <main className='my-5'>
-        <Content />
+        <Content
+          info={info}
+        />
       </main>
     </Modal>
   );

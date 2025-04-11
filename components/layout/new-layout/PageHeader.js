@@ -1,22 +1,43 @@
 import React, { useMemo, useCallback, useState, useEffect } from 'react'
 import { Avatar, Typography, Menu } from 'antd'
-import { HomeOutlined, TruckOutlined, FileTextOutlined, SettingOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons'
+import { TruckOutlined, SettingOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import DPTLogo from '@/public/images/dpt-logo.svg'
 import styles from '@/styles/components/layout/new-layout/Layout.module.css'
+import { CCTVIcon, PaperIcon, TruckIcon } from '@/components/icon'
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import buddhistEra from 'dayjs/plugin/buddhistEra'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { ROLE_TH } from '@/utils/constant'
+import config from '@/config'
+
+dayjs.extend(buddhistEra)
+dayjs.extend(customParseFormat);
 
 const mappingTransaction = {
-  HomeOutlined,
+  ProductOutlined,
   TruckOutlined,
-  FileTextOutlined,
-  SettingOutlined
+  PaperIcon,
+  SettingOutlined,
+  CCTVIcon,
+  TruckIcon
 }
 
 const PageHeader = (props) => {
-  const { menu, setOpen } = props
+  const { menu, setOpen, user } = props
   const { pathname, asPath, reload, push } = useRouter()
   const [isVisible, setIsVisible] = useState(false);
+
+  const renderProfile = useMemo(() => {
+    let res = [
+      user?.title,
+      user?.first_name,
+      user?.last_name
+    ]
+    return res.join(' ')
+  }, [user])
 
   useEffect(() => {
     const handleResize = () => {
@@ -38,20 +59,23 @@ const PageHeader = (props) => {
     return
   }, [])
 
+
+
   const renderItems = useMemo(() => {
-    const newList = menu['ADMIN']?.map((item, index) => {
+    const newList = menu[user?.map_group_name]?.map((item, index) => {
       if (!!item.path_list?.length) {
         return {
           key: `${index + 1}.0`,
           label: item.label,
-          icon: Icon(item.icon, {}),
+          icon: Icon(item.icon, { ...(pathname.startsWith(item.path_active) && { color: "#56E4EE" }) }),
           path: item.path,
+          path_active: item.path_active,
           children: item?.path_list?.map((sub_item, sub_index) => {
             return {
               key: `${index + 1}.${sub_index + 1}`,
               label: sub_item.label,
               path: sub_item.path,
-              onClick: () => push(sub_item.path)
+              ...(pathname !== sub_item.path && { onClick: () => push(sub_item.path) })
             }
           })
         }
@@ -59,24 +83,25 @@ const PageHeader = (props) => {
         return {
           key: `${index + 1}.0`,
           label: item.label,
-          icon: Icon(item.icon, {}),
+          icon: Icon(item.icon, { ...(pathname.startsWith(item.path_active) && { color: "#56E4EE" }) }),
           path: item.path,
-          onClick: () => push(item.path)
+          path_active: item.path_active,
+          ...(pathname !== item.path && { onClick: () => push(item.path) })
         }
       }
     })
     return newList
-  }, [menu, push, Icon])
+  }, [menu, push, Icon, user])
 
   // GET PATH LIST
-  const findIndex = renderItems?.find(item => item.path === pathname)
-  const findSubIndex = renderItems?.find(item => item.children?.find(sub_item => sub_item.path === pathname))
-  const getPath = findSubIndex?.children?.find(item => item.path === pathname)
+  const findIndex = renderItems?.find(item => pathname.startsWith(item.path_active))
+  const findSubIndex = renderItems?.find(item => item.children?.find(sub_item => pathname.startsWith(sub_item.path_active)))
+  const getPath = findSubIndex?.children?.find(item => pathname.startsWith(item.path_active))
 
   return (
     <nav className={styles.navbar}>
       <section className='flex items-center justify-between px-8 py-5'>
-        <div className='flex flex-wrap items-center gap-5'>
+        <div className='flex flex-wrap items-center gap-5 flex-grow'>
           <Image
             src={DPTLogo}
             width={53}
@@ -99,8 +124,8 @@ const PageHeader = (props) => {
         <div className={styles.navbarExtraMenu}>
           <div className='flex items-center gap-3'>
             <div className='flex flex-col items-end'>
-              <Typography.Text>26 ก.ค. 2567</Typography.Text>
-              <Typography.Text>วันที่</Typography.Text>
+              <Typography.Text>{dayjs().locale('th').format('DD MMM BBBB')}</Typography.Text>
+              <Typography.Text className='!text-[#FFFFFF80]'>วันที่</Typography.Text>
             </div>
             <Avatar
               size={'large'}
@@ -110,8 +135,8 @@ const PageHeader = (props) => {
           </div>
           <div className='flex items-center gap-3'>
             <div className='flex flex-col items-end'>
-              <Typography.Text>Admin User</Typography.Text>
-              <Typography.Text>ผู้ดูแลระบบ</Typography.Text>
+              <Typography.Text>{renderProfile || 'Admin User'}</Typography.Text>
+              <Typography.Text className='!text-[#FFFFFF80]'>{ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ'}</Typography.Text>
             </div>
             <Avatar
               size={'large'}
@@ -124,6 +149,19 @@ const PageHeader = (props) => {
               size={'large'}
               icon={<LogoutOutlined />}
               className={`${styles.avatarIcon} !bg-[#FFFFFF30] !cursor-pointer`}
+              onClick={() => {
+                fetch('/api/logout')
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.redirectTo) {
+                      window.location.href = data.redirectTo;
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Logout error:', error);
+                    window.location.href = '/login';
+                  });
+              }}
             />
           </div>
         </div>

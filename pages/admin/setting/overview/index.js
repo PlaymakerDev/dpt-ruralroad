@@ -2,40 +2,47 @@ import React, { useMemo, useState } from 'react'
 import SettingScreen from '@/features/admin/setting/overview/screen'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
 import { Breadcrumb } from 'antd'
+// CHECK ROLE
+import { getLoginSession } from '@/utils/auth'
+import { validatePermissionRoute, redirectToLogin, sessionToProps } from '@/utils/auth/routePermission'
+import { wrapper, AppState } from '@/store'
+import { signIn } from '@/store/features/userSlice'
 
 const SettingPage = (props) => {
   const { } = props
   const [currentStep, setCurrentStep] = useState('')
 
-  const tabList = [
-    {
-      key: "trollway",
-      tab: "สายทาง",
-    },
-    {
-      key: "cargo",
-      tab: "สิ่งของบรรทุก",
-    },
-    {
-      key: "role",
-      tab: "ตำแหน่งงาน",
-    },
-    {
-      key: "user",
-      tab: "ผู้ใช้งาน",
-    },
-  ];
+  const tabList = useMemo(() => {
+    return [
+      {
+        key: "trollway",
+        tab: "สายทาง",
+      },
+      {
+        key: "cargo",
+        tab: "สิ่งของบรรทุก",
+      },
+      {
+        key: "role",
+        tab: "ตำแหน่งงาน",
+      },
+      {
+        key: "user",
+        tab: "ผู้ใช้งาน",
+      },
+    ];
+  }, [])
 
   const findTab = useMemo(() => {
     const tab = tabList?.find(item => item.key === currentStep)?.tab
     return tab || 'สายทาง'
-  }, [currentStep])
+  }, [currentStep, tabList])
 
   const renderBreadcrumb = useMemo(() => {
     return (
       <Breadcrumb separator='>'>
-        <Breadcrumb.Item>ตั้งค่าระบบ</Breadcrumb.Item>
-        <Breadcrumb.Item>{findTab}</Breadcrumb.Item>
+        <Breadcrumb.Item className='text-gray-500'>ตั้งค่าระบบ</Breadcrumb.Item>
+        <Breadcrumb.Item className='font-bold'>{findTab}</Breadcrumb.Item>
       </Breadcrumb>
     )
   }, [findTab])
@@ -50,5 +57,18 @@ const SettingPage = (props) => {
     </PageLayout>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
+  const [session, redirectPath] = await getLoginSession(context.req, context.res)
+
+  const valid = validatePermissionRoute(session, ['ADMIN'])
+  if (!valid) {
+    return redirectToLogin(redirectPath)
+  }
+
+  store.dispatch(signIn(session));
+
+  return sessionToProps(session, session?.message)
+}));
 
 export default React.memo(SettingPage)

@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from "react";
-import { Modal, Row, Col, Image, Typography, Upload, Button, Spin } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
+import { Modal, Row, Col, Image, Typography, Upload, Button, Spin, message } from "antd";
 // import { Form, Field, useForm } from "@/components/form";
 import { UploadOutlined } from "@ant-design/icons";
+import usePostAPI from "@/utils/hooks/api/usePostAPI";
 
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
@@ -10,7 +11,11 @@ const getBase64 = (img, callback) => {
 };
 
 const Content = (props) => {
-  const { } = props;
+
+  const { imageDataBuild, imageTDID } = props;
+
+  const [apiPost, loadingPost] = usePostAPI('overlay')
+
   // LOADING
   const [loadingFrontVehicle, setLoadingFrontVehicle] = useState(false)
   const [loadingBackVehicle, setLoadingBackVehicle] = useState(false)
@@ -18,13 +23,31 @@ const Content = (props) => {
   const [loadingLeftVehicle, setLoadingLeftVehicle] = useState(false)
   const [loadingRightVehicle, setLoadingRightVehicle] = useState(false)
   const [loadingDrivingLicense, setLoadingDrivingLicense] = useState(false)
+
+  const [fallbacks, setFallbacks] = useState({
+    image1: false,
+    image2: false,
+    image3: false,
+    image4: false,
+    image5: false,
+    image6: false,
+  });
+
+  const handleError = (imageName) => {
+    setFallbacks((prev) => ({ ...prev, [imageName]: true }));
+  };
+
+  const handleShow = (imageName) => {
+    setFallbacks((prev) => ({ ...prev, [imageName]: false }));
+  };
   // LOAD IMAGE
   const [frontVehicle, setFrontVehicle] = useState([
     {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://inwfile.com/s-dm/e5v5mm.jpg',
+      url: imageDataBuild.image_path1
+      ,
     },
   ])
   const [backVehicle, setBackVehicle] = useState([
@@ -32,7 +55,7 @@ const Content = (props) => {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://www.sakoonmun.com/image/car2%20.gif',
+      url: imageDataBuild.image_path2,
     },
   ])
   const [weightSlip, setWeightSlip] = useState([
@@ -40,7 +63,7 @@ const Content = (props) => {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.6435-9/74793562_2590733124325328_813088973294403584_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=dORX274vGSIQ7kNvgFaziNK&_nc_ht=scontent.fbkk2-7.fna&oh=00_AYBFzAuq4byry_rtndwOLy4O0CquRa2R2mfeMsP2VvNhkw&oe=66EE83A6',
+      url: imageDataBuild.image_path3,
     },
   ])
   const [leftVehicle, setLeftVehicle] = useState([
@@ -48,7 +71,7 @@ const Content = (props) => {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://image.made-in-china.com/318f0j00UQLRAtTPjhcY/555-mp4.webp',
+      url: imageDataBuild.image_path4,
     },
   ])
   const [rightVehicle, setRightVehicle] = useState([
@@ -56,7 +79,7 @@ const Content = (props) => {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://scontent.fbkk2-8.fna.fbcdn.net/v/t1.6435-9/74830965_2590732864325354_309582522595934208_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_ohc=WKkvpm4ipFIQ7kNvgHjvcUz&_nc_ht=scontent.fbkk2-8.fna&oh=00_AYA2tv9aHRXx4B1TMyeQyXGo0eZ1DssAgfsF_T2WeTwGPA&oe=66EEA494',
+      url: imageDataBuild.image_path5,
     },
   ])
   const [drivingLicense, setDrivingLicense] = useState([
@@ -64,30 +87,139 @@ const Content = (props) => {
       uid: '001',
       name: 'image.png',
       status: 'done',
-      url: 'https://lh6.googleusercontent.com/xlUi_hUaDswjkxyt2NRZhUKeoPq-O6edCnOw0bX_25r7eIcGbXIPfaKU0nX-dpgT4WqRCosWCdfc7UJBeComTfVeJfEq9uwz8XP8ee8JFlwBc5ckdFEVGLLB5IVcgfEzePlnXRbQ-s21llsec00O0wGrWBFLaQYzSlqJKojq_V1AYPn4J-Kxbk4st5OaZQ',
+      url: imageDataBuild.image_path6,
     },
   ])
 
-  // const form = useForm({
-  //   initialValues: {
-  //     route: '',
-  //     from_km: '',
-  //     to_km: '',
-  //     collaboration: '',
-  //     create_date: '',
-  //     start_time: '',
-  //     end_time: ''
-  //   },
-  //   rules: {},
-  // });
+  const uploadFrontVehicle = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path1', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingFrontVehicle(false);
+        setFrontVehicle(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image1')
+    } else {
+      setLoadingFrontVehicle(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
 
-  // const buildValue = useCallback((values, next) => {
-  //   next(values);
-  // }, []);
+  const uploadBackVehicle = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path2', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingBackVehicle(false);
+        setBackVehicle(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image2')
 
-  // const handlerSubmit = useCallback((values) => {
-  //   console.log(values);
-  // }, []);
+    } else {
+      setLoadingBackVehicle(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
+
+  const uploadWeightSlip = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path3', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingWeightSlip(false);
+        setWeightSlip(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image3')
+
+    } else {
+      setLoadingWeightSlip(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
+
+  const uploadLeftVehicle = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path4', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingLeftVehicle(false);
+        setLeftVehicle(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image4')
+    } else {
+      setLoadingLeftVehicle(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
+
+  const uploadRightVehicle = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path5', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingRightVehicle(false);
+        setRightVehicle(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image5')
+
+    } else {
+      setLoadingRightVehicle(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
+
+  const uploadLicense = useCallback(async (file) => {
+    const body = new FormData()
+    body.append('image_path6', file)
+    const response = await apiPost(`/api/v1/weight/weight_mobile_master_detail/photo/${imageTDID.t_id}/${imageTDID.td_id}`, body, undefined, false, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+    if (response?.success) {
+      getBase64(file, (url) => {
+        setLoadingDrivingLicense(false);
+        setDrivingLicense(url);
+      });
+      message.success('อัปโหลดไฟล์สำเร็จ')
+      handleShow('image6')
+
+    } else {
+      setLoadingDrivingLicense(false);
+      message.error('ไม่สามารถอัปโหลดไฟล์ได้')
+    }
+  }, [apiPost, imageTDID])
 
   return (
     // <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
@@ -103,25 +235,42 @@ const Content = (props) => {
                 width={'100%'}
                 height={'100%'}
                 className='object-cover object-center'
-                fallback='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3PTWBSGcbGzM6GCKqlIBRV0dHRJFarQ0eUT8LH4BnRU0NHR0UEFVdIlFRV7TzRksomPY8uykTk/zewQfKw/9znv4yvJynLv4uLiV2dBoDiBf4qP3/ARuCRABEFAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghgg0Aj8i0JO4OzsrPv69Wv+hi2qPHr0qNvf39+iI97soRIh4f3z58/u7du3SXX7Xt7Z2enevHmzfQe+oSN2apSAPj09TSrb+XKI/f379+08+A0cNRE2ANkupk+ACNPvkSPcAAEibACyXUyfABGm3yNHuAECRNgAZLuYPgEirKlHu7u7XdyytGwHAd8jjNyng4OD7vnz51dbPT8/7z58+NB9+/bt6jU/TI+AGWHEnrx48eJ/EsSmHzx40L18+fLyzxF3ZVMjEyDCiEDjMYZZS5wiPXnyZFbJaxMhQIQRGzHvWR7XCyOCXsOmiDAi1HmPMMQjDpbpEiDCiL358eNHurW/5SnWdIBbXiDCiA38/Pnzrce2YyZ4//59F3ePLNMl4PbpiL2J0L979+7yDtHDhw8vtzzvdGnEXdvUigSIsCLAWavHp/+qM0BcXMd/q25n1vF57TYBp0a3mUzilePj4+7k5KSLb6gt6ydAhPUzXnoPR0dHl79WGTNCfBnn1uvSCJdegQhLI1vvCk+fPu2ePXt2tZOYEV6/fn31dz+shwAR1sP1cqvLntbEN9MxA9xcYjsxS1jWR4AIa2Ibzx0tc44fYX/16lV6NDFLXH+YL32jwiACRBiEbf5KcXoTIsQSpzXx4N28Ja4BQoK7rgXiydbHjx/P25TaQAJEGAguWy0+2Q8PD6/Ki4R8EVl+bzBOnZY95fq9rj9zAkTI2SxdidBHqG9+skdw43borCXO/ZcJdraPWdv22uIEiLA4q7nvvCug8WTqzQveOH26fodo7g6uFe/a17W3+nFBAkRYENRdb1vkkz1CH9cPsVy/jrhr27PqMYvENYNlHAIesRiBYwRy0V+8iXP8+/fvX11Mr7L7ECueb/r48eMqm7FuI2BGWDEG8cm+7G3NEOfmdcTQw4h9/55lhm7DekRYKQPZF2ArbXTAyu4kDYB2YxUzwg0gi/41ztHnfQG26HbGel/crVrm7tNY+/1btkOEAZ2M05r4FB7r9GbAIdxaZYrHdOsgJ/wCEQY0J74TmOKnbxxT9n3FgGGWWsVdowHtjt9Nnvf7yQM2aZU/TIAIAxrw6dOnAWtZZcoEnBpNuTuObWMEiLAx1HY0ZQJEmHJ3HNvGCBBhY6jtaMoEiJB0Z29vL6ls58vxPcO8/zfrdo5qvKO+d3Fx8Wu8zf1dW4p/cPzLly/dtv9Ts/EbcvGAHhHyfBIhZ6NSiIBTo0LNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiEC/wGgKKC4YMA4TAAAAABJRU5ErkJggg=='
+                onError={() => { handleError('image1') }}
+                preview={!fallbacks.image1}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+              // onError={<p>asd</p>}
               />
             </figure>
           </Spin>
           <section className="mt-5">
             <Upload
               showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
                   setLoadingFrontVehicle(true);
                   return;
                 }
                 if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingFrontVehicle(false);
-                    setFrontVehicle(url);
-                  });
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingFrontVehicle(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadFrontVehicle(file.file.originFileObj)
+                  }
                 }
               }}
+              accept="image/png, image/jpeg, image/jpg"
             >
               <Button
                 type="primary"
@@ -144,66 +293,41 @@ const Content = (props) => {
                 width={'100%'}
                 height={'100%'}
                 className='object-cover object-center'
-                fallback='data:image/png;base64,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'
+                onError={() => { handleError('image2') }}
+                preview={!fallbacks.image2}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
               />
             </figure>
           </Spin>
           <section className="mt-5">
             <Upload
               showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
                   setLoadingBackVehicle(true);
                   return;
                 }
                 if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingBackVehicle(false);
-                    setBackVehicle(url);
-                  });
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingBackVehicle(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadBackVehicle(file.file.originFileObj)
+                  }
                 }
               }}
-            >
-              <Button
-                type="primary"
-                icon={<UploadOutlined />}
-              >
-                อัพโหลดภาพ
-              </Button>
-            </Upload>
-          </section>
-        </div>
-      </Col>
-      <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
-        <div className="border rounded-lg p-3 h-full">
-          <Typography.Title level={5}>สลิปน้ำหนัก</Typography.Title>
-          <Spin spinning={loadingWeightSlip}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
-              <Image
-                src={weightSlip[0]?.url ? weightSlip[0].url : weightSlip}
-                alt='collaboration-image'
-                width={'100%'}
-                height={'100%'}
-                className='object-cover object-center'
-                fallback='data:image/png;base64,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'
-              />
-            </figure>
-          </Spin>
-          <section className="mt-5">
-            <Upload
-              showUploadList={false}
-              onChange={(file) => {
-                if (file.file.status === 'uploading') {
-                  setLoadingWeightSlip(true);
-                  return;
-                }
-                if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingWeightSlip(false);
-                    setWeightSlip(url);
-                  });
-                }
-              }}
+              accept="image/png, image/jpeg, image/jpg"
             >
               <Button
                 type="primary"
@@ -218,33 +342,49 @@ const Content = (props) => {
       <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านซ้าย</Typography.Title>
-          <Spin spinning={loadingLeftVehicle}>
+          <Spin spinning={loadingWeightSlip}>
             <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
-                src={leftVehicle[0]?.url ? leftVehicle[0].url : leftVehicle}
+                src={weightSlip[0]?.url ? weightSlip[0].url : weightSlip}
                 alt='collaboration-image'
                 width={'100%'}
                 height={'100%'}
                 className='object-cover object-center'
-                fallback='data:image/png;base64,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'
+                onError={() => { handleError('image3') }}
+                preview={!fallbacks.image3}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
               />
             </figure>
           </Spin>
           <section className="mt-5">
             <Upload
               showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
-                  setLoadingLeftVehicle(true);
+                  setLoadingWeightSlip(true);
                   return;
                 }
                 if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingLeftVehicle(false);
-                    setLeftVehicle(url);
-                  });
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingWeightSlip(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadWeightSlip(file.file.originFileObj)
+                  }
                 }
               }}
+              accept="image/png, image/jpeg, image/jpg"
             >
               <Button
                 type="primary"
@@ -259,6 +399,63 @@ const Content = (props) => {
       <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านขวา</Typography.Title>
+          <Spin spinning={loadingLeftVehicle}>
+            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+              <Image
+                src={leftVehicle[0]?.url ? leftVehicle[0].url : leftVehicle}
+                alt='collaboration-image'
+                width={'100%'}
+                height={'100%'}
+                className='object-cover object-center'
+                onError={() => { handleError('image4') }}
+                preview={!fallbacks.image4}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+              />
+            </figure>
+          </Spin>
+          <section className="mt-5">
+            <Upload
+              showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
+              onChange={(file) => {
+                if (file.file.status === 'uploading') {
+                  setLoadingLeftVehicle(true);
+                  return;
+                }
+                if (file.file.status === 'done') {
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingLeftVehicle(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadLeftVehicle(file.file.originFileObj)
+                  }
+                }
+              }}
+              accept="image/png, image/jpeg, image/jpg"
+            >
+              <Button
+                type="primary"
+                icon={<UploadOutlined />}
+              >
+                อัพโหลดภาพ
+              </Button>
+            </Upload>
+          </section>
+        </div>
+      </Col>
+      <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
+        <div className="border rounded-lg p-3 h-full">
+          <Typography.Title level={5}>สลิปน้ำหนัก</Typography.Title>
           <Spin spinning={loadingRightVehicle}>
             <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
@@ -267,25 +464,42 @@ const Content = (props) => {
                 width={'100%'}
                 height={'100%'}
                 className='object-cover object-center'
-                fallback='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3PTWBSGcbGzM6GCKqlIBRV0dHRJFarQ0eUT8LH4BnRU0NHR0UEFVdIlFRV7TzRksomPY8uykTk/zewQfKw/9znv4yvJynLv4uLiV2dBoDiBf4qP3/ARuCRABEFAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghggQAQZQKAnYEaQBAQaASKIAQJEkAEEegJmBElAoBEgghgg0Aj8i0JO4OzsrPv69Wv+hi2qPHr0qNvf39+iI97soRIh4f3z58/u7du3SXX7Xt7Z2enevHmzfQe+oSN2apSAPj09TSrb+XKI/f379+08+A0cNRE2ANkupk+ACNPvkSPcAAEibACyXUyfABGm3yNHuAECRNgAZLuYPgEirKlHu7u7XdyytGwHAd8jjNyng4OD7vnz51dbPT8/7z58+NB9+/bt6jU/TI+AGWHEnrx48eJ/EsSmHzx40L18+fLyzxF3ZVMjEyDCiEDjMYZZS5wiPXnyZFbJaxMhQIQRGzHvWR7XCyOCXsOmiDAi1HmPMMQjDpbpEiDCiL358eNHurW/5SnWdIBbXiDCiA38/Pnzrce2YyZ4//59F3ePLNMl4PbpiL2J0L979+7yDtHDhw8vtzzvdGnEXdvUigSIsCLAWavHp/+qM0BcXMd/q25n1vF57TYBp0a3mUzilePj4+7k5KSLb6gt6ydAhPUzXnoPR0dHl79WGTNCfBnn1uvSCJdegQhLI1vvCk+fPu2ePXt2tZOYEV6/fn31dz+shwAR1sP1cqvLntbEN9MxA9xcYjsxS1jWR4AIa2Ibzx0tc44fYX/16lV6NDFLXH+YL32jwiACRBiEbf5KcXoTIsQSpzXx4N28Ja4BQoK7rgXiydbHjx/P25TaQAJEGAguWy0+2Q8PD6/Ki4R8EVl+bzBOnZY95fq9rj9zAkTI2SxdidBHqG9+skdw43borCXO/ZcJdraPWdv22uIEiLA4q7nvvCug8WTqzQveOH26fodo7g6uFe/a17W3+nFBAkRYENRdb1vkkz1CH9cPsVy/jrhr27PqMYvENYNlHAIesRiBYwRy0V+8iXP8+/fvX11Mr7L7ECueb/r48eMqm7FuI2BGWDEG8cm+7G3NEOfmdcTQw4h9/55lhm7DekRYKQPZF2ArbXTAyu4kDYB2YxUzwg0gi/41ztHnfQG26HbGel/crVrm7tNY+/1btkOEAZ2M05r4FB7r9GbAIdxaZYrHdOsgJ/wCEQY0J74TmOKnbxxT9n3FgGGWWsVdowHtjt9Nnvf7yQM2aZU/TIAIAxrw6dOnAWtZZcoEnBpNuTuObWMEiLAx1HY0ZQJEmHJ3HNvGCBBhY6jtaMoEiJB0Z29vL6ls58vxPcO8/zfrdo5qvKO+d3Fx8Wu8zf1dW4p/cPzLly/dtv9Ts/EbcvGAHhHyfBIhZ6NSiIBTo0LNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiECRCjUbEPNCRAhZ6NSiAARCjXbUHMCRMjZqBQiQIRCzTbUnAARcjYqhQgQoVCzDTUnQIScjUohAkQo1GxDzQkQIWejUogAEQo121BzAkTI2agUIkCEQs021JwAEXI2KoUIEKFQsw01J0CEnI1KIQJEKNRsQ80JECFno1KIABEKNdtQcwJEyNmoFCJAhELNNtScABFyNiqFCBChULMNNSdAhJyNSiEC/wGgKKC4YMA4TAAAAABJRU5ErkJggg=='
+                onError={() => { handleError('image5') }}
+                preview={!fallbacks.image5}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+
               />
             </figure>
           </Spin>
           <section className="mt-5">
             <Upload
               showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
                   setLoadingRightVehicle(true);
                   return;
                 }
                 if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingRightVehicle(false);
-                    setRightVehicle(url);
-                  });
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingRightVehicle(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadRightVehicle(file.file.originFileObj)
+                  }
                 }
               }}
+              accept="image/png, image/jpeg, image/jpg"
             >
               <Button
                 type="primary"
@@ -308,25 +522,41 @@ const Content = (props) => {
                 width={'100%'}
                 height={'100%'}
                 className='object-cover object-center'
-                fallback='data:image/png;base64,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'
+                onError={() => { handleError('image6') }}
+                preview={!fallbacks.image6}
+                fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
               />
             </figure>
           </Spin>
           <section className="mt-5">
             <Upload
               showUploadList={false}
+              accept="image/*"
+              beforeUpload={(file) => {
+                const isImage = file.type.startsWith("image/");
+                if (!isImage) {
+                  message.error("สามารถอัปโหลดได้เฉพาะไฟล์รูปเท่านั้น!");
+                }
+                return isImage || Upload.LIST_IGNORE;
+              }}
               onChange={(file) => {
                 if (file.file.status === 'uploading') {
                   setLoadingDrivingLicense(true);
                   return;
                 }
                 if (file.file.status === 'done') {
-                  getBase64(file.file.originFileObj, (url) => {
-                    setLoadingDrivingLicense(false);
-                    setDrivingLicense(url);
-                  });
+                  const allowList = ['image/jpg', 'image/jpeg', 'image/png']
+                  const isListAvailable = allowList.some(item => item === file.file.type)
+                  if (!isListAvailable) {
+                    setLoadingDrivingLicense(false)
+                    message.error('ประเภทไฟล์ไม่ถูกต้อง')
+                    return Upload.LIST_IGNORE
+                  } else {
+                    uploadLicense(file.file.originFileObj)
+                  }
                 }
               }}
+              accept="image/png, image/jpeg, image/jpg"
             >
               <Button
                 type="primary"
@@ -344,8 +574,46 @@ const Content = (props) => {
 };
 
 const ModalImagePreview = (props) => {
-  const { open, setOpen } = props;
+  const { open, setOpen, ImagePreview, imageTDID } = props;
 
+  const checkImageData = () => {
+    if (ImagePreview.imagepreview.data.length == 0) {
+      return {
+        data: false,
+        image: null
+      }
+    } else {
+      return {
+        data: true,
+        image: ImagePreview.imagepreview.data[0]
+      }
+    }
+  }
+
+  const [imageDataBuild, setImageDataBuild] = useState()
+  const ImageData = checkImageData();
+
+  useEffect(() => {
+    if (ImageData.data) {
+      setImageDataBuild({
+        image_path1: ImageData.image.image_path1 || '',
+        image_path2: ImageData.image.image_path2 || '',
+        image_path3: ImageData.image.image_path3 || '',
+        image_path4: ImageData.image.image_path4 || '',
+        image_path5: ImageData.image.image_path5 || '',
+        image_path6: ImageData.image.image_path6 || '',
+      });
+    } else {
+      setImageDataBuild({
+        image_path1: '',
+        image_path2: '',
+        image_path3: '',
+        image_path4: '',
+        image_path5: '',
+        image_path6: '',
+      });
+    }
+  }, [open]);
   return (
     <Modal
       title="รูปรถเข้าชั่ง"
@@ -368,7 +636,10 @@ const ModalImagePreview = (props) => {
       footer={false}
     >
       <main className='my-5'>
-        <Content />
+        <Content
+          imageDataBuild={imageDataBuild}
+          imageTDID={imageTDID}
+        />
       </main>
     </Modal>
   );

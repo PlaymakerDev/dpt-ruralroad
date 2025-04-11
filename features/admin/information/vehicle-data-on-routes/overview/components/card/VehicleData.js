@@ -4,9 +4,10 @@ import Image from 'next/image'
 import GreenTruck from '@/public/images/green-truck.svg'
 import YellowTruck from '@/public/images/yellow-truck.svg'
 import RedTruck from '@/public/images/red-truck.svg'
+import stf from '@/utils/stringformat'
 
 const VehicleData = (props) => {
-  const { } = props
+  const { data } = props
 
   const gridProperties = {
     className: '!w-full sm:!w-full md:!w-2/6 lg:!w-2/6 xl:!w-2/6 !text-center !border-none'
@@ -14,7 +15,7 @@ const VehicleData = (props) => {
 
   return (
     <Card
-      title='ข้อมูลรถในสายทาง'
+      title={<Typography.Text className='!m-0 !text-white'>ข้อมูลรถในสายทาง</Typography.Text>}
     >
       <Card.Grid hoverable={false} {...gridProperties}>
         <Typography.Title level={5}>รถวิ่งตามปกติ</Typography.Title>
@@ -25,9 +26,9 @@ const VehicleData = (props) => {
         />
         <section>
           <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถเข้าชั่ง</Typography.Text>
+            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
             <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>5,000</Typography.Text>
+              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.moving_vehicles).normal() || 0}</Typography.Text>
               <Typography.Text> คัน</Typography.Text>
             </div>
           </div>
@@ -42,9 +43,9 @@ const VehicleData = (props) => {
         />
         <section>
           <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถเข้าชั่ง</Typography.Text>
+            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
             <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>5,000</Typography.Text>
+              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.stationary_vehicles).normal() || 0}</Typography.Text>
               <Typography.Text> คัน</Typography.Text>
             </div>
           </div>
@@ -59,9 +60,9 @@ const VehicleData = (props) => {
         />
         <section>
           <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถเข้าชั่ง</Typography.Text>
+            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
             <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>5,000</Typography.Text>
+              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.overweight_history).normal() || 0}</Typography.Text>
               <Typography.Text> คัน</Typography.Text>
             </div>
           </div>

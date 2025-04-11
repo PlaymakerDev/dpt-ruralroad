@@ -1,10 +1,37 @@
 import React from 'react'
+import { FormSearchWeighingUnitToRDHighwayDistrict } from '../form'
+import { DetailWeighingUnitToRDHighwayDistrict } from '../detail'
+import { Pagination } from 'antd'
 
 const WeighingUnitToRDHighwayDistrict = (props) => {
-  const { } = props
+  const { tabKey } = props
 
   return (
-    <div>index</div>
+    <div>
+      {/* <section>
+        <FormSearchWeighingUnitToRDHighwayDistrict />
+      </section> */}
+      <section className='mt-5'>
+        <DetailWeighingUnitToRDHighwayDistrict
+          tabKey={tabKey}
+        />
+      </section>
+      {/* <section className='mt-5'>
+        <div className='flex justify-center'>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={10}
+            current={1}
+            pageSize={10}
+            total={2}
+          // onChange={(pageNumber, pageSize) => handleOnChangePage(pageNumber, pageSize)}
+          // onShowSizeChange={(_, pageSize) => handleOnChangePageSize(pageSize)}
+          // showSizeChanger={true}
+          // hideOnSinglePage={qrCodeData.total === 0}
+          />
+        </div>
+      </section> */}
+    </div>
   )
 }
 

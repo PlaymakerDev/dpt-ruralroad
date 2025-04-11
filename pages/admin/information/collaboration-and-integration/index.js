@@ -2,6 +2,11 @@ import React, { useMemo } from 'react'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
 import CollaborationAndIntegrationScreen from '@/features/admin/information/collaboration-and-integration/screen'
 import { Breadcrumb } from 'antd'
+// CHECK ROLE
+import { getLoginSession } from '@/utils/auth'
+import { validatePermissionRoute, redirectToLogin, sessionToProps } from '@/utils/auth/routePermission'
+import { wrapper, AppState } from '@/store'
+import { signIn } from '@/store/features/userSlice'
 
 const CollaborationAndIntegrationPage = (props) => {
   const { } = props
@@ -9,8 +14,8 @@ const CollaborationAndIntegrationPage = (props) => {
   const renderBreadcrumb = useMemo(() => {
     return (
       <Breadcrumb separator='>'>
-        <Breadcrumb.Item>ข้อมูล</Breadcrumb.Item>
-        <Breadcrumb.Item>การร่วมบูรณาการ</Breadcrumb.Item>
+        <Breadcrumb.Item className='text-gray-500'>ข้อมูล</Breadcrumb.Item>
+        <Breadcrumb.Item className='font-bold'>การร่วมบูรณาการ</Breadcrumb.Item>
       </Breadcrumb>
     )
   }, [])
@@ -23,5 +28,18 @@ const CollaborationAndIntegrationPage = (props) => {
     </PageLayout>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
+  const [session, redirectPath] = await getLoginSession(context.req, context.res)
+
+  const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
+  if (!valid) {
+    return redirectToLogin(redirectPath)
+  }
+
+  store.dispatch(signIn(session));
+
+  return sessionToProps(session, session?.message)
+}));
 
 export default React.memo(CollaborationAndIntegrationPage)

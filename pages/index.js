@@ -1,11 +1,14 @@
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react'
 
-const IndexPage = (props) => {
-  const { } = props
-
-  return (
-    <div>index</div>
-  )
+const IndexPage = () => {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.push('/login');
+  }, [])
+  
+  return null;
 }
 
 export default React.memo(IndexPage)

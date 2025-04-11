@@ -71,17 +71,19 @@ const InputPassword = (props) => {
   return (
     <div className={`${styles.container} ${_error ? 'a-error' : ''}`}>
       {!!label && (
-        <label className={`${styles.label}`} htmlFor={name} title={label}>
+        <label className={`${styles.label}`} htmlFor={`password-${name}`} title={label}>
           {!!_required && <span className={`${styles.star}`}>*</span>}
           {label}
         </label>
       )}
       <div>
         <Input.Password
+          id={`password-${name}`}
           name={name}
           value={_value}
           disabled={_disabled}
           onChange={_onChange}
+          autoComplete={propsInput.autoComplete || "current-password"}
           size="large"
           {...propsInput}
         />

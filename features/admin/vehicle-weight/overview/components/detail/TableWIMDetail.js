@@ -1,58 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Space, Table, Typography } from 'antd'
-import { TruckFilled } from '@ant-design/icons'
+// import { TruckFilled } from '@ant-design/icons'
+// import SmallTruck from '@/components/icon/SmallTruck'
+// import Bigtruck from '@/components/icon/BigTruck'
+import stf from '@/utils/stringformat'
+import { calculate_index } from '@/utils/calculator'
 import Image from 'next/image'
-import BigTruck from '@/public/images/big-truck.svg'
-import SmallTruck from '@/public/images/small-truck.svg'
+import { VEHICLE_PROPERTIES, WEIGHT_STATUS, WEIGHT_STATUS_WITH_PROPERTIES } from '@/utils/constant'
+import { TruckIcon } from '@/components/icon'
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import useGetAPI from '@/utils/hooks/api/useGetAPI'
+import { getAllProvince } from '@/store/features/masterSlice'
+
+dayjs.extend(customParseFormat);
 
 const TableWIMDetail = (props) => {
-  const { setOpen } = props
+  const { data, loading, page, perPage, total, onChange, setStep, setCurrentStep, setOpen, openModalWithData } = props
 
-  const data = [
-    {
-      no: "1",
-      date: "09 สิงหาคม 2567",
-      time: '20:54:23',
-      vehicle_license_plate: "83-2835",
-      province: 'ราชบุรี',
-      vehicle_type: "ประเภท 2",
-      vehicle_type_detail: '3 เพลา 6 เส้น',
-      vehicle_appearance: "big",
-      weight: "12.000 ตัน",
-      excess_weight_unit: "0.000",
-      excess_weight_percentage: "0.0",
-      weighing_status: "ปกติ",
-    },
-    {
-      no: "1",
-      date: "09 สิงหาคม 2567",
-      time: '19:54:23',
-      vehicle_license_plate: "70-2245",
-      province: 'กรุงเทพฯ',
-      vehicle_type: "ประเภท 2",
-      vehicle_type_detail: '3 เพลา 6 เส้น',
-      vehicle_appearance: "small",
-      weight: "53.500 ตัน",
-      excess_weight_unit: "0.000",
-      excess_weight_percentage: "0.0",
-      weighing_status: "ปกติ",
-    },
-    {
-      no: "1",
-      date: "09 สิงหาคม 2567",
-      time: '18:54:23',
-      vehicle_license_plate: "71-7937",
-      province: 'ราชบุรี',
-      vehicle_type: "ประเภท 2",
-      vehicle_type_detail: '3 เพลา 6 เส้น',
-      vehicle_appearance: "big",
-      weight: "17.000 ตัน",
-      excess_weight_unit: "2.000",
-      excess_weight_percentage: "12.0",
-      weighing_status: "น้ำหนักเกิน",
-    },
+  const [apiGetProvince, loadingProvince, masterProvince] = useGetAPI('overlay', {
+    funcDispatch: getAllProvince, reducerName: 'master', reducerKey: 'province'
+  })
 
-  ]
+  useEffect(() => {
+    apiGetProvince('/api/v1/masters/provinces_all', {}, false, {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const columns = [
     {
@@ -60,25 +34,22 @@ const TableWIMDetail = (props) => {
       dataIndex: "no",
       align: 'center',
       width: 100,
-      render: (item) => {
-        return (
-          <Typography.Text>{item}</Typography.Text>
-        )
+      render: (item, record, index) => {
+        return stf(calculate_index(index, page, perPage, total)).normal()
       }
     },
     {
       title: "วันที่ / เวลา",
-      key: 'date',
-      dataIndex: "date",
+      key: 'time_stamp',
+      dataIndex: "time_stamp",
       width: 200,
       render: (item, record) => {
-        return (
-          <Space direction='vertical'>
-            <Typography.Text>{item}</Typography.Text>
-            <Typography.Text>{record.time}</Typography.Text>
-          </Space>
-        )
-      }
+        if (item) {
+          return dayjs(item, 'DD/MM/YYYY HH:mm:ss').locale('th').format('DD MMMM YYYY HH:mm:ss')
+        }
+        return '-'
+      },
+      sorter: (a, b) => dayjs(a.time_stamp, 'DD/MM/YYYY HH:mm:ss').unix() - dayjs(b.time_stamp, 'DD/MM/YYYY HH:mm:ss').unix()
     },
     {
       title: "ทะเบียน",
@@ -86,10 +57,12 @@ const TableWIMDetail = (props) => {
       dataIndex: "vehicle_license_plate",
       width: 200,
       render: (item, record) => {
+        // const result = _.find(masterProvince.all, { pid: Number(record?.lp_head_province_id) });
         return (
           <Space direction='vertical'>
-            <Typography.Text>ทะเบียน: {item}</Typography.Text>
-            <Typography.Text>จังหวัด: {record.province}</Typography.Text>
+            <Typography.Text>ทะเบียน: {record.lp_head_no || '-'}</Typography.Text>
+            <Typography.Text>จังหวัด : {record?.lp_head_province_name || '-'}</Typography.Text>
+            {/* <Typography.Text>จังหวัด: {result ? result.name_th : '-'}</Typography.Text> */}
           </Space>
         )
       }
@@ -99,82 +72,76 @@ const TableWIMDetail = (props) => {
       key: 'vehicle_type',
       dataIndex: "vehicle_type",
       width: 150,
+      // render: (item, record) => {
+      //   return (
+      //     <Space direction='vertical'>
+      //       <Typography.Text>{record.vehicle_class_desc2 || '-'}</Typography.Text>
+      //       <Typography.Text>{record.vehicle_class_desc3 || '-'}</Typography.Text>
+      //     </Space>
+      //   )
+      // }
       render: (item, record) => {
-        return (
-          <Space direction='vertical'>
-            <Typography.Text>{item}</Typography.Text>
-            <Typography.Text>{record.vehicle_type_detail}</Typography.Text>
-          </Space>
-        )
+        if (record.vehicle_class_id) {
+          return (
+            <Space direction='vertical'>
+              <Typography.Text>{VEHICLE_PROPERTIES[Number(record.vehicle_class_id)]?.properties?.vehicle_type}</Typography.Text>
+              <Typography.Text>{VEHICLE_PROPERTIES[Number(record.vehicle_class_id)]?.properties?.vehicle_description}</Typography.Text>
+            </Space>
+          )
+        }
+        return '-'
       }
     },
     {
       title: "ลักษณะรถ",
       key: 'vehicle_appearance',
       dataIndex: "vehicle_appearance",
-      align: 'center',
-      width: 300,
-      render: (item) => {
-        if (item === 'big') {
+      // align: 'center',
+      width: 200,
+      onHeaderCell: () => {
+        return {
+          style: {
+            textAlign: 'center',
+          }
+        };
+      },
+      render: (item, record) => {
+        if (record.vehicle_class_id) {
+          const newWidth = VEHICLE_PROPERTIES[Number(record.vehicle_class_id)]?.vehicle?.width * 0.5
+          const newHeight = VEHICLE_PROPERTIES[Number(record.vehicle_class_id)]?.vehicle?.height * 0.2
           return (
             <Image
-              src={BigTruck}
-              alt='big-truck'
-              className='!block !m-auto'
+              src={VEHICLE_PROPERTIES[Number(record.vehicle_class_id)]?.vehicle?.image}
+              alt='vehicle-appearance'
+              width={newWidth}
+              height={newHeight}
             />
           )
-        } else if (item === 'small') {
-          return (
-            <Image
-              src={SmallTruck}
-              alt='small-truck'
-              className='!block !m-auto'
-            />
-          )
-        } else {
-          return '-'
         }
+        return '-'
       }
     },
     {
-      title: "น้ำหนักที่ชั่ง",
-      key: "weight",
-      dataIndex: "weight",
+      title: "น้ำหนักที่ชั่ง (ตัน)",
+      key: "gross_weight",
+      dataIndex: "gross_weight",
       align: 'center',
-      width: 100
-    },
-    {
-      title: "น้ำหนักที่เกิน + %",
-      key: "excess_weight_unit",
-      dataIndex: "excess_weight_unit",
-      align: 'center',
-      width: 100,
+      width: 150,
       render: (item, record) => {
-        if (Number(item) === 0) {
-          return (
-            <Space direction='vertical'>
-              <Typography.Text className='!text-[#56E4EE]'>{item} ตัน</Typography.Text>
-              <Typography.Text className='!text-[#56E4EE]'>{record.excess_weight_percentage}%</Typography.Text>
-            </Space>
-          )
-        } else {
-          return (
-            <Space direction='vertical'>
-              <Typography.Text className='!text-[#FF4A4A]'>{item} ตัน</Typography.Text>
-              <Typography.Text className='!text-[#FF4A4A]'>{record.excess_weight_percentage}%</Typography.Text>
-            </Space>
-          )
+        if (item) {
+          return item
         }
+        return '-'
       }
     },
     {
-      title: "สถานะ",
-      key: 'weighing_status',
-      dataIndex: "weighing_status",
+      title: "น้ำหนักที่เกิน (ตัน)",
+      key: "gross_weight_over",
+      dataIndex: "gross_weight_over",
       align: 'center',
-      width: 100,
+      width: 150,
       render: (item, record) => {
-        if (Number(record.excess_weight_unit) === 0) {
+        if (Number(record.gross_weight) < Number(record.legal_weight)) {
           return <Typography.Text className='!text-[#56E4EE]'>{item}</Typography.Text>
         } else {
           return <Typography.Text className='!text-[#FF4A4A]'>{item}</Typography.Text>
@@ -182,17 +149,50 @@ const TableWIMDetail = (props) => {
       }
     },
     {
+      title: "น้ำหนักตามกฏหมาย (ตัน)",
+      key: "legal_weight",
+      dataIndex: "legal_weight",
+      align: 'center',
+      width: 150,
+      render: (item, record) => {
+        if (item) {
+          return item
+        }
+        return '-'
+      }
+    },
+    {
+      title: "สถานะเข้าชั่ง",
+      key: 'is_over_weight',
+      dataIndex: "is_over_weight",
+      align: 'center',
+      width: 150,
+      render: (item, record) => {
+        if (item) {
+          return <Typography.Text className={`!text-[${WEIGHT_STATUS_WITH_PROPERTIES[item]?.color}]`}>{WEIGHT_STATUS_WITH_PROPERTIES[item]?.text}</Typography.Text>
+        }
+        return '-'
+        // if (Number(record.gross_weight) < Number(record.legal_weight)) {
+        //   return <Typography.Text className='!text-[#56E4EE]'>{WEIGHT_STATUS[item]}</Typography.Text>
+        // } else {
+        //   return <Typography.Text className='!text-[#FF4A4A]'>{WEIGHT_STATUS[item]}</Typography.Text>
+        // }
+      },
+      sorter: (a, b) => a.is_over_weight.localeCompare(b.is_over_weight)
+    },
+    {
       title: '',
       key: 'action',
       dataIndex: "action",
       align: 'center',
       width: 100,
-      render: () => {
+      render: (item, record) => {
         return (
           <Button
             type='primary'
-            icon={<TruckFilled />}
-            onClick={() => setOpen({ open: true })}
+            icon={<TruckIcon customFill='#FFFFFF' />}
+            // onClick={() => setOpen({ open: true })}
+            onClick={() => openModalWithData(record)}
           />
         )
       }
@@ -203,9 +203,22 @@ const TableWIMDetail = (props) => {
     <Table
       dataSource={data}
       columns={columns}
+      loading={loading}
       pagination={{
+        defaultCurrent: 1,
+        defaultPageSize: 100,
+        current: page,
+        pageSize: perPage,
+        total: Number(total) || 0,
+        onChange: onChange,
+        showSizeChanger: false,
         position: ['bottomCenter']
       }}
+      onRow={(record) => ({
+        onClick: () => {
+          openModalWithData(record)
+        },
+      })}
       scroll={{ x: 1600 }}
     />
   )

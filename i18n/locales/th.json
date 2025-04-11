@@ -44,6 +44,17 @@
   "required_nationality": "กรุณาระบุสัญชาติ",
   "required_document_type": "กรุณาระบุประเภทเอกสาร",
   "required_passport": "กรุณาระบุเลขที่หนังสือเดินทาง",
+  "required_route": "กรุณาระบุข้อมูลสายทาง",
+  "required_collaboration": "กรุณาระบุร่วมบูรณาการ",
+  "required_from_km": "กรุณาระบุเริ่ม กม. ที่",
+  "required_to_km": "กรุณาระบุถึง กม. ที่",
+  "required_way_image": "กรุณาอัปโหลดรูปจัดจราจรตั้งหน่วยชั่ง",
+  "required_collaborator_image": "กรุณาอัปโหลดรูปเจ้าหน้าที่ร่วมตั้งหน่วยชั่ง",
+  "required_article_image": "กรุณาอัปโหลดรูปภาพ",
+  "required_article_title": "กรุณาระบุหัวข้อข่าวสาร",
+  "required_article_description": "กรุณาระบุรายละเอียดข่าวสาร",
+  "required_article_file": "กรุณาอัปโหลดไฟล์เอกสาร",
+  "required_ldap_username": "กรุณาค้นหาด้วยชื่อ หรือ Username",
   "validation_error_pattern_not_match": "รหัสผ่านไม่ถูกต้อง",
   "validation_error_confirm_password": "รหัสผ่านไม่ตรงกัน",
   "validation_error_phone_number": "เบอร์โทรศัพท์ไม่ถูกต้อง",
@@ -142,5 +153,4 @@
   "not_found_ergo_prifile": "ไม่พบรหัสตัวแทนในระบบ GIS",
   "required_bucode": "กรุณาระบุ Business Unit",
   "required_branchzone": "กรุณาระบุ ภูมิภาค"
-
 }

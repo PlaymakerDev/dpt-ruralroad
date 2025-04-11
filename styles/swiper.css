@@ -1,0 +1,20 @@
+.swiper-pagination-bullet {
+  background-color: #D9D9D9 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #56E4EE !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #FFFFFF !important;
+}
+
+.swiper-button-next {
+  right: 0 !important;
+}
+
+.swiper-button-prev {
+  left: 0 !important;
+}

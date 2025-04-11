@@ -113,7 +113,7 @@ const InputNumber = (props) => {
           maxLength={propsInput.maxLength || 255}
           {...propsInput}
           disabled={_disabled}
-          className={`ant-input ant-input-lg css-dev-only-do-not-override-12432py ant-input-outlined ${className || ''}`}
+          className={`ant-input ant-input-lg css-dev-only-do-not-override-1jf150u ant-input-outlined ${className || ''}`}
           style={_disabled ? {
             color: 'rgba(0, 0, 0, 0.25)',
             backgroundColor: 'rgba(0, 0, 0, 0.04)',

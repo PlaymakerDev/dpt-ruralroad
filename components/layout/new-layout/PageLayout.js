@@ -1,14 +1,27 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import PageHeader from './PageHeader'
 import { Drawer } from 'antd'
 import { SidebarHeader as Title, SidebarContent as Content, SidebarFooter as Footer } from './sidebar';
 import menu from '@/menu';
+import { useAppSelector } from '@/store/hooks';
+import { ROLE_TH } from '@/utils/constant';
 
 const PageLayout = (props) => {
   const { breadcrumb, children } = props
   // STATE
   const [open, setOpen] = useState(false)
   const [startX, setStartX] = useState(null)
+  // GET REDUX
+  const user = useAppSelector(state => state.user)
+
+  const renderProfile = useMemo(() => {
+    let res = [
+      user?.title,
+      user?.first_name,
+      user?.last_name
+    ]
+    return res.join(' ')
+  }, [user])
 
   const _onClose = useCallback(() => {
     setOpen(false)
@@ -40,11 +53,14 @@ const PageLayout = (props) => {
         <PageHeader
           menu={menu}
           setOpen={setOpen}
+          user={user}
         />
       </header>
-      <section className='pt-5 px-8'>
-        {breadcrumb}
-      </section>
+      {!!breadcrumb &&
+        <section className='pt-5 px-8'>
+          {breadcrumb}
+        </section>
+      }
       <main className='py-5 px-8'>
         {children}
       </main>
@@ -54,7 +70,7 @@ const PageLayout = (props) => {
         onTouchEnd={handleTouchEnd}
       >
         <Drawer
-          title={<Title title='Admin User' description='ผู้ดูแลระบบ' />}
+          title={<Title title={renderProfile || 'Admin User'} description={ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ'} />}
           closeIcon={false}
           open={open}
           onClose={_onClose}
@@ -69,6 +85,7 @@ const PageLayout = (props) => {
           <Content
             menu={menu}
             setOpen={setOpen}
+            user={user}
           />
         </Drawer>
       </aside>

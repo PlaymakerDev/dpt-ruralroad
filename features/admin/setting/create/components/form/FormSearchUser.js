@@ -4,22 +4,38 @@ import { Button, Card, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const FormSearchUser = (props) => {
-  const { } = props;
+  const { getUserList, clearData } = props;
 
   const form = useForm({
     initialValues: {
       username: '',
     },
-    rules: {},
+    rules: {
+      username: {
+        required: 'required_ldap_username'
+      }
+    },
   });
 
+  const { handlerChange, errors } = form
+
   const buildValue = useCallback((values, next) => {
-    next(values);
+    const body = {
+      search: values.username
+    }
+    next(body);
   }, []);
 
   const handlerSubmit = useCallback((values) => {
-    console.log(values);
-  }, []);
+    getUserList(values)
+  }, [getUserList]);
+
+  const handlerClear = useCallback(() => {
+    handlerChange({
+      username: ''
+    })
+    clearData()
+  }, [handlerChange, clearData])
 
   return (
     <>
@@ -31,18 +47,21 @@ const FormSearchUser = (props) => {
               label='ชื่อผู้ใช้งาน'
               name='username'
               placeholder='ชื่อผู้ใช้งาน'
-              hideRequired
+              hideRequired={!errors.username}
             />
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={6} xxl={4}>
             <fieldset>
-              <label>&nbsp;</label>
+              {!errors.username &&
+                <label>&nbsp;</label>
+              }
               <Button
+                htmlType="submit"
                 type='primary'
                 size='large'
                 icon={<SearchOutlined />}
                 // className='!w-full 2xl:!w-auto'
-                className='!w-full'
+                className='!w-full !bg-[#5671EE] hover:!bg-[#6c87ff] duration-200'
               >
                 ค้นหา
               </Button>
@@ -50,12 +69,15 @@ const FormSearchUser = (props) => {
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={6} xxl={4}>
             <fieldset>
-              <label>&nbsp;</label>
+              {!errors.username &&
+                <label>&nbsp;</label>
+              }
               <Button
                 type='text'
                 size='large'
                 // className='!w-full 2xl:!w-auto'
                 className='!w-full'
+                onClick={() => handlerClear()}
               >
                 ล้างการค้นหา
               </Button>
@@ -63,6 +85,7 @@ const FormSearchUser = (props) => {
           </Col>
         </Row>
       </Form>
+      {/* <Typography.Text className="!text-[#FF4A4A]">**กรุณาค้นหาด้วยชื่อ หรือ Username</Typography.Text> */}
     </>
   );
 };

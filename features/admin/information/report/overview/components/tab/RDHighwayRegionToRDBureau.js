@@ -1,10 +1,21 @@
 import React from 'react'
+import { FormSearchRDHighwayRegionToRDBureau } from '../form'
+import { DetailRDHighwayRegionToRDBureau } from '../detail'
+import { Pagination } from 'antd'
 
 const RDHighwayRegionToRDBureau = (props) => {
-  const { } = props
+  const { tabKey } = props
 
   return (
-    <div>index</div>
+    <div>
+      {/* <section>
+        <FormSearchRDHighwayRegionToRDBureau />
+      </section> */}
+      <section className='mt-5'>
+        <DetailRDHighwayRegionToRDBureau tabKey={tabKey} />
+      </section>
+
+    </div>
   )
 }
 

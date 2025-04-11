@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Cardboard = (props) => {
-  const { width = 22, height = 22, fill = '#FFFFFF' } = props;
+  const { width = 22, height = 22, fill = 'none' } = props;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 33 21" fill={fill} {...props} >
       <path d="M10.4297 10.8389H22.347" stroke="white" strokeLinecap="square" />

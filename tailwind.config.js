@@ -18,7 +18,11 @@ module.exports = {
       },
       screens: {
         'antd-lg': '1200px',
+        'semi-lg': '965px',
       },
+    },
+    variants: {
+      fill: ['hover', 'active', 'focus'], // this line does the trick
     },
     fontFamily: {
       IBMPlexSansThaiThin: ['IBMPlexSansThai-Thin', ...defaultTheme.fontFamily.sans],

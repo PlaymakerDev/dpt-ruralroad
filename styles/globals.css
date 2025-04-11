@@ -1,6 +1,11 @@
 @layer tailwind-base, antd;
 
 @layer tailwind-base {
+  html,
+  :host {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   @tailwind base;
 }
 
@@ -9,6 +14,17 @@
 
 @import './font.css';
 @import './antd.css';
+@import './swiper.css';
+
+:root {
+  --primary-color: #FFFFFF;
+  --secondary-color: #8A8A8A;
+  --background-primary-color: #030918;
+  --background-secondary-color: #8A8A8A;
+  --black-color: #000000;
+  --lightblue-color: #56E4EE;
+  --lightred-color: #FF4A4D;
+}
 
 html,
 body {
@@ -18,27 +34,44 @@ body {
     Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
   scroll-behavior: smooth;
-  background-color: #030918;
+  background-color: var(--background-primary-color);
+  color: var(--primary-color);
   height: 100vh;
 }
 
-:root {
-  --primary-color: #FFFFFF;
-  --secondary-color: #8A8A8A;
-  --black-color: #000000;
-  --lightblue-color: #56E4EE;
-  --lightred-color: #FF4A4D;
+/* Fix for user-select compatibility */
+.rpv-core__splitter-sibling--resizing,
+:where(.css-dev-only-do-not-override-1jf150u).ant-typography.ant-typography-disabled,
+:where(.css-dev-only-do-not-override-1jf150u).ant-input::placeholder,
+:where(.css-dev-only-do-not-override-1jf150u).ant-input-affix-wrapper::placeholder,
+:where(.css-dev-only-do-not-override-1jf150u).ant-btn {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* button {
-  cursor: pointer !important;
-  background-color: var(--lightblue-color) ;
-  border-color: var(--lightblue-color) !important;
-  color: #1E4066;
-} */
+/* Fix for text-decoration-skip compatibility */
+:where(.css-dev-only-do-not-override-1jf150u) a {
+  text-decoration-skip-ink: auto;
+}
+
+.text-primary {
+  color: var(--primary-color)
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
 
 .bg-gradient {
   background: linear-gradient(0.25turn, #56E4EE20, #00000020, #56E4EE20) !important;
+}
+
+.bg-primary {
+  background-color: var(--background-primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--background-secondary-color);
 }
 
 .border-lightblue {
@@ -57,4 +90,20 @@ body {
 
 .border {
   border: 1px solid #56E4EE50;
+}
+
+.ck-editor__editable {
+  min-height: 15rem;
+  color: black;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  width: 20px !important; /* กำหนดความกว้างของลูกศร */
+  height: 70px !important; /* กำหนดความสูงของลูกศร */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 15px !important; /* กำหนดขนาดของไอคอนลูกศร */
 }

@@ -14,6 +14,10 @@
   display: none !important;
 }
 
+.navbarMenu {
+  flex-grow: 1 !important;
+}
+
 @media screen and (max-width: 1061px) {
   .navbarMenu {
     display: none !important;

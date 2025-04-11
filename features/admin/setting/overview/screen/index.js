@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { Card } from "antd";
 import { Trollway, Cargo, Role, User } from "../components/tab-content";
+import Addnews from "../components/tab-content/Addnews";
 
 const SettingScreen = (props) => {
   const { setCurrentStep } = props;
@@ -9,7 +10,7 @@ const SettingScreen = (props) => {
   const onTabUpdate = useCallback((targetTab) => {
     setCurrentStep(targetTab)
     setTabKey(targetTab);
-  }, []);
+  }, [setCurrentStep]);
 
   const tabList = [
     {
@@ -28,6 +29,10 @@ const SettingScreen = (props) => {
       key: "user",
       tab: "ผู้ใช้งาน",
     },
+    {
+      key: "addnews",
+      tab: "ข่าวสาร"
+    }
   ];
 
   const content = {
@@ -35,6 +40,7 @@ const SettingScreen = (props) => {
     cargo: <Cargo />,
     role: <Role />,
     user: <User />,
+    addnews: <Addnews/>,
   };
 
   return (

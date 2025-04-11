@@ -22,6 +22,7 @@ const TextInput = (props) => {
     error,
     disabled,
     onChange,
+    hideRequired,
     ...propsInput
   } = props;
   const { locale } = useRouter();
@@ -57,6 +58,14 @@ const TextInput = (props) => {
     [formContext, name, onChange]
   );
 
+  const _styleError = useMemo(() => {
+    let res = [`${styles.error}`]
+    if (hideRequired) {
+      res.push('hidden')
+    }
+    return res.join(' ')
+  }, [hideRequired])
+
   return (
     <div className={`${styles.container} ${_error ? 'a-error' : ''}`}>
       {!!label && (
@@ -75,7 +84,7 @@ const TextInput = (props) => {
           {...propsInput}
         />
       </div>
-      <span className={`${styles.error}`}>{tran[_errorWithLocal]}</span>
+      <span className={_styleError}>{tran[_errorWithLocal]}</span>
     </div>
   );
 };

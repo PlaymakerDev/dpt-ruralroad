@@ -5,7 +5,7 @@ import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 
 const FormSearchUser = (props) => {
-  const { } = props;
+  const { initialValues, apiGetData, clearData } = props;
   const router = useRouter()
 
   const form = useForm({
@@ -15,13 +15,25 @@ const FormSearchUser = (props) => {
     rules: {},
   });
 
+  const { handlerChange } = form
+
   const buildValue = useCallback((values, next) => {
-    next(values);
+    const body = {
+      search: values.user || ''
+    }
+    next(body);
   }, []);
 
   const handlerSubmit = useCallback((values) => {
-    console.log(values);
-  }, []);
+    apiGetData(`/api/v1/users`, { ...values, page: 1, page_size: initialValues.page_size }, false, {})
+  }, [initialValues, apiGetData]);
+
+  const handlerClear = useCallback(() => {
+    handlerChange({
+      user: ''
+    })
+    clearData()
+  }, [handlerChange, clearData])
 
   return (
     <Card>
@@ -40,6 +52,7 @@ const FormSearchUser = (props) => {
             <fieldset>
               <label>&nbsp;</label>
               <Button
+                htmlType="submit"
                 type='primary'
                 size='large'
                 icon={<SearchOutlined />}
@@ -54,10 +67,12 @@ const FormSearchUser = (props) => {
             <fieldset>
               <label>&nbsp;</label>
               <Button
+                htmlType="button"
                 type='text'
                 size='large'
                 // className='!w-full 2xl:!w-auto'
                 className='!w-full'
+                onClick={() => handlerClear()}
               >
                 ล้างการค้นหา
               </Button>

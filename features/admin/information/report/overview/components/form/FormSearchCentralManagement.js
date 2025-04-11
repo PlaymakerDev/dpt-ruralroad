@@ -16,7 +16,6 @@ const FormSearchCentralManagement = (props) => {
   }, [])
 
   const handlerSubmit = useCallback((values) => {
-    console.log(values)
   }, [])
 
   return (
@@ -28,7 +27,7 @@ const FormSearchCentralManagement = (props) => {
             <Field.Input
               label='ชื่อรายงาน'
               name='report'
-              placeholder='ชื่อรายงาน'
+              placeholder=''
               hideRequired
             />
           </Col>

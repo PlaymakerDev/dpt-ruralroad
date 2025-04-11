@@ -1,0 +1,319 @@
+/* ArresForm.module.css */
+.container {
+  width: 100%;
+  border: 0px solid rgb(99, 91, 91);
+  margin: auto;
+  border: 0px solid lime;
+  overflow-x: auto;
+  /* font-size: 16px; ขนาดฐานของฟอนต์ใน container */
+}
+
+.subcontainer {
+  /* width: clamp(0px, 90vw, 1366px);  */
+  min-width: 1024px;
+  max-width: 1366px; 
+  border: 0px solid yellow;
+  height: 100%;
+  /* font-size: 1em; ขนาดฟอนต์สัมพันธ์กับ container */
+  margin: auto;
+}
+
+.text {
+  font-size: clamp(15px, 2vw, 32px); 
+  color: white;
+  text-align: center;
+  white-space: pre !important;
+  font-weight: bold !important;
+  margin-bottom: clamp(0px, 2vw, 32px); 
+}
+
+.paragraph{
+  margin-top: clamp(0px, 2vw, 20px);
+  font-size: clamp(0px, 1.4vw, 18px);
+  white-space: pre !important;
+  color: white !important;
+  border:1px solid red;
+}
+
+.radio :global(.ant-radio) {
+  color: red;
+}
+
+.radioLabel {
+  display: inline-flex;
+  height: clamp(10px, 0.4vw, 30px);
+  align-items: center;
+  /* margin-left: clamp(0px, 1vw, 5px); */
+  border:1px solid red;
+}
+
+.radioInput {
+  /* width: clamp(1px, 1.5vw, 18px); */
+  /* height: clamp(1px, 0.8vw, 15px);  */
+  transform: scale(0.4);
+  margin-top: clamp(1px, 0.8vw, 9px);
+  border: 1px solid red;
+  cursor: pointer;
+}
+
+.radioInput2 {
+  width: clamp(1px, 1.5vw, 18px);
+  height: clamp(1px, 0.8vw, 15px); 
+  margin-top: clamp(1px, 0.8vw, 9px);
+  border: 0px solid red;
+}
+
+.radioText {
+  /* margin-top: clamp(1px, 2.2vw, 20px); */
+  font-size: clamp(11px, 1.1vw, 16px);
+  margin-left: clamp(0px, 0.4vw, 5px);
+  color: white;
+  border: 0px solid red;
+  margin-right: clamp(0px, 0.1vw, 20px);
+  /* line-height: 2;  */
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+}
+
+
+
+.parameterarres {
+  font-size: clamp(11px, 1.1vw, 16px); 
+  line-height: 1;
+  margin: 0; 
+  padding: 0;
+  border: 0px solid red;
+  width: 90%;
+  text-align: end;
+}
+
+
+.parameterarresbold{
+  font-size: clamp(11px, 1.1vw, 16px); 
+  line-height: 1;
+  margin: 0; 
+  padding: 0;
+  border: 0px solid red;
+  width: 90%;
+  text-align: end;
+  font-weight: 500;
+}
+
+.parameterarresonly {
+  font-size: clamp(11px, 1.1vw, 16px); 
+  line-height: 2;
+  margin: 0; 
+  padding: 0;
+  border: 0px solid red;
+  width: 90%;
+  text-align: end;
+}
+
+.parameterarresstartonlyprewarp {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 2; 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* white-space: pre-wrap; */
+  /* text-align: justify; */
+  /* overflow-wrap: break-word; เพิ่มการห่อข้อความ */
+  border: 0px solid red;
+}
+
+.parameterarresendonlyprewarp {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 2; 
+  margin: 0;
+  padding: 0;
+  width: 90%;
+  text-align: end;
+  /* white-space: pre-wrap; */
+  /* text-align: justify; */
+  /* overflow-wrap: break-word; เพิ่มการห่อข้อความ */
+  border: 0px solid red;
+}
+
+
+
+.parameterarresstart {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 1; 
+  margin: 0;
+  padding: 0;
+  border: 0px solid red;
+  width: 100%;
+}
+
+.parameterarresstartonly {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 2; 
+  margin: 0;
+  padding: 0;
+  border: 0px solid red;
+  width: 100%;
+}
+
+.parameterarresendonly{
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 2; 
+  margin: 0;
+  padding: 0;
+  border: 0px solid red;
+  width: 90%;
+  text-align: end;
+}
+
+.parameterarresend {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 1; 
+  margin: 0;
+  padding: 0;
+  border: 0px solid red;
+  width: 100%;
+  text-align: end;
+}
+
+.parameterarrescenter {
+  font-size: clamp(11px, 1.1vw, 16px);
+  line-height: 1; 
+  margin: 0;
+  padding: 0;
+  border: 0px solid red;
+  width: 100%;
+  text-align: center;
+}
+
+.inputarres {
+  height: clamp(23px, 2.3vw, 30px);
+  font-size: clamp(10px, 1.1vw, 16px);
+  width: 100%;
+  border-radius: 5px ;
+  text-align: center;
+  padding: 0 10px;
+  display: flex !important;
+  align-items: start !important;
+  box-sizing: border-box; 
+  border: 0px solid red;
+}
+
+.inputarresleft {
+  height: clamp(23px, 2.3vw, 30px);
+  font-size: clamp(10px, 1.1vw, 16px);
+  width: 100%;
+  border-radius: 5px ;
+  text-align: start;
+  padding: 0 10px;
+  display: flex !important;
+  align-items: start !important;
+  box-sizing: border-box; 
+  border: 0px solid red;
+}
+
+.selectarres {
+  height: clamp(23px, 2.3vw, 30px) !important;
+  font-size: clamp(10px, 1.1vw, 16px);
+  width: 100%;
+  border-radius: 3px ;
+  text-align: center;
+  padding: 0 1px;
+  display: flex !important;
+  align-items: start !important;
+  box-sizing: border-box; 
+  border: 0px solid red;
+  /* background-color: white; */
+}
+
+
+.inputarresradio {
+  height: clamp(0px, 2.3vw, 30px);
+  font-size: clamp(10px, 1.1vw, 16px);
+  width: 100%;
+  border-radius: 3px ;
+  text-align: center;
+  padding: 0 1px;
+  display: flex !important;
+  align-items: start !important;
+  box-sizing: border-box; 
+  border: 0px solid red;
+}
+
+.colarres{
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: start;
+  border: 0px solid rgb(49, 236, 90);
+}
+
+.colarrestext{
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: start;
+  border: 0px solid rgb(49, 236, 90);
+}
+
+
+.colinputarres{
+  border: 0px solid red;
+  height: clamp(23px, 2.3vw, 30px);
+}
+
+.rowmargin0{
+  width: 100%;
+  margin-top: clamp(1px , 1vw , 5px) ;
+}
+
+.rowmargin1{
+  width: 100%;
+  margin-top: clamp(4px , 1vw , 10px) ;
+  border:0px solid red;
+}
+
+.rowmargin2{
+  width: 100%;
+  margin-top: clamp(4px , 5vw , 80px) ;
+}
+
+.rowmargin3{
+  width: 100%;
+  margin-top: clamp(4px , 5vw ,80px) ;
+  border:0px solid red;
+}
+
+
+
+.radioselect {
+  border-radius: 50%; 
+  width: clamp(1px, 1vw, 10px);
+  height: clamp(1px, 1vw, 10px); 
+  vertical-align: middle;
+  display: inline-block; 
+  vertical-align: center;
+}
+
+
+.colbutton{
+  display: flex;
+  justify-content: end;
+  gap: clamp(20px, 1vw, 32px); 
+}
+
+
+.submitbuttom{
+  width: clamp(50px, 7vw, 120px); 
+  height: clamp(30px, 3vw, 50px); 
+  background-color: #56E4EE;
+  font-size: clamp(13px, 1vw, 20px);
+  border-radius: clamp(0px, 1vw, 10px);
+  border: 0px solid red;
+}
+
+.canclebuttom{
+  width: clamp(50px, 7vw, 120px); 
+  height: clamp(30px, 3vw, 50px); 
+  background-color: transparent;
+  font-size: clamp(13px, 1vw, 20px);
+  border-radius: clamp(0px, 1vw, 10px);
+  border: 0px solid red;
+}

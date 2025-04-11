@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useEffect } from 'react';
 import { Form, Select, Empty } from 'antd';
 import { FormContext } from '@olapat/react-useform';
 import {
@@ -12,6 +12,7 @@ import styles from '@/styles/components/form/Field.module.css';
 import { useRouter } from 'next/router';
 import { getErrorWithLocalKey } from './utils'
 import useTrans from '@/utils/hooks/useTrans'
+import useGetAPI from '@/utils/hooks/api/useGetAPI';
 
 const { Option } = Select;
 
@@ -30,11 +31,31 @@ const SelectInput = (props) => {
     optKeys: keys,
     style,
     hideRequired,
+    apiPath,
     ...propsInput
   } = props;
   const { locale } = useRouter();
   const formContext = useContext(FormContext);
   const tran = useTrans()
+
+  const [apiGet, loading, data] = useGetAPI('overlay', {
+    funcDispatch: apiPath?.dispatchKey, reducerName: apiPath?.reducerName, reducerKey: apiPath?.reducerKey
+  })
+
+  useEffect(() => {
+    if (apiPath?.path) {
+      apiGet(apiPath?.path, {}, false, {})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiPath?.path])
+
+  const _options = useMemo(() => {
+    if (apiPath?.path) {
+      return data[apiPath?.mapKey]
+    }
+
+    return options
+  }, [apiPath?.path, apiPath?.mapKey, data, options])
 
   const selectId = `select-body-${id || name}`;
 
@@ -95,8 +116,8 @@ const SelectInput = (props) => {
           style={{ width: '100%', ...style }}
           {...propsInput}
         >
-          {!!options?.length &&
-            options.map((item, index) => (
+          {!!_options?.length &&
+            _options.map((item, index) => (
               <Option
                 key={index}
                 {...(item.props || {})}
@@ -107,8 +128,8 @@ const SelectInput = (props) => {
               </Option>
             ))}
         </Select>
+        <span className={_styleError}>{tran[_errorWithLocal]}</span>
       </div>
-      <span className={_styleError}>{tran[_errorWithLocal]}</span>
     </div>
   );
 };

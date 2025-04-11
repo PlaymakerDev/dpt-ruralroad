@@ -1,22 +1,52 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+// import { Spin } from 'antd'
+import { useAppSelector } from '@/store/hooks'
+import dynamic from 'next/dynamic'
+const Map = dynamic(() => import('@/components/map/Map.js'), { ssr: false })
 
 const RegionMap = (props) => {
-  const { } = props
+  const { id, data } = props
+  const roadCode = useAppSelector(state => state.master.roads.road_code)
+  // const loadRoadCode = useAppSelector(state => state.tasksRunning[`GET:/api/v1/masters/roads/road_code/${id}`])
+
+  const mapGeographicData = useMemo(() => {
+    const curr_data = data?.data?.map((item, index) => {
+      return {
+        plate: item.plate,
+        type_desc: item.type_desc,
+        kind_desc: item.kind_desc,
+        wheel_desc: item.wheel_desc,
+        distance_from_road: item.distance_from_road,
+        wgt: item.wgt,
+        wgt_total: item.wgt_total,
+        speed: item.speed,
+        coordinates: {
+          point: {
+            latitude: item.geom.coordinates[1],
+            longitude: item.geom.coordinates[0]
+          }
+        }
+      }
+    })
+    return curr_data
+  }, [data])
+
+  const renderMap = useMemo(() => {
+    return (
+      <Map
+        center={[13.736717, 100.523186]}
+        zoom={13}
+        data={mapGeographicData}
+        line={roadCode}
+        allowPopup
+        hasLine
+      />
+    )
+  }, [mapGeographicData, roadCode])
 
   return (
     <figure className='rounded-lg h-full'>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7961850.562943775!2d96.19554543607164!3d12.995989712473063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x304d8df747424db1%3A0x9ed72c880757e802!2z4Lib4Lij4Liw4LmA4LiX4Lio4LmE4LiX4Lii!5e0!3m2!1sth!2sth!4v1724125926554!5m2!1sth!2sth"
-        width="100%"
-        height="100%"
-        frameborder="0"
-        // style={{ border: 0 }}
-        className='rounded-lg border-0'
-        allowfullscreen=""
-        aria-hidden="false"
-        tabindex="0"
-        loading="lazy"
-      />
+      {renderMap}
     </figure>
   )
 }

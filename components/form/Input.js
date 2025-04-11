@@ -94,18 +94,20 @@ const TextInput = (props) => {
   return (
     <div className={`${styles.container} ${_error ? 'a-error' : ''}`}>
       {!!label && (
-        <label className={`${styles.label}`} htmlFor={name} title={label}>
+        <label className={`${styles.label}`} htmlFor={`input-${name}`} title={label}>
           {!!_required && <span className={`${styles.star}`}>*</span>}
           {label}
         </label>
       )}
       <Input
+        id={`input-${name}`}
         name={name}
         value={_value}
         disabled={_disabled}
         onChange={_onChange}
         size="large"
         maxLength={maxLength || 255}
+        autoComplete={propsInput.autoComplete || name}
         {...(inputSuccess && 
           { 
           style: {

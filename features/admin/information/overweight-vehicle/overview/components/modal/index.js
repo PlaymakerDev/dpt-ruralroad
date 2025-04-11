@@ -1,0 +1,1 @@
+export { default as ModalVehicleDetail } from './ModalVehicleDetail'

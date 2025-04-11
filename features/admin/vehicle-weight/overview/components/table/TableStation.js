@@ -1,26 +1,33 @@
 import React from 'react'
 import { Table, Button } from 'antd'
 import { RightOutlined } from '@ant-design/icons'
+import { calculate_index } from '@/utils/calculator'
+import stf from '@/utils/stringformat'
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 const TableStation = (props) => {
-  const { setStep } = props
+  const { data, loading, page, perPage, total, onChange, step, setStep, setCurrentStep, setDetailProps } = props
 
-  const data = [
-    {
-      no: "1",
-      date: "15 สิงหาคม 2567",
-      station: "ปักกิ่ง",
-      amount: "156",
-      overweight_vehicle: "666",
-    },
-    {
-      no: "2",
-      date: "17 สิงหาคม 2567",
-      station: "เกาหลีเหนือ",
-      amount: "189",
-      overweight_vehicle: "72",
-    },
-  ]
+  // const mock_data = [
+  //   {
+  //     no: "1",
+  //     date: "15 สิงหาคม 2567",
+  //     station: "เชียงใหม่",
+  //     amount: "156",
+  //     overweight_vehicle: "666",
+  //   },
+  //   {
+  //     no: "2",
+  //     date: "17 สิงหาคม 2567",
+  //     station: "เชียงราย",
+  //     amount: "189",
+  //     overweight_vehicle: "72",
+  //   },
+  // ]
 
   const columns = [
     {
@@ -29,32 +36,61 @@ const TableStation = (props) => {
       dataIndex: "no",
       align: 'center',
       width: 100,
+      render: (item, record, index) => {
+        return stf(calculate_index(index, page, perPage, total)).normal()
+      }
     },
     {
       title: "วันที่",
-      key: "date",
-      dataIndex: "date",
+      key: "date_time_ct",
+      dataIndex: "date_time_ct",
       width: 200,
+      render: (item) => {
+        if (item) {
+          return dayjs(item).locale('th').format('DD MMMM BBBB')
+        }
+        return '-'
+      },
+      sorter: (a, b) => dayjs(a.date_time_ct).unix() - dayjs(b.date_time_ct).unix()
     },
     {
       title: "สถานี",
-      key: "station",
-      dataIndex: "station",
+      key: "station_name",
+      dataIndex: "station_name",
       width: 200,
+      render: (item) => {
+        if (item) {
+          return item
+        }
+        return '-'
+      }
     },
     {
       title: "จำนวนรถเข้าชั่ง",
-      key: "amount",
-      dataIndex: "amount",
+      key: "total",
+      dataIndex: "total",
       align: 'center',
-      width: 200
+      width: 200,
+      render: (item) => {
+        if (typeof item === 'undefined') {
+          return
+        }
+        return Number(item)
+      },
+      sorter: (a, b) => Number(a.total) - Number(b.total)
     },
     {
       title: "รถบรรทุกน้ำหนักเกิน",
-      key: "overweight_vehicle",
-      dataIndex: "overweight_vehicle",
+      key: "total_over",
+      dataIndex: "total_over",
       align: 'center',
-      width: 200
+      width: 200,
+      render: (item) => {
+        if (typeof item === 'undefined') {
+          return
+        }
+        return Number(item)
+      }
     },
     {
       title: '',
@@ -62,22 +98,57 @@ const TableStation = (props) => {
       dataIndex: 'action',
       align: 'center',
       width: 100,
-      render: () => {
+      render: (item, record) => {
         return (
-          <RightOutlined className='!cursor-pointer' onClick={() => setStep(2)} />
+          <RightOutlined
+            className='!cursor-pointer'
+            onClick={() => {
+              setDetailProps({
+                start_date: record.date_time_ct,
+                end_date: record.date_time_ct,
+                station_id: record.station_id
+              })
+              setStep(step + 1);
+              setCurrentStep((prev) => ({
+                ...prev,
+                in_detail: true
+              }))
+            }}
+          />
         )
       }
-
     },
   ]
 
   return (
     <Table
-      dataSource={data}
       columns={columns}
+      dataSource={data || []}
+      loading={loading}
       pagination={{
+        defaultCurrent: 1,
+        defaultPageSize: 100,
+        current: page,
+        pageSize: perPage,
+        total: Number(total) || 0,
+        onChange: onChange,
+        showSizeChanger: false,
         position: ['bottomCenter']
       }}
+      onRow={(record) => ({
+        onClick: () => {
+          setDetailProps({
+            start_date: record.date_time_ct,
+            end_date: record.date_time_ct,
+            station_id: record.station_id,
+          });
+          setStep(step + 1);
+          setCurrentStep((prev) => ({
+            ...prev,
+            in_detail: true,
+          }));
+        },
+      })}
       scroll={{ x: 1600 }}
     />
   )
