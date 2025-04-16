@@ -146,7 +146,7 @@ const PageHeader = (props) => {
               icon={<LogoutOutlined />}
               className={`${styles.avatarIcon} !bg-[#FFFFFF30] !cursor-pointer`}
               onClick={() => {
-                fetch('/api/logout')
+                fetch(`${config.basePath}/api/logout`)
                   .then(response => response.json())
                   .then(data => {
                     if (data.redirectTo) {

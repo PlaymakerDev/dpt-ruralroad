@@ -19,7 +19,7 @@ const SessionExpired = () => {
       content: 'กรุณาเข้าสู่ระบบใหม่อีกครั้ง',
       onOk: () => {
         localStorage.clear();
-        fetch('/api/logout')
+        fetch(`${config.basePath}/api/logout`)
           .then(response => response.json())
           .then(data => {
             if (data.redirectTo) {

@@ -14,7 +14,7 @@ const SidebarFooter = (props) => {
         size='large'
         block
         onClick={() => {
-          fetch('/api/logout')
+          fetch(`${config.basePath}/api/logout`)
             .then(response => response.json())
             .then(data => {
               if (data.redirectTo) {

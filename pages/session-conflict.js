@@ -19,7 +19,7 @@ const SessionExpired = () => {
       content: 'หากคุณไม่ได้ดำเนินการดังกล่าว กรุณาติดต่อผู้ดูแลระบบเพื่อดำเนินการต่อ',
       onOk: () => {
         localStorage.clear();
-        fetch('/api/logout')
+        fetch(`${config.basePath}/api/logout`)
           .then(response => response.json())
           .then(data => {
             if (data.redirectTo) {
