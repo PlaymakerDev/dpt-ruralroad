@@ -119,7 +119,7 @@ const ContentOverWeightVehicle = (props) => {
   return (
     <Row gutter={[16, 16]}>
 
-      <Col xs={24} sm={24} md={16} lg={24} xl={24} xxl={24}>
+      <Col xs={24} sm={24} md={16} lg={24} xl={16} xxl={24}>
         <section className='text-center'>
           <Typography.Title level={5} className='!m-0'>รถบรรทุกที่มีน้ำหนักเกินล่าสุด</Typography.Title>
         </section>
@@ -168,7 +168,7 @@ const ContentOverWeightVehicle = (props) => {
         </section> : ''}
       </Col>
 
-      <Col xs={24} sm={24} md={8} lg={24} xl={24} xxl={24} className='-mt-4'>
+      <Col xs={24} sm={24} md={8} lg={24} xl={8} xxl={24} className='-mt-4'>
         <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>

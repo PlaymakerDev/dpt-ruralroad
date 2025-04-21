@@ -7,12 +7,12 @@ const MainContentLeftBottomRight = (props) => {
 
   return (
     <Row gutter={[8,8]} className='!h-full  '>
-      <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} >
+      {/* <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} >
         <CardRoute />
       </Col>
       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
         <CardMobile />
-      </Col>
+      </Col> */}
     </Row>
   )
 }
