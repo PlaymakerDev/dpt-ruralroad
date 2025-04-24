@@ -78,6 +78,6 @@ export const LongdoMap = (props) => {
   }, [mapKey, callback, id]); // Dependencies for the effect
 
   return (
-    <div id={id} style={{ width: '100%', height: '100%' }}></div>
+    <div id={id} style={{ width: '100%', height: '100%', color: 'black' }}></div>
   );
 }
