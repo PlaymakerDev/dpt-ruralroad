@@ -164,7 +164,7 @@ const ChartMobile = (props) => {
             <Typography.Text className='!text-[#FFFFFF80]'>ประจำปีงบประมาณ {dayjs().month() > 8 ? dayjs().year() + 1 + 543 : dayjs().year() + 543}</Typography.Text>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
-            <section className='flex flex-wrap justify-between'>
+            <section className='flex flex-wrap justify-end gap-10'>
               <div className='flex gap-3 items-center'>
                 <div className='flex'>
                   <Avatar

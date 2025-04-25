@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import { getWayAll } from '@/store/features/masterSlice'
 import dayjs from 'dayjs';
 import 'dayjs/locale/th'
+import { CardMobile } from '@/features/admin/dashboard/components/addon-content/card'
 
 const INIT_MODAL = { open: false, is_updatable: false, info: {} }
 
@@ -68,6 +69,9 @@ const UnitEstablishmentPlanScreen = (props) => {
   return (
     <div>
       <section>
+        <CardMobile />
+      </section>
+      <section className='mt-5'>
         <FormSearchEstablishUnit
           initialValues={data.workplans.search}
           apiGetData={apiGetData}

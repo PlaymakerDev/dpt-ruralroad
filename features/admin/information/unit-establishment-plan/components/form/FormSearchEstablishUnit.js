@@ -60,8 +60,8 @@ const FormSearchEstablishUnit = (props) => {
   }));
 
   return (
-    <Card>
-      <Typography.Title level={5}>ค้นหา</Typography.Title>
+    <>
+      {/* <Typography.Title level={5}>ค้นหา</Typography.Title> */}
       <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
         <Row gutter={[16, 16]} align={'middle'}>
           <Col xs={24} sm={24} md={24} lg={12} xl={6} xxl={4}>
@@ -135,7 +135,7 @@ const FormSearchEstablishUnit = (props) => {
           </Col>
         </Row>
       </Form>
-    </Card>
+    </>
   );
 };
 
