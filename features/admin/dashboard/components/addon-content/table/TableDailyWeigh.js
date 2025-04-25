@@ -9,9 +9,11 @@ import useDeleteAPI from "@/utils/hooks/api/useDeleteAPI";
 import { useSelector } from 'react-redux'
 import dayjs from 'dayjs';
 import 'dayjs/locale/th'
+import { useRouter } from "next/router";
 
 const TableDailyWeigh = (props) => {
   const { data, loading, page, perPage, total, onChange } = props
+  const router = useRouter()
 
   const columns = [
     {
@@ -44,6 +46,11 @@ const TableDailyWeigh = (props) => {
       loading={loading}
       pagination={false}
       className="daily-weigh-table"
+      onRow={(record) => {
+        return {
+          onClick: () => router.push(`/admin/project-info/${record.station_id}`)
+        }
+      }}
     />
   );
 };
