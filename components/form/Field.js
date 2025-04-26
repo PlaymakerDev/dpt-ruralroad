@@ -11,7 +11,7 @@ import Segmented from './Segmented'
 import Search from './Search'
 import Upload from './Upload'
 import InputPattern from './InputPattern'
-import TextEditor from './TextEditor'
+// import TextEditor from './TextEditor'
 
 const Field = {
   Input,
@@ -27,7 +27,7 @@ const Field = {
   Search,
   Upload,
   InputPattern,
-  TextEditor
+  // TextEditor
 }
 
 export default Field
