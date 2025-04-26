@@ -31,6 +31,7 @@ const ModaldailyWeighed = (props) => {
       <main className='my-5'>
         <TableDailyWeigh
           data={data.info}
+          type={data?.key}
         />
       </main>
     </Modal>
