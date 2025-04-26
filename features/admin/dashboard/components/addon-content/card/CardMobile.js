@@ -21,7 +21,7 @@ const CardMobile = (props) => {
       return (
         <ChartMobile
           data={data.data}
-          loading={loading?.loading}
+          // loading={loading?.loading}
         />
       )
     } else {
