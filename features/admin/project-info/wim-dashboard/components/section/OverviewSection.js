@@ -17,13 +17,13 @@ const OverviewSection = (props) => {
   return (
     <div>
       <section>
-        <figure className='h-96'>
-        <LongdoMap
-          id="longdo-map"
-          mapKey={MAP_KEY}
-          callback={initMap()}
+        <figure className='flex-1 h-[calc(100vh-302px)] min-h-[400px]'>
+          <LongdoMap
+            id="longdo-map"
+            mapKey={MAP_KEY}
+            callback={initMap()}
           />
-          </figure>
+        </figure>
       </section>
       <section className='mt-5'>
         <Stat
