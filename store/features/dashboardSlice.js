@@ -416,6 +416,43 @@ export const initialState = {
     },
     data: []
   },
+  vehicle_class: {
+    search: {
+      station_id: ''
+    },
+    data: {
+      column: [],
+      value: []
+    }
+  },
+  vehicle_avgspeed_hour: {
+    search: {
+      station_id: ''
+    },
+    data: {
+      column: [],
+      value: []
+    }
+  },
+  vehicle_count_hour: {
+    search: {
+      station_id: ''
+    },
+    data: {
+      column: [],
+      value: []
+    }
+  },
+  last_seven_days: {
+    search: {
+      station_id: ''
+    },
+    data: {
+      column: [],
+      total: [],
+      over: [],
+    }
+  }
 }
 
 export const slice = createSlice({
@@ -501,6 +538,22 @@ export const slice = createSlice({
         state.daily_weighed_vehicles_sum_spot.overview.meta = action.payload.data.meta,
         state.daily_weighed_vehicles_sum_spot.overview.search = action.payload.params
     },
+    getVehicleClass: (state, action) => {
+      state.vehicle_class.data = action.payload.data,
+        state.vehicle_class.search = action.payload.params
+    },
+    getVehicleCountHour: (state, action) => {
+      state.vehicle_count_hour.data = action.payload.data,
+        state.vehicle_count_hour.search = action.payload.params
+    },
+    getVehicleAvgSpeedHour: (state, action) => {
+      state.vehicle_avgspeed_hour.data = action.payload.data,
+        state.vehicle_avgspeed_hour.search = action.payload.params
+    },
+    getLastSevenDays: (state, action) => {
+      state.last_seven_days.data = action.payload.data,
+        state.last_seven_days.search = action.payload.params
+    },
   }
 })
 
@@ -525,6 +578,10 @@ export const {
   getDailyWeighedVehiclesSumStation,
   getDailyWeighedVehiclesSumWIM,
   getDailyWeighedVehiclesSumSpot,
+  getVehicleClass,
+  getVehicleCountHour,
+  getVehicleAvgSpeedHour,
+  getLastSevenDays
 } = slice.actions
 
 export default slice.reducer

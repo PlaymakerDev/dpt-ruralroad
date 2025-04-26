@@ -363,6 +363,9 @@ export const slice = createSlice({
     clearWIM: (state) => {
       state.wim.overview.search = initialState.station.overview.search
     },
+    clearWIMDetail: (state) => {
+      state.wim.detail.search = initialState.station.detail.search
+    },
     clearMobile: (state) => {
       state.mobile.overview.search = initialState.station.overview.search
     },
@@ -395,6 +398,7 @@ export const {
   // CLEAR
   clearStation,
   clearWIM,
+  clearWIMDetail,
   clearMobile,
   clearSummary,
   //IMAGE
