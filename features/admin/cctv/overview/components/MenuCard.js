@@ -14,7 +14,6 @@ const MenuCard = (props) => {
       <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24} key={index}
         onClick={() => {
           findDepartmentListSum(id)
-          
         }}
       >
         <div className={`card-container rounded-lg ${id == id_active && '!bg-[#004449] !border-[#35a8af]'}`}>

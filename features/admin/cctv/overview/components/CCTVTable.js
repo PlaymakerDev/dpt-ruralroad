@@ -7,7 +7,7 @@ import { calculate_index } from "@/utils/calculator";
 import { CctvID } from '@/pages/_app';
 
 const CCTVTable = (props) => {
-  const { data, loading, page, perPage, total, onChange } = props
+  const { data, loading, page, perPage, total, onChange, getCCTV } = props
   const { cctvID, setCctvID, cctvPage, setCctvPage } = useContext(CctvID);
   const router = useRouter()
 
@@ -97,7 +97,10 @@ const CCTVTable = (props) => {
       width: 50,
       render: (value, record) => {
         return (
-          <RightOutlined className='!cursor-pointer' />
+          <RightOutlined
+            className='!cursor-pointer'
+            onClick={() => getCCTV(record)}
+          />
         )
       }
     },
@@ -115,19 +118,24 @@ const CCTVTable = (props) => {
           columns={columns}
           dataSource={data || []}
           loading={loading}
-          onRow={(record) => ({
-            onClick: () => {
-              setCctvID(record.department_id)
-              router.push({
-                pathname: `/admin/cctv/view/${record.department_id}`,
-                query: {
-                  department_id: record.department_id,
-                  station_id: record.station_id,
-                  original_station_type: record?.original_station_type
-                }
-              })
+          onRow={(record) => {
+            return {
+              onClick: () => getCCTV(record)
             }
-          })}
+          }}
+          // onRow={(record) => ({
+          //   onClick: () => {
+          //     setCctvID(record.department_id)
+          //     router.push({
+          //       pathname: `/admin/cctv/view/${record.department_id}`,
+          //       query: {
+          //         department_id: record.department_id,
+          //         station_id: record.station_id,
+          //         original_station_type: record?.original_station_type
+          //       }
+          //     })
+          //   }
+          // })}
           pagination={{
             defaultCurrent: 1,
             defaultPageSize: 100,
