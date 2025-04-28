@@ -2,24 +2,15 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Col, Row, Spin } from 'antd'
 import { CardOverWeightVehicle, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
 import { CollapseYearSummary } from '../components/addon-content/collapse'
-import { LongdoMap, map, longdo } from '@/components/map/LongdoMap'
+import DisplayMap from '../components/map/DisplayMap'
 // CREATE API REQUESTS
 // import { useAppSelector } from '@/store/hooks'
 // import { allowAdmin } from '@/utils/allowAdmin'
-
-const MAP_KEY = "f7ba675880ccab7ac7fd0a65f1b33553"
 
 const DashboardScreen = (props) => {
   const { } = props
   // USE SELECTOR
   // const user = useAppSelector(state => state.user)
-
-  const initMap = useCallback(() => {
-    if (map && longdo) {
-      map.Layers.setBase(longdo.Layers.GRAY);
-      // Add other map configurations here
-    }
-  }, [])
 
   return (
     <>
@@ -40,11 +31,7 @@ const DashboardScreen = (props) => {
               <CardOverWeightVehicle />
             </Col>
             <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={20}>
-              <LongdoMap
-                id="longdo-map"
-                mapKey={MAP_KEY}
-                callback={initMap()}
-              />
+              <DisplayMap />
             </Col>
           </Row>
         </section>
