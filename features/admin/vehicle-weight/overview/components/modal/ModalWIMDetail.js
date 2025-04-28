@@ -107,14 +107,13 @@ const Content = (props) => {
           <Typography.Text>{dayjs(info?.log?.wim?.last_update).locale('th').format('DD MMMM BBBB HH:mm:ss') || '-'}</Typography.Text>
         </Flex>
       </section>
-
       {/* Row 1: Truck and Wheel Images + License Plate Image */}
       <section className="mb-4">
         <Row gutter={[16, 16]}>
           {/* Left: Truck and Wheel Images */}
-          <Col xs={24} sm={24} md={16} lg={16} xl={16}>
-            <div className="bg-black rounded-lg p-4 h-full" style={{ minHeight: '240px' }}>
-              <div className="h-full flex justify-center items-center">
+          <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
+            <div className="bg-black rounded-lg p-4 h-full">
+              <div className="flex flex-col justify-center items-center h-full">
                 <WheelHorizontal
                   displayType={displayType}
                   type={truckType}
@@ -133,15 +132,13 @@ const Content = (props) => {
                   rightwheel6={wheelData?.right?.wheel6}
                   rightwheel7={wheelData?.right?.wheel7}
                 />
-              </div>
-              <div className="text-center mt-2">
                 <Typography.Text className="text-white">ประเภท : {VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.properties?.vehicle_description || '-'} - พ่วง {info?.log?.axle_count || '-'} เพลา {info?.log?.wheel_count || '-'} ล้อ</Typography.Text>
               </div>
             </div>
           </Col>
-          
           {/* Right: License Plate Image */}
-          <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+          <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+          <div className="flex flex-col gap-3">
             <div className="border rounded-lg p-3 h-full lg:h-[18.7rem]">
               <Typography.Title level={5}>รูปทะเบียนรถ</Typography.Title>
               <figure className='h-60 relative overflow-hidden rounded-lg'>
@@ -154,21 +151,36 @@ const Content = (props) => {
                   onError={() => { handleError('image1') }}
                   preview={!fallbacks.image1}
                   fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
-                />
+                  />
               </figure>
             </div>
+            <div className="border rounded-lg p-3 h-full lg:h-[18.7rem] overflow-hidden">
+              <Typography.Title level={5}>รูปรถบรรทุก</Typography.Title>
+              <figure className='h-60 relative overflow-hidden rounded-lg flex items-center'>
+                <Image
+                  src={image2Url}
+                  alt='รถบรรทุก'
+                  width={'100%'}
+                  height={'100%'}
+                  className='object-contain object-center rounded-lg'
+                  onError={() => { handleError('image2') }}
+                  preview={!fallbacks.image2}
+                  fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+                  />
+              </figure>
+            </div>
+                  </div>
           </Col>
         </Row>
       </section>
-
       {/* Row 2: Important Information Cards + Truck Image */}
       <section className="mb-4">
         <Row gutter={[16, 16]}>
           {/* Left: Important Information Cards */}
-          <Col xs={24} sm={24} md={16} lg={16} xl={16}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Row gutter={[16, 16]}>
               {/* License Plate and Province */}
-              <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+              <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
                 <Card className="h-full" bordered>
                   <Flex vertical align="center" justify="center" className="text-center">
                     <Typography.Text>ทะเบียนหัวลาก</Typography.Text>
@@ -178,9 +190,8 @@ const Content = (props) => {
                   </Flex>
                 </Card>
               </Col>
-
               {/* Weight Information */}
-              <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+              <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
                 <Card className="h-full" bordered>
                   <Flex vertical align="center" justify="center" className="text-center">
                     <Flex align="center" justify="center" gap={16}>
@@ -206,9 +217,8 @@ const Content = (props) => {
                   </Flex>
                 </Card>
               </Col>
-
               {/* Weight Status */}
-              <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+              <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <Card className="h-full" bordered>
                   <Flex align="center" justify="space-around" className="text-center">
                     <Flex vertical align="center">
@@ -228,32 +238,16 @@ const Content = (props) => {
               </Col>
             </Row>
           </Col>
-
           {/* Right: Truck Image */}
-          <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-            <div className="border rounded-lg p-3 h-full lg:h-[18.7rem] overflow-hidden">
-              <Typography.Title level={5}>รูปรถบรรทุก</Typography.Title>
-              <figure className='h-60 relative overflow-hidden rounded-lg flex items-center'>
-                <Image
-                  src={image2Url}
-                  alt='รถบรรทุก'
-                  width={'100%'}
-                  height={'100%'}
-                  className='object-contain object-center rounded-lg'
-                  onError={() => { handleError('image2') }}
-                  preview={!fallbacks.image2}
-                  fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
-                />
-              </figure>
-            </div>
-          </Col>
+          {/* <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
+           
+          </Col> */}
         </Row>
       </section>
-
       {/* Row 3: Additional Information */}
       <section className="mb-4">
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Card className="h-full" bordered>
               <Flex align="center" justify="space-around" wrap className="text-center">
                 <Flex vertical align="center" className="px-2">
