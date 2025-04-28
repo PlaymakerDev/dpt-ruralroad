@@ -115,6 +115,7 @@ const CCTVList = (props) => {
         onCancel={() => setOpen(INIT_MODAL)}
         footer={false}
         width={'100dvh'}
+        destroyOnClose
       >
         {open.open ?
           <ModalContent
