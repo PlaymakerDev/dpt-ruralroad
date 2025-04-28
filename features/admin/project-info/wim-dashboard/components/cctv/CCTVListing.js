@@ -7,6 +7,23 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
 const INIT_MODAL = { open: false, data: null }
 
+const ModalContent = (props) => {
+  const { data } = props;
+
+  return (
+    <ReactPlayer
+      url={data.stream_url}
+      width='100%'
+      height='100%'
+      style={{
+        position: 'relative'
+      }}
+      playing
+      muted
+    />
+  )
+}
+
 const CCTVList = (props) => {
   const { data } = props
   const [open, setOpen] = useState(INIT_MODAL)
@@ -91,22 +108,17 @@ const CCTVList = (props) => {
       <Row gutter={[16, 16]}>
         {checkAppropriateData}
       </Row>
+      {/* MODAL SECTION */}
       <Modal
         title={open.data?.camera_description || '-'}
         open={open.open}
         onCancel={() => setOpen(INIT_MODAL)}
         footer={false}
+        width={'100dvh'}
       >
         {open.open ?
-          <ReactPlayer
-            url={open.data.stream_url}
-            width='100%'
-            height='100%'
-            style={{
-              position: 'relative'
-            }}
-            playing
-            muted
+          <ModalContent
+            data={open.data}
           />
           : null}
       </Modal>
