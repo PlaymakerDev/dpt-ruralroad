@@ -1,14 +1,15 @@
-import React, { useMemo, useContext, useEffect } from 'react'
-import { Card, Col, Empty, Image, Row, Typography } from 'antd'
+import React, { useMemo, useContext, useEffect, useState } from 'react'
+import { Card, Col, Empty, Image, Modal, Row, Typography } from 'antd'
 // import ReactPlayer from 'react-player/lazy'
-import dynamic from "next/dynamic";
 import { CCTVInactive } from '@/components/icon';
+import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
+
+const INIT_MODAL = { open: false, data: null }
 
 const CCTVList = (props) => {
   const { data } = props
-
-  console.log(data)
+  const [open, setOpen] = useState(INIT_MODAL)
 
   const renderImageCard = useMemo(() => {
     const routeImage = data?.map((item, index) => {
@@ -35,7 +36,10 @@ const CCTVList = (props) => {
         return (
           <Col xs={24} sm={24} md={12} lg={12} xl={6} xxl={6} key={index}>
             <div className="border rounded-lg p-3 h-full">
-              <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+              <figure
+                className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'
+                onClick={() => setOpen({ open: true, data: item })}
+              >
                 <ReactPlayer
                   url={item.stream_url}
                   width='100%'
@@ -83,9 +87,30 @@ const CCTVList = (props) => {
   }, [renderImageCard, data?.length])
 
   return (
-    <Row gutter={[16, 16]}>
-      {checkAppropriateData}
-    </Row>
+    <>
+      <Row gutter={[16, 16]}>
+        {checkAppropriateData}
+      </Row>
+      <Modal
+        title={open.data?.camera_description || '-'}
+        open={open.open}
+        onCancel={() => setOpen(INIT_MODAL)}
+        footer={false}
+      >
+        {open.open ?
+          <ReactPlayer
+            url={open.data.stream_url}
+            width='100%'
+            height='100%'
+            style={{
+              position: 'relative'
+            }}
+            playing
+            muted
+          />
+          : null}
+      </Modal>
+    </>
   )
 }
 
