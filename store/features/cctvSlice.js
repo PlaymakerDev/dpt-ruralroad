@@ -103,7 +103,9 @@ export const slice = createSlice({
     },
     clearDepartmentListSum: (state) => {
       state.deparment_list_sum = initialState.deparment_list_sum
-    }
+    },
+    clearList: (state) => state.list = initialState.list,
+    clearStationSum: (state) => state.station_sum = initialState.station_sum,
   }
 })
 
@@ -112,7 +114,9 @@ export const {
   getDepartmentListSum,
   getList,
   getStationSum,
-  clearDepartmentListSum
+  clearDepartmentListSum,
+  clearList,
+  clearStationSum
 } = slice.actions
 
 export default slice.reducer
