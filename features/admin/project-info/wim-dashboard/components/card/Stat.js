@@ -27,7 +27,7 @@ const Stat = (props) => {
               <div className='flex flex-col'>
                 <Typography.Title level={5} className='!m-0'>รถเข้าชั่งวันนี้</Typography.Title>
                 <div className='flex items-end justify-between'>
-                  <Typography.Text><span className='text-green-500 text-2xl font-bold'>{data?.over || '-'}</span> คัน</Typography.Text>
+                  <Typography.Text><span className='text-green-500 text-2xl font-bold'>{data?.total || '-'}</span> คัน</Typography.Text>
                   <Typography.Text
                     className='text-blue-500 cursor-pointer'
                     underline
