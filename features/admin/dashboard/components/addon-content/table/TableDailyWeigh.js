@@ -55,7 +55,8 @@ const TableDailyWeigh = (props) => {
               query: {
                 total: record.total,
                 over: record.over,
-                name: record.name
+                name: record.name,
+                type: '3'
               }
             })
           }
