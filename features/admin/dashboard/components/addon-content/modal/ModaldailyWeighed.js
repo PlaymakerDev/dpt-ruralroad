@@ -3,7 +3,7 @@ import { Modal } from 'antd'
 import TableDailyWeigh from '../table/TableDailyWeigh'
 
 const ModaldailyWeighed = (props) => {
-  const { open, data, setOpen } = props
+  const { open, data, setOpen, accessType } = props
 
   const renderTitle = () => {
     switch (data?.key) {
@@ -32,6 +32,7 @@ const ModaldailyWeighed = (props) => {
         <TableDailyWeigh
           data={data.info}
           type={data?.key}
+          accessType={accessType}
         />
       </main>
     </Modal>

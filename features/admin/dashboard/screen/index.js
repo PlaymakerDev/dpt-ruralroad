@@ -8,7 +8,7 @@ import DisplayMap from '../components/map/DisplayMap'
 // import { allowAdmin } from '@/utils/allowAdmin'
 
 const DashboardScreen = (props) => {
-  const { } = props
+  const { accessType } = props
   // USE SELECTOR
   // const user = useAppSelector(state => state.user)
 
@@ -18,7 +18,9 @@ const DashboardScreen = (props) => {
         <section>
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={14} xl={14} xxl={14}>
-              <CardVehicleStat />
+              <CardVehicleStat
+                accessType={accessType}
+              />
             </Col>
             <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
               <CardWeighingStation />

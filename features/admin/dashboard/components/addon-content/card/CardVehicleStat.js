@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { Spin } from 'antd'
 
 const CardVehicleStat = (props) => {
-  const { } = props
+  const { accessType } = props
   // const data = useAppSelector(state => state.dashboard.daily_weighed_vehicles_sum.data)
   // const loading = useAppSelector(state => state.tasksRunning['GET:/api/v1/dashboards/daily_weighed_vehicles_sum'])
   const [apiGetData, loading, data] = useGetAPI('overlay', {
@@ -41,7 +41,7 @@ const CardVehicleStat = (props) => {
         <ContentVehicleStat
           filterData={filterData}
           checkpoint={checkpoint.data}
-
+          accessType={accessType}
         />
       )
     } else {
@@ -51,7 +51,7 @@ const CardVehicleStat = (props) => {
         </div>
       )
     }
-  }, [loading, data,loadingCheckpoint])
+  }, [loading, data, loadingCheckpoint])
 
   return (
     <>
