@@ -92,7 +92,7 @@ const VehicleWeightPage = (props) => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
-  const [session, redirectPath] = await getLoginSession(context.req, context.res)
+  const session = await getLoginSession(context.req)
 
   const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
   if (!valid) {
