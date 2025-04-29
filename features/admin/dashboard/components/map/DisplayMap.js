@@ -62,7 +62,7 @@ const DisplayMap = (props) => {
               icon: {
                 // url: '/images/truck-wim.svg',
                 // size: { width: 70, height: 50 }
-                url: '/images/markerstation.svg',
+                url: '/webnew/images/markerstation.svg',
                 size: { width: 60, height: 70 }
               },
               popup: {
