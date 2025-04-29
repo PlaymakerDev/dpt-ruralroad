@@ -174,7 +174,7 @@ const FormLogin = (props) => {
             block
             className={styles.external_button}
             icon={<UserTie />}
-            onClick={() => push({
+            onClick={() => router.push({
               pathname: '/admin/dashboard',
               query: {
                 type: 'EXECUTIVE'
@@ -192,7 +192,7 @@ const FormLogin = (props) => {
             block
             className={styles.external_button}
             icon={<UserOutlined />}
-            onClick={() => push({
+            onClick={() => router.push({
               pathname: '/admin/dashboard',
               query: {
                 type: 'CITIZEN'

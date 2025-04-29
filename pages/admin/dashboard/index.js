@@ -145,16 +145,23 @@ const DashboardPage = (props) => {
 // }));
 
 export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
+  const { type } = context.query
+  const INIT_STATE = store.getState("user")
+  // GET SESSION
   const session = await getLoginSession(context.req)
 
-  const valid = validatePermissionRoute(session, ["ADMIN", "USER"])
-  if (!valid) {
-    return redirectToLogin()
+  if (type === "EXECUTIVE" || type === "CITIZEN") {
+    store.dispatch(signIn(INIT_STATE))
+  } else {
+    const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
+    if (!valid) {
+      return redirectToLogin(redirectPath)
+    }
+
+    store.dispatch(signIn(session));
+
+    return sessionToProps(session, session?.message)
   }
-
-  store.dispatch(signIn(session));
-
-  return sessionToProps(session, session?.message)
 }));
 
 export default React.memo(DashboardPage)

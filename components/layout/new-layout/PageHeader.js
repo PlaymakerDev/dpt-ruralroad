@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/th'
 import buddhistEra from 'dayjs/plugin/buddhistEra'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { ROLE_TH } from '@/utils/constant'
+import { EXTERNAL_USER_TYPE, ROLE_TH } from '@/utils/constant'
 import config from '@/config'
 
 dayjs.extend(buddhistEra)
@@ -27,7 +27,7 @@ const mappingTransaction = {
 
 const PageHeader = (props) => {
   const { menu, setOpen, user } = props
-  const { pathname, asPath, reload, push } = useRouter()
+  const { pathname, asPath, reload, push, query } = useRouter()
   const [isVisible, setIsVisible] = useState(false);
 
   const renderProfile = useMemo(() => {
@@ -106,7 +106,7 @@ const PageHeader = (props) => {
       onOk: () => push('/api/logout'),
       onCancel: () => Modal.destroyAll()
     })
-  },[])
+  }, [])
 
   return (
     <nav className={styles.navbar}>
@@ -146,7 +146,7 @@ const PageHeader = (props) => {
           <div className='flex items-center gap-3'>
             <div className='flex flex-col items-end'>
               <Typography.Text>{renderProfile || 'Admin User'}</Typography.Text>
-              <Typography.Text className='!text-[#FFFFFF80]'>{ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ'}</Typography.Text>
+              <Typography.Text className='!text-[#FFFFFF80]'>{query?.type ? EXTERNAL_USER_TYPE[query?.type] : (ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ')}</Typography.Text>
             </div>
             <Avatar
               size={'large'}
@@ -160,19 +160,19 @@ const PageHeader = (props) => {
               icon={<LogoutOutlined />}
               className={`${styles.avatarIcon} !bg-[#FFFFFF30] !cursor-pointer`}
               onClick={() => confirmLogout()}
-              // onClick={() => {
-              //   fetch(`${config.basePath}/api/logout`)
-              //     .then(response => response.json())
-              //     .then(data => {
-              //       if (data.redirectTo) {
-              //         window.location.href = data.redirectTo;
-              //       }
-              //     })
-              //     .catch(error => {
-              //       console.error('Logout error:', error);
-              //       window.location.href = '/login';
-              //     });
-              // }}
+            // onClick={() => {
+            //   fetch(`${config.basePath}/api/logout`)
+            //     .then(response => response.json())
+            //     .then(data => {
+            //       if (data.redirectTo) {
+            //         window.location.href = data.redirectTo;
+            //       }
+            //     })
+            //     .catch(error => {
+            //       console.error('Logout error:', error);
+            //       window.location.href = '/login';
+            //     });
+            // }}
             />
           </div>
         </div>
