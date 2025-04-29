@@ -452,7 +452,24 @@ export const initialState = {
       total: [],
       over: [],
     }
-  }
+  },
+  position: {
+    overview: {
+      search: {},
+      data: {
+        station: [],
+        wim: [],
+        mobile: []
+      },
+    },
+    detail: {
+      search: {
+        station_id: '',
+        StationType: ''
+      },
+      data: []
+    },
+  },
 }
 
 export const slice = createSlice({
@@ -554,6 +571,14 @@ export const slice = createSlice({
       state.last_seven_days.data = action.payload.data,
         state.last_seven_days.search = action.payload.params
     },
+    getPosition: (state, action) => {
+      state.position.overview.data = action.payload.data,
+        state.position.overview.search = action.payload.params
+    },
+    getPositionDetail: (state, action) => {
+      state.position.detail.data = action.payload.data,
+        state.position.detail.search = action.payload.params
+    },
   }
 })
 
@@ -581,7 +606,9 @@ export const {
   getVehicleClass,
   getVehicleCountHour,
   getVehicleAvgSpeedHour,
-  getLastSevenDays
+  getLastSevenDays,
+  getPosition,
+  getPositionDetail
 } = slice.actions
 
 export default slice.reducer
