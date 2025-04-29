@@ -1,27 +1,17 @@
 import React, { useCallback } from 'react'
 import Stat from '../card/Stat'
-import { LongdoMap, map, longdo } from '@/components/map/LongdoMap'
-
-const MAP_KEY = "f7ba675880ccab7ac7fd0a65f1b33553"
+import DisplayMap from '../map/DisplayMap'
 
 const OverviewSection = (props) => {
   const { data } = props
-
-  const initMap = useCallback(() => {
-    if (map && longdo) {
-      map.Layers.setBase(longdo.Layers.GRAY);
-      // Add other map configurations here
-    }
-  }, [])
 
   return (
     <div>
       <section>
         <figure className='flex-1 h-[calc(100vh-302px)] min-h-[400px]'>
-          <LongdoMap
-            id="longdo-map"
-            mapKey={MAP_KEY}
-            callback={initMap()}
+          <DisplayMap
+            stationId={data?.id}
+            stationType={data?.type}
           />
         </figure>
       </section>
