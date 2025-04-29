@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useState, useEffect } from 'react'
-import { Avatar, Typography, Menu } from 'antd'
+import { Avatar, Typography, Menu, Modal } from 'antd'
 import { TruckOutlined, SettingOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -59,8 +59,6 @@ const PageHeader = (props) => {
     return
   }, [])
 
-
-
   const renderItems = useMemo(() => {
     const newList = menu[user?.map_group_name]?.map((item, index) => {
       if (!!item.path_list?.length) {
@@ -97,6 +95,18 @@ const PageHeader = (props) => {
   const findIndex = renderItems?.find(item => pathname.startsWith(item.path_active))
   const findSubIndex = renderItems?.find(item => item.children?.find(sub_item => pathname.startsWith(sub_item.path_active)))
   const getPath = findSubIndex?.children?.find(item => pathname.startsWith(item.path_active))
+
+  // CONFIRM
+  const confirmLogout = useCallback(() => {
+    Modal.confirm({
+      title: 'ออกจากระบบ',
+      content: 'ท่านต้องการออกจากระบบหรือไม่',
+      okText: 'ยืนยัน',
+      cancelText: 'ยกเลิก',
+      onOk: () => push('/api/logout'),
+      onCancel: () => Modal.destroyAll()
+    })
+  },[])
 
   return (
     <nav className={styles.navbar}>
@@ -149,19 +159,20 @@ const PageHeader = (props) => {
               size={'large'}
               icon={<LogoutOutlined />}
               className={`${styles.avatarIcon} !bg-[#FFFFFF30] !cursor-pointer`}
-              onClick={() => {
-                fetch(`${config.basePath}/api/logout`)
-                  .then(response => response.json())
-                  .then(data => {
-                    if (data.redirectTo) {
-                      window.location.href = data.redirectTo;
-                    }
-                  })
-                  .catch(error => {
-                    console.error('Logout error:', error);
-                    window.location.href = '/login';
-                  });
-              }}
+              onClick={() => confirmLogout()}
+              // onClick={() => {
+              //   fetch(`${config.basePath}/api/logout`)
+              //     .then(response => response.json())
+              //     .then(data => {
+              //       if (data.redirectTo) {
+              //         window.location.href = data.redirectTo;
+              //       }
+              //     })
+              //     .catch(error => {
+              //       console.error('Logout error:', error);
+              //       window.location.href = '/login';
+              //     });
+              // }}
             />
           </div>
         </div>
