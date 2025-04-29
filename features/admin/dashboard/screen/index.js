@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Col, Row, Spin } from 'antd'
-import { CardOverWeightVehicle, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
+import { CardOverWeightVehicle, CardRoute, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
 import { CollapseYearSummary } from '../components/addon-content/collapse'
 import DisplayMap from '../components/map/DisplayMap'
 // CREATE API REQUESTS
@@ -32,6 +32,9 @@ const DashboardScreen = (props) => {
             </Col>
             <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={20}>
               <DisplayMap />
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+              <CardRoute />
             </Col>
           </Row>
         </section>
