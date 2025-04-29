@@ -21,7 +21,7 @@ import { STATION_TYPE } from '@/utils/constant'
 const INIT_MODAL = { open: false, key: null, info: {} }
 
 const ContentVehicleStat = (props) => {
-  const { filterData, checkpoint } = props
+  const { filterData, checkpoint, authType } = props
   const [open, setOpen] = useState(INIT_MODAL)
 
   const gridProperties = {
@@ -189,6 +189,7 @@ const ContentVehicleStat = (props) => {
         open={open.open}
         data={open}
         setOpen={setOpen}
+        authType={authType}
       />
     </>
   )

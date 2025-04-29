@@ -162,7 +162,7 @@ const FormLogin = (props) => {
             className={styles.external_button}
             icon={<UserTie />}
             onClick={() => push({
-              pathname: '/external/dashboard',
+              pathname: '/admin/dashboard',
               query: {
                 type: 'EXECUTIVE'
               }
@@ -180,7 +180,7 @@ const FormLogin = (props) => {
             className={styles.external_button}
             icon={<UserOutlined />}
             onClick={() => push({
-              pathname: '/external/dashboard',
+              pathname: '/admin/dashboard',
               query: {
                 type: 'CITIZEN'
               }
