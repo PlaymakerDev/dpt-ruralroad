@@ -4,7 +4,8 @@ import { Drawer } from 'antd'
 import { SidebarHeader as Title, SidebarContent as Content, SidebarFooter as Footer } from './sidebar';
 import menu from '@/menu';
 import { useAppSelector } from '@/store/hooks';
-import { ROLE_TH } from '@/utils/constant';
+import { EXTERNAL_USER_TYPE, ROLE_TH } from '@/utils/constant';
+import { useRouter } from 'next/router';
 
 const PageLayout = (props) => {
   const { breadcrumb, children } = props
@@ -13,6 +14,7 @@ const PageLayout = (props) => {
   const [startX, setStartX] = useState(null)
   // GET REDUX
   const user = useAppSelector(state => state.user)
+  const { query } = useRouter()
 
   const renderProfile = useMemo(() => {
     let res = [
@@ -70,7 +72,7 @@ const PageLayout = (props) => {
         onTouchEnd={handleTouchEnd}
       >
         <Drawer
-          title={<Title title={renderProfile || 'Admin User'} description={ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ'} />}
+          title={<Title title={renderProfile || 'Admin User'} description={query?.type ? EXTERNAL_USER_TYPE[query?.type] : (ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ')} />}
           closeIcon={false}
           open={open}
           onClose={_onClose}
