@@ -5,6 +5,7 @@ import useGetAPI from '@/utils/hooks/api/useGetAPI'
 import { getPosition } from '@/store/features/dashboardSlice'
 import { Spin } from 'antd'
 import TruckWeight from '@/components/icon/TruckWeight'
+import Button from 'antd'
 
 const MAP_KEY = "f7ba675880ccab7ac7fd0a65f1b33553"
 
@@ -65,7 +66,7 @@ const DisplayMap = (props) => {
                 size: { width: 60, height: 70 }
               },
               popup: {
-                html: `<figcaption style="text-align: center; min-width: 15rem; width: 100%; height: 100%; padding: 0.75rem 1rem; background-color: #17213A; border-width: 1px; border-radius: 0.375rem; border-color: #56E4EE;"><section><h1 style="font-size: 1.125rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">${item.StationName}</h1><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">${item.LocationDescription}</p></section><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">สถานะ</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนรถเข้าชั่ง: ${item.Total}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนบรรจุเกิน: ${item.Over}</p></div></section><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">พิกัด</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ละติจูด: ${item.Latitude}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ลองจิจูด: ${item.Longtitude}</p></div></section></figcaption>`,
+                html: `<figcaption class="popup-figure"><section><h1 class="popup-title">${item.StationName}</h1><p class="popup-description">${item.LocationDescription}</p></section><section style="margin-top: 0.25rem;"><h2 class="popup-subtitle">สถานะ</h2><div class="popup-container"><p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p><p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p></div></section><section style="margin-top: 0.25rem;"><h2 class="popup-subtitle">พิกัด</h2><div class="popup-container"><p class="popup-description">ละติจูด: ${item.Latitude}</p><p class="popup-description">ลองจิจูด: ${item.Longtitude}</p></div></section><Button type="primary" size="large">Sample</Button></figcaption>`,
                 size: {
                   width: 500
                 }
@@ -91,11 +92,33 @@ const DisplayMap = (props) => {
                 size: { width: 60, height: 70 }
               },
               popup: {
-                html: `<figcaption style="text-align: center; min-width: 15rem; width: 100%; height: 100%; padding: 0.75rem 1rem; background-color: #17213A; border-width: 1px; border-radius: 0.375rem; border-color: #56E4EE;"><section><h1 style="font-size: 1.125rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">${item.StationName}</h1><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">${item.LocationDescription}</p></section><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">สถานะ</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนรถเข้าชั่ง: ${item.Total}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนบรรจุเกิน: ${item.Over}</p></div></section><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">พิกัด</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ละติจูด: ${item.Latitude}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ลองจิจูด: ${item.Longtitude}</p></div></section></figcaption>`,
+                html: `
+                <figcaption class="popup-figure">
+                  <section>
+                    <h1 class="popup-title">${item.StationName}</h1>
+                    <p class="popup-description">${item.LocationDescription}</p>
+                  </section>
+                  <section style="margin-top: 0.25rem;">
+                    <h2 class="popup-subtitle">สถานะ</h2>
+                    <div class="popup-container">
+                      <p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p>
+                      <p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p>
+                    </div>
+                  </section>
+                  <section style="margin-top: 0.25rem;">
+                    <h2 class="popup-subtitle">พิกัด</h2>
+                    <div class="popup-container">
+                      <p class="popup-description">ละติจูด: ${item.Latitude}</p>
+                      <p class="popup-description">ลองจิจูด: ${item.Longtitude}</p>
+                    </div>
+                  </section>
+                  <Button type="primary" size="large">Sample</Button>
+                </figcaption>`,
                 size: {
                   width: 500
                 }
               }
+
             }
           )
           map.Overlays.add(WIMMarker);
@@ -117,7 +140,25 @@ const DisplayMap = (props) => {
                 size: { width: 60, height: 70 }
               },
               popup: {
-                html: `<figcaption style="text-align: center; min-width: 15rem; width: 100%; height: 100%; padding: 0.75rem 1rem; background-color: #17213A; border-width: 1px; border-radius: 0.375rem; border-color: #56E4EE;"><h1 style="font-size: 1.125rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">${item.WayID}</h1><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">สถานะ</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนรถเข้าชั่ง: ${item.Total}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">จำนวนบรรจุเกิน: ${item.Over}</p></div></section><section style="margin-top: 0.25rem;"><h2 style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white; font-weight: 700;">พิกัด</h2><div style="display: flex; flex-direction: column;"><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ละติจูด: ${item.Latitude}</p><p style="font-size: 1rem; font-family: 'IBMPlexSansThai-Regular'; color: white;">ลองจิจูด: ${item.Longtitude}</p></div></section></figcaption>`,
+                html: `
+                <figcaption class="popup-figure">
+                  <h1 class="popup-title">${item.WayID}</h1>
+                  <section style="margin-top: 0.25rem;">
+                    <h2 class="popup-subtitle">สถานะ</h2>
+                    <div class="popup-container">
+                      <p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p>
+                      <p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p>
+                    </div>
+                  </section>
+                  <section style="margin-top: 0.25rem;">
+                    <h2 class="popup-subtitle">พิกัด</h2>
+                    <div class="popup-container">
+                      <p class="popup-description">ละติจูด: ${item.Latitude}</p>
+                      <p class="popup-description">ลองจิจูด: ${item.Longtitude}</p>
+                    </div>
+                  </section>
+                  <button onClick={() => console.log("test")}>Sample</button>
+                </figcaption>`,
                 size: {
                   width: 500
                 }
