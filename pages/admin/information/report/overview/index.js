@@ -75,7 +75,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => (async (co
 
   const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
   if (!valid) {
-    return redirectToLogin(redirectPath)
+    return redirectToLogin()
   }
 
   store.dispatch(signIn(session));
