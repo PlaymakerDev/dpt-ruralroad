@@ -1,18 +1,11 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Row, Col, Spin } from 'antd'
-import { MenuCard, CCTVTable, CCTVListing } from '../components'
+import { MenuCard, CCTVTable, CCTVListing, FormSearchCCTV } from '../components'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
-import { clearList, clearStationSum, getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
-import { useRouter } from 'next/router'
-import { CctvID } from '@/pages/_app'
-import { useAppDispatch } from '@/store/hooks'
+import { getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
 
 const OverviewScreen = (props) => {
   const { } = props
-  const router = useRouter()
-  const [cctvActive, setCctvActive] = useState()
-  const { cctvID, setCctvID, cctvPage, setCctvPage } = useContext(CctvID);
-  const dispatch = useAppDispatch()
   const cctvRef = useRef(false)
 
   const [apiGetDepartmentGroup, loadDepartmentGroup, departmentGroup] = useGetAPI('overlay', {
@@ -36,36 +29,8 @@ const OverviewScreen = (props) => {
       ...departmentGroup.search
     }, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    setCctvActive(cctvID)
-    setCctvID(0)
   }, [])
 
-  useEffect(() => {
-    if (cctvActive != null) {
-      apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', {
-        ...departmentListSum.search,
-        department_id: cctvActive,
-      }, false)
-    } else {
-      apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', {
-        ...departmentListSum.search,
-        department_id: 0,
-      }, false)
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-
-  }, [cctvActive])
-
-  const findDepartmentListSum = useCallback(async (department_id) => {
-    cctvRef.current = false
-    setCctvActive(department_id)
-    // dispatch(clearList)
-    // dispatch(clearStationSum)
-  }, [apiGetDepartmentListSum, departmentListSum, cctvRef])
 
   const onChangePage = useCallback((page, perPage) => {
     apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', { ...departmentListSum.search, page: page, page_size: perPage }, false, {})
@@ -110,24 +75,37 @@ const OverviewScreen = (props) => {
     }
   }, [loading, loadStation, data, station])
 
+  const adaptiveColumn = useMemo(() => {
+    let props = { xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }
+    if (cctvRef.current) {
+      props = { ...props, lg: 12, xl: 12, xxl: 12 }
+    }
+
+    return props
+  }, [cctvRef, apiGetData])
+
   return (
     <>
-      <Row gutter={[30, 30]}>
-        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='!w-full'>
-          <MenuCard
-            data={departmentGroup.data}
-            active={cctvActive || 0}
-            findDepartmentListSum={findDepartmentListSum}
-          />
-        </Col>
-        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='!w-full'>
-          <section>
+      <section>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+            <FormSearchCCTV
+              dptGroup={departmentGroup.data}
+              defaultSearch={departmentListSum.search}
+              apiGetData={apiGetDepartmentListSum}
+              cctvRef={cctvRef}
+            />
+          </Col>
+        </Row>
+      </section>
+      <section className='mt-5'>
+        <Row gutter={[16, 0]}>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
             {cctvRef.current ? renderCCTVListing : null}
-          </section>
-          <section className={cctvRef.current ? 'mt-5' : ''}>
+          </Col>
+          <Col {...adaptiveColumn}>
             <CCTVTable
               // API DATA
-              setCctvID={setCctvID}
               data={departmentListSum.data}
               loading={loadDepartmentListSum}
               // PAGE API
@@ -137,9 +115,9 @@ const OverviewScreen = (props) => {
               onChange={onChangePage}
               getCCTV={getCCTV}
             />
-          </section>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </section>
     </>
   )
 }
