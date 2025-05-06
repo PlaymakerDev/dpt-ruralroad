@@ -44,7 +44,7 @@ const WIM = (props) => {
       apiGetData('/api/v1/info/weight_arrest/wim', {
         // ...data.wim.overview.search,
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         // station_id: query.station_id ? query.station_id : '',
         ...(query.station_id && { station_id: query.station_id }),
@@ -55,7 +55,7 @@ const WIM = (props) => {
       apiGetMasterWIM('/api/v1/masters/wim', {}, false, {})
       setFormSearch({
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         station_id: query.station_id ? query.station_id : '',
         page: query.page ? query.page : 1,
@@ -81,7 +81,7 @@ const WIM = (props) => {
     apiGetData(`/api/v1/info/weight_arrest/wim`, {
       // ...data.wim.overview.search,
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       // station_id: '',
       page: 1,
@@ -90,7 +90,7 @@ const WIM = (props) => {
     }, false, {})
     setFormSearch({
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station_id: '',
       page: 1,
