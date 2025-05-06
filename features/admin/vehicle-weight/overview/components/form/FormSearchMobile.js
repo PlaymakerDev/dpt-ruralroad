@@ -40,7 +40,7 @@ const FormSearchMobile = (props) => {
 
   const handlerClear = useCallback(() => {
     handlerChange({
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
       branch: ''
     })

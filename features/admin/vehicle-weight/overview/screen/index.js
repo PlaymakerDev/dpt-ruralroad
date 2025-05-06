@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext, createContext, useEffect , useRef} from "react";
+import React, { useCallback, useState, useContext, createContext, useEffect, useRef } from "react";
 import { Card } from "antd";
 import {
   StationWeighingUnit as Station,
@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 export const FormSearchNew = createContext();
 
-const INIT_DETAIL_FORM = { 
+const INIT_DETAIL_FORM = {
   type: '',
   start_date: "",
   end_date: "",
@@ -49,7 +49,7 @@ const VehicleWeightScreen = (props) => {
   useEffect(() => {
     if (key === "mobile") {
       setTabKey(key)
-    }else{
+    } else {
       setTabKey('station')
     }
   }, [key]);
@@ -78,18 +78,18 @@ const VehicleWeightScreen = (props) => {
     station: <Station tabKey={tabKey} setCurrentStep={setCurrentStep} />,
     wim: <WIM tabKey={tabKey} setCurrentStep={setCurrentStep} />,
     mobile: <Mobile tabKey={tabKey} setCurrentStep={setCurrentStep} />,
-    summary: <Summary tabKey={tabKey} formSearch={formSearch}/>,
+    summary: <Summary tabKey={tabKey} formSearch={formSearch} />,
   };
 
   return (
     <FormSearchNew.Provider value={{ setFormSearch }}>
-    <Card
-      tabList={tabList}
-      activeTabKey={tabKey}
-      onTabChange={(e) => onTabUpdate(e)}
-    >
-      {content[tabKey]}
-    </Card>
+      <Card
+        tabList={tabList}
+        activeTabKey={tabKey}
+        onTabChange={(e) => onTabUpdate(e)}
+      >
+        {content[tabKey]}
+      </Card>
     </FormSearchNew.Provider>
   );
 };

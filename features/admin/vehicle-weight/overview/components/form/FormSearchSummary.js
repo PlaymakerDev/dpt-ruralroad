@@ -14,7 +14,7 @@ const FormSearchSummary = (props) => {
   
   const form = useForm({
     initialValues: {
-      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs(),
+      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs().startOf('month'),
       end_date: query.end_date ? dayjs(query.end_date, 'YYYY-MM-DD') : dayjs(),
     },
     rules: {},
@@ -45,7 +45,7 @@ const FormSearchSummary = (props) => {
 
   const handlerClear = useCallback(() => {
     handlerChange({
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
     })
     clearData()
