@@ -14,7 +14,7 @@ const DashboardScreen = (props) => {
 
   return (
     <>
-      <div className='!mt-6 !h-[80%]'>
+      {/* <div className='!mt-6 !h-[80%]'> */}
         <section>
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={24} md={24} lg={14} xl={14} xxl={14}>
@@ -32,10 +32,10 @@ const DashboardScreen = (props) => {
             <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={4}>
               <CardOverWeightVehicle />
             </Col>
-            <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={20}>
+            <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={10}>
               <DisplayMap />
             </Col>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={10}>
               <CardRoute />
             </Col>
           </Row>
@@ -45,7 +45,7 @@ const DashboardScreen = (props) => {
             <CollapseYearSummary />
           </figure>
         </section>
-      </div >
+      {/* </div > */}
     </>
   )
 }
