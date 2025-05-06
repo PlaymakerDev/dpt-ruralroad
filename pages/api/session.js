@@ -4,7 +4,7 @@ export default async function logout(
   req,
   res,
 ) {
-  const session = await getLoginSession(req)
+  const [session, redirectPath] = await getLoginSession(req)
   if (!session) {
     return res.status(401).end()
   }

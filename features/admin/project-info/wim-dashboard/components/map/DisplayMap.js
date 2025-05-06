@@ -32,7 +32,7 @@ const DisplayMap = (props) => {
               icon: {
                 // url: '/images/truck-inspect.svg',
                 // size: { width: 70, height: 50 }
-                url: '/images/markerwin.svg',
+                url: '/webnew/images/markerwin.svg',
                 size: { width: 60, height: 70 }
               },
               popup: {

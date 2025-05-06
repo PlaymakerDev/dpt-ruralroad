@@ -62,7 +62,7 @@ const DisplayMap = (props) => {
               icon: {
                 // url: '/images/truck-wim.svg',
                 // size: { width: 70, height: 50 }
-                url: '/images/markerstation.svg',
+                url: '/webnew/images/markerstation.svg',
                 size: { width: 60, height: 70 }
               },
               popup: {
@@ -88,7 +88,7 @@ const DisplayMap = (props) => {
               icon: {
                 // url: '/images/truck-inspect.svg',
                 // size: { width: 70, height: 50 }
-                url: '/images/markerwin.svg',
+                url: '/webnew/images/markerwin.svg',
                 size: { width: 60, height: 70 }
               },
               popup: {
@@ -136,7 +136,7 @@ const DisplayMap = (props) => {
               icon: {
                 // url: '/images/truck-weight.svg',
                 // size: { width: 70, height: 50 }
-                url: '/images/markermobile.svg',
+                url: '/webnew/images/markermobile.svg',
                 size: { width: 60, height: 70 }
               },
               popup: {

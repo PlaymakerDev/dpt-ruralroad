@@ -46,30 +46,11 @@ const DashboardPage = (props) => {
   return (
     <PageLayout>
       <DashboardScreen
-        authType={router?.query?.type}
+        accessType={router?.query?.type}
       />
     </PageLayout>
   )
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
-  const { type } = context.query
-  const INIT_STATE = store.getState("user")
-  const [session, redirectPath] = await getLoginSession(context.req, context.res)
-
-  if (type === "EXECUTIVE" || type === "CITIZEN") {
-    store.dispatch(signIn(INIT_STATE))
-  } else {
-    const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
-    if (!valid) {
-      return redirectToLogin(redirectPath)
-    }
-
-    store.dispatch(signIn(session));
-
-    return sessionToProps(session, session?.message)
-  }
-}));
 
 // export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
 //   console.log('getServerSideProps in dashboard called');
@@ -162,5 +143,25 @@ export const getServerSideProps = wrapper.getServerSideProps(store => (async (co
 //     };
 //   }
 // }));
+
+export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
+  const { type } = context.query
+  const INIT_STATE = store.getState("user")
+  // GET SESSION
+  const session = await getLoginSession(context.req)
+
+  if (type === "EXECUTIVE" || type === "CITIZEN") {
+    store.dispatch(signIn(INIT_STATE))
+  } else {
+    const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
+    if (!valid) {
+      return redirectToLogin()
+    }
+
+    store.dispatch(signIn(session));
+
+    return sessionToProps(session, session?.message)
+  }
+}));
 
 export default React.memo(DashboardPage)

@@ -12,7 +12,7 @@ import 'dayjs/locale/th'
 import { useRouter } from "next/router";
 
 const TableDailyWeigh = (props) => {
-  const { data, loading, page, perPage, total, onChange, type, authType } = props
+  const { data, loading, page, perPage, total, onChange, type, accessType } = props
   console.log("key", type)
   const router = useRouter()
 
@@ -48,7 +48,7 @@ const TableDailyWeigh = (props) => {
       pagination={false}
       className="daily-weigh-table"
       onRow={(record) => {
-        if (type === 'sum_wim' && !authType) {
+        if (type === 'sum_wim' && !accessType) {
           return {
             onClick: () => router.push({
               pathname: `/admin/project-info/wim-dashboard/${record.station_id}`,
