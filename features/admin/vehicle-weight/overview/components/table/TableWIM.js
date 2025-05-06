@@ -93,6 +93,19 @@ const TableWIM = (props) => {
       }
     },
     {
+      title: "หมายเหตุ",
+      key: "remark",
+      dataIndex: "remark",
+      align: 'center',
+      width: 200,
+      render: (item) => {
+        if (item) {
+          return
+        }
+        return '-'
+      }
+    },
+    {
       title: '',
       key: 'action',
       dataIndex: 'action',
