@@ -149,3 +149,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+@media screen and (min-width: 1061px) and (min-height: 100dvh) {
+  .vehicle-container {
+    height: calc(100% - 30%) !important;
+  }
+  
+}
