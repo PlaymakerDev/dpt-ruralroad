@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react'
 import { Form, Field, useForm } from "@/components/form";
 
 const FormSearchCCTV = (props) => {
-  const { dptGroup, defaultSearch, apiGetData, cctvRef } = props
+  const { dptGroup, defaultSearch, apiGetData, cctvRef, clearSearch } = props
   const submitRef = useRef()
 
   const form = useForm({
@@ -39,11 +39,11 @@ const FormSearchCCTV = (props) => {
   }, [])
 
   const handlerSubmit = useCallback((values) => {
-    cctvRef.current = false
     apiGetData('/api/v1/cctv/deparment_list_sum', {
       ...defaultSearch,
       ...values,
     }, false)
+
   }, [])
 
   return (
@@ -57,13 +57,16 @@ const FormSearchCCTV = (props) => {
         placeholder='หน่วยงาน'
         optKeys={['department_id', 'department_name']}
         options={strDptGroup}
-        allowClear
+        allowClear={false}
         // SEARCHABLE
         showSearch
         optionFilterProp="children"
         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
         hideRequired
-        onChange={(name, value) => onChangeDptGroup(name, value)}
+        onChange={(name, value) => {
+          onChangeDptGroup(name, value)
+          clearSearch()
+        }}
       />
       <button ref={submitRef} type="submit" hidden />
     </Form>
