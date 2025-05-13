@@ -11,14 +11,6 @@ import { signIn } from '@/store/features/userSlice'
 
 const OverviewPage = (props) => {
   const { } = props
-  const router = useRouter()
-
-  useEffect(() => {
-    if (router?.query?.state) {
-      router.reload()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const renderBreadcrumb = useMemo(() => {
     return (
@@ -32,9 +24,7 @@ const OverviewPage = (props) => {
     <PageLayout
       breadcrumb={renderBreadcrumb}
     >
-      <OverviewScreen
-        clear={router.query.state}
-      />
+      <OverviewScreen />
     </PageLayout>
   )
 }
