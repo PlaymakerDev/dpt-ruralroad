@@ -3,21 +3,22 @@ import { Card, Row, Col, Typography, Flex, message } from 'antd'
 import Image from 'next/image'
 import ArrowUp from '@/public/images/arrow-up.svg'
 import { DrawerYearSummary } from '../drawer'
-import { getSumWeightYear } from '@/store/features/dashboardSlice'
+import { getSumWeightYearV2 } from '@/store/features/dashboardSlice'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
+import dayjs from 'dayjs'
 
-const INIT_DRAWER = { open: false, info: {}, loading: false }
+const INIT_DRAWER = { open: false, info: { data: [], summary: [] }, loading: false }
 
 const CollapseYearSummary = (props) => {
   const { } = props
   const [open, setOpen] = useState(INIT_DRAWER)
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
-    funcDispatch: getSumWeightYear, reducerName: 'dashboard', reducerKey: 'sum_weight_year'
+    funcDispatch: getSumWeightYearV2, reducerName: 'dashboard', reducerKey: 'sum_weight_year_v2'
   })
 
   const openDrawer = useCallback(async () => {
-    const data = await apiGetData(`/api/v1/dashboards/sum_weight_year`, {}, false, {})
+    const data = await apiGetData(`/api/v1/dashboards/sum_weight_year_v2`, { start_year: dayjs().format('BBBB'), end_year: dayjs().format('BBBB') }, false, {})
     if (data?.success) {
       setOpen({
         open: true,
@@ -31,7 +32,7 @@ const CollapseYearSummary = (props) => {
 
   return (
     <>
-      <Card className='!cursor-pointer' body={{ padding: '0.5rem', margin: 0 }} onClick={() => openDrawer()}>
+      <div className="card-container rounded-md p-2 cursor-pointer" onClick={() => openDrawer()}>
         <Row gutter={[16, 16]} align={'middle'}>
           <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
             <Flex
@@ -42,14 +43,14 @@ const CollapseYearSummary = (props) => {
                 src={ArrowUp}
                 alt='arrow-up'
               />
-              <Typography.Text className=' !font-IBMPlexSansThaiRegular' style={{ fontSize: 'clamp(1px, 3vw, 15px)' }} strong>ประวัติสรุปผลรายปี</Typography.Text>
+              <p className='text-[clamp(1px, 4vw, 15px)] font-bold'>ประวัติสรุปผลรายปี</p>
             </Flex>
           </Col>
           <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12} className='!text-end'>
-            <Typography.Text className=' !font-IBMPlexSansThaiRegular' style={{ fontSize: 'clamp(1px, 3vw, 15px)' }} strong>ปีงบประมาณ 2557 - ปัจจุบัน</Typography.Text>
+            <p className='text-[clamp(1px, 4vw, 15px)] font-bold'>ปีงบประมาณ 2557 - ปัจจุบัน</p>
           </Col>
         </Row>
-      </Card>
+      </div>
       <DrawerYearSummary
         open={open.open}
         info={open.info}

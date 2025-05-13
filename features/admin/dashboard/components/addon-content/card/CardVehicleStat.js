@@ -35,27 +35,33 @@ const CardVehicleStat = (props) => {
   }
 
 
-  const renderContent = useMemo(() => {
-    if (!loadingCheckpoint && !loading) {
-      return (
-        <ContentVehicleStat
-          filterData={filterData}
-          checkpoint={checkpoint.data}
-          accessType={accessType}
-        />
-      )
-    } else {
-      return (
-        <div className='text-center'>
-          <Spin spinning={true} />
-        </div>
-      )
-    }
-  }, [loading, data, loadingCheckpoint])
+  // const renderContent = useMemo(() => {
+  //   if (!loadingCheckpoint && !loading) {
+  //     return (
+  //       <ContentVehicleStat
+  //         filterData={filterData}
+  //         checkpoint={checkpoint.data}
+  //         accessType={accessType}
+  //       />
+  //     )
+  //   } else {
+  //     return (
+  //       <div className='text-center'>
+  //         <Spin spinning={true} />
+  //       </div>
+  //     )
+  //   }
+  // }, [loading, data, loadingCheckpoint])
 
   return (
     <>
-      {renderContent}
+      {/* {renderContent} */}
+      <ContentVehicleStat
+        loading={loading}
+        filterData={filterData}
+        checkpoint={checkpoint.data}
+        accessType={accessType}
+      />
     </>
   )
 }

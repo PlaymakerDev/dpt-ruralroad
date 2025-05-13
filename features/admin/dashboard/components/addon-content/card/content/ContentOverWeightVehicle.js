@@ -20,7 +20,6 @@ dayjs.extend(customParseFormat);
 const ContentOverWeightVehicle = (props) => {
   const { data } = props
   const [truckDate, setTruckDate] = useState('');
-
   // Mock data with random
   const [randomDisplayType, setRandomDisplayType] = useState()
   const [wheelData, setWheelData] = useState({
@@ -29,46 +28,36 @@ const ContentOverWeightVehicle = (props) => {
   })
   const [loadingTruck, setLoadingTruck] = useState(false)
 
-
-
-
   const properties = {
     className: 'rounded-xl px-4 py-1 mb-2 bg-[#6C6C6C16]'
   }
   const truckType = data?.data?.vehicle_class_id
   // const truckType = 21
-
-
-
   const vehicle_image = VEHICLE_PROPERTIES[truckType]?.vehicle?.image
   const vehicle_width = Math.floor(VEHICLE_PROPERTIES[truckType]?.vehicle?.width / 2.5)
   const vehicle_height = Math.floor(VEHICLE_PROPERTIES[truckType]?.vehicle?.height / 2.5)
 
 
-  const wheel_image = VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.image
-  const wheel_width = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 7)
-  const wheel_height = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 7)
+  // const wheel_image = VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.image
+  // const wheel_width = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 7)
+  // const wheel_height = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 7)
   // SIZING_SM_WHEEL
-  const wheel_width_sm = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 2)
-  const wheel_height_sm = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 2)
+  // const wheel_width_sm = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 2)
+  // const wheel_height_sm = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 2)
   // SIZING_MD_WHEEL
-  const wheel_width_md = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 4)
-  const wheel_height_md = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 4)
+  // const wheel_width_md = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.width / 4)
+  // const wheel_height_md = Math.floor(VEHICLE_PROPERTIES[truckType]?.wheel_vertical?.height / 4)
 
-
-
-  const matchWheel = useMemo(() => {
-    let smWheel = [1, 2]
-    let midWheel = [3, 4, 5, 6, 17]
-    const checkSmWheel = smWheel.some(item => item === truckType)
-    const checkMidWheel = midWheel.some(item => item === truckType)
-    return {
-      small: checkSmWheel,
-      mid: checkMidWheel
-    }
-  }, [data])
-
-
+  // const matchWheel = useMemo(() => {
+  //   let smWheel = [1, 2]
+  //   let midWheel = [3, 4, 5, 6, 17]
+  //   const checkSmWheel = smWheel.some(item => item === truckType)
+  //   const checkMidWheel = midWheel.some(item => item === truckType)
+  //   return {
+  //     small: checkSmWheel,
+  //     mid: checkMidWheel
+  //   }
+  // }, [data])
 
   const mapType = useMemo(() => {
     switch (data?.data?.station_type) {
@@ -88,7 +77,6 @@ const ContentOverWeightVehicle = (props) => {
     if (data?.data?.time_stamp) {
       setTruckDate(dayjs(data.data.time_stamp).locale('th').format('DD MMMM BBBB HH:mm:ss'));
     }
-
     // Mock data with random
     setRandomDisplayType(data?.data?.display_type)
     setWheelData({
@@ -111,23 +99,19 @@ const ContentOverWeightVehicle = (props) => {
         wheel7: data?.data?.axle_right_7 || 0,
       }
     });
-
     setLoadingTruck(false)
-
   }, [data.data?.axle_left_1, data.data?.axle_left_2, data.data?.axle_left_3, data.data?.axle_left_4, data.data?.axle_left_5, data.data?.axle_left_6, data.data?.axle_left_7, data.data?.axle_right_1, data.data?.axle_right_2, data.data?.axle_right_3, data.data?.axle_right_4, data.data?.axle_right_5, data.data?.axle_right_6, data.data?.axle_right_7, data.data?.display_type, data.data.time_stamp]);
 
   return (
-    <Row gutter={[16, 16]}>
-
-      <Col xs={24} sm={24} md={16} lg={24} xl={16} xxl={24}>
+    <Row gutter={[16, 0]}>
+      <Col xs={24} sm={24} md={16} lg={24} xl={24} xxl={24}>
         <section className='text-center'>
-          <Typography.Title level={5} className='!m-0'>รถบรรทุกที่มีน้ำหนักเกินล่าสุด</Typography.Title>
+          <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>รถบรรทุกที่มีน้ำหนักเกินล่าสุด</h1>
         </section>
-        <section className='text-center mt-5'>
-          <Typography.Title level={5} className='!m-0 !-mt-2' underline>ทะเบียน {data?.data?.lp_head_no || '-'}</Typography.Title>
+        <section className='text-center mt-1'>
+          <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold underline'>ทะเบียน {data?.data?.lp_head_no || '-'}</h1>
           <Badge color={data?.data?.is_over_weight ? '#FF4A4A' : '#56E4EE'} text={WEIGHT_STATUS[data?.data?.is_over_weight]} /><br />
-
-          <Typography.Text>{(data?.data?.station_type === 2 ? mapType?.way_code : mapType?.location_description) || '-'}  | {(data?.data?.station_type === 2 ? mapType?.way_province : mapType?.station_name) || '-'}</Typography.Text>
+          <p>{(data?.data?.station_type === 2 ? mapType?.way_code : mapType?.location_description) || '-'}  | {(data?.data?.station_type === 2 ? mapType?.way_province : mapType?.station_name) || '-'}</p>
         </section>
         <figure className='mt-1'>
           <Image
@@ -138,37 +122,39 @@ const ContentOverWeightVehicle = (props) => {
             className='block m-auto'
           // className='block m-auto w-[42%]'
           />
-
         </figure>
-        <div className='mt-2  flex flex-col justify-center items-center min-h-28'>
-          <div className=' w-fit min-w-32'>
-            {!loadingTruck && (<WheelVertical
-              displayType={randomDisplayType}
-              type={truckType}
-              leftwheel1={wheelData?.left?.wheel1}
-              leftwheel2={wheelData?.left?.wheel2}
-              leftwheel3={wheelData?.left?.wheel3}
-              leftwheel4={wheelData?.left?.wheel4}
-              leftwheel5={wheelData?.left?.wheel5}
-              leftwheel6={wheelData?.left?.wheel6}
-              leftwheel7={wheelData?.left?.wheel7}
-              rightwheel1={wheelData?.right?.wheel1}
-              rightwheel2={wheelData?.right?.wheel2}
-              rightwheel3={wheelData?.right?.wheel3}
-              rightwheel4={wheelData?.right?.wheel4}
-              rightwheel5={wheelData?.right?.wheel5}
-              rightwheel6={wheelData?.right?.wheel6}
-              rightwheel7={wheelData?.right?.wheel7}
-            />)}
-
+        {/* <div className='mt-2 flex flex-col justify-center items-center min-h-28'> */}
+        {/* <div className='mt-2 flex flex-col justify-center items-center'>
+          <div className='w-fit min-w-32'>
+            {!loadingTruck && (
+              <WheelVertical
+                displayType={randomDisplayType}
+                type={truckType}
+                leftwheel1={wheelData?.left?.wheel1}
+                leftwheel2={wheelData?.left?.wheel2}
+                leftwheel3={wheelData?.left?.wheel3}
+                leftwheel4={wheelData?.left?.wheel4}
+                leftwheel5={wheelData?.left?.wheel5}
+                leftwheel6={wheelData?.left?.wheel6}
+                leftwheel7={wheelData?.left?.wheel7}
+                rightwheel1={wheelData?.right?.wheel1}
+                rightwheel2={wheelData?.right?.wheel2}
+                rightwheel3={wheelData?.right?.wheel3}
+                rightwheel4={wheelData?.right?.wheel4}
+                rightwheel5={wheelData?.right?.wheel5}
+                rightwheel6={wheelData?.right?.wheel6}
+                rightwheel7={wheelData?.right?.wheel7}
+              />
+            )}
           </div>
-        </div>
-        {randomDisplayType == 0 ? <section className='mt-1 text-center '>
-          <Typography.Text className='!text-base' strong>{data?.data?.gross_weight || 0} ตัน</Typography.Text>
-        </section> : ''}
+        </div> */}
+        {randomDisplayType == 0 ? (
+          <section className='mt-1 text-center '>
+            <p className='text-[clamp(1px, 4vw, 15px)] font-bold'>{data?.data?.gross_weight || 0} ตัน</p>
+          </section>
+        ) : ''}
       </Col>
-
-      <Col xs={24} sm={24} md={8} lg={24} xl={8} xxl={24} className='-mt-4'>
+      <Col xs={24} sm={24} md={8} lg={24} xl={24} xxl={24}>
         <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
@@ -176,10 +162,9 @@ const ContentOverWeightVehicle = (props) => {
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
-                <Typography.Text className='!text-sm '>ประเภทรถบรรทุก</Typography.Text>
-
-                <Typography.Text className='!text-sm'>{data?.data?.vehicle_class?.vehicle_class_desc2 || '-'}</Typography.Text>
-                <Typography.Text className='!text-sm'>{data?.data?.vehicle_class?.vehicle_class_desc3 || '-'}</Typography.Text>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>ประเภทรถบรรทุก</p>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>{data?.data?.vehicle_class?.vehicle_class_desc2 || '-'}</p>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>{data?.data?.vehicle_class?.vehicle_class_desc3 || '-'}</p>
               </div>
             </section>
           </div>
@@ -191,8 +176,8 @@ const ContentOverWeightVehicle = (props) => {
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
-                <Typography.Text className='!text-sm'>น้ำหนักที่ชั่งได้</Typography.Text>
-                <Typography.Text className='!text-sm' strong>{data?.data?.gross_weight || 0} ตัน</Typography.Text>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>น้ำหนักที่ชั่งได้</p>
+                <p className='text-[clamp(1px, 4vw, 15px)] font-bold'>{data?.data?.gross_weight || 0} ตัน</p>
               </div>
             </section>
           </div>
@@ -204,8 +189,8 @@ const ContentOverWeightVehicle = (props) => {
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
-                <Typography.Text className='!text-sm'>น้ำหนักตามกฎหมาย</Typography.Text>
-                <Typography.Text className='!text-sm' strong>{data?.data?.legal_weight || 0} ตัน</Typography.Text>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>น้ำหนักตามกฎหมาย</p>
+                <p className='text-[clamp(1px, 4vw, 15px)] font-bold'>{data?.data?.legal_weight || 0} ตัน</p>
               </div>
             </section>
           </div>
@@ -217,9 +202,21 @@ const ContentOverWeightVehicle = (props) => {
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
-                <Typography.Text className='!text-sm'>น้ำหนักที่เกิน</Typography.Text>
-
-                <Typography.Text className={`!text-sm ${data?.data?.is_over_weight === 'Y' ? '!text-[#FF4A4A]' : '!text-[#56E4EE]'}`} strong>{data?.data?.gross_weight_over} ตัน</Typography.Text>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>น้ำหนักที่เกิน</p>
+                <p className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`} strong>{data?.data?.gross_weight_over} ตัน</p>
+              </div>
+            </section>
+          </div>
+        </figcaption>
+        <figcaption {...properties}>
+          <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
+            <section className='sm:basis-1/12 md:basis-1/6'>
+              <WeightIcon fill='#FFFFFF' />
+            </section>
+            <section className='sm:basis-full'>
+              <div className='flex flex-col'>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>เปอร์เซ็นต์ที่เกิน</p>
+                <p className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`} strong>{data?.data?.gross_weight_over} ตัน</p>
               </div>
             </section>
           </div>
@@ -231,15 +228,14 @@ const ContentOverWeightVehicle = (props) => {
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
-                <Typography.Text className='!text-sm'>วันที่/เวลา</Typography.Text>
-                <Typography.Text className='!text-sm'>{truckDate}</Typography.Text>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>วันที่/เวลา</p>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>{truckDate}</p>
               </div>
             </section>
           </div>
         </figcaption>
       </Col>
-
-    </Row >
+    </Row>
   )
 }
 

@@ -7,11 +7,14 @@ import { getRoadDetailByRoadCode } from '@/store/features/masterSlice'
 import { getItemSum } from '@/store/features/informationSlice'
 import EmptyIcon from '@/public/images/Empty.svg'
 import { div } from '@/utils/calculate'
+import { InfoCircleOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/router'
 
 const INIT_MODAL = { open: false, info: {} }
 
 const CardRoute = (props) => {
   const { } = props
+  const router = useRouter()
   const [open, setOpen] = useState(INIT_MODAL)
   const [apiGetItemSum, loadItemSum, itemSum] = useGetAPI('overlay', {
     funcDispatch: getItemSum, reducerName: 'information', reducerKey: 'vehicle_data_on_routes'
@@ -69,25 +72,32 @@ const CardRoute = (props) => {
   }, [loadItemSum, itemSum?.item_sum?.data?.items, openModal])
 
   return (
-    <section className='!h-full '>
-
-      <Card className="!h-full !w-full">
-        <Typography.Title level={5} style={{ fontSize: 'clamp(1px, 4vw, 15px)' }}>
-          5 อันดับสายทางที่มีปริมาณรถบรรทุกมากที่สุด จากข้อมูล GPS ของกรมขนส่งทางบก
-        </Typography.Title>
+    <>
+      {/* <section className='!h-full '> */}
+      <div className="card-container rounded-md p-2">
+        <section className='flex justify-between'>
+          <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>5 อันดับสายทางที่มีปริมาณรถบรรทุกมากที่สุด จากข้อมูล GPS ของกรมขนส่งทางบก</h1>
+          <InfoCircleOutlined className='cursor-pointer' onClick={() => router.push('/admin/information/vehicle-data-on-routes/overview')} />
+        </section>
         {loadItemSum ? (
           <div className='!h-24 !w-full flex justify-center items-center'>
             <Spin spinning={loadItemSum} />
           </div>
-        ) : renderContent}
-      </Card>
+        ) : (
+          <section className='mt-3'>
+            {renderContent}
+          </section>
+        )
+        }
+      </div>
       <ModalRouteDetail
         open={open?.open}
         info={open?.info}
         setOpen={setOpen}
       />
 
-    </section>
+      {/* </section> */}
+    </>
 
   )
 }

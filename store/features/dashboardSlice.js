@@ -470,6 +470,16 @@ export const initialState = {
       data: []
     },
   },
+  sum_weight_year_v2: {
+    search: {
+      start_year: '',
+      end_year: '',
+    },
+    data: {
+      summary: [],
+      data: []
+    }
+  }
 }
 
 export const slice = createSlice({
@@ -579,6 +589,10 @@ export const slice = createSlice({
       state.position.detail.data = action.payload.data,
         state.position.detail.search = action.payload.params
     },
+    getSumWeightYearV2: (state, action) => {
+      state.sum_weight_year_v2.data = action.payload.data,
+      state.sum_weight_year_v2.search = action.payload.params
+    }
   }
 })
 
@@ -608,7 +622,8 @@ export const {
   getVehicleAvgSpeedHour,
   getLastSevenDays,
   getPosition,
-  getPositionDetail
+  getPositionDetail,
+  getSumWeightYearV2
 } = slice.actions
 
 export default slice.reducer
