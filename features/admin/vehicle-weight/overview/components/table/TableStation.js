@@ -6,6 +6,7 @@ import stf from '@/utils/stringformat'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { REMARK } from '@/utils/constant'
 
 dayjs.extend(customParseFormat);
 
@@ -100,7 +101,7 @@ const TableStation = (props) => {
       width: 200,
       render: (item) => {
         if (item) {
-          return
+          return REMARK[item]
         }
         return '-'
       }
