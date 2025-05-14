@@ -15,17 +15,17 @@ const ProjectInfoScreen = (props) => {
 						/>
 					</Col>
 					<Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={16}>
-						<ChartSection
+						{/* <ChartSection
 							data={data}
-						/>
+						/> */}
 					</Col>
 				</Row>
 			</section>
-			<section className='mt-5'>
+			{/* <section className='mt-5'>
 				<CCTVSection
 					stationId={data?.id}
 				/>
-			</section>
+			</section> */}
 		</>
 	)
 }

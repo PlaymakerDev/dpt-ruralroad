@@ -11,7 +11,7 @@ const FormSearchWIMDetail = (props) => {
 
   const form = useForm({
     initialValues: {
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
     },
     rules: {}
@@ -34,7 +34,7 @@ const FormSearchWIMDetail = (props) => {
 
   const handlerClear = useCallback(() => {
     handlerChange({
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
     })
     clearData()

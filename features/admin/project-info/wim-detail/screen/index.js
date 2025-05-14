@@ -29,7 +29,7 @@ const WIMDetailScreen = (props) => {
     if (stationId) {
       apiGetDetailTable(`/api/v1/weight/weight_wim_log`, {
         ...detailTable.detail.table.search,
-        start_date: dayjs().format('YYYY-MM-DD'),
+        start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: dayjs().format('YYYY-MM-DD'),
         station: stationId,
         page: 1
@@ -57,7 +57,7 @@ const WIMDetailScreen = (props) => {
   const clearData = useCallback(() => {
     apiGetDetailTable(`/api/v1/weight/weight_wim_log`, {
       ...detailTable.detail.table.search,
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station: stationId,
       page: 1,

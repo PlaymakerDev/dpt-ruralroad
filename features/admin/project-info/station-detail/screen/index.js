@@ -4,7 +4,7 @@ import { FormSearchStationDetail } from '../components'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
 import { getWeightWIMLog, getWeightWIMLogDetail, clearWIMDetail, getStation, getWeightStationLog, getWeightStationLogDetail } from '@/store/features/vehicleWeightSlice'
 import dayjs from 'dayjs'
-import { ModalWIMDetail } from '@/features/admin/vehicle-weight/overview/components/modal'
+import { ModalWeightDetail, ModalWIMDetail } from '@/features/admin/vehicle-weight/overview/components/modal'
 import { TableWeightDetail } from '@/features/admin/vehicle-weight/overview/components/detail'
 import { useAppDispatch } from '@/store/hooks'
 import { getStationDetail } from '@/store/features/masterSlice'
@@ -28,21 +28,11 @@ const StationDetailScreen = (props) => {
     funcDispatch: getWeightStationLogDetail, reducerName: 'vehicleWeight', reducerKey: 'station'
   })
 
-  // const [apiGetMasterStationDetail, loadingMasterStationDetail, masterStationDetail] = useGetAPI('overlay', {
-  //   funcDispatch: getStationDetail, reducerName: 'master', reducerKey: 'station'
-  // })
-
-  // const [apiGetMasterStation, loadingMasterStation, masterStation] = useGetAPI('overlay', {
-  //   funcDispatch: apiGetMasterStation, reducerName: 'master', reducerKey: 'station'
-  // })
-
-  console.log(stationId)
-
   useEffect(() => {
     if (stationId) {
       apiGetDetailTable(`/api/v1/weight/weight_station_log`, {
         ...detailTable.detail.table.search,
-        start_date: dayjs().format('YYYY-MM-DD'),
+        start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: dayjs().format('YYYY-MM-DD'),
         station: stationId,
         page: 1
@@ -70,7 +60,7 @@ const StationDetailScreen = (props) => {
   const clearData = useCallback(() => {
     apiGetDetailTable(`/api/v1/weight/weight_station_log`, {
       ...detailTable.detail.table.search,
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station: stationId,
       page: 1,
@@ -78,6 +68,7 @@ const StationDetailScreen = (props) => {
     }, false, {})
     dispatch(clearWIMDetail(detailTable.detail.table.search))
   }, [detailTable, apiGetDetailTable, dispatch])
+
   return (
     <div>
       <section>
@@ -103,7 +94,7 @@ const StationDetailScreen = (props) => {
           openModalWithData={openModalWithData}
         />
       </section>
-      <ModalWIMDetail
+      <ModalWeightDetail
         open={open.open}
         info={open.info}
         setOpen={setOpen}
