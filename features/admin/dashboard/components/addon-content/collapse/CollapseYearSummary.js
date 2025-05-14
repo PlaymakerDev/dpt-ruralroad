@@ -18,7 +18,7 @@ const CollapseYearSummary = (props) => {
   })
 
   const openDrawer = useCallback(async () => {
-    const data = await apiGetData(`/api/v1/dashboards/sum_weight_year_v2`, { start_year: dayjs().format('BBBB'), end_year: dayjs().format('BBBB') }, false, {})
+    const data = await apiGetData(`/api/v1/dashboards/sum_weight_year_v2`, false, {})
     if (data?.success) {
       setOpen({
         open: true,

@@ -232,6 +232,8 @@ const DrawerYearSummary = (props) => {
 
   const getYearSummary = useCallback(async (values) => {
     try {
+      console.log("======1========" , values);
+      
       const response = await apiGetData(`/api/v1/dashboards/sum_weight_year_v2`, values, false, {})
       if (response?.success) {
         setDrawerData(response?.data)
