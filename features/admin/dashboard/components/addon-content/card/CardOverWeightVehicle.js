@@ -13,7 +13,7 @@ const CardOverWeightVehicle = (props) => {
   })
 
   useEffect(() => {
-    apiGetData(`/api/v1/dashboards/all_weight_over`, {  }, false, {})
+    apiGetData(`/api/v1/dashboards/all_weight_over`, {}, false, {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -28,9 +28,13 @@ const CardOverWeightVehicle = (props) => {
       )
     } else {
       return (
-        <div className='text-center'>
-          <Spin spinning={loading} />
-        </div>
+        <Spin spinning={loading}>
+          <ContentOverWeightVehicle
+            data={{
+              data: data,
+            }}
+          />
+        </Spin>
       )
     }
   }, [loading, data])

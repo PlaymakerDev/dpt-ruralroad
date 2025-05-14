@@ -1,0 +1,60 @@
+import React, { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import MobileDetailScreen from '@/features/admin/project-info/mobile-detail/screen'
+import PageLayout from '@/components/layout/new-layout/PageLayout'
+import { Breadcrumb } from 'antd'
+// CHECK ROLE
+import { getLoginSession } from '@/utils/auth'
+import { validatePermissionRoute, redirectToLogin, sessionToProps } from '@/utils/auth/routePermission'
+import { wrapper, AppState } from '@/store'
+import { signIn } from '@/store/features/userSlice'
+
+const MobileDetailPage = (props) => {
+  const { } = props
+  const router = useRouter()
+
+  const renderBreadcrumb = useMemo(() => {
+    return (
+      <Breadcrumb separator='>'>
+        <Breadcrumb.Item
+          className='text-gray-500 cursor-pointer hover:text-white transition duration-300'
+          onClick={() => router.push('/admin/dashboard')}
+        >
+          หน้าหลัก
+        </Breadcrumb.Item>
+        <Breadcrumb.Item
+          className='text-gray-500 cursor-pointer hover:text-white transition duration-300'
+          onClick={() => router.back()}
+        >
+          {router?.query?.prev_name || '-'}
+        </Breadcrumb.Item>
+        <Breadcrumb.Item className='font-bold'>รายละเอียด</Breadcrumb.Item>
+      </Breadcrumb>
+    )
+  }, [router])
+
+  return (
+    <PageLayout
+      breadcrumb={renderBreadcrumb}
+    >
+      <MobileDetailScreen
+        tid={router?.query?.id}
+      />
+    </PageLayout>
+  )
+}
+
+export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
+  const session = await getLoginSession(context.req)
+
+  const valid = validatePermissionRoute(session, ['ADMIN', 'USER'])
+  if (!valid) {
+    return redirectToLogin()
+  }
+
+  store.dispatch(signIn(session));
+
+  return sessionToProps(session, session?.message)
+}));
+
+export default React.memo(MobileDetailPage)

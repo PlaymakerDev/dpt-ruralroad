@@ -60,6 +60,24 @@ const TableDailyWeigh = (props) => {
               }
             })
           }
+        } else if (type === 'sum_station' && !accessType) {
+          return {
+            onClick: () => router.push({
+              pathname: `/admin/project-info/station-detail/${record.station_id}`,
+              query: {
+                prev_name: record.name,
+              }
+            })
+          }
+        } else if (type === 'sum_spot' && !accessType) {
+          return {
+            onClick: () => router.push({
+              pathname: `/admin/project-info/mobile-detail/${record.department_id}`,
+              query: {
+                prev_name: record.name,
+              }
+            })
+          }
         }
       }}
     />

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useGetAPI from '@/utils/hooks/api/useGetAPI';
 import { getPosition } from '@/store/features/dashboardSlice';
-import { Button } from 'antd';
+import { Button, Dropdown } from 'antd';
 const SpecMap = dynamic(() => import('@/features/admin/dashboard/components/map/SpecMap'), { ssr: false })
 // const Map = dynamic(() => import('@/components/map/Map2.js'), { ssr: false })
 const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
@@ -179,6 +179,13 @@ const DisplayMap = (props) => {
     return stationMarker
   }, [mapData])
 
+  const items = [
+    {
+      key: '1',
+      label: 'กล้อง WIM ถาวร',
+    },
+  ];
+
   return (
     <div>
       {/* <Map
@@ -205,12 +212,14 @@ const DisplayMap = (props) => {
         >
           สํานักจังหวัด/แขวง
         </Button>
-        <Button
-          className=' !bg-green-500 hover:!bg-green-400 active:!bg-green-500'
-          type='primary'
-        >
-          กล้อง WIM ด่านชั่งถาวร
-        </Button>
+        <Dropdown menu={{ items }}>
+          <Button
+            className=' !bg-green-500 hover:!bg-green-400 active:!bg-green-500'
+            type='primary'
+          >
+            ประเภทอุปกรณ์
+          </Button>
+        </Dropdown>
       </div>
     </div>
   )

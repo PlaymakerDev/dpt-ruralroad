@@ -8,11 +8,13 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-routing-machine";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, useMapEvent } from 'react-leaflet'
 // import { createControlComponent } from '@react-leaflet/core'
+import { useRouter } from "next/router";
 
 const LocationMarker = (props) => {
 	const { item, type, icon } = props
 	// MAP CONTEXT
 	const map = useMapEvents({})
+	const router = useRouter()
 
 	useEffect(() => {
 		map.setView([item.Latitude, item.Longtitude])
@@ -31,6 +33,20 @@ const LocationMarker = (props) => {
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
+					</section>
+					<section className="text-center">
+						<p
+							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
+							underline
+							onClick={() => router.push({
+								pathname: `/admin/project-info/wim-detail/${item.TID}`,
+								query: {
+									prev_name: item.WayID
+								}
+							})}
+						>
+							รายละเอียด
+						</p>
 					</section>
 				</figcaption>
 			)
@@ -59,6 +75,19 @@ const LocationMarker = (props) => {
 					<section>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
 					</section>
+					<section className="text-center">
+						<p
+							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
+							onClick={() => router.push({
+								pathname: `/admin/project-info/wim-detail/${item.StationID}`,
+								query: {
+									prev_name: item.StationName
+								}
+							})}
+						>
+							รายละเอียด
+						</p>
+					</section>
 				</figcaption>
 			)
 		}
@@ -69,12 +98,12 @@ const LocationMarker = (props) => {
 			position={[item.Latitude, item.Longtitude]}
 			eventHandlers={{
 				mouseover: (event) => event.target.openPopup(),
-				mouseout: (event) => event.target.closePopup(),
+				// mouseout: (event) => event.target.closePopup(),
 				click: () => map.flyTo([item.Latitude, item.Longtitude], 10)
 			}}
 			icon={icon}
 		>
-			<Popup className="w-60">
+			<Popup className="w-60" autoPan={false}>
 				{renderContent}
 			</Popup>
 		</Marker>

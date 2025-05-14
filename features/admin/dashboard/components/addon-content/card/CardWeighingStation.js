@@ -56,7 +56,14 @@ const CardWeighingStation = (props) => {
         />
       )
     } else {
-      return <Spin spinning={loadingStation} />
+      return (
+        <Spin spinning={loadingStation}>
+          <ChartWeighingStation
+            data={station.station.data}
+            loading={loadingStation}
+          />
+        </Spin>
+      )
     }
   }, [loadingStation, station])
 
@@ -69,7 +76,14 @@ const CardWeighingStation = (props) => {
         />
       )
     } else {
-      return <Spin spinning={loadingWIM} />
+      return (
+        <Spin spinning={loadingWIM}>
+          <ChartWeighingWIM
+            data={wim.wim.data}
+            loading={loadingWIM}
+          />
+        </Spin>
+      )
     }
   }, [loadingWIM, wim])
 
@@ -82,7 +96,14 @@ const CardWeighingStation = (props) => {
         />
       )
     } else {
-      return <Spin spinning={loadingMobile} />
+      return (
+        <Spin spinning={loadingMobile}>
+          <ChartWeighingMobile
+            data={mobile.mobile.data}
+            loading={loadingMobile}
+          />
+        </Spin>
+      )
     }
   }, [loadingMobile, mobile])
 
