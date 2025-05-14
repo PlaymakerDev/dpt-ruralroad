@@ -16,12 +16,12 @@ import useGetAPI from '@/utils/hooks/api/useGetAPI';
 import dayjs from 'dayjs';
 import "dayjs/locale/th";
 import ModaldailyWeighed from '../../modal/ModaldailyWeighed'
-import { STATION_TYPE } from '@/utils/constant'
+// import { STATION_TYPE } from '@/utils/constant'
 
 const INIT_MODAL = { open: false, key: null, info: {} }
 
 const ContentVehicleStat = (props) => {
-  const { filterData, checkpoint, authType } = props
+  const { filterData, checkpoint, accessType, loading } = props
   const [open, setOpen] = useState(INIT_MODAL)
 
   const gridProperties = {
@@ -61,10 +61,87 @@ const ContentVehicleStat = (props) => {
     }
   }
 
-
   return (
     <>
-      <Card
+      <div className='card-container rounded-md grid grid-cols-4 gap-1 p-2'>
+        <figure className='flex flex-col justify-between border-r border-[#56E4EE50]'>
+          <h1 className='text-center font-bold'>รวมรถเข้าชั่งทั้งหมด</h1>
+          <TruckOverAll className='mx-auto' />
+          <section className='flex justify-evenly text-center'>
+            <div className='flex-col justify-center'>
+              <p>จำนวนรถเข้าชั่ง</p>
+              <p>{loading ? 0 : (stf(filterData?.all_sum?.total).normal() || 0)}</p>
+              <p>คัน</p>
+            </div>
+            <div className='flex-col justify-center'>
+              <p className='text-[#E81A1A]'>บรรจุเกิน</p>
+              <p className='text-[#E81A1A]'>{loading ? 0 : (stf(filterData?.all_sum?.over).normal() || 0)}</p>
+              <p className='text-[#E81A1A]'>คัน</p>
+            </div>
+          </section>
+        </figure>
+
+        <figure className='flex flex-col justify-between border-r border-[#56E4EE50] cursor-pointer' onClick={() => GetSumSpot()}>
+          <h1 className='text-center font-bold'>หน่วยตรวจสอบเคลื่อนที่</h1>
+          <section className='text-center'>
+            <p>หน่วยงานที่เปิดอยู่ <span className={checkpoint?.mobile?.open > 0 ? '!text-[#90FF00]' : ''}>{checkpoint?.mobile?.open || 0}</span>/{checkpoint?.mobile?.total || 0}</p>
+          </section>
+          <TruckWeight className='mx-auto' />
+          <section className='flex justify-evenly text-center'>
+            <div className='flex-col justify-center'>
+              <p>จำนวนรถเข้าชั่ง</p>
+              <p>{loading ? 0 : (stf(filterData?.spot?.total).normal() || 0)}</p>
+              <p>คัน</p>
+            </div>
+            <div className='flex-col justify-center'>
+              <p className='text-[#E81A1A]'>บรรจุเกิน</p>
+              <p className='text-[#E81A1A]'>{loading ? 0 : (stf(filterData?.spot?.over).normal() || 0)}</p>
+              <p className='text-[#E81A1A]'>คัน</p>
+            </div>
+          </section>
+        </figure>
+
+        <figure className='flex flex-col justify-between border-r border-[#56E4EE50] cursor-pointer' onClick={() => GetWim()}>
+          <h1 className='text-center font-bold'>Weight In Motion (WIM)</h1>
+          <section className='text-center'>
+            <p>หน่วยงานที่เปิดอยู่ <span className={checkpoint?.wim?.open > 0 ? '!text-[#90FF00]' : ''}>{checkpoint?.wim?.open || 0}</span>/{checkpoint?.wim?.total || 0}</p>
+          </section>
+          <TruckInspect className='m-auto' />
+          <section className='flex justify-evenly text-center'>
+            <div className='flex-col justify-center'>
+              <p>จำนวนรถเข้าชั่ง</p>
+              <p>{loading ? 0 : (stf(filterData?.wim?.total).normal() || 0)}</p>
+              <p>คัน</p>
+            </div>
+            <div className='flex-col justify-center'>
+              <p className='text-[#E81A1A]'>บรรจุเกิน</p>
+              <p className='text-[#E81A1A]'>{loading ? 0 : (stf(filterData?.wim?.over).normal() || 0)}</p>
+              <p className='text-[#E81A1A]'>คัน</p>
+            </div>
+          </section>
+        </figure>
+
+        <figure className='flex flex-col justify-between cursor-pointer' onClick={() => GetSumStation()}>
+          <h1 className='text-center font-bold'>สถานีตรวจสอบน้ำหนัก</h1>
+          <section className='text-center'>
+            <p>หน่วยงานที่เปิดอยู่ <span className={checkpoint?.station?.open > 0 ? '!text-[#90FF00]' : ''}>{checkpoint?.station?.open || 0}</span>/{checkpoint?.station?.total || 0}</p>
+          </section>
+          <TruckWim className='mx-auto' />
+          <section className='flex justify-evenly text-center'>
+            <div className='flex-col justify-center'>
+              <p>จำนวนรถเข้าชั่ง</p>
+              <p>{loading ? 0 : (stf(filterData?.station?.total).normal() || 0)}</p>
+              <p>คัน</p>
+            </div>
+            <div className='flex-col justify-center'>
+              <p className='text-[#E81A1A]'>บรรจุเกิน</p>
+              <p className='text-[#E81A1A]'>{loading ? 0 : (stf(filterData?.station?.over).normal() || 0)}</p>
+              <p className='text-[#E81A1A]'>คัน</p>
+            </div>
+          </section>
+        </figure>
+      </div >
+      {/* <Card
         className='!w-full !h-full !border !overflow-hidden'
         classNames={{
           body: '!p-0 !h-full !w-full'
@@ -184,12 +261,12 @@ const ContentVehicleStat = (props) => {
             </Card>
           </Col>
         </Row>
-      </Card>
+      </Card> */}
       <ModaldailyWeighed
         open={open.open}
         data={open}
         setOpen={setOpen}
-        authType={authType}
+        accessType={accessType}
       />
     </>
   )

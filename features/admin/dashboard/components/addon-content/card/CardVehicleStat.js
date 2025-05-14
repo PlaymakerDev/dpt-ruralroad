@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { Spin } from 'antd'
 
 const CardVehicleStat = (props) => {
-  const { authType } = props
+  const { accessType } = props
   // const data = useAppSelector(state => state.dashboard.daily_weighed_vehicles_sum.data)
   // const loading = useAppSelector(state => state.tasksRunning['GET:/api/v1/dashboards/daily_weighed_vehicles_sum'])
   const [apiGetData, loading, data] = useGetAPI('overlay', {
@@ -35,27 +35,33 @@ const CardVehicleStat = (props) => {
   }
 
 
-  const renderContent = useMemo(() => {
-    if (!loadingCheckpoint && !loading) {
-      return (
-        <ContentVehicleStat
-          filterData={filterData}
-          checkpoint={checkpoint.data}
-          authType={authType}
-        />
-      )
-    } else {
-      return (
-        <div className='text-center'>
-          <Spin spinning={true} />
-        </div>
-      )
-    }
-  }, [loading, data, loadingCheckpoint])
+  // const renderContent = useMemo(() => {
+  //   if (!loadingCheckpoint && !loading) {
+  //     return (
+  //       <ContentVehicleStat
+  //         filterData={filterData}
+  //         checkpoint={checkpoint.data}
+  //         accessType={accessType}
+  //       />
+  //     )
+  //   } else {
+  //     return (
+  //       <div className='text-center'>
+  //         <Spin spinning={true} />
+  //       </div>
+  //     )
+  //   }
+  // }, [loading, data, loadingCheckpoint])
 
   return (
     <>
-      {renderContent}
+      {/* {renderContent} */}
+      <ContentVehicleStat
+        loading={loading}
+        filterData={filterData}
+        checkpoint={checkpoint.data}
+        accessType={accessType}
+      />
     </>
   )
 }

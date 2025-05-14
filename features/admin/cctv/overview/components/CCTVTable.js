@@ -8,25 +8,6 @@ import { CctvID } from '@/pages/_app';
 
 const CCTVTable = (props) => {
   const { data, loading, page, perPage, total, onChange, getCCTV } = props
-  const { cctvID, setCctvID, cctvPage, setCctvPage } = useContext(CctvID);
-  const router = useRouter()
-
-  // const data = [
-  //   {
-  //     no: "1",
-  //     installation_point: "บทช.กัลปพฤกษ์",
-  //     amount: "5 กล้อง",
-  //     active: "4 กล้อง",
-  //     inactive: "1 กล้อง ",
-  //   },
-  //   {
-  //     no: "2",
-  //     installation_point: "บทช.นครอินทร์",
-  //     amount: "2 กล้อง",
-  //     active: "1 กล้อง",
-  //     inactive: "-",
-  //   },
-  // ]
 
   const columns = [
     {
@@ -57,10 +38,10 @@ const CCTVTable = (props) => {
       dataIndex: "total_cameras",
       width: 20,
       render: (item) => {
-        if (item) {
+        if (Number(item)) {
           return <Typography.Text>{Number(item || 0)} กล้อง</Typography.Text>
         }
-        return '-'
+        return 'ว่างเปล่า'
       }
     },
     {
@@ -71,7 +52,7 @@ const CCTVTable = (props) => {
       width: 30,
       render: (item) => {
         if (item) {
-          return <Typography.Text>{Number(item || 0)} กล้อง</Typography.Text>
+          return <Typography.Text className='!text-green-500'>{Number(item || 0)} กล้อง</Typography.Text>
         }
         return '-'
       }
@@ -84,7 +65,7 @@ const CCTVTable = (props) => {
       width: 30,
       render: (item) => {
         if (item) {
-          return <Typography.Text>{Number(item || 0)} กล้อง</Typography.Text>
+          return <Typography.Text className='!text-red-500'>{Number(item || 0)} กล้อง</Typography.Text>
         }
         return '-'
       }
@@ -123,19 +104,6 @@ const CCTVTable = (props) => {
               onClick: () => getCCTV(record)
             }
           }}
-          // onRow={(record) => ({
-          //   onClick: () => {
-          //     setCctvID(record.department_id)
-          //     router.push({
-          //       pathname: `/admin/cctv/view/${record.department_id}`,
-          //       query: {
-          //         department_id: record.department_id,
-          //         station_id: record.station_id,
-          //         original_station_type: record?.original_station_type
-          //       }
-          //     })
-          //   }
-          // })}
           pagination={{
             defaultCurrent: 1,
             defaultPageSize: 100,

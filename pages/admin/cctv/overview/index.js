@@ -11,14 +11,6 @@ import { signIn } from '@/store/features/userSlice'
 
 const OverviewPage = (props) => {
   const { } = props
-  const router = useRouter()
-
-  useEffect(() => {
-    if (router?.query?.state) {
-      router.reload()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const renderBreadcrumb = useMemo(() => {
     return (
@@ -32,21 +24,18 @@ const OverviewPage = (props) => {
     <PageLayout
       breadcrumb={renderBreadcrumb}
     >
-      <OverviewScreen
-        clear={router.query.state}
-      />
+      <OverviewScreen />
     </PageLayout>
   )
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => (async (context) => {
-  const [session, redirectPath] = await getLoginSession(context.req, context.res)
+  const session = await getLoginSession(context.req)
 
-  const valid = validatePermissionRoute(session, ['ADMIN','USER'])
+  const valid = validatePermissionRoute(session, ["ADMIN", "USER"])
   if (!valid) {
-    return redirectToLogin(redirectPath)
+    return redirectToLogin()
   }
-  
 
   store.dispatch(signIn(session));
 

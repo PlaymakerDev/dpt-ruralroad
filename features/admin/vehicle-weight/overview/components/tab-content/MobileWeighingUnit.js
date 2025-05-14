@@ -28,7 +28,7 @@ export const DateContext = createContext();
 const MobileWeighingUnit = (props) => {
   const { tabKey, setCurrentStep } = props
   // SET STEP
-  const [dateRange, setDateRange] = useState([dayjs().format("YYYY-MM-DD"), dayjs().format("YYYY-MM-DD")]);
+  const [dateRange, setDateRange] = useState([dayjs().startOf('month').format("YYYY-MM-DD"), dayjs().format("YYYY-MM-DD")]);
   // const [step, setStep] = useState(1)
   // SET OPEN MODAL
   const [openMobile, setOpenMobile] = useState(INIT_MODAL)
@@ -157,7 +157,7 @@ const MobileWeighingUnit = (props) => {
   const clearData = useCallback(() => {
     apiGetData(`/api/v1/weight/mobile_master`, {
       ...data.overview.search,
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       branch: '',
       page: 1,

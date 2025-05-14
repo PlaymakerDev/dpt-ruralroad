@@ -743,3 +743,13 @@ export const OPTION_MONTH = [
   { label: "พฤศจิกายน", value: "11" },
   { label: "ธันวาคม", value: "12" },
 ]
+
+export const REMARK = {
+  "ON": "ออนไลน์",
+  "OFF": "ออฟไลน์",
+}
+
+export const CAMERA_TYPE = {
+  "fixed": "FIXED",
+  "PTZ": "PTZ"
+}

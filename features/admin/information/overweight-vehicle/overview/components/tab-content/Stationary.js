@@ -43,7 +43,7 @@ const Stationary = (props) => {
       apiGetData('/api/v1/info/weight_arrest/station', {
         // ...data.stationary.overview.search,
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         ...(query.station_id && { station_id: query.station_id }),
         page: query.page ? query.page : 1,
@@ -53,7 +53,7 @@ const Stationary = (props) => {
       apiGetMasterStation('/api/v1/masters/station', {}, false, {})
       setFormSearch({
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         station_id: query.station_id ? query.station_id : '',
         page: query.page ? query.page : 1,
@@ -75,7 +75,7 @@ const Stationary = (props) => {
     apiGetData(`/api/v1/info/weight_arrest/station`, {
       // ...data.stationary.overview.search,
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       // station_id: '',
       page: 1,
@@ -84,7 +84,7 @@ const Stationary = (props) => {
     }, false, {})
     setFormSearch({
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station_id: '',
       page: 1,

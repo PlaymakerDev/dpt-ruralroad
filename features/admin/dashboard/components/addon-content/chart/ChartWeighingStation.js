@@ -105,17 +105,17 @@ const ChartWeighingStation = (props) => {
               show: false,
             },
             fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif',
-            offsetX: 0, 
-            offsetY: 10, 
+            offsetX: 0,
+            offsetY: 10,
           },
           grid: {
             padding: {
-              left: 0,  
-              right: 0,   
-              top: -25,     
-              bottom: -20,  
+              left: 0,
+              right: 0,
+              top: -25,
+              bottom: -20,
             },
-            
+
           },
           xaxis: {
             categories: barDataNormalize?.categories || [],
@@ -178,8 +178,8 @@ const ChartWeighingStation = (props) => {
       <section>
         <Row gutter={[16, 16]} align={'middle'}>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
-            <Typography.Title level={4} className='!m-0' style={{ fontSize: 'clamp(1px, 4vw, 15px)' }}>ผลการตรวจสอบน้ำหนักสถานี</Typography.Title>
-            <Typography.Text className='!text-[#FFFFFF80]'>ผลการดำเนินการจัดตั้ง 7 วันล่าสุด</Typography.Text>
+            <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>ผลการตรวจสอบน้ำหนักสถานี</h1>
+            <p className='text-[clamp(1px, 4vw, 15px)] text-[#FFFFFF80]'>ผลการดำเนินการจัดตั้ง 7 วันล่าสุด</p>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
             <section className='flex flex-wrap justify-between'>
@@ -189,12 +189,12 @@ const ChartWeighingStation = (props) => {
                     // icon={<TruckOutlined />}
                     icon={<TruckIcon width={23} height={16} customFill='#FFFFFF' />}
                     className='!bg-[#56E4EE80]'
-                    size={'large'}
+                    size={'default'}
                   />
                 </div>
                 <div className='flex flex-col'>
-                  <Typography.Title level={5} className='!m-0'>{findTotal.total || 0} ครั้ง</Typography.Title>
-                  <Typography.Text className='!text-[#FFFFFF80]'>รถเข้าชั่ง</Typography.Text>
+                  <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>{findTotal.total || 0} ครั้ง</h1>
+                  <p className='text-[clamp(1px, 4vw, 15px)] text-[#FFFFFF80]'>รถเข้าชั่ง</p>
                 </div>
               </div>
               <div className='flex gap-3 items-center'>
@@ -203,12 +203,12 @@ const ChartWeighingStation = (props) => {
                     // icon={<TruckOutlined />}
                     icon={<TruckIcon width={23} height={16} customFill='#FFFFFF' />}
                     className='!bg-[#E81A1A80]'
-                    size={'large'}
+                    size={'default'}
                   />
                 </div>
                 <div className='flex flex-col'>
-                  <Typography.Title level={5} className='!m-0'>{findTotal.over || 0} ครั้ง</Typography.Title>
-                  <Typography.Text className='!text-[#FFFFFF80]'>รถน้ำหนักเกิน</Typography.Text>
+                  <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>{findTotal.over || 0} ครั้ง</h1>
+                  <p className='text-[clamp(1px, 4vw, 15px)] text-[#FFFFFF80]'>รถน้ำหนักเกิน</p>
                 </div>
               </div>
             </section>
@@ -216,7 +216,7 @@ const ChartWeighingStation = (props) => {
         </Row>
       </section>
       <section className='mt-2'>
-          {renderChart}
+        {renderChart}
       </section>
     </div>
   )

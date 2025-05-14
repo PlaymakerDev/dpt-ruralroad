@@ -36,63 +36,74 @@ const FormLogin = (props) => {
 
   const { errors } = form
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const onSubmit = () => {
+    (document.getElementById('role'))?.setAttribute?.('value', ROLE);
+    (document.getElementById('form-login'))?.submit();
+  }
 
-  useEffect(() => {
-    if (error) {
-      if (typeof error === 'object') {
-        setErrorMessage(error.message || JSON.stringify(error));
-      } else {
-        setErrorMessage(error);
-      }
+  const errorMessage = useMemo(() => {
+    if (error?.message) {
+      return error?.message
     }
   }, [error])
 
-  const onSubmit = useCallback(async (values) => {
-    try {
-      console.log('Submitting login form with values:', { ...values, password: '***' });
-      
-      // ใช้ fetch แทน axios เพื่อให้มีการจัดการ cookie ที่ดีขึ้น
-      const response = await fetch(actionURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...values,
-          role: ROLE
-        }),
-        // สำคัญมาก: ต้องมี credentials เพื่อให้ browser ส่ง cookie กลับไปด้วย
-        credentials: 'include'
-      });
-      
-      console.log('Login response status:', response.status);
-      
-      const data = await response.json();
-      console.log('Login response data:', data);
-      
-      if (data.error) {
-        setErrorMessage(data.error);
-      } else if (data.redirectTo) {
-        console.log('Redirecting to:', data.redirectTo);
-        
-        // เพิ่มการหน่วงเวลาก่อนที่จะ redirect เพื่อให้ browser มีเวลาในการบันทึก cookie
-        console.log('Waiting for cookie to be set before redirecting...');
-        
-        // เพิ่มเวลาในการหน่วงเป็น 1000ms (1 วินาที) เพื่อให้มั่นใจว่า cookie ถูกบันทึกเรียบร้อยแล้ว
-        setTimeout(() => {
-          // ตรวจสอบว่ามี cookie หรือไม่ก่อนที่จะ redirect
-          console.log('Checking cookies before redirect:', document.cookie);
-          
-          // ใช้ window.location.href แทน router.push เพื่อให้มีการโหลดหน้าใหม่ทั้งหมด
-          window.location.href = data.redirectTo;
-        }, 5000); // เพิ่มเวลาหน่วงเป็น 5000ms
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setErrorMessage('เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง');
-    }
-  }, [actionURL, router]);
+  // const [errorMessage, setErrorMessage] = useState('');
+
+  // useEffect(() => {
+  //   if (error) {
+  //     if (typeof error === 'object') {
+  //       setErrorMessage(error.message || JSON.stringify(error));
+  //     } else {
+  //       setErrorMessage(error);
+  //     }
+  //   }
+  // }, [error])
+
+  // const onSubmit = useCallback(async (values) => {
+  //   try {
+  //     console.log('Submitting login form with values:', { ...values, password: '***' });
+
+  //     // ใช้ fetch แทน axios เพื่อให้มีการจัดการ cookie ที่ดีขึ้น
+  //     const response = await fetch(actionURL, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         ...values,
+  //         role: ROLE
+  //       }),
+  //       // สำคัญมาก: ต้องมี credentials เพื่อให้ browser ส่ง cookie กลับไปด้วย
+  //       credentials: 'include'
+  //     });
+
+  //     console.log('Login response status:', response.status);
+
+  //     const data = await response.json();
+  //     console.log('Login response data:', data);
+
+  //     if (data.error) {
+  //       setErrorMessage(data.error);
+  //     } else if (data.redirectTo) {
+  //       console.log('Redirecting to:', data.redirectTo);
+
+  //       // เพิ่มการหน่วงเวลาก่อนที่จะ redirect เพื่อให้ browser มีเวลาในการบันทึก cookie
+  //       console.log('Waiting for cookie to be set before redirecting...');
+
+  //       // เพิ่มเวลาในการหน่วงเป็น 1000ms (1 วินาที) เพื่อให้มั่นใจว่า cookie ถูกบันทึกเรียบร้อยแล้ว
+  //       setTimeout(() => {
+  //         // ตรวจสอบว่ามี cookie หรือไม่ก่อนที่จะ redirect
+  //         console.log('Checking cookies before redirect:', document.cookie);
+
+  //         // ใช้ window.location.href แทน router.push เพื่อให้มีการโหลดหน้าใหม่ทั้งหมด
+  //         window.location.href = data.redirectTo;
+  //       }, 5000); // เพิ่มเวลาหน่วงเป็น 5000ms
+  //     }
+  //   } catch (error) {
+  //     console.error('Login error:', error);
+  //     setErrorMessage('เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง');
+  //   }
+  // }, [actionURL, router]);
 
   return (
     <div className={styles.container}>
@@ -122,6 +133,8 @@ const FormLogin = (props) => {
       <Row className={styles.row_no_gap}>
         <Form
           form={form}
+          action={actionURL}
+          method='POST'
           handlerSubmit={onSubmit}
           id={'form-login'}
           className={styles.form}
@@ -161,7 +174,7 @@ const FormLogin = (props) => {
             block
             className={styles.external_button}
             icon={<UserTie />}
-            onClick={() => push({
+            onClick={() => router.push({
               pathname: '/admin/dashboard',
               query: {
                 type: 'EXECUTIVE'
@@ -179,7 +192,7 @@ const FormLogin = (props) => {
             block
             className={styles.external_button}
             icon={<UserOutlined />}
-            onClick={() => push({
+            onClick={() => router.push({
               pathname: '/admin/dashboard',
               query: {
                 type: 'CITIZEN'

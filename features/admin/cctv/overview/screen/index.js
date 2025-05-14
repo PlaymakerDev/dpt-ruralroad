@@ -1,19 +1,23 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { Row, Col, Spin } from 'antd'
-import { MenuCard, CCTVTable, CCTVListing } from '../components'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Row, Col, Spin, Select, Tag } from 'antd'
+import { MenuCard, CCTVTable, CCTVListing, FormSearchCCTV, ContentCCTVLIst, ModalCCTV, ModalConfigCCTV } from '../components'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
-import { clearList, clearStationSum, getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
-import { useRouter } from 'next/router'
-import { CctvID } from '@/pages/_app'
-import { useAppDispatch } from '@/store/hooks'
+import { getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
+import CCTVIconMenu from '@/components/icon/CCTVIconMenu'
+import { Failed, Success } from '@/components/icon'
+
+const INIT_SEARCH = null
+const INIT_MODAL = { open: false, data: null }
+const INIT_DETAIL = { open: false, data: { cctv: null, station: null } }
+const INIT_CONFIG = { open: false, data: null }
 
 const OverviewScreen = (props) => {
   const { } = props
-  const router = useRouter()
-  const [cctvActive, setCctvActive] = useState()
-  const { cctvID, setCctvID, cctvPage, setCctvPage } = useContext(CctvID);
-  const dispatch = useAppDispatch()
   const cctvRef = useRef(false)
+  const [value, setValue] = useState(INIT_SEARCH)
+  const [open, setOpen] = useState(INIT_MODAL)
+  const [detail, setDetail] = useState(INIT_DETAIL)
+  const [config, setConfig] = useState(INIT_CONFIG)
 
   const [apiGetDepartmentGroup, loadDepartmentGroup, departmentGroup] = useGetAPI('overlay', {
     funcDispatch: getDepartmentGroup, reducerName: 'cctv', reducerKey: 'department_group'
@@ -32,44 +36,29 @@ const OverviewScreen = (props) => {
   })
 
   useEffect(() => {
+    apiGetData('/api/v1/cctv/list', {
+      ...data.search,
+      page_size: 100,
+      department_id: data.department_id,
+      station_id: data.station_id
+    }, false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     apiGetDepartmentGroup('/api/v1/cctv/department_group', {
       ...departmentGroup.search
     }, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    setCctvActive(cctvID)
-    setCctvID(0)
   }, [])
 
-  useEffect(() => {
-    if (cctvActive != null) {
-      apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', {
-        ...departmentListSum.search,
-        department_id: cctvActive,
-      }, false)
-    } else {
-      apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', {
-        ...departmentListSum.search,
-        department_id: 0,
-      }, false)
-    }
+  const elemProps = {
+    className: 'flex flex-col items-center justify-between'
+  }
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-
-  }, [cctvActive])
-
-  const findDepartmentListSum = useCallback(async (department_id) => {
-    cctvRef.current = false
-    setCctvActive(department_id)
-    // dispatch(clearList)
-    // dispatch(clearStationSum)
-  }, [apiGetDepartmentListSum, departmentListSum, cctvRef])
-
-  const onChangePage = useCallback((page, perPage) => {
-    apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', { ...departmentListSum.search, page: page, page_size: perPage }, false, {})
-  }, [apiGetDepartmentListSum, departmentListSum])
+  // const onChangePage = useCallback((page, perPage) => {
+  //   apiGetDepartmentListSum('/api/v1/cctv/deparment_list_sum', { ...departmentListSum.search, page: page, page_size: perPage }, false, {})
+  // }, [apiGetDepartmentListSum, departmentListSum])
 
   const findStationType = useCallback((stationType, stationId) => {
     switch (stationType) {
@@ -97,49 +86,116 @@ const OverviewScreen = (props) => {
     }, false)
   }, [cctvRef])
 
-  const renderCCTVListing = useMemo(() => {
+  const searchCCTV = useCallback(() => {
+    apiGetData('/api/v1/cctv/list', { ...data.search, page_size: 100, }, false)
+  }, [data])
+
+  const renderCCTVList = useMemo(() => {
     if (!loading || !loadStation) {
       return (
-        <CCTVListing
-          cctv={data.data}
+        <ContentCCTVLIst
+          cctv={data.data || []}
           station={station.data}
+          cctvRef={cctvRef}
+          setOpen={setOpen}
+          setConfig={setConfig}
         />
       )
     } else {
       return <Spin spinning={loading || loadStation} />
     }
-  }, [loading, loadStation, data, station])
+  }, [loading, loadStation, data, station, cctvRef])
+
+  const renderSelect = useMemo(() => {
+    return (
+      <Col xs={24} sm={12} md={12} lg={12} xl={4} xxl={4}>
+        <fieldset>
+          <label>สถานี WIM</label>
+          <Select
+            value={value}
+            options={departmentListSum.data}
+            className='w-full !mt-[6px]'
+            fieldNames={{
+              label: 'station_description',
+              value: 'station_id'
+            }}
+            size='large'
+            onChange={(value, options) => {
+              getCCTV(options)
+              setValue(value)
+            }}
+            placeholder='สถานี WIM'
+            allowClear={false}
+            loading={loadDepartmentListSum}
+            showSearch
+            optionFilterProp="children"
+            filterOption={(input, option) => {
+              return option ? option.station_description.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false;
+            }}
+          />
+        </fieldset>
+      </Col>
+    )
+  }, [departmentListSum, loadDepartmentListSum, value])
+
+  const renderDetail = useMemo(() => {
+    // CHECK IF REF RETURN FALSE
+    if (!cctvRef.current) return
+    // NORMAL RENDER
+    if (!loadStation) {
+      return (
+        <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
+          <section className='flex justify-end items-end h-full gap-5'>
+            <div {...elemProps}>
+              <CCTVIconMenu width={42} height={40} className='mx-auto' />
+              <p className='font-bold'>กล้องทั้งหมด {station.data.total_cameras || 0}</p>
+            </div>
+            <div {...elemProps}>
+              <Success className='!text-2xl' />
+              <p className='font-bold text-[#22c55e]'>กล้องออนไลน์ {station.data.online_cameras || 0}</p>
+            </div>
+            <div {...elemProps}>
+              <Failed className='!text-2xl' />
+              <p className='font-bold text-[#FF4A4A]'>กล้องออฟไลน์ {station.data.offline_cameras || 0}</p>
+            </div>
+          </section>
+        </Col>
+      )
+    }
+  }, [loadStation, station, cctvRef])
 
   return (
     <>
-      <Row gutter={[30, 30]}>
-        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='!w-full'>
-          <MenuCard
-            data={departmentGroup.data}
-            active={cctvActive || 0}
-            findDepartmentListSum={findDepartmentListSum}
-          />
-        </Col>
-        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12} className='!w-full'>
-          <section>
-            {cctvRef.current ? renderCCTVListing : null}
-          </section>
-          <section className={cctvRef.current ? 'mt-5' : ''}>
-            <CCTVTable
-              // API DATA
-              setCctvID={setCctvID}
-              data={departmentListSum.data}
-              loading={loadDepartmentListSum}
-              // PAGE API
-              page={departmentListSum.search.page}
-              perPage={departmentListSum.search.page_size}
-              total={departmentListSum.meta.total}
-              onChange={onChangePage}
-              getCCTV={getCCTV}
+      <section>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12} md={12} lg={12} xl={8} xxl={8}>
+            <FormSearchCCTV
+              dptGroup={departmentGroup.data}
+              defaultSearch={departmentListSum.search}
+              apiGetData={apiGetDepartmentListSum}
+              cctvRef={cctvRef}
+              clearSearch={() => setValue(INIT_SEARCH)}
             />
-          </section>
-        </Col>
-      </Row>
+          </Col>
+          {renderSelect}
+          {renderDetail}
+        </Row>
+      </section>
+      <section className='mt-5'>
+        {renderCCTVList}
+      </section>
+      <ModalCCTV
+        open={open.open}
+        info={open.data}
+        onClose={() => setOpen(INIT_MODAL)}
+      />
+      <ModalConfigCCTV
+        open={config.open}
+        info={config.data}
+        onClose={() => setConfig(INIT_CONFIG)}
+        onSearch={() => searchCCTV()}
+        cctvRef={cctvRef}
+      />
     </>
   )
 }

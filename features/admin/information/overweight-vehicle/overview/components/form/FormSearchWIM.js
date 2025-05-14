@@ -25,7 +25,7 @@ const FormSearchWIM = (props) => {
   const form = useForm({
     initialValues: {
       plan_year: query.plan_year ? dayjs(query.plan_year, 'YYYY') : reportYear(),
-      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs(),
+      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs().startOf('month'),
       end_date: query.end_date ? dayjs(query.end_date, 'YYYY-MM-DD') : dayjs(),
       station_id: Number(query.station_id)
     },
@@ -65,13 +65,13 @@ const FormSearchWIM = (props) => {
     });
     handlerChange({
       plan_year: reportYear(),
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
       // station_id: '',
     })
     setFormSearch({
       plan_year: reportYear(),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station_id: '',
       page: 1,

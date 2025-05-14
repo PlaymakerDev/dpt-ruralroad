@@ -48,7 +48,7 @@ const Mobile = (props) => {
       apiGetData('/api/v1/info/weight_arrest/spot', {
         // ...data.mobile.overview.search,
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         // department_id: query.department_id ? query.department_id : '',
         ...(query.department_id && { department_id: query.department_id }),
@@ -60,7 +60,7 @@ const Mobile = (props) => {
       apiGetMasterDepartment('/api/v1/masters/departments_all', {}, false, {})
       setFormSearch({
         plan_year: query.plan_year ? query.plan_year : reportYear().format('YYYY'),
-        start_date: query.start_date ? query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: query.start_date ? query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: query.end_date ? query.end_date : dayjs().format('YYYY-MM-DD'),
         department_id: query.department_id ? query.department_id : '',
         page: query.page ? query.page : 1,
@@ -84,7 +84,7 @@ const Mobile = (props) => {
     apiGetMasterDepartment('/api/v1/masters/departments_all', {}, false, {})
     apiGetData(`/api/v1/info/weight_arrest/spot`, {
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       // department_id: '',
       page: 1,
@@ -93,7 +93,7 @@ const Mobile = (props) => {
     }, false, {})
     setFormSearch({
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       department_id: '',
       page: 1,

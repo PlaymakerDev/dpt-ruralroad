@@ -21,7 +21,7 @@ const WeighingSummary = (props) => {
     if (tabKey === 'summary') {
       apiGetData(`/api/v1/weight/sum_daily`, {
         ...data.overview.search,
-        start_date: router.query.start_date ? router.query.start_date : dayjs().format('YYYY-MM-DD'),
+        start_date: router.query.start_date ? router.query.start_date : dayjs().startOf('month').format('YYYY-MM-DD'),
         end_date: router.query.end_date ? router.query.end_date : dayjs().format('YYYY-MM-DD'),
         search: '',
         page: 1,
@@ -42,7 +42,7 @@ const WeighingSummary = (props) => {
   const clearData = useCallback(() => {
     apiGetData(`/api/v1/weight/sum_daily`, {
       ...data.overview.search,
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       search: '',
       page: 1,

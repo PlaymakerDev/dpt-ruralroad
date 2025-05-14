@@ -21,7 +21,7 @@ const WIMWeighingUnit = (props) => {
   // const [step, setStep] = useState(1)
   const [open, setOpen] = useState(INIT_MODAL)
   const [detailProps, setDetailProps] = useState(INIT_DETAIL_PROPS)
-  const [dateRange, setDateRange] = useState([dayjs().format("YYYY-MM-DD"),dayjs().format("YYYY-MM-DD")]);
+  const [dateRange, setDateRange] = useState([dayjs().startOf('month').format("YYYY-MM-DD"), dayjs().format("YYYY-MM-DD")]);
   // REDUCER
   const dispatch = useAppDispatch()
   // USE CONTEXT
@@ -110,7 +110,7 @@ const WIMWeighingUnit = (props) => {
   const clearData = useCallback(() => {
     apiGetData(`/api/v1/weight/wim_daily`, {
       ...data.overview.search,
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       station_id: '',
       page: 1,
@@ -193,14 +193,14 @@ const WIMWeighingUnit = (props) => {
 
   return (
     <DateContext.Provider value={{ setDateRange }}>
-    <div>
-      {getDetail}
-      <ModalWIMDetail
-        open={open.open}
-        info={open.info}
-        setOpen={setOpen}
-      />
-    </div>
+      <div>
+        {getDetail}
+        <ModalWIMDetail
+          open={open.open}
+          info={open.info}
+          setOpen={setOpen}
+        />
+      </div>
     </DateContext.Provider>
   )
 }

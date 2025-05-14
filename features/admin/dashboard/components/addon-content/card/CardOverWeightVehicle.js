@@ -17,8 +17,6 @@ const CardOverWeightVehicle = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
-
   const renderContent = useMemo(() => {
     if (!loading) {
       return (
@@ -38,9 +36,9 @@ const CardOverWeightVehicle = (props) => {
   }, [loading, data])
 
   return (
-    <Card className='!w-full !h-full' body={{ padding: '1rem', margin: 0 }}>
+    <div className="card-container rounded-md p-2">
       {renderContent}
-    </Card>
+    </div>
   )
 }
 

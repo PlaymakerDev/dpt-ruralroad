@@ -50,12 +50,10 @@ const CardWeighingStation = (props) => {
   const renderStation = useMemo(() => {
     if (!loadingStation && typeof loadingStation !== 'undefined') {
       return (
-        <div className='w-[97%]'>
-          <ChartWeighingStation
-            data={station.station.data}
-            loading={loadingStation}
-          />
-        </div>
+        <ChartWeighingStation
+          data={station.station.data}
+          loading={loadingStation}
+        />
       )
     } else {
       return <Spin spinning={loadingStation} />
@@ -65,12 +63,10 @@ const CardWeighingStation = (props) => {
   const renderWIM = useMemo(() => {
     if (!loadingWIM && typeof loadingWIM !== 'undefined') {
       return (
-        <div className='w-[97%]'>
-          <ChartWeighingWIM
-            data={wim.wim.data}
-            loading={loadingWIM}
-          />
-        </div>
+        <ChartWeighingWIM
+          data={wim.wim.data}
+          loading={loadingWIM}
+        />
       )
     } else {
       return <Spin spinning={loadingWIM} />
@@ -80,12 +76,10 @@ const CardWeighingStation = (props) => {
   const renderMobile = useMemo(() => {
     if (!loadingMobile && typeof loadingMobile !== 'undefined') {
       return (
-        <div className='w-[97%]'>
-          <ChartWeighingMobile
-            data={mobile.mobile.data}
-            loading={loadingMobile}
-          />
-        </div>
+        <ChartWeighingMobile
+          data={mobile.mobile.data}
+          loading={loadingMobile}
+        />
       )
     } else {
       return <Spin spinning={loadingMobile} />
@@ -93,30 +87,30 @@ const CardWeighingStation = (props) => {
   }, [loadingMobile, mobile])
 
   return (
-    <div className='!h-full '>
-      <Card className='!w-full !h-full '>
-        <Swiper
-          modules={[Pagination, Navigation, Autoplay]}
-          navigation
-          pagination={{
-            el: '.swiper-pagination',
-            clickable: true,
-            renderBullet: (_, className) => {
-              return '<span class="' + className + '" /></span>';
-            },
-          }}
-          autoplay={{
-            delay: 3000,
-            pauseOnMouseEnter: true
-          }}
-        >
-          <SwiperSlide>{renderStation}</SwiperSlide>
-          <SwiperSlide>{renderWIM}</SwiperSlide>
-          <SwiperSlide>{renderMobile}</SwiperSlide>
-        </Swiper>
-        <div className='swiper-pagination ' />
-      </Card>
+    // <div className='!h-full '>
+    <div className='card-container rounded-md p-2 h-full'>
+      <Swiper
+        modules={[Pagination, Navigation, Autoplay]}
+        navigation
+        pagination={{
+          el: '.swiper-pagination',
+          clickable: true,
+          renderBullet: (_, className) => {
+            return '<span class="' + className + '" /></span>';
+          },
+        }}
+        autoplay={{
+          delay: 3000,
+          pauseOnMouseEnter: true
+        }}
+      >
+        <SwiperSlide>{renderStation}</SwiperSlide>
+        <SwiperSlide>{renderWIM}</SwiperSlide>
+        <SwiperSlide>{renderMobile}</SwiperSlide>
+      </Swiper>
+      <div className='swiper-pagination ' />
     </div>
+    // </div>
   )
 }
 

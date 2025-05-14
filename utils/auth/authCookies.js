@@ -1,25 +1,21 @@
 import { serialize, parse, CookieSerializeOptions } from 'cookie'
 
-// const TOKEN_NAME = 'ergo-agent-auth'
 const TOKEN_NAME = 'vis-auth'
 
-export const MAX_AGE = 60 * 60 * 24
+export const MAX_AGE = 60 * 20
 
 export function setTokenCookie(
   res,
-  token, 
-  _MAX_AGE = MAX_AGE) {
+  token, _MAX_AGE = MAX_AGE) {
   const opt = {
-    maxAge: Math.floor(_MAX_AGE),
-    expires: new Date(Date.now() + Math.floor(_MAX_AGE) * 1000),
+    maxAge: _MAX_AGE,
+    expires: new Date(Date.now() + _MAX_AGE * 1000),
     httpOnly: true,
-    secure: false, // ไม่ใช้ secure เพื่อให้ทำงานได้ใน localhost
+    secure: process.env.SECURE_COOKIE === "TRUE",
     path: '/',
-    sameSite: 'lax', // ใช้ lax เพื่อให้ทำงานได้ใน localhost
+    sameSite: 'lax',
   }
   const cookie = serialize(TOKEN_NAME, token, opt)
-  console.log('Setting cookie:', TOKEN_NAME)
-  console.log('Cookie options:', JSON.stringify(opt))
   res.setHeader('Set-Cookie', cookie)
 }
 

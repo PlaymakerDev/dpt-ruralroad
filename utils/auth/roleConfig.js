@@ -10,10 +10,6 @@ const ROLE_CONFIG = {
   [ROLE.USER]: {
     "index_page": "/admin/dashboard"
   },
-  // Add a default index page for any role
-  "DEFAULT": {
-    "index_page": "/admin/dashboard"
-  }
 }
 
 export default ROLE_CONFIG

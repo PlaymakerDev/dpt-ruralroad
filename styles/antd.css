@@ -169,9 +169,6 @@
   font-size: 92px !important;
 } */
 
-
-
-
 .arres-input.ant-select-single{
   width: 100%;
   /* height: clamp(23px, 2.3vw, 30px); */
@@ -208,4 +205,8 @@
 
 .ck.ck-editor__main>.ck-editor__editable:not(.ck-blurred){
   padding: 0px 30px;
+}
+
+.ant-table-wrapper .ant-table-summary {
+  background: #101524 !important;
 }

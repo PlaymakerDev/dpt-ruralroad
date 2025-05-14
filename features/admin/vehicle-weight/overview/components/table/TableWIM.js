@@ -6,6 +6,7 @@ import stf from '@/utils/stringformat'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { REMARK } from '@/utils/constant'
 
 dayjs.extend(customParseFormat);
 
@@ -90,6 +91,19 @@ const TableWIM = (props) => {
           return
         }
         return Number(item)
+      }
+    },
+    {
+      title: "หมายเหตุ",
+      key: "remark",
+      dataIndex: "remark",
+      align: 'center',
+      width: 200,
+      render: (item) => {
+        if (item) {
+          return REMARK[item]
+        }
+        return '-'
       }
     },
     {

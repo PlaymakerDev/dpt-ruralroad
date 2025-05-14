@@ -27,7 +27,7 @@ const FormSearchMobile = (props) => {
   const form = useForm({
     initialValues: {
       plan_year: query.plan_year ? dayjs(query.plan_year, 'YYYY') : reportYear(),
-      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs(),
+      start_date: query.start_date ? dayjs(query.start_date, 'YYYY-MM-DD') : dayjs().startOf('month'),
       end_date: query.end_date ? dayjs(query.end_date, 'YYYY-MM-DD') : dayjs(),
       department_id: query.department_id
     },
@@ -67,14 +67,14 @@ const FormSearchMobile = (props) => {
     });
     setFormSearch({
       plan_year: reportYear().format('YYYY'),
-      start_date: dayjs().format('YYYY-MM-DD'),
+      start_date: dayjs().startOf('month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
       department_id: '',
       page: 1,
     })
     handlerChange({
       plan_year: reportYear(),
-      start_date: dayjs(),
+      start_date: dayjs().startOf('month'),
       end_date: dayjs(),
       department_id: '',
       page: 1,
