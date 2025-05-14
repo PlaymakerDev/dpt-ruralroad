@@ -210,3 +210,7 @@
 .ant-table-wrapper .ant-table-summary {
   background: #101524 !important;
 }
+
+.ant-table-wrapper .ant-table{
+  scrollbar-color: #a1a1a1 transparent !important;
+}
