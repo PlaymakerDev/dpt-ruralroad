@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
-import WIMDetailScreen from '@/features/admin/project-info/station-detail/screen'
+import StationDetailScreen from '@/features/admin/project-info/station-detail/screen'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
 import { Breadcrumb } from 'antd'
 // CHECK ROLE
@@ -37,7 +37,7 @@ const StationDetailPage = (props) => {
     <PageLayout
       breadcrumb={renderBreadcrumb}
     >
-      <WIMDetailScreen
+      <StationDetailScreen
         stationId={router?.query?.id}
       />
     </PageLayout>
