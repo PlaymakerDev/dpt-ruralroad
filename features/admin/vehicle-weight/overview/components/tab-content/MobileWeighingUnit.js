@@ -90,7 +90,6 @@ const MobileWeighingUnit = (props) => {
         page: 1,
         page_size: 10
       }, false, {})
-
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabKey, step, detailProps])
