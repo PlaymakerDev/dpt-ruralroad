@@ -21,7 +21,7 @@ const DetailContent = (props) => {
     if (!arrList.length) {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-          <figure className='h-72 flex justify-center items-center'>
+          <figure className='h-80 flex justify-center items-center'>
             <Empty
               description={<Typography.Text className='!text-white'>No Data</Typography.Text>}
             />
@@ -34,7 +34,7 @@ const DetailContent = (props) => {
       if (item.camera_status === 'Offline') {
         return (
           <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8} key={index}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-80 relative overflow-hidden rounded-lg bg-[#101524]'>
               <CCTVInactive
                 width={82}
                 height={80}
@@ -44,7 +44,7 @@ const DetailContent = (props) => {
                 <div className='flex justify-between items-center'>
                   <div className='block p-3'>
                     <Typography.Text className='!text-md' strong>{item.camera_description}</Typography.Text>
-                    <EditOutlined className='!text-white !cursor-pointer' onClick={() => onOpenConfig({ open: true, data: item })} />
+                    {cctvRef.current ? <EditOutlined className='!text-white !cursor-pointer' onClick={() => onOpenConfig({ open: true, data: item })} /> : null}
                   </div>
                   <div className='block p-3'>
                     <Tag color={item.camera_status === "Online" ? '#22c55e' : '#FF4A4A'}>{CAMERA_TYPE[item.camera_type]}</Tag>
@@ -57,7 +57,7 @@ const DetailContent = (props) => {
       } else {
         return (
           <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8} key={index}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-80 relative overflow-hidden rounded-lg bg-[#101524]'>
               <div onClick={() => setOpen({ open: true, data: item })}              >
                 <ReactPlayer
                   url={item.stream_url}
@@ -74,7 +74,7 @@ const DetailContent = (props) => {
                 <div className='flex justify-between items-center'>
                   <div className='block p-3'>
                     <Typography.Text className='!text-md' strong>{item.camera_description}</Typography.Text>
-                    <EditOutlined className='!text-white !cursor-pointer' onClick={() => onOpenConfig({ open: true, data: item })} />
+                    {cctvRef.current ? <EditOutlined className='!text-white !cursor-pointer' onClick={() => onOpenConfig({ open: true, data: item })} /> : null}
                   </div>
                   <div className='block p-3'>
                     <Tag color={item.camera_status === "Online" ? '#22c55e' : '#FF4A4A'}>{CAMERA_TYPE[item.camera_type]}</Tag>

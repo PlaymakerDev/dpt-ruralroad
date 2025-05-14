@@ -1,17 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { LongdoMap, map, longdo } from '@/components/map/LongdoMap'
-import { MAP_PIN } from '../../mock'
-import useGetAPI from '@/utils/hooks/api/useGetAPI'
-import { getPosition } from '@/store/features/dashboardSlice'
-import { Spin } from 'antd'
-import TruckWeight from '@/components/icon/TruckWeight'
-import Button from 'antd'
-
-const MAP_KEY = "f7ba675880ccab7ac7fd0a65f1b33553"
+import React, { useEffect, useMemo, useState } from 'react'
+import dynamic from 'next/dynamic'
+import useGetAPI from '@/utils/hooks/api/useGetAPI';
+import { getPosition } from '@/store/features/dashboardSlice';
+import { Button } from 'antd';
+const SpecMap = dynamic(() => import('@/features/admin/dashboard/components/map/SpecMap'), { ssr: false })
+// const Map = dynamic(() => import('@/components/map/Map2.js'), { ssr: false })
+const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
 
 const DisplayMap = (props) => {
-  const { } = props
-  const [display, setDisplay] = useState(false)
+  const { } = props;
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
     funcDispatch: getPosition, reducerName: 'dashboard', reducerKey: 'position'
@@ -21,180 +19,200 @@ const DisplayMap = (props) => {
     apiGetData('/api/v1/dashboards/position', {}, false)
   }, [])
 
-  const initMap = useCallback(() => {
-    if (map && longdo) {
-      new window.longdo.Map({
-        placeholder: 'map__container',
-        language: 'th',
-        lastView: false,
-        zoom: 10, // เพิ่มค่า zoom เริ่มต้น
-        // zoomRange: { min: 12, max: 14 },
+  const mapData = data.overview.data
 
-        mouse: {
-          wheel: false,
-        },
+  const renderMobileMarker = useMemo(() => {
+    if (typeof window === 'undefined' || !mapData?.mobile) return null;
+
+    const leaflet = require('leaflet');
+    // RENDER
+    const mobileMarker = mapData?.mobile?.map((item, index) => {
+      // INIT ICON
+      const pinIcon = new leaflet.icon({
+        iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-blue.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+        shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
       })
-      map.Layers.setBase(longdo.Layers.GRAY);
-      // แสดงเครื่องมือบนแผนที่
-      // map.Ui.DPad.visible(false)
-      // map.Ui.Zoombar.visible(false)
-      // map.Ui.Geolocation.visible(false)
-      // map.Ui.Toolbar.visible(false)
-      // map.Ui.LayerSelector.visible(false)
-      // map.Ui.Fullscreen.visible(false)
-      // map.Ui.Crosshair.visible(false)
-      // map.Ui.Scale.visible(false)
-
-      // ปิดการซูมด้วยปุ่มเมาส์ (ถ้ามี)
-      // if (map.Ui.Mouse) {
-      //   map.Ui.Mouse.enableWheel(false)
-      // }
-      // Add other map configurations here
-
-      // IF STATION EXISTED
-      if (!!data?.overview?.data?.station?.length) {
-        data?.overview?.data?.station?.map(item => {
-          console.log("station", item)
-          const stationMarker = new longdo.Marker(
-            { lon: item.Longtitude, lat: item.Latitude },
-            {
-              title: item.StationName,
-              icon: {
-                // url: '/images/truck-wim.svg',
-                // size: { width: 70, height: 50 }
-                url: '/webnew/images/markerstation.svg',
-                size: { width: 60, height: 70 }
-              },
-              popup: {
-                html: `<figcaption class="popup-figure"><section><h1 class="popup-title">${item.StationName}</h1><p class="popup-description">${item.LocationDescription}</p></section><section style="margin-top: 0.25rem;"><h2 class="popup-subtitle">สถานะ</h2><div class="popup-container"><p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p><p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p></div></section><section style="margin-top: 0.25rem;"><h2 class="popup-subtitle">พิกัด</h2><div class="popup-container"><p class="popup-description">ละติจูด: ${item.Latitude}</p><p class="popup-description">ลองจิจูด: ${item.Longtitude}</p></div></section><Button type="primary" size="large">Sample</Button></figcaption>`,
-                size: {
-                  width: 500
-                }
-              }
-            }
-          )
-          map.Overlays.add(stationMarker);
-        })
-      }
-
-      // IF WIM EXISTED
-      if (!!data?.overview?.data?.wim?.length) {
-        data?.overview?.data?.wim?.map(item => {
-          console.log("wim", item)
-          const WIMMarker = new longdo.Marker(
-            { lon: item.Longtitude, lat: item.Latitude },
-            {
-              title: item.StationName,
-              icon: {
-                // url: '/images/truck-inspect.svg',
-                // size: { width: 70, height: 50 }
-                url: '/webnew/images/markerwin.svg',
-                size: { width: 60, height: 70 }
-              },
-              popup: {
-                html: `
-                <figcaption class="popup-figure">
-                  <section>
-                    <h1 class="popup-title">${item.StationName}</h1>
-                    <p class="popup-description">${item.LocationDescription}</p>
-                  </section>
-                  <section style="margin-top: 0.25rem;">
-                    <h2 class="popup-subtitle">สถานะ</h2>
-                    <div class="popup-container">
-                      <p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p>
-                      <p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p>
-                    </div>
-                  </section>
-                  <section style="margin-top: 0.25rem;">
-                    <h2 class="popup-subtitle">พิกัด</h2>
-                    <div class="popup-container">
-                      <p class="popup-description">ละติจูด: ${item.Latitude}</p>
-                      <p class="popup-description">ลองจิจูด: ${item.Longtitude}</p>
-                    </div>
-                  </section>
-                  <Button type="primary" size="large">Sample</Button>
-                </figcaption>`,
-                size: {
-                  width: 500
-                }
-              }
-
-            }
-          )
-          map.Overlays.add(WIMMarker);
-        })
-      }
-
-      // IF MOBILE EXISTED
-      if (!!data?.overview?.data?.mobile?.length) {
-        data?.overview?.data?.mobile?.map(item => {
-          console.log("mobile", item)
-          const mobileMarker = new longdo.Marker(
-            { lon: item.Longtitude, lat: item.Latitude },
-            {
-              title: item.StationName,
-              icon: {
-                // url: '/images/truck-weight.svg',
-                // size: { width: 70, height: 50 }
-                url: '/webnew/images/markermobile.svg',
-                size: { width: 60, height: 70 }
-              },
-              popup: {
-                html: `
-                <figcaption class="popup-figure">
-                  <h1 class="popup-title">${item.WayID}</h1>
-                  <section style="margin-top: 0.25rem;">
-                    <h2 class="popup-subtitle">สถานะ</h2>
-                    <div class="popup-container">
-                      <p class="popup-description">จำนวนรถเข้าชั่ง: ${item.Total}</p>
-                      <p class="popup-description">จำนวนบรรจุเกิน: ${item.Over}</p>
-                    </div>
-                  </section>
-                  <section style="margin-top: 0.25rem;">
-                    <h2 class="popup-subtitle">พิกัด</h2>
-                    <div class="popup-container">
-                      <p class="popup-description">ละติจูด: ${item.Latitude}</p>
-                      <p class="popup-description">ลองจิจูด: ${item.Longtitude}</p>
-                    </div>
-                  </section>
-                  <button onClick={() => console.log("test")}>Sample</button>
-                </figcaption>`,
-                size: {
-                  width: 500
-                }
-              }
-            }
-          )
-          map.Overlays.add(mobileMarker);
-        })
-      }
-    }
-  }, [MAP_PIN, map, longdo, loading, data])
-
-  useEffect(() => {
-    if (!loading) {
-      initMap()
-    }
-  }, [loading])
-
-  const renderMap = useMemo(() => {
-    if (!loading) {
       return (
-        <LongdoMap
-          id="longdo-map"
-          mapKey={MAP_KEY}
-          callback={initMap()}
-        />
+        <Marker
+          key={`mobile-${index}`}
+          position={[item.Latitude, item.Longtitude]}
+          eventHandlers={{
+            mouseover: (event) => event.target.openPopup(),
+            mouseout: (event) => event.target.closePopup(),
+            click: () => console.log('first')
+          }}
+          icon={pinIcon}
+        >
+          <Popup className="w-60" autoPan={false}>
+            <figcaption>
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
+              </section>
+            </figcaption>
+          </Popup>
+        </Marker>
       )
-    } else {
-      return <Spin spinning={loading} />
-    }
-  }, [loading, MAP_KEY, initMap])
+    })
+    return mobileMarker
+  }, [mapData])
+
+  const renderWIMMarker = useMemo(() => {
+    if (typeof window === 'undefined' || !mapData?.wim) return null;
+
+    const leaflet = require('leaflet');
+    // RENDER
+    const wimMarker = mapData?.wim?.map((item, index) => {
+      const pinIcon = new leaflet.icon({
+        iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-orange.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+        shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      })
+      return (
+        <Marker
+          key={`wim-${index}`}
+          position={[item.Latitude, item.Longtitude]}
+          eventHandlers={{
+            mouseover: (event) => event.target.openPopup(),
+            mouseout: (event) => event.target.closePopup(),
+            click: () => console.log('first')
+          }}
+          icon={pinIcon}
+        >
+          <Popup className="w-60" autoPan={false}>
+            <figcaption>
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.StationName}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อ WIM: <strong>{item.LocationDescription}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>สถานี</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนรถเข้าชั่ง: <strong>{item.Total || 0}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนบรรจุเกิน: <strong>{item.Over || 0}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
+              </section>
+            </figcaption>
+          </Popup>
+        </Marker>
+      )
+    })
+    return wimMarker
+  }, [mapData])
+
+  const renderStationMarker = useMemo(() => {
+    if (typeof window === 'undefined' || !mapData?.station) return null;
+
+    const leaflet = require('leaflet');
+    // RENDER
+    const stationMarker = mapData?.station?.map((item, index) => {
+      const pinIcon = new leaflet.icon({
+        iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-violet.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+        shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+      })
+      return (
+        <Marker
+          key={`station-${index}`}
+          position={[item.Latitude, item.Longtitude]}
+          eventHandlers={{
+            mouseover: (event) => event.target.openPopup(),
+            mouseout: (event) => event.target.closePopup(),
+            click: () => console.log('first')
+          }}
+          icon={pinIcon}
+        >
+          <Popup className="w-60" autoPan={false}>
+            <figcaption>
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.StationName}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อ WIM: <strong>{item.LocationDescription}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>สถานี</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนรถเข้าชั่ง: <strong>{item.Total || 0}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนบรรจุเกิน: <strong>{item.Over || 0}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
+              </section>
+              <hr className='my-3' />
+              <section>
+                <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
+              </section>
+            </figcaption>
+          </Popup>
+        </Marker>
+      )
+    })
+    return stationMarker
+  }, [mapData])
 
   return (
-    <>
-      {renderMap}
-    </>
+    <div>
+      {/* <Map
+        center={[13.736717, 100.523186]}
+        zoom={5}
+        className='!relative !z-10'
+      >
+        {renderMobileMarker}
+        {renderWIMMarker}
+        {renderStationMarker}
+      </Map> */}
+      <SpecMap
+        center={[13.736717, 100.523186]}
+        zoom={5}
+        className='!relative !z-10'
+        mobile={mapData.mobile}
+        wim={mapData.wim}
+        station={mapData.station}
+      />
+      <div className='!absolute !top-3 !right-5 !z-20 flex items-center gap-3'>
+        <Button
+          className=' !bg-blue-500 hover:!bg-blue-400 active:!bg-blue-500'
+          type='primary'
+        >
+          สํานักจังหวัด/แขวง
+        </Button>
+        <Button
+          className=' !bg-green-500 hover:!bg-green-400 active:!bg-green-500'
+          type='primary'
+        >
+          กล้อง WIM ด่านชั่งถาวร
+        </Button>
+      </div>
+    </div>
   )
 }
 
