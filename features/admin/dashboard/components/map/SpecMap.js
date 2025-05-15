@@ -29,11 +29,11 @@ const LocationMarker = (props) => {
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
 					</section>
 					<hr className='my-3' />
-					<section>
+					{/* <section>
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
-					</section>
+					</section> */}
 					<section className="text-center">
 						<p
 							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
@@ -65,12 +65,12 @@ const LocationMarker = (props) => {
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนรถเข้าชั่ง: <strong>{item.Total || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนบรรจุเกิน: <strong>{item.Over || 0}</strong></p>
 					</section>
-					<hr className='my-3' />
+					{/* <hr className='my-3' />
 					<section>
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
-					</section>
+					</section> */}
 					<hr className='my-3' />
 					<section>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
