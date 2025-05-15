@@ -28,8 +28,8 @@ const LocationMarker = (props) => {
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
 					</section>
-					<hr className='my-3' />
-					{/* <section>
+					{/* <hr className='my-3' />
+					<section>
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
