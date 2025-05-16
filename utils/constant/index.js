@@ -753,3 +753,9 @@ export const CAMERA_TYPE = {
   "fixed": "FIXED",
   "PTZ": "PTZ"
 }
+
+export const STATION_CODE = {
+  "1": "สถานีตรวจสอบน้ำหนัก",
+  "2": "หน่วยตรวจสอบเคลื่อนที่",
+  "3": "Weight In Motion (WIM)",
+}
