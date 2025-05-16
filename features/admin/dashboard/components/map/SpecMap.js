@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 // IMPORTANT: the order matters!
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
@@ -11,14 +11,14 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap,
 import { useRouter } from "next/router";
 
 const LocationMarker = (props) => {
-	const { item, type, icon } = props
+	const { item, type, icon, center } = props
 	// MAP CONTEXT
 	const map = useMapEvents({})
 	const router = useRouter()
 
 	useEffect(() => {
-		map.setView([item.Latitude, item.Longtitude])
-	}, [item])
+		map.setView(center, 5)
+	}, [center])
 
 	const renderContent = useMemo(() => {
 		if (type === 'mobile') {
@@ -28,18 +28,12 @@ const LocationMarker = (props) => {
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
 					</section>
-					{/* <hr className='my-3' />
-					<section>
-						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
-						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
-						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
-					</section> */}
 					<section className="text-center">
 						<p
 							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
 							underline
 							onClick={() => router.push({
-								pathname: `/admin/project-info/wim-detail/${item.TID}`,
+								pathname: `/admin/project-info/${type}-detail/${item.TID}`,
 								query: {
 									prev_name: item.WayID
 								}
@@ -51,7 +45,6 @@ const LocationMarker = (props) => {
 				</figcaption>
 			)
 		} else {
-
 			return (
 				<figcaption>
 					<section>
@@ -65,12 +58,6 @@ const LocationMarker = (props) => {
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนรถเข้าชั่ง: <strong>{item.Total || 0}</strong></p>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนบรรจุเกิน: <strong>{item.Over || 0}</strong></p>
 					</section>
-					{/* <hr className='my-3' />
-					<section>
-						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>พิกัด</h1>
-						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ละติจูด: <strong>{item.Latitude || 0}</strong></p>
-						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ลองจิจูด: <strong>{item.Longtitude || 0}</strong></p>
-					</section> */}
 					<hr className='my-3' />
 					<section>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
@@ -79,7 +66,7 @@ const LocationMarker = (props) => {
 						<p
 							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
 							onClick={() => router.push({
-								pathname: `/admin/project-info/wim-detail/${item.StationID}`,
+								pathname: `/admin/project-info/${type}-detail/${item.StationID}`,
 								query: {
 									prev_name: item.StationName
 								}
@@ -123,7 +110,7 @@ const SpecMap = (props) => {
 	const renderStationMarker = useMemo(() => {
 		const loopStation = station?.map((item, index) => {
 			const pinIcon = new L.icon({
-				iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-violet.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+				iconUrl: item.IsEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-violet.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
 				shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
 				iconSize: [25, 41],
 				iconAnchor: [12, 41],
@@ -135,11 +122,13 @@ const SpecMap = (props) => {
 					key={index + 1}
 					item={item}
 					icon={pinIcon}
+					center={center}
+					type='station'
 				/>
 			)
 		})
 		return loopStation
-	}, [station])
+	}, [station, center])
 
 	const renderWIMMarker = useMemo(() => {
 		const loopWIM = wim?.map((item, index) => {
@@ -156,16 +145,18 @@ const SpecMap = (props) => {
 					key={index + 1}
 					item={item}
 					icon={pinIcon}
+					center={center}
+					type='wim'
 				/>
 			)
 		})
 		return loopWIM
-	}, [wim])
+	}, [wim, center])
 
 	const renderMobileMarker = useMemo(() => {
 		const loopMobile = mobile?.map((item, index) => {
 			const pinIcon = new L.icon({
-				iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-blue.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+				iconUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-blue.png`,
 				shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
 				iconSize: [25, 41],
 				iconAnchor: [12, 41],
@@ -177,13 +168,13 @@ const SpecMap = (props) => {
 					key={index + 1}
 					item={item}
 					icon={pinIcon}
+					center={center}
+					type='mobile'
 				/>
 			)
 		})
 		return loopMobile
-	}, [mobile])
-
-
+	}, [mobile, center])
 
 	return (
 		<MapContainer
