@@ -455,7 +455,10 @@ export const initialState = {
   },
   position: {
     overview: {
-      search: {},
+      search: {
+        province: '',
+        station_type: ''
+      },
       data: {
         station: [],
         wim: [],
@@ -479,6 +482,9 @@ export const initialState = {
       summary: [],
       data: []
     }
+  },
+  position_province: {
+    data: []
   }
 }
 
@@ -591,7 +597,10 @@ export const slice = createSlice({
     },
     getSumWeightYearV2: (state, action) => {
       state.sum_weight_year_v2.data = action.payload.data,
-      state.sum_weight_year_v2.search = action.payload.params
+        state.sum_weight_year_v2.search = action.payload.params
+    },
+    getPositionProvince: (state, action) => {
+      state.position_province.data = action.payload.data
     }
   }
 })
@@ -623,7 +632,8 @@ export const {
   getLastSevenDays,
   getPosition,
   getPositionDetail,
-  getSumWeightYearV2
+  getSumWeightYearV2,
+  getPositionProvince
 } = slice.actions
 
 export default slice.reducer
