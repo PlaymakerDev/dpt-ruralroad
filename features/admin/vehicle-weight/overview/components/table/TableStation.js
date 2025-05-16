@@ -101,7 +101,7 @@ const TableStation = (props) => {
       width: 200,
       render: (item) => {
         if (item) {
-          return REMARK[item]
+          return item
         }
         return '-'
       }
