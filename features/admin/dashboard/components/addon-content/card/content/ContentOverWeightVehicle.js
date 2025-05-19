@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Badge, Col, Row, Typography } from 'antd'
+import { Badge, Col, Row, Spin, Typography } from 'antd'
 import { CalendarOutlined } from '@ant-design/icons'
 import Image from 'next/image'
 // import TruckType6 from '@/public/images/truck-img/truck-type/truck-type-6.svg'
@@ -114,14 +114,16 @@ const ContentOverWeightVehicle = (props) => {
           <p>{(data?.data?.station_type === 2 ? mapType?.way_code : mapType?.location_description) || '-'}  | {(data?.data?.station_type === 2 ? mapType?.way_province : mapType?.station_name) || '-'}</p>
         </section>
         <figure className='mt-1'>
-          <Image
-            src={vehicle_image}
-            alt='vehicle'
-            width={vehicle_width || 100}
-            height={vehicle_height || 60}
-            className='block m-auto'
-          // className='block m-auto w-[42%]'
-          />
+          {vehicle_image ?
+            <Image
+              src={vehicle_image}
+              alt='vehicle'
+              width={vehicle_width || 100}
+              height={vehicle_height || 60}
+              className='block m-auto'
+            // className='block m-auto w-[42%]'
+            />
+            : null}
         </figure>
         {/* <div className='mt-2 flex flex-col justify-center items-center min-h-28'> */}
         {/* <div className='mt-2 flex flex-col justify-center items-center'>

@@ -11,14 +11,14 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap,
 import { useRouter } from "next/router";
 
 const LocationMarker = (props) => {
-	const { item, type, icon, center } = props
+	const { item, type, icon, center, zoom } = props
 	// MAP CONTEXT
 	const map = useMapEvents({})
 	const router = useRouter()
 
 	useEffect(() => {
-		map.setView(center, 5)
-	}, [center])
+		map.setView(center, zoom)
+	}, [center, zoom])
 
 	const renderContent = useMemo(() => {
 		if (type === 'mobile') {
@@ -78,7 +78,7 @@ const LocationMarker = (props) => {
 				</figcaption>
 			)
 		}
-	}, [])
+	}, [item, type])
 
 	return (
 		<Marker
@@ -123,12 +123,13 @@ const SpecMap = (props) => {
 					item={item}
 					icon={pinIcon}
 					center={center}
+					zoom={zoom}
 					type='station'
 				/>
 			)
 		})
 		return loopStation
-	}, [station, center])
+	}, [station, center, zoom])
 
 	const renderWIMMarker = useMemo(() => {
 		const loopWIM = wim?.map((item, index) => {
@@ -146,12 +147,13 @@ const SpecMap = (props) => {
 					item={item}
 					icon={pinIcon}
 					center={center}
+					zoom={zoom}
 					type='wim'
 				/>
 			)
 		})
 		return loopWIM
-	}, [wim, center])
+	}, [wim, center, zoom])
 
 	const renderMobileMarker = useMemo(() => {
 		const loopMobile = mobile?.map((item, index) => {
@@ -169,12 +171,13 @@ const SpecMap = (props) => {
 					item={item}
 					icon={pinIcon}
 					center={center}
+					zoom={zoom}
 					type='mobile'
 				/>
 			)
 		})
 		return loopMobile
-	}, [mobile, center])
+	}, [mobile, center, zoom])
 
 	return (
 		<MapContainer
