@@ -86,7 +86,8 @@ export const initialState = {
         page_count: 0,
         has_previous_page: false,
         has_next_page: false
-      }
+      },
+      is_over10percent_count: 0
     },
     detail: {
       table: {
