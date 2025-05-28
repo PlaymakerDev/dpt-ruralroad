@@ -3,6 +3,7 @@ import { Button, Card, Col, Row, Spin } from 'antd'
 import { CardCCTV, CardOverWeightVehicle, CardRoute, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
 import { CollapseYearSummary } from '../components/addon-content/collapse'
 import DisplayMap from '../components/map/DisplayMap'
+import CCTVSection from '../components/cctv/CCTVSection'
 // CREATE API REQUESTS
 // import { useAppSelector } from '@/store/hooks'
 // import { allowAdmin } from '@/utils/allowAdmin'
@@ -38,8 +39,7 @@ const DashboardScreen = (props) => {
                 <CardWeighingStation />
               </Col>
               <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={24}>
-                {/* <CardRoute /> */}
-                <CardCCTV />
+                <CCTVSection />
               </Col>
             </Row>
           </Col>
