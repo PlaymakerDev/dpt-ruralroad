@@ -91,24 +91,24 @@ const OverviewScreen = (props) => {
     apiGetData('/api/v1/cctv/list', { ...data.search, page_size: 100, }, false)
   }, [data])
 
+  const filterCCTV = useMemo(() => {
+    if (!loading) {
+      let arr
+      if (!!cctvStatus) {
+        arr = data?.data?.filter(item => item.camera_status === cctvStatus)
+      } else {
+        arr = data.data
+      }
+      return arr
+    }
+  }, [loading, cctvStatus, data])
+
   const renderCCTVList = useMemo(() => {
     if (!loading || !loadStation) {
-      let cctvData = []
-      switch (cctvStatus) {
-        case 'Online':
-          cctvData = data?.data?.filter(item => item.camera_status === 'Online')
-        case 'Offline':
-          cctvData = data?.data?.filter(item => item.camera_status === 'Offline')
-        default:
-          cctvData = data?.data
-      }
-
-      console.log("=== status ===",cctvStatus)
-      console.log("=== cctv ===",cctvData)
-
       return (
         <ContentCCTVLIst
-          cctv={cctvData || []}
+          // cctv={data.data || []}
+          cctv={filterCCTV || []}
           station={station.data}
           cctvRef={cctvRef}
           setOpen={setOpen}
@@ -118,7 +118,7 @@ const OverviewScreen = (props) => {
     } else {
       return <Spin spinning={loading || loadStation} />
     }
-  }, [loading, loadStation, data, station, cctvRef, cctvStatus])
+  }, [loading, loadStation, data, station, cctvRef, filterCCTV])
 
   const renderSelect = useMemo(() => {
     return (
@@ -137,6 +137,7 @@ const OverviewScreen = (props) => {
             onChange={(value, options) => {
               getCCTV(options)
               setValue(value)
+              setCCTVStatus(null)
             }}
             placeholder='สถานี WIM'
             allowClear={false}
@@ -189,6 +190,7 @@ const OverviewScreen = (props) => {
               apiGetData={apiGetDepartmentListSum}
               cctvRef={cctvRef}
               clearSearch={() => setValue(INIT_SEARCH)}
+              setCCTVStatus={setCCTVStatus}
             />
           </Col>
           {renderSelect}

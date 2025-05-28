@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react'
 import { Form, Field, useForm } from "@/components/form";
 
 const FormSearchCCTV = (props) => {
-  const { dptGroup, defaultSearch, apiGetData, cctvRef, clearSearch } = props
+  const { dptGroup, defaultSearch, apiGetData, cctvRef, clearSearch, setCCTVStatus } = props
   const submitRef = useRef()
 
   const form = useForm({
@@ -66,6 +66,7 @@ const FormSearchCCTV = (props) => {
         onChange={(name, value) => {
           onChangeDptGroup(name, value)
           clearSearch()
+          setCCTVStatus(null)
         }}
       />
       <button ref={submitRef} type="submit" hidden />
