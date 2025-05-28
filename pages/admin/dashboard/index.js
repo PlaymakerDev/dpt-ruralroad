@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
 import DashboardScreen from '@/features/admin/dashboard/screen'
 // CHECK ROLE
@@ -9,10 +9,13 @@ import { wrapper } from '@/store'
 import { signIn } from '@/store/features/userSlice'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import FormSearchDashboard from '@/features/admin/dashboard/components/form/FormSearchDashboard'
+import { DashboardProvider } from '@/features/admin/dashboard/components/context'
 
 const DashboardPage = (props) => {
   const { session } = props
   const router = useRouter()
+  const refSubmit = useRef()
 
   // useEffect(() => {
   //   console.log('Dashboard page loaded');
@@ -43,12 +46,25 @@ const DashboardPage = (props) => {
   //   }
   // }, [session, router.asPath, router])
 
-  return (
-    <PageLayout>
-      <DashboardScreen
-        accessType={router?.query?.type}
+  const renderFormSearch = useMemo(() => {
+    return (
+      <FormSearchDashboard
+        refSubmit={refSubmit}
       />
-    </PageLayout>
+    )
+  }, [refSubmit, router])
+
+  return (
+    <DashboardProvider>
+      <PageLayout
+        breadcrumb={<p>&nbsp;</p>}
+        extraHeader={renderFormSearch}
+      >
+        <DashboardScreen
+          accessType={router?.query?.type}
+        />
+      </PageLayout>
+    </DashboardProvider>
   )
 }
 
