@@ -6,6 +6,7 @@ import {
   getVehicleWeightInspectionForMobile as getMobile
 } from '@/store/features/dashboardSlice'
 import dayjs from 'dayjs'
+import { getList } from '@/store/features/cctvSlice'
 
 export const PageContext = createContext(null)
 
@@ -23,10 +24,20 @@ export const DashboardProvider = (props) => {
     funcDispatch: getMobile, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
   })
 
+  const [apiGetCCTVList, loadingCCTVList, cctvList] = useGetAPI('overlay', {
+    funcDispatch: getList, reducerName: 'cctv', reducerKey: 'list'
+  })
+
   useEffect(() => {
     apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, { ...station.station.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 1 }, false, {})
     apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, { ...wim.wim.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 3 }, false, {})
     apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, { ...mobile.mobile.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 2 }, false, {})
+    apiGetCCTVList('/api/v1/cctv/list', {
+      ...cctvList.search,
+      page_size: 100,
+      department_id: cctvList.department_id,
+      station_id: cctvList.station_id
+    }, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -50,13 +61,24 @@ export const DashboardProvider = (props) => {
     }, false, {})
   }, [])
 
+  const onClickPin = useCallback((stationId) => {
+    apiGetCCTVList('/api/v1/cctv/list', {
+      ...cctvList.search,
+      page_size: 100,
+      department_id: cctvList.department_id,
+      station_id: stationId
+    }, false)
+  }, [])
+
   return (
     <PageContext.Provider
       value={{
         loadingStation,
         loadingWIM,
         loadingMobile,
-        onSubmit
+        loadingCCTVList,
+        onSubmit,
+        onClickPin
       }}
     >
       {children}

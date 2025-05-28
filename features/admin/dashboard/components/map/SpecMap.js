@@ -11,7 +11,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap,
 import { useRouter } from "next/router";
 
 const LocationMarker = (props) => {
-	const { item, type, icon, center, zoom } = props
+	const { item, type, icon, center, zoom, onClickPin } = props
 	// MAP CONTEXT
 	const map = useMapEvents({})
 	const router = useRouter()
@@ -86,7 +86,12 @@ const LocationMarker = (props) => {
 			eventHandlers={{
 				mouseover: (event) => event.target.openPopup(),
 				// mouseout: (event) => event.target.closePopup(),
-				click: () => map.flyTo([item.Latitude, item.Longtitude], 10)
+				click: () => {
+					map.flyTo([item.Latitude, item.Longtitude], 10);
+					if (type !== 'mobile') {
+						onClickPin(item.StationID)
+					}
+				}
 			}}
 			icon={icon}
 		>
@@ -104,6 +109,7 @@ const SpecMap = (props) => {
 		mobile,
 		wim,
 		station,
+		onClickPin,
 		...mapProps
 	} = props
 
@@ -124,6 +130,7 @@ const SpecMap = (props) => {
 					icon={pinIcon}
 					center={center}
 					zoom={zoom}
+					onClickPin={onClickPin}
 					type='station'
 				/>
 			)
@@ -148,6 +155,7 @@ const SpecMap = (props) => {
 					icon={pinIcon}
 					center={center}
 					zoom={zoom}
+					onClickPin={onClickPin}
 					type='wim'
 				/>
 			)
@@ -172,6 +180,7 @@ const SpecMap = (props) => {
 					icon={pinIcon}
 					center={center}
 					zoom={zoom}
+					onClickPin={onClickPin}
 					type='mobile'
 				/>
 			)

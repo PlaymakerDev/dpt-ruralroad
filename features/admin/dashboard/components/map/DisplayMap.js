@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import useGetAPI from '@/utils/hooks/api/useGetAPI';
 import { getPosition, getPositionProvince } from '@/store/features/dashboardSlice';
 import { /*Button, Dropdown,*/ Select, Spin } from 'antd';
+import { useDashboardContext } from '../context';
 // import { STATION_CODE, STATION_TYPE } from '@/utils/constant';
 // import { CloseOutlined } from '@ant-design/icons';
 const SpecMap = dynamic(() => import('@/features/admin/dashboard/components/map/SpecMap'), { ssr: false })
@@ -19,6 +20,7 @@ const DisplayMap = (props) => {
   const [stationType, setStationType] = useState(INIT_TYPE)
   const [value, setValue] = useState(INIT_VALUE)
   const [position, setPosition] = useState(INIT_POSITION)
+  const { onClickPin } = useDashboardContext()
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
     funcDispatch: getPosition, reducerName: 'dashboard', reducerKey: 'position'
@@ -79,6 +81,7 @@ const DisplayMap = (props) => {
           mobile={mapData.mobile}
           wim={mapData.wim}
           station={mapData.station}
+          onClickPin={onClickPin}
         />
       )
     } else {
@@ -92,6 +95,7 @@ const DisplayMap = (props) => {
             mobile={mapData.mobile}
             wim={mapData.wim}
             station={mapData.station}
+            onClickPin={onClickPin}
           />
         </Spin>
       )
