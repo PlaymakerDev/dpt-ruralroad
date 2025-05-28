@@ -80,28 +80,26 @@ const SpecMap = (props) => {
 	} = props
 
 	const renderLocationMarker = useMemo(() => {
-		if (!data) return;
-console.log("===",data)
-		// const loopData = data?.map((item, index) => {
-		// 	const pinIcon = new L.icon({
-		// 		iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-orange.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
-		// 		shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
-		// 		iconSize: [25, 41],
-		// 		iconAnchor: [12, 41],
-		// 		popupAnchor: [1, -34],
-		// 		shadowSize: [41, 41]
-		// 	})
-		// 	return (
-		// 		<LocationMarker
-		// 			key={index + 1}
-		// 			item={item}
-		// 			icon={pinIcon}
-		// 			center={center}
-		// 			zoom={zoom}
-		// 		/>
-		// 	)
-		// })
-		// return loopData
+		const loopData = data?.map((item, index) => {
+			const pinIcon = new L.icon({
+				iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-orange.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+				shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
+				iconSize: [25, 41],
+				iconAnchor: [12, 41],
+				popupAnchor: [1, -34],
+				shadowSize: [41, 41]
+			})
+			return (
+				<LocationMarker
+					key={index + 1}
+					item={item}
+					icon={pinIcon}
+					center={center}
+					zoom={zoom}
+				/>
+			)
+		})
+		return loopData
 	}, [data, center, zoom])
 
 	return (
