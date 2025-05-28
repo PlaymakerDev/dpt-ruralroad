@@ -14,7 +14,7 @@ const PageLayout = (props) => {
   const [startX, setStartX] = useState(null)
   // GET REDUX
   const user = useAppSelector(state => state.user)
-  const { query } = useRouter()
+  const { query, pathname } = useRouter()
 
   const renderProfile = useMemo(() => {
     let res = [
@@ -49,6 +49,16 @@ const PageLayout = (props) => {
     setStartX(null);
   }, [])
 
+  const containerClassName = useMemo(() => {
+    let _className = { section: 'pt-5 px-8 flex justify-between items-center', main: 'py-5 px-8' }
+    if (pathname === '/admin/dashboard') {
+      _className = { section: 'px-8 flex justify-between items-center', main: 'py-1 px-8' }
+    }
+    return _className
+  }, [pathname])
+
+  console.log("===",containerClassName)
+
   return (
     <>
       <header>
@@ -58,11 +68,13 @@ const PageLayout = (props) => {
           user={user}
         />
       </header>
-      <section className='pt-5 px-8 flex justify-between items-center'>
+      <section className={containerClassName.section}>
+        {/* <section className='pt-5 px-8 flex justify-between items-center'> */}
         {!!breadcrumb && breadcrumb}
         {!!extraHeader && extraHeader}
       </section>
-      <main className='py-5 px-8'>
+      {/* <main className='py-5 px-8'> */}
+      <main className={containerClassName.main}>
         {children}
       </main>
       <aside
