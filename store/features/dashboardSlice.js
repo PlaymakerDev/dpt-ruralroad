@@ -21,7 +21,7 @@ export const initialState = {
       search: {
         date: '',
         number_day: '',
-        staion_type_id: ''
+        station_type_id: ''
       },
       data: []
     },
@@ -29,7 +29,7 @@ export const initialState = {
       search: {
         date: '',
         number_day: '',
-        staion_type_id: ''
+        station_type_id: ''
       },
       data: []
     },
@@ -37,7 +37,7 @@ export const initialState = {
       search: {
         date: '',
         number_day: '',
-        staion_type_id: ''
+        station_type_id: ''
       },
       data: []
     },
