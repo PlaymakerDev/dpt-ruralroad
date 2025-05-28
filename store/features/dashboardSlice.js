@@ -496,6 +496,17 @@ export const initialState = {
       limit: 5
     },
     data: []
+  },
+  pcu: {
+    search: {
+      station_id: '',
+      date: ''
+    },
+    data: {
+      total_pcu: '',
+      percent_truck: '',
+      aadt: ''
+    }
   }
 }
 
@@ -560,7 +571,7 @@ export const slice = createSlice({
     },
     getViewSumPlanChart: (state, action) => {
       state.view_sum_plan_chart.data = action.payload.data,
-      state.view_sum_plan_chart.search = action.payload.params
+        state.view_sum_plan_chart.search = action.payload.params
     },
     getCCTV: (state, action) => {
       state.cctv.data = action.payload.data.data
@@ -617,6 +628,10 @@ export const slice = createSlice({
     getRecentWeight: (state, action) => {
       state.recent_weight.data = action.payload.data,
         state.recent_weight.search = action.payload.params
+    },
+    getPCU: (state, action) => {
+      state.pcu.data = action.payload.data.data,
+        state.pcu.search = action.payload.params
     }
   }
 })
@@ -650,7 +665,8 @@ export const {
   getPositionDetail,
   getSumWeightYearV2,
   getPositionProvince,
-  getRecentWeight
+  getRecentWeight,
+  getPCU
 } = slice.actions
 
 export default slice.reducer

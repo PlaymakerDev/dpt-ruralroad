@@ -94,28 +94,30 @@ const TableDailyWeigh = (props) => {
         } else if (type === 'sum_station' && !accessType) {
           return {
             onClick: () => router.push({
-              pathname: `/admin/project-info/station-dashboard/${record.station_id}`,
+              pathname: `/admin/project-info/station-detail/${record.station_id}`,
               query: {
-                total: record.total,
-                over: record.over,
-                over_10percent: record.over_10percent,
-                name: record.name,
-                type: '1',
-                department_id: record.department_id
+                prev_name: record.name
+                // total: record.total,
+                // over: record.over,
+                // over_10percent: record.over_10percent,
+                // name: record.name,
+                // type: '1',
+                // department_id: record.department_id
               }
             })
           }
         } else if (type === 'sum_spot' && !accessType) {
           return {
             onClick: () => router.push({
-              pathname: `/admin/project-info/mobile-dashboard/${record.department_id}`,
+              pathname: `/admin/project-info/mobile-detail/${record.department_id}`,
               query: {
-                total: record.total,
-                over: record.over,
-                over_10percent: record.over_10percent,
-                name: record.name,
-                type: '2',
-                department_id: record.department_id
+                prev_name: record.name
+                // total: record.total,
+                // over: record.over,
+                // over_10percent: record.over_10percent,
+                // name: record.name,
+                // type: '2',
+                // department_id: record.department_id
               }
             })
           }

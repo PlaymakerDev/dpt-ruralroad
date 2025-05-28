@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect } from 'react'
 import { Row, Col, Card, Typography } from 'antd'
-import { CardLastSevenDays, CardTotalVehicle, CardOverWeightVehicle, CardPercentageOverVehicle } from '../components/card'
+import { CardLastSevenDays, CardTotalVehicle, CardOverWeightVehicle, CardPercentageOverVehicle, CardAADT, CardPercentTruck, CardPCU } from '../components/card'
 import DisplayMap from '../components/map/DisplayMap'
 import { CCTVListing } from '../components/cctv'
 import { CCTVSection, ProgressSection, TableSection } from '../components/section'
@@ -71,6 +71,21 @@ const ProjectInfoScreen = (props) => {
 					</Col>
 					{/* PROGRESS */}
 					<Col xs={24} sm={24} md={10} lg={12} xl={4} xxl={4}>
+						<Row gutter={[16, 16]}>
+							<Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+								<CardAADT
+
+								/>
+							</Col>
+							<Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+								<CardPercentTruck
+								/>
+							</Col>
+							<Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+								<CardPCU
+								/>
+							</Col>
+						</Row>
 					</Col>
 				</Row>
 			</section>

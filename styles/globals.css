@@ -90,6 +90,21 @@ body {
   border: 1px solid #56E4EE50;
 }
 
+.aadt-container {
+  background: linear-gradient(0.25turn, #22c55e20, #00000020, #22c55e20);
+  border: 1px solid #22c55e50;
+}
+
+.percent-container {
+  background: linear-gradient(0.25turn, #ef444420, #00000020, #ef444420);
+  border: 1px solid #ef444450;
+}
+
+.pcu-container {
+  background: linear-gradient(0.25turn, #eab30820, #00000020, #eab30820);
+  border: 1px solid #eab30850;
+}
+
 .stat-container:hover {
   background: linear-gradient(0.25turn, #56eebb50, #00000050, #56eebb50);
   border: 1px solid #56E4EE50;

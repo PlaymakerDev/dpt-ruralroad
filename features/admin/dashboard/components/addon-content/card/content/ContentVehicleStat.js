@@ -102,7 +102,7 @@ const ContentVehicleStat = (props) => {
         </figure>
 
         <figure className='flex flex-col justify-between border-r border-[#56E4EE50] cursor-pointer' onClick={() => GetWim()}>
-          <h1 className='text-center font-bold'>Vehical Inspection Station (VIS)</h1>
+          <h1 className='text-center font-bold'>Vehicle Inspection Station (VIS)</h1>
           <section className='text-center'>
             <p>หน่วยงานที่เปิดอยู่ <span className={checkpoint?.wim?.open > 0 ? '!text-[#90FF00]' : ''}>{checkpoint?.wim?.open || 0}</span>/{checkpoint?.wim?.total || 0}</p>
           </section>

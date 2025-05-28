@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { getLastSevenDays, getRecentWeight, getVehicleClass } from '@/store/features/dashboardSlice'
+import { getLastSevenDays, getPCU, getRecentWeight, getVehicleClass } from '@/store/features/dashboardSlice'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
+import dayjs from 'dayjs'
 
 export const PageContext = createContext(null)
 
@@ -20,6 +21,10 @@ export const WIMProvider = (props) => {
     funcDispatch: getVehicleClass, reducerName: 'dashboard', reducerKey: 'vehicle_class'
   })
 
+  const [apiGetPCU, loadingPCU, pcu] = useGetAPI('overlay', {
+    funcDispatch: getPCU, reducerName: 'dashboard', reducerKey: 'pcu'
+  })
+
   useEffect(() => {
     if (stationId) {
       // RECENT WEIGHT
@@ -36,6 +41,10 @@ export const WIMProvider = (props) => {
         station_id: stationId,
         date_type: 'day'
       }, false, {})
+      apiGetPCU('/api/v1/dashboards/pcu', {
+        station_id: stationId,
+        date: dayjs().format('YYYY-MM-DD')
+      }, false)
     }
   }, [stationId])
 
@@ -57,6 +66,7 @@ export const WIMProvider = (props) => {
         loadingRecentWeight,
         loadingLastSevenDays,
         loadingVehicleClass,
+        loadingPCU,
         onSubmit
       }}
     >
