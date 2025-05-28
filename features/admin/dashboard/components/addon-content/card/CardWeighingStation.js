@@ -16,36 +16,42 @@ import {
 } from '@/store/features/dashboardSlice'
 import dayjs from 'dayjs';
 import { div } from '@/utils/calculate';
+import { useDashboardContext } from '../../context';
+import { useAppSelector } from '@/store/hooks';
 
 const CardWeighingStation = (props) => {
   const { } = props
+  const { loadingStation, loadingWIM, loadingMobile } = useDashboardContext()
+  const station = useAppSelector(state => state.dashboard.vehicle_weight_inspection)
+  const wim = useAppSelector(state => state.dashboard.vehicle_weight_inspection)
+  const mobile = useAppSelector(state => state.dashboard.vehicle_weight_inspection)
   // GET DATA
-  const [apiGetStation, loadingStation, station] = useGetAPI('overlay', {
-    funcDispatch: getStation, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
-  })
+  // const [apiGetStation, loadingStation, station] = useGetAPI('overlay', {
+  //   funcDispatch: getStation, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
+  // })
 
-  const [apiGetWIM, loadingWIM, wim] = useGetAPI('overlay', {
-    funcDispatch: getWIM, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
-  })
+  // const [apiGetWIM, loadingWIM, wim] = useGetAPI('overlay', {
+  //   funcDispatch: getWIM, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
+  // })
 
-  const [apiGetMobile, loadingMobile, mobile] = useGetAPI('overlay', {
-    funcDispatch: getMobile, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
-  })
+  // const [apiGetMobile, loadingMobile, mobile] = useGetAPI('overlay', {
+  //   funcDispatch: getMobile, reducerName: 'dashboard', reducerKey: 'vehicle_weight_inspection'
+  // })
 
-  useEffect(() => {
-    apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, { ...station.station.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 1 }, false, {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, { ...station.station.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 1 }, false, {})
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  useEffect(() => {
-    apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, { ...wim.wim.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 3 }, false, {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, { ...wim.wim.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 3 }, false, {})
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  useEffect(() => {
-    apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, { ...mobile.mobile.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 2 }, false, {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  // useEffect(() => {
+  //   apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, { ...mobile.mobile.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 2 }, false, {})
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   const renderStation = useMemo(() => {
     if (!loadingStation && typeof loadingStation !== 'undefined') {
