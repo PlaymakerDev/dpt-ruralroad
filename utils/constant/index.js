@@ -759,3 +759,18 @@ export const STATION_CODE = {
   "2": "หน่วยตรวจสอบเคลื่อนที่",
   "3": "Weight In Motion (WIM)",
 }
+
+export const RECENT_WEIGHT_STATUS = {
+  "0": {
+    "description": "ปกติ",
+    "color": "#22c55e",
+  },
+  "1": {
+    "description": "น้ำหนักเกิน",
+    "color": "#ef4444",
+  },
+  "2": {
+    "description": "นำหนักเกิน 10 %",
+    "color": "#eab308",
+  },
+}

@@ -171,7 +171,7 @@ const ChartMobile = (props) => {
                     // icon={<TruckOutlined />}
                     icon={<TruckIcon width={23} height={16} customFill='#FFFFFF' />}
                     className='!bg-[#56E4EE80]'
-                    size={'large'}
+                    size={'default'}
                   />
                 </div>
                 <div className='flex flex-col'>
@@ -185,7 +185,7 @@ const ChartMobile = (props) => {
                     // icon={<TruckOutlined />}
                     icon={<TruckIcon width={23} height={16} customFill='#FFFFFF' />}
                     className='!bg-[#21D475]'
-                    size={'large'}
+                    size={'default'}
                   />
                 </div>
                 <div className='flex flex-col'>

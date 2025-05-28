@@ -175,29 +175,7 @@ const ChartLastSevenDays = (props) => {
   return (
     <>
       <section>
-        <Row gutter={[16, 16]} align={'middle'}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-            <Typography.Title level={4} className='!m-0' style={{ fontSize: 'clamp(1px, 4vw, 15px)' }}>แนวโน้มย้อนหลัง 7 วัน</Typography.Title>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12}>
-            <div className='flex justify-end gap-5 items-center'>
-              <figure className='flex gap-3 items-center'>
-                <Avatar
-                  className='!bg-[#56E4EE]'
-                  size={'small'}
-                />
-                <Typography.Text className='!text-[#FFFFFF80]'>รถทั้งหมด</Typography.Text>
-              </figure>
-              <figure className='flex gap-3 items-center'>
-                <Avatar
-                  className='!bg-[#FF6362]'
-                  size={'small'}
-                />
-                <Typography.Text className='!text-[#FFFFFF80]'>รถน้ำหนักเกิน</Typography.Text>
-              </figure>
-            </div>
-          </Col>
-        </Row>
+        <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>แนวโน้มย้อนหลัง 7 วัน</h1>
       </section>
       <section className='mt-2'>
         {renderChart}

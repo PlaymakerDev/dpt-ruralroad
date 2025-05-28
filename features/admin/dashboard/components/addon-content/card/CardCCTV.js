@@ -34,11 +34,14 @@ const CardCCTV = (props) => {
   }, [loading, data])
 
   return (
-    <section className='!h-full !w-full flex items-end'>
-      <div className='!w-full !h-full '>
-        {renderContent}
-      </div>
-    </section>
+    <div>
+      {renderContent}
+    </div>
+    // <section className='!h-full !w-full flex items-end'>
+    //   <div className='!w-full !h-full '>
+    //     {renderContent}
+    //   </div>
+    // </section>
   )
 }
 

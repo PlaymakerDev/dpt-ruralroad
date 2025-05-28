@@ -5,14 +5,16 @@ import TableDailyWeigh from '../table/TableDailyWeigh'
 const ModaldailyWeighed = (props) => {
   const { open, data, setOpen, accessType } = props
 
+  console.log("===",data)
+
   const renderTitle = () => {
     switch (data?.key) {
       case 'sum_station':
-        return 'สรุปข้อมูลรถเข้าชั่งสถานี'
+        return 'สรุปข้อมูลสถานีตรวจสอบน้ำหนัก'
       case 'sum_wim':
-        return 'สรุปข้อมูลรถเข้า Weight In Motion'
+        return 'สรุปข้อมูล Vehicle Inspection Station (VIS)'
       case 'sum_spot':
-        return 'สรุปข้อมูลรถเข้าหน่วยชั่งเคลื่อนที่'
+        return 'สรุปข้อมูลหน่วยตรวจสอบน้ำหนักเคลื่อนที่'
       default:
         return ''
     }

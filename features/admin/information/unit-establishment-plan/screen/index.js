@@ -10,6 +10,7 @@ import { getWayAll } from '@/store/features/masterSlice'
 import dayjs from 'dayjs';
 import 'dayjs/locale/th'
 import { CardMobile } from '@/features/admin/dashboard/components/addon-content/card'
+import { getViewSumPlanChart } from '@/store/features/dashboardSlice'
 
 const INIT_MODAL = { open: false, is_updatable: false, info: {} }
 
@@ -41,14 +42,17 @@ const UnitEstablishmentPlanScreen = (props) => {
   const [apiGetWayAll, loadingWayAll, wayAll] = useGetAPI('overlay', {
     funcDispatch: getWayAll, reducerName: 'master', reducerKey: 'way'
   })
-  
+  const [apiGetViewSumPlanChart, loadingViewSumPlanChart, viewSumPlanChart] = useGetAPI('overlay', {
+    funcDispatch: getViewSumPlanChart, reducerName: 'dashboard', reducerKey: 'view_sum_plan_chart'
+  })
+
   useEffect(() => {
-    apiGetData(`/api/v1/info/workplan_way`, { plan_year: dayjs(reportYear()).format('YYYY') , page: '1' , page_size: '10' , order: 'ASC' , year_type: 'ce_year' }, false, {})
+    apiGetData(`/api/v1/info/workplan_way`, { plan_year: dayjs(reportYear()).format('YYYY'), page: '1', page_size: '10', order: 'ASC', year_type: 'ce_year' }, false, {})
     apiGetDepartmentAll(`/api/v1/masters/departments_all`, undefined, false, {})
     apiGetWayAll('/api/v1/masters/way_all', {}, false, {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-    
+
   const onChangePage = useCallback((page, perPage) => {
     apiGetData(`/api/v1/info/workplan_way`, { ...data.workplans.search, page: page, page_size: perPage }, false, {})
   }, [data.workplans.search, apiGetData])
@@ -69,9 +73,6 @@ const UnitEstablishmentPlanScreen = (props) => {
   return (
     <div>
       <section>
-        <CardMobile />
-      </section>
-      <section className='mt-5'>
         <FormSearchEstablishUnit
           initialValues={data.workplans.search}
           apiGetData={apiGetData}
@@ -79,7 +80,11 @@ const UnitEstablishmentPlanScreen = (props) => {
           clearData={clearData}
           department={departmentAll.all}
           role={role}
+          apiGetViewSumPlanChart={apiGetViewSumPlanChart}
         />
+      </section>
+      <section className='mt-5'>
+        <CardMobile />
       </section>
       <section className='mt-5'>
         <TableEstablishUnit

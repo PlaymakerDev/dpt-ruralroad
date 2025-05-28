@@ -8,7 +8,7 @@ import { EXTERNAL_USER_TYPE, ROLE_TH } from '@/utils/constant';
 import { useRouter } from 'next/router';
 
 const PageLayout = (props) => {
-  const { breadcrumb, children } = props
+  const { breadcrumb, extraHeader, children } = props
   // STATE
   const [open, setOpen] = useState(false)
   const [startX, setStartX] = useState(null)
@@ -58,11 +58,10 @@ const PageLayout = (props) => {
           user={user}
         />
       </header>
-      {!!breadcrumb &&
-        <section className='pt-5 px-8'>
-          {breadcrumb}
-        </section>
-      }
+      <section className='pt-5 px-8 flex justify-between items-center'>
+        {!!breadcrumb && breadcrumb}
+        {!!extraHeader && extraHeader}
+      </section>
       <main className='py-5 px-8'>
         {children}
       </main>

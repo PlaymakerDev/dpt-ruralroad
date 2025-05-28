@@ -18,6 +18,7 @@ const OverviewScreen = (props) => {
   const [open, setOpen] = useState(INIT_MODAL)
   const [detail, setDetail] = useState(INIT_DETAIL)
   const [config, setConfig] = useState(INIT_CONFIG)
+  const [cctvStatus, setCCTVStatus] = useState(null)
 
   const [apiGetDepartmentGroup, loadDepartmentGroup, departmentGroup] = useGetAPI('overlay', {
     funcDispatch: getDepartmentGroup, reducerName: 'cctv', reducerKey: 'department_group'
@@ -53,7 +54,7 @@ const OverviewScreen = (props) => {
   }, [])
 
   const elemProps = {
-    className: 'flex flex-col items-center justify-between'
+    className: 'flex flex-col items-center justify-between cursor-pointer'
   }
 
   // const onChangePage = useCallback((page, perPage) => {
@@ -92,9 +93,22 @@ const OverviewScreen = (props) => {
 
   const renderCCTVList = useMemo(() => {
     if (!loading || !loadStation) {
+      let cctvData = []
+      switch (cctvStatus) {
+        case 'Online':
+          cctvData = data?.data?.filter(item => item.camera_status === 'Online')
+        case 'Offline':
+          cctvData = data?.data?.filter(item => item.camera_status === 'Offline')
+        default:
+          cctvData = data?.data
+      }
+
+      console.log("=== status ===",cctvStatus)
+      console.log("=== cctv ===",cctvData)
+
       return (
         <ContentCCTVLIst
-          cctv={data.data || []}
+          cctv={cctvData || []}
           station={station.data}
           cctvRef={cctvRef}
           setOpen={setOpen}
@@ -104,7 +118,7 @@ const OverviewScreen = (props) => {
     } else {
       return <Spin spinning={loading || loadStation} />
     }
-  }, [loading, loadStation, data, station, cctvRef])
+  }, [loading, loadStation, data, station, cctvRef, cctvStatus])
 
   const renderSelect = useMemo(() => {
     return (
@@ -146,15 +160,15 @@ const OverviewScreen = (props) => {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
-            <div {...elemProps}>
+            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
               <CCTVIconMenu width={42} height={40} className='mx-auto' />
               <p className='font-bold'>กล้องทั้งหมด {station.data.total_cameras || 0}</p>
             </div>
-            <div {...elemProps}>
+            <div {...elemProps} onClick={() => setCCTVStatus('Online')}>
               <Success className='!text-2xl' />
               <p className='font-bold text-[#22c55e]'>กล้องออนไลน์ {station.data.online_cameras || 0}</p>
             </div>
-            <div {...elemProps}>
+            <div {...elemProps} onClick={() => setCCTVStatus('Offline')}>
               <Failed className='!text-2xl' />
               <p className='font-bold text-[#FF4A4A]'>กล้องออฟไลน์ {station.data.offline_cameras || 0}</p>
             </div>

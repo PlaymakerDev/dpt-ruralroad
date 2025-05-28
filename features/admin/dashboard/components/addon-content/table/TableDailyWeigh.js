@@ -16,6 +16,8 @@ const TableDailyWeigh = (props) => {
   console.log("key", type)
   const router = useRouter()
 
+  console.log("[===", data)
+
   const columns = [
     {
       title: '',
@@ -29,14 +31,41 @@ const TableDailyWeigh = (props) => {
       title: 'จำนวนรถเข้าชั่ง',
       key: 'total',
       dataIndex: 'total',
-      align: 'center'
+      align: 'center',
+      render: (item) => {
+        if (item) {
+          return item
+        }
+
+        return '-'
+      }
     },
     {
       title: 'จำนวนรถน้ำหนักเกิน',
       key: 'over',
       dataIndex: 'over',
-      align: 'center'
-    }
+      align: 'center',
+      render: (item) => {
+        if (item) {
+          return item
+        }
+
+        return '-'
+      }
+    },
+    {
+      title: 'จำนวนรถน้ำหนักเกิน 10%',
+      key: 'over_10percent',
+      dataIndex: 'over_10percent',
+      align: 'center',
+      render: (item) => {
+        if (item) {
+          return item
+        }
+
+        return '-'
+      }
+    },
   ];
 
   return (
@@ -55,26 +84,38 @@ const TableDailyWeigh = (props) => {
               query: {
                 total: record.total,
                 over: record.over,
+                over_10percent: record.over_10percent,
                 name: record.name,
-                type: '3'
+                type: '3',
+                department_id: record.department_id
               }
             })
           }
         } else if (type === 'sum_station' && !accessType) {
           return {
             onClick: () => router.push({
-              pathname: `/admin/project-info/station-detail/${record.station_id}`,
+              pathname: `/admin/project-info/station-dashboard/${record.station_id}`,
               query: {
-                prev_name: record.name,
+                total: record.total,
+                over: record.over,
+                over_10percent: record.over_10percent,
+                name: record.name,
+                type: '1',
+                department_id: record.department_id
               }
             })
           }
         } else if (type === 'sum_spot' && !accessType) {
           return {
             onClick: () => router.push({
-              pathname: `/admin/project-info/mobile-detail/${record.department_id}`,
+              pathname: `/admin/project-info/mobile-dashboard/${record.department_id}`,
               query: {
-                prev_name: record.name,
+                total: record.total,
+                over: record.over,
+                over_10percent: record.over_10percent,
+                name: record.name,
+                type: '2',
+                department_id: record.department_id
               }
             })
           }

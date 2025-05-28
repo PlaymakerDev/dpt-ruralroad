@@ -1,3 +1,5 @@
 export { default as OverviewSection } from './OverviewSection'
 export { default as ChartSection } from './ChartSection'
 export { default as CCTVSection } from './CCTVSection'
+export { default as TableSection } from './TableSection'
+export { default as ProgressSection } from './ProgressSection'

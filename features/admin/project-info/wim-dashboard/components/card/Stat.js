@@ -4,8 +4,9 @@ import YellowTruck from '@/public/images/yellow-truck.svg'
 import RedTruck from '@/public/images/red-truck.svg'
 import Image from 'next/image'
 import { Card, Col, Row, Typography } from 'antd'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { useRouter } from 'next/router'
+import stf from '@/utils/stringformat'
 
 const Stat = (props) => {
   const { data, stationId } = props
@@ -27,7 +28,7 @@ const Stat = (props) => {
               <div className='flex flex-col'>
                 <Typography.Title level={5} className='!m-0'>รถเข้าชั่งวันนี้</Typography.Title>
                 <div className='flex items-end justify-between'>
-                  <Typography.Text><span className='text-green-500 text-2xl font-bold'>{data?.total || '-'}</span> คัน</Typography.Text>
+                  <Typography.Text><span className='text-green-500 text-2xl font-bold'>{stf(data?.total).normal() || '-'}</span> คัน</Typography.Text>
                   <Typography.Text
                     className='text-blue-500 cursor-pointer'
                     underline
@@ -58,7 +59,7 @@ const Stat = (props) => {
             />
             <div className='flex flex-col flex-grow justify-between flex-wrap'>
               <Typography.Title level={5} className='!m-0'>รถน้ำหนักเกิน</Typography.Title>
-              <Typography.Text><span className='text-red-500 text-2xl font-bold'>{data?.over || '-'}</span> คัน</Typography.Text>
+              <Typography.Text><span className='text-red-500 text-2xl font-bold'>{stf(data?.over).normal() || '-'}</span> คัน</Typography.Text>
             </div>
           </div>
         </Card>

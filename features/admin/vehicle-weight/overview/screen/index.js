@@ -58,15 +58,15 @@ const VehicleWeightScreen = (props) => {
   const tabList = [
     {
       key: "station",
-      tab: "ข้อมูลรถเข้าชั่งสถานี",
+      tab: "ข้อมูลสถานีตรวจสอบน้ำหนัก",
     },
     {
       key: "wim",
-      tab: "ข้อมูลรถเข้าชั่ง WIM",
+      tab: "ข้อมูล Vehicle Inspection Station (VIS)",
     },
     {
       key: "mobile",
-      tab: "ข้อมูลหน่วยชั่งเคลื่อนที่",
+      tab: "ข้อมูลหน่วยตรวจสอบน้ำหนักเคลื่อนที่",
     },
     {
       key: "summary",

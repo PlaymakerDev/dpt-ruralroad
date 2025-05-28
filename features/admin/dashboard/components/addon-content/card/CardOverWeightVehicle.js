@@ -40,7 +40,7 @@ const CardOverWeightVehicle = (props) => {
   }, [loading, data])
 
   return (
-    <div className="card-container rounded-md p-2">
+    <div className="card-container rounded-md p-2 h-full">
       {renderContent}
     </div>
   )

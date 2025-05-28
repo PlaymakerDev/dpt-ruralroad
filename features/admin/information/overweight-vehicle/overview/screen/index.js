@@ -42,7 +42,7 @@ const OverviewScreen = (props) => {
     if (router.query.type) {
       setLocalVehicleMenuTab(router.query.type);
       setCurrentStep(router.query.type);
-    }else{
+    } else {
       router.replace({
         pathname: '/admin/information/overweight-vehicle/overview',
         query: { type: 'stationary' },
@@ -52,22 +52,19 @@ const OverviewScreen = (props) => {
 
   useEffect(() => {
   }, [localVehicleMenuTab])
-  console.log("test")
-
-
 
   const tabList = [
     {
       key: "stationary",
-      tab: "ข้อมูลรถเข้าชั่งสถานี",
+      tab: "ข้อมูลสถานีตรวจสอบน้ำหนัก",
     },
     {
       key: "wim",
-      tab: "ข้อมูลรถเข้าชั่ง WIM",
+      tab: "ข้อมูล Vehicle Inspection Station (VIS)",
     },
     {
       key: "mobile",
-      tab: "ข้อมูลหน่วยชั่งเคลื่อนที่",
+      tab: "ข้อมูลหน่วยตรวจสอบน้ำหนักเคลื่อนที่",
     },
   ];
 

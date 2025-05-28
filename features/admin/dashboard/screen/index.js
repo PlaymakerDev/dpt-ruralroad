@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Col, Row, Spin } from 'antd'
-import { CardOverWeightVehicle, CardRoute, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
+import { CardCCTV, CardOverWeightVehicle, CardRoute, CardVehicleStat, CardWeighingStation } from '../components/addon-content/card'
 import { CollapseYearSummary } from '../components/addon-content/collapse'
 import DisplayMap from '../components/map/DisplayMap'
 // CREATE API REQUESTS
@@ -17,7 +17,7 @@ const DashboardScreen = (props) => {
       {/* <div className='!mt-6 !h-[80%]'> */}
       <section>
         <Row gutter={[16, 16]}>
-          <Col xs={24} sm={24} md={24} lg={24} xl={14} xxl={14}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={14}>
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <CardVehicleStat
@@ -32,13 +32,14 @@ const DashboardScreen = (props) => {
               </Col>
             </Row>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={24} xl={10} xxl={10}>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={10}>
             <Row gutter={[16, 16]}>
-              <Col xs={24} sm={24} md={24} lg={12} xl={24} xxl={24}>
+              <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={24}>
                 <CardWeighingStation />
               </Col>
-              <Col xs={24} sm={24} md={24} lg={12} xl={24} xxl={24}>
-                <CardRoute />
+              <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={24}>
+                {/* <CardRoute /> */}
+                <CardCCTV />
               </Col>
             </Row>
           </Col>

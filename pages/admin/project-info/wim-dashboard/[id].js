@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo, useRef } from 'react'
 import { useRouter } from 'next/router'
 import WIMDashboardScreen from '@/features/admin/project-info/wim-dashboard/screen'
 import PageLayout from '@/components/layout/new-layout/PageLayout'
@@ -8,10 +8,13 @@ import { getLoginSession } from '@/utils/auth'
 import { validatePermissionRoute, redirectToLogin, sessionToProps } from '@/utils/auth/routePermission'
 import { wrapper, AppState } from '@/store'
 import { signIn } from '@/store/features/userSlice'
+import FormSearchWIMDashboard from '@/features/admin/project-info/wim-dashboard/components/form/FormSearchWIMDashboard'
+import { WIMProvider } from '@/features/admin/project-info/wim-dashboard/context'
 
 const WIMDashboardPage = (props) => {
 	const { } = props
 	const router = useRouter()
+	const refSubmit = useRef(null)
 
 	const renderBreadcrumb = useMemo(() => {
 		return (
@@ -27,14 +30,26 @@ const WIMDashboardPage = (props) => {
 		)
 	}, [router])
 
-	return (
-		<PageLayout
-			breadcrumb={renderBreadcrumb}
-		>
-			<WIMDashboardScreen
-				data={router?.query}
+	const renderFormSearch = useMemo(() => {
+		return (
+			<FormSearchWIMDashboard
+				refSubmit={refSubmit}
+				stationId={router?.query?.id}
 			/>
-		</PageLayout>
+		)
+	}, [refSubmit, router])
+
+	return (
+		<WIMProvider>
+			<PageLayout
+				breadcrumb={renderBreadcrumb}
+				extraHeader={renderFormSearch}
+			>
+				<WIMDashboardScreen
+					data={router?.query}
+				/>
+			</PageLayout>
+		</WIMProvider>
 	)
 }
 

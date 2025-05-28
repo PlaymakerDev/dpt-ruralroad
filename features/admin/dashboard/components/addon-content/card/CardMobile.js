@@ -4,6 +4,7 @@ import { ChartMobile } from '../chart'
 // import { useAppSelector } from '@/store/hooks'
 import { getViewSumPlanChart, } from '@/store/features/dashboardSlice'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
+import dayjs from 'dayjs'
 
 const CardMobile = (props) => {
   const { } = props
@@ -11,8 +12,20 @@ const CardMobile = (props) => {
     funcDispatch: getViewSumPlanChart, reducerName: 'dashboard', reducerKey: 'view_sum_plan_chart'
   })
 
+  const reportYear = () => {
+    const planDate = dayjs(`30/09/${dayjs().year()}`, 'DD/MM/YYYY');
+    const currentDate = dayjs();
+    if (currentDate.isAfter(planDate)) {
+      return (dayjs().add(1, 'year'))
+    } else {
+      return (dayjs())
+    }
+  }
+
   useEffect(() => {
-    apiGetData(`/api/v1/dashboards/view_sum_plan_chart`, {}, false, {})
+    apiGetData(`/api/v1/dashboards/view_sum_plan_chart`, {
+      year: dayjs(reportYear()).format('BBBB'),
+    }, false, {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -21,7 +34,7 @@ const CardMobile = (props) => {
       return (
         <ChartMobile
           data={data.data}
-          // loading={loading?.loading}
+        // loading={loading?.loading}
         />
       )
     } else {
@@ -34,9 +47,12 @@ const CardMobile = (props) => {
   }, [loading, data])
 
   return (
-    <Card className='!w-full !h-full '>
+    <div className="card-container rounded-md p-2">
       {renderContent}
-    </Card>
+    </div>
+    // <Card className='!w-full !h-full '>
+    //   {renderContent}
+    // </Card>
   )
 }
 

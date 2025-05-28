@@ -348,6 +348,10 @@ export const initialState = {
     }
   },
   view_sum_plan_chart: {
+    search: {
+      year: '',
+      department_id: ''
+    },
     data: {
       item: [],
       all_sum: {
@@ -485,6 +489,13 @@ export const initialState = {
   },
   position_province: {
     data: []
+  },
+  recent_weight: {
+    search: {
+      station_id: '',
+      limit: 5
+    },
+    data: []
   }
 }
 
@@ -548,7 +559,8 @@ export const slice = createSlice({
         state.work_plan_actual.search = action.payload.params
     },
     getViewSumPlanChart: (state, action) => {
-      state.view_sum_plan_chart.data = action.payload.data
+      state.view_sum_plan_chart.data = action.payload.data,
+      state.view_sum_plan_chart.search = action.payload.params
     },
     getCCTV: (state, action) => {
       state.cctv.data = action.payload.data.data
@@ -601,6 +613,10 @@ export const slice = createSlice({
     },
     getPositionProvince: (state, action) => {
       state.position_province.data = action.payload.data
+    },
+    getRecentWeight: (state, action) => {
+      state.recent_weight.data = action.payload.data,
+        state.recent_weight.search = action.payload.params
     }
   }
 })
@@ -633,7 +649,8 @@ export const {
   getPosition,
   getPositionDetail,
   getSumWeightYearV2,
-  getPositionProvince
+  getPositionProvince,
+  getRecentWeight
 } = slice.actions
 
 export default slice.reducer

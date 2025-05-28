@@ -71,7 +71,8 @@ const ChartWeighingStation = (props) => {
       <Chart
         type='bar'
         series={barDataNormalize.series || []}
-        height={282}
+        // height={282}
+        height={270}
         options={{
           grid: {
             padding: {

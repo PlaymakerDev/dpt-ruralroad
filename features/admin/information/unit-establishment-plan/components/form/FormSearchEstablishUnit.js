@@ -7,7 +7,7 @@ import 'dayjs/locale/th'
 import { allowAdmin } from "@/utils/allowAdmin";
 
 const FormSearchEstablishUnit = (props) => {
-  const { initialValues, apiGetData, clearData, setOpen, department, role } = props;
+  const { initialValues, apiGetData, clearData, setOpen, department, role, apiGetViewSumPlanChart } = props;
 
   const reportYear = () => {
     const planDate = dayjs(`30/09/${dayjs().year()}`, 'DD/MM/YYYY');
@@ -44,6 +44,10 @@ const FormSearchEstablishUnit = (props) => {
 
   const handlerSubmit = useCallback((values) => {
     apiGetData(`/api/v1/info/workplan_way`, { ...values, page: 1, page_size: initialValues.page_size, order: initialValues.order, year_type: initialValues.year_type }, false, {})
+    apiGetViewSumPlanChart(`/api/v1/dashboards/view_sum_plan_chart`, {
+      year: dayjs(values.plan_year).format('BBBB'),
+      department_id: values.department_id
+    }, false, {})
   }, [initialValues, apiGetData]);
 
   const handlerClear = useCallback(() => {
@@ -119,19 +123,19 @@ const FormSearchEstablishUnit = (props) => {
           </Col>
           <Col xs={24} sm={24} md={24} lg={8} xl={4} xxl={10} className='lg:!text-right'>
             {/* {allowAdmin(role) && */}
-              <fieldset>
-                <label className='block'>&nbsp;</label>
-                <Button
-                  type='primary'
-                  size='large'
-                  icon={<PlusOutlined />}
-                  className='!w-full lg:!w-auto'
-                  onClick={() => setOpen({ open: true, is_updatable: false, info: {} })}
-                >
-                  เพิ่มข้อมูล
-                </Button>
-              </fieldset>
-             {/* } */}
+            <fieldset>
+              <label className='block'>&nbsp;</label>
+              <Button
+                type='primary'
+                size='large'
+                icon={<PlusOutlined />}
+                className='!w-full lg:!w-auto'
+                onClick={() => setOpen({ open: true, is_updatable: false, info: {} })}
+              >
+                เพิ่มข้อมูล
+              </Button>
+            </fieldset>
+            {/* } */}
           </Col>
         </Row>
       </Form>

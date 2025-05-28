@@ -160,12 +160,12 @@ const ContentOverWeightVehicle = (props) => {
         <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
-              <TruckIcon width={23} height={16} customFill='#FFFFFF' />
+              <TruckIcon width={23} height={16} color='#FFFFFF' />
             </section>
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
                 <p className='text-[clamp(1px, 4vw, 15px)]'>ประเภทรถบรรทุก</p>
-                <p className='text-[clamp(1px, 4vw, 15px)]'>{data?.data?.vehicle_class?.vehicle_class_desc2 || '-'}</p>
+                <p className='text-[clamp(1px, 4vw, 15px)]'>{`${data?.data?.vehicle_class?.vehicle_class_desc2 || '-'} (${data?.data?.legal_weight || 0} ตัน`})</p>
                 <p className='text-[clamp(1px, 4vw, 15px)]'>{data?.data?.vehicle_class?.vehicle_class_desc3 || '-'}</p>
               </div>
             </section>
@@ -184,7 +184,7 @@ const ContentOverWeightVehicle = (props) => {
             </section>
           </div>
         </figcaption>
-        <figcaption {...properties}>
+        {/* <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
               <WeightIcon fill='#FFFFFF' />
@@ -196,7 +196,7 @@ const ContentOverWeightVehicle = (props) => {
               </div>
             </section>
           </div>
-        </figcaption>
+        </figcaption> */}
         <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
@@ -205,12 +205,17 @@ const ContentOverWeightVehicle = (props) => {
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
                 <p className='text-[clamp(1px, 4vw, 15px)]'>น้ำหนักที่เกิน</p>
-                <p className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`} strong>{data?.data?.gross_weight_over || 0} ตัน</p>
+                <p
+                  className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`}
+                  strong
+                >
+                  {`${data?.data?.gross_weight_over || 0} ตัน (${data?.data?.gross_weight_over || 0}%)`}
+                </p>
               </div>
             </section>
           </div>
         </figcaption>
-        <figcaption {...properties}>
+        {/* <figcaption {...properties}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
               <WeightIcon fill='#FFFFFF' />
@@ -222,7 +227,7 @@ const ContentOverWeightVehicle = (props) => {
               </div>
             </section>
           </div>
-        </figcaption>
+        </figcaption> */}
         <figcaption {...properties} className={`${properties.className} !mb-0`}>
           <div className='flex flex-wrap sm:flex-nowrap gap-3 items-center'>
             <section className='sm:basis-1/12 md:basis-1/6'>
