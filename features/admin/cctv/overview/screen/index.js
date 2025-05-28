@@ -48,7 +48,7 @@ const OverviewScreen = (props) => {
 
   useEffect(() => {
     apiGetDepartmentGroup('/api/v1/cctv/department_group', {
-      ...departmentGroup.search
+      ...departmentGroup.search,
     }, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -64,7 +64,7 @@ const OverviewScreen = (props) => {
   const findStationType = useCallback((stationType, stationId) => {
     switch (stationType) {
       case 1:
-        return apiGetStation(`/api/v1/cctv/station_sum/${stationId}station`, {}, false)
+        return apiGetStation(`/api/v1/cctv/station_sum/${stationId}/station`, {}, false)
       case 2:
         return apiGetStation(`/api/v1/cctv/station_sum/${stationId}`, {}, false)
       case 3:

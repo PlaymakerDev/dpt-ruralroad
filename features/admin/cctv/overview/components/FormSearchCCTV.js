@@ -42,6 +42,7 @@ const FormSearchCCTV = (props) => {
     apiGetData('/api/v1/cctv/deparment_list_sum', {
       ...defaultSearch,
       ...values,
+      page_size: 100
     }, false)
 
   }, [])
