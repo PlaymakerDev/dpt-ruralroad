@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useGetAPI from '@/utils/hooks/api/useGetAPI';
 import { getPosition, getPositionProvince } from '@/store/features/dashboardSlice';
-import { /*Button, Dropdown,*/ Select, Spin } from 'antd';
+import { /*Button, Dropdown,*/ Badge, ConfigProvider, Select, Spin } from 'antd';
 import { useDashboardContext } from '../context';
 // import { STATION_CODE, STATION_TYPE } from '@/utils/constant';
 // import { CloseOutlined } from '@ant-design/icons';
@@ -61,12 +61,12 @@ const DisplayMap = (props) => {
       value: '1'
     },
     {
-      label: 'หน่วยตรวจสอบเคลื่อนที่',
-      value: '2'
+      label: 'Vehicle Inspection Station (VIS)',
+      value: '3'
     },
     {
-      label: 'Weight In Motion (WIM)',
-      value: '3'
+      label: 'หน่วยตรวจสอบน้ำหนักเคลื่อนที่',
+      value: '2'
     },
   ]
 
@@ -105,7 +105,7 @@ const DisplayMap = (props) => {
   return (
     <div>
       {renderSpecMap}
-      <div className='!absolute !top-3 !right-5 !z-20 flex items-center gap-3'>
+      <div className='absolute top-3 right-5 z-20 flex items-center gap-3'>
         <Select
           value={value}
           options={provincdData}
@@ -150,6 +150,31 @@ const DisplayMap = (props) => {
             return option ? option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false;
           }}
         />
+      </div>
+      <div className='absolute bottom-3 left-5 z-20'>
+        <div className='bg-[#00000080] flex flex-col p-3 rounded-md'>
+          <Badge
+            color="#9254de"
+            text="สถานีตรวจสอบน้ำหนัก"
+            classNames={{
+              indicator: '!w-3 !h-3'
+            }}
+          />
+          <Badge
+            color="#ffc53d"
+            text="Vehicle Inspection Station (VIS)"
+            classNames={{
+              indicator: '!w-3 !h-3'
+            }}
+          />
+          <Badge
+            color="#4096ff"
+            text="หน่วยตรวจสอบน้ำหนักเคลื่อนที่"
+            classNames={{
+              indicator: '!w-3 !h-3'
+            }}
+          />
+        </div>
       </div>
     </div>
   )
