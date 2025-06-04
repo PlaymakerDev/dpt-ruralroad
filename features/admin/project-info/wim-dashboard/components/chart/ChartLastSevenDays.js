@@ -154,6 +154,7 @@ const ChartLastSevenDays = (props) => {
           },
           tooltip: {
             enabled: true,
+            theme: 'dark',
             x: {
               formatter: (value, { dataPointIndex }) => {
                 // แสดง label ที่ตรงกับ dataPointIndex

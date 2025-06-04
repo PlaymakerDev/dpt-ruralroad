@@ -23,7 +23,7 @@ const WIMDetailScreen = (props) => {
     funcDispatch: getWeightWIMLogDetail, reducerName: 'vehicleWeight', reducerKey: 'wim'
   })
 
-  console.log(stationId)
+  // console.log(stationId)
 
   useEffect(() => {
     if (stationId) {

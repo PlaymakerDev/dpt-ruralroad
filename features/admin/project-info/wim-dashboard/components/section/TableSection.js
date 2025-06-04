@@ -1,12 +1,12 @@
 import { useAppSelector } from '@/store/hooks'
-import { Table, Tag } from 'antd'
+import { Table, Tag, Tooltip } from 'antd'
 import React from 'react'
 import { useWIMContext } from '../../context'
 import { RECENT_WEIGHT_STATUS, VEHICLE_PROPERTIES } from '@/utils/constant'
 import Image from 'next/image'
 
 const TableSection = (props) => {
-  const { } = props
+  const { openModalWithData } = props
   const tableData = useAppSelector(state => state.dashboard.recent_weight)
   const { loadingRecentWeight } = useWIMContext()
 
@@ -40,19 +40,21 @@ const TableSection = (props) => {
       key: 'VehicleClassID',
       dataIndex: 'VehicleClassID',
       align: 'center',
-      render: (item) => {
+      render: (item, record) => {
         if (item) {
           const newWidth = VEHICLE_PROPERTIES[item]?.vehicle?.width * 0.5
           const newHeight = VEHICLE_PROPERTIES[item]?.vehicle?.height * 0.2
 
           return (
-            <Image
-              src={VEHICLE_PROPERTIES[item]?.vehicle?.image}
-              alt='vehicle-appearance'
-              width={newWidth}
-              height={newHeight}
-              className='mx-auto'
-            />
+            <Tooltip title={record?.VehicleClassDesc}>
+              <Image
+                src={VEHICLE_PROPERTIES[item]?.vehicle?.image}
+                alt='vehicle-appearance'
+                width={newWidth}
+                height={newHeight}
+                className='mx-auto'
+              />
+            </Tooltip>
           )
         }
         return '-'
@@ -76,6 +78,12 @@ const TableSection = (props) => {
         dataSource={tableData.data || []}
         loading={loadingRecentWeight}
         pagination={false}
+        onRow={(record) => ({
+          onClick: () => {
+            openModalWithData(record)
+          },
+        })}
+        rowClassName='!cursor-pointer'
       // pagination={{
       //   defaultCurrent: 1,
       //   defaultPageSize: 5,
