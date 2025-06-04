@@ -28,10 +28,34 @@ export const DashboardProvider = (props) => {
     funcDispatch: getList, reducerName: 'cctv', reducerKey: 'list'
   })
 
+  // console.log("check_data",{
+  //   station: station.station,
+  //   wim: wim.wim,
+  //   mobile: mobile.mobile
+  // })
+
   useEffect(() => {
-    apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, { ...station.station.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 1 }, false, {})
-    apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, { ...wim.wim.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 3 }, false, {})
-    apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, { ...mobile.mobile.search, date: dayjs().format('YYYY-MM-DD'), number_day: 6, station_type_id: 2 }, false, {})
+    apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, {
+      ...station.station.search,
+      date: dayjs().format('YYYY-MM-DD'),
+      number_day: 6,
+      station_type_id: 1,
+      date_type: '7Day'
+    }, false, {})
+    apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, {
+      ...wim.wim.search,
+      date: dayjs().format('YYYY-MM-DD'),
+      number_day: 6,
+      station_type_id: 3,
+      date_type: '7Day'
+    }, false, {})
+    apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, {
+      ...mobile.mobile.search,
+      date: dayjs().format('YYYY-MM-DD'),
+      number_day: 6,
+      station_type_id: 2,
+      date_type: '7Day'
+    }, false, {})
     apiGetCCTVList('/api/v1/cctv/list', {
       ...cctvList.search,
       page_size: 100,
@@ -44,20 +68,27 @@ export const DashboardProvider = (props) => {
   const onSubmit = useCallback((values) => {
     apiGetStation(`/api/v1/dashboards/vehicle_weight_inspection`, {
       ...station.station.search,
-      date: dayjs(values.date).format('YYYY-MM-DD'),
+      // date: dayjs(values.date).format('YYYY-MM-DD'),
+      date: dayjs().format('YYYY-MM-DD'),
       number_day: 6,
-      station_type_id: 1
+      station_type_id: 1,
+      date_type: values.date_type
     }, false, {})
     apiGetWIM(`/api/v1/dashboards/vehicle_weight_inspection`, {
       ...wim.wim.search,
-      date: dayjs(values.date).format('YYYY-MM-DD'),
-      number_day: 6, station_type_id: 3
+      // date: dayjs(values.date).format('YYYY-MM-DD'),
+      date: dayjs().format('YYYY-MM-DD'),
+      number_day: 6,
+      station_type_id: 3,
+      date_type: values.date_type
     }, false, {})
     apiGetMobile(`/api/v1/dashboards/vehicle_weight_inspection`, {
       ...mobile.mobile.search,
-      date: dayjs(values.date).format('YYYY-MM-DD'),
+      // date: dayjs(values.date).format('YYYY-MM-DD'),
+      date: dayjs().format('YYYY-MM-DD'),
       number_day: 6,
-      station_type_id: 2
+      station_type_id: 2,
+      date_type: values.date_type
     }, false, {})
   }, [])
 

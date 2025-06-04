@@ -154,21 +154,21 @@ const DisplayMap = (props) => {
       <div className='absolute bottom-3 left-5 z-20'>
         <div className='bg-[#00000080] flex flex-col p-3 rounded-md'>
           <Badge
-            color="#9254de"
+            color="#9C3CC8"
             text="สถานีตรวจสอบน้ำหนัก"
             classNames={{
               indicator: '!w-3 !h-3'
             }}
           />
           <Badge
-            color="#ffc53d"
+            color="#C9883B"
             text="Vehicle Inspection Station (VIS)"
             classNames={{
               indicator: '!w-3 !h-3'
             }}
           />
           <Badge
-            color="#4096ff"
+            color="#3B8CC8"
             text="หน่วยตรวจสอบน้ำหนักเคลื่อนที่"
             classNames={{
               indicator: '!w-3 !h-3'

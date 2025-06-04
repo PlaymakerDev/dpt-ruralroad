@@ -161,6 +161,8 @@ const ChartWeighingStation = (props) => {
             text: 'ไม่มีข้อมูล',
           },
           tooltip: {
+            enabled: true,
+            theme: 'dark',
             x: {
               formatter: (value, { dataPointIndex }) => {
                 // แสดง label ที่ตรงกับ dataPointIndex

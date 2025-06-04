@@ -52,106 +52,114 @@ const ChartMobile = (props) => {
   // RENDER CHART
   const renderChart = useMemo(() => {
     return (
-      <div className='!-mt-10 !-mb-8'>
-        <Chart
-          type='area'
-          series={areaDataNormalize.series || []}
-          height={300}
-          options={{
-            states: {
-              hover: {
-                filter: {
-                  type: 'darken',
-                  value: 0.75
-                }
+      <Chart
+        type='area'
+        series={areaDataNormalize.series || []}
+        height={300}
+        options={{
+          grid: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: -25,
+              bottom: -20,
+            },
+          },
+          states: {
+            hover: {
+              filter: {
+                type: 'darken',
+                value: 0.75
               }
+            }
+          },
+          legend: {
+            labels: {
+              colors: '#FFFFFF80'
             },
-            legend: {
-              labels: {
-                colors: '#FFFFFF80'
-              },
-              markers: {
-                shape: 'line',
-                strokeWidth: 4,
-                size: 16,
-                strokeLinecap: 'round',
-              }
-            },
-            dataLabels: {
-              enabled: false,
-              formatter: (val) => {
-                return areaDataNormalize?.series.length <= 1 ? "" : Number(val);
-              }
-            },
-            chart: {
-              toolbar: {
-                show: false, 
-              },
-              zoom: {
-                enabled: false, 
-              },
-              selection: {
-                enabled: false, 
-              },
-              stacked: false,
-              toolbar: {
-                show: false,
-              },
-              fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif'
-            },
-            xaxis: {
-              categories: areaDataNormalize?.categories || [],
-              tickPlacement: 'on',
-              tickAmount: 25,
-              labels: {
-                style: {
-                  colors: '#FFFFFF80'
-                }
-              }
-            },
-            yaxis: {
-              labels: {
-                formatter: (value) => {
-                  return format(value).normal()
-                },
-                style: {
-                  colors: '#FFFFFF80'
-                }
-              }
-            },
-            stroke: {
-              curve: 'monotoneCubic'
-            },
-            fill: {
-              type: 'gradient',
-              gradient: {
-                opacityFrom: 0.6,
-                opacityTo: 0.8,
-              }
-            },
-            noData: {
-              text: 'ไม่มีข้อมูล',
-            },
+            markers: {
+              shape: 'line',
+              strokeWidth: 4,
+              size: 16,
+              strokeLinecap: 'round',
+            }
+          },
+          dataLabels: {
+            enabled: false,
+            formatter: (val) => {
+              return areaDataNormalize?.series.length <= 1 ? "" : Number(val);
+            }
+          },
+          chart: {
             toolbar: {
-              show: false, // ปิด toolbar ด้านบนของกราฟ
+              show: false,
             },
-            tooltip: {
-              enabled: true,
-              x: {
-                formatter: (value, { dataPointIndex }) => {
-                  // แสดง label ที่ตรงกับ dataPointIndex
-                  return areaDataNormalize?.categories[dataPointIndex];
-                },
-              },
-              y: {
-                formatter: (value) => {
-                  return format(value).normal()
-                }
+            zoom: {
+              enabled: false,
+            },
+            selection: {
+              enabled: false,
+            },
+            stacked: false,
+            toolbar: {
+              show: false,
+            },
+            fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif'
+          },
+          xaxis: {
+            categories: areaDataNormalize?.categories || [],
+            tickPlacement: 'on',
+            tickAmount: 25,
+            labels: {
+              style: {
+                colors: '#FFFFFF80'
               }
+            }
+          },
+          yaxis: {
+            labels: {
+              formatter: (value) => {
+                return format(value).normal()
+              },
+              style: {
+                colors: '#FFFFFF80'
+              }
+            }
+          },
+          stroke: {
+            curve: 'monotoneCubic'
+          },
+          fill: {
+            type: 'gradient',
+            gradient: {
+              opacityFrom: 0.6,
+              opacityTo: 0.8,
+            }
+          },
+          noData: {
+            text: 'ไม่มีข้อมูล',
+          },
+          toolbar: {
+            show: false, // ปิด toolbar ด้านบนของกราฟ
+          },
+          tooltip: {
+            enabled: true,
+            theme: 'dark',
+            x: {
+              formatter: (value, { dataPointIndex }) => {
+                // แสดง label ที่ตรงกับ dataPointIndex
+                return areaDataNormalize?.categories[dataPointIndex];
+              },
             },
-            colors: ["#56E4EE", "#00E66C"]
-          }}
-        /></div>
+            y: {
+              formatter: (value) => {
+                return format(value).normal()
+              }
+            }
+          },
+          colors: ["#56E4EE", "#00E66C"]
+        }}
+      />
     )
   }, [areaDataNormalize])
 

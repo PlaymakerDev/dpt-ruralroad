@@ -10,7 +10,7 @@ const FormSearchDashboard = (props) => {
 
   const form = useForm({
     initialValues: {
-      date: dayjs()
+      date_type: '7Day'
     },
     rules: {}
   })
@@ -34,7 +34,7 @@ const FormSearchDashboard = (props) => {
 
   return (
     <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
-      <Field.DatePicker
+      {/* <Field.DatePicker
         name='date'
         placeholder='วันที่'
         format={'DD MMMM BBBB'}
@@ -42,15 +42,15 @@ const FormSearchDashboard = (props) => {
         onChange={(name, value) => onChangeDate(name, value)}
         allowClear={false}
         hideRequired
-      />
-      {/* <Field.Select
+      /> */}
+      <Field.Select
         // label='เลือกปีงบประมาณ'
-        name='year_budget'
+        name='date_type'
         placeholder='เลือกการแสดงงบประมาณ'
         optKeys={['id', 'name']}
         options={[
           {
-            id: 'day',
+            id: '7Day',
             name: 'รายวัน'
           },
           {
@@ -68,9 +68,9 @@ const FormSearchDashboard = (props) => {
         showSearch
         optionFilterProp="children"
         filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-        className='!w-48'
-        onChange={(name, value) => onChangeYearBudget(name, value)}
-      /> */}
+        className='!w-56'
+        onChange={(name, value) => onChangeDate(name, value)}
+      />
       <button type='submit' hidden ref={refSubmit} />
     </Form>
   )

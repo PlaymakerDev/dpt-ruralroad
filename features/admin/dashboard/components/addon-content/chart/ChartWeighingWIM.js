@@ -76,12 +76,12 @@ const ChartWeighingStation = (props) => {
         options={{
           grid: {
             padding: {
-              left: 0,    
-              right: 0,  
-              top: -25,    
-              bottom: -20,  
+              left: 0,
+              right: 0,
+              top: -25,
+              bottom: -20,
             },
-            
+
           },
           states: {
             hover: {
@@ -118,8 +118,8 @@ const ChartWeighingStation = (props) => {
               show: false,
             },
             fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif',
-            offsetX: 0, 
-            offsetY: 10, 
+            offsetX: 0,
+            offsetY: 10,
           },
           xaxis: {
             categories: barDataNormalize?.categories || [],
@@ -160,6 +160,8 @@ const ChartWeighingStation = (props) => {
             text: 'ไม่มีข้อมูล',
           },
           tooltip: {
+            enabled: true,
+            theme: 'dark',
             x: {
               formatter: (value, { dataPointIndex }) => {
                 // แสดง label ที่ตรงกับ dataPointIndex
