@@ -148,7 +148,7 @@ const Content = (props) => {
       )
     }
     // if ((is_over_weight == 'Y' || is_over_weight == "P") && allowAdmin(role)) {
-    if ((is_over_weight == 'Y' || is_over_weight == "P") && filterDeptType(deptType,role)) {
+    if ((is_over_weight == 'Y' || is_over_weight == "P") && filterDeptType(deptType, role)) {
       return (
         <section className="mt-3">
           <Row gutter={[16, 16]}>
@@ -190,7 +190,7 @@ const Content = (props) => {
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <section>
-              <div className="border rounded-lg p-5 h-full lg:h-36">
+              <div className="border rounded-lg p-5 h-full lg:h-32">
                 <div className="flex flex-wrap items-center justify-evenly gap-3 h-full">
                   <div className="flex flex-col flex-wrap items-center">
                     <Typography.Text className="!text-xl">ทะเบียน</Typography.Text>
@@ -327,24 +327,24 @@ const Content = (props) => {
       <section className="mt-5">
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
-            <div className=" rounded-lg p-5 h-72">
-              <div className="h-full">
+            <div className="rounded-lg p-5 h-52">
+              <div className="h-full flex flex-col items-center justify-center gap-3">
                 <Image
                   src={vehicle_image}
                   alt="sample-truck"
-                  className="!block !m-auto !h-48"
+                  // className="!block !m-auto !h-48"
                   width={vehicle_width}
                   height={vehicle_height}
                 />
-                <div className="text-center">
-                  <Typography.Text> {info?.spot?.vehicle_class?.vehicle_class_desc3 || '-'}</Typography.Text>
-                </div>
+                <Typography.Text>{info?.spot?.vehicle_class?.vehicle_class_desc3 || '-'}</Typography.Text>
+                {/* <div className="text-center">
+                </div> */}
               </div>
             </div>
           </Col>
           <Col xs={24} sm={12} md={12} lg={12} xl={12} xxl={12}>
-            <div className="bg-black rounded-lg p-1 h-72">
-              <div className="h-full flex justify-center items-center">
+            <div className="bg-black rounded-lg p-1 h-52">
+              <div className="h-full flex justify-center items-center flex-col">
                 <WheelHorizontal
                   displayType={displayType}
                   type={truckType}
@@ -363,11 +363,13 @@ const Content = (props) => {
                   rightwheel6={wheelData?.right?.wheel6}
                   rightwheel7={wheelData?.right?.wheel7}
                 />
+                {displayType == 0 ?
+                  <Typography.Text>{info?.spot?.gross_weight || '-'} ตัน</Typography.Text> : ''
+                }
               </div>
-              {displayType == 0 ? <div className="text-center -mt-8">
-                <Typography.Text>{info?.spot?.gross_weight || '-'} ตัน</Typography.Text>
-              </div> : ''}
-
+              {/* {displayType == 0 ? <div className="text-center mt-8">
+                <Typography.Text>{info?.spot?.gross_weight || '-'} ตัน</Typography.Text> : ''
+              </div> : ''} */}
             </div>
           </Col>
         </Row>

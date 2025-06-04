@@ -112,8 +112,8 @@ const Content = (props) => {
         <Row gutter={[16, 16]}>
           {/* Left: Truck and Wheel Images */}
           <Col xs={24} sm={24} md={16} lg={16} xl={16} xxl={16}>
-            <div className="bg-black rounded-lg p-4 h-full">
-              <div className="flex flex-col justify-center items-center h-full">
+            <div className="bg-black rounded-lg p-4">
+              <div className="flex flex-col justify-center items-center h-60">
                 <WheelHorizontal
                   displayType={displayType}
                   type={truckType}
@@ -135,41 +135,85 @@ const Content = (props) => {
                 <Typography.Text className="text-white">ประเภท : {VEHICLE_PROPERTIES[info?.log?.vehicle_class_id]?.properties?.vehicle_description || '-'} - พ่วง {info?.log?.axle_count || '-'} เพลา {info?.log?.wheel_count || '-'} ล้อ</Typography.Text>
               </div>
             </div>
+            <figure className="card-container rounded-md p-3 mt-3">
+              {/* <Card bordered> */}
+              <Flex align="center" justify="space-around" className="text-center">
+                <Flex vertical align="center">
+                  <Typography.Text>สถานะเข้าชั่ง</Typography.Text>
+                  {renderWeighingStatus}
+                </Flex>
+                <Flex vertical align="center">
+                  <Typography.Text>เพลาที่เกิน</Typography.Text>
+                  {renderDriveShaftOver}
+                </Flex>
+                <Flex vertical align="center">
+                  <Typography.Text>สถานะเพลา</Typography.Text>
+                  {renderAxleStatus}
+                </Flex>
+              </Flex>
+              {/* </Card> */}
+            </figure>
+            <figure className="card-container rounded-md p-3 mt-3">
+              {/* <Card bordered> */}
+              <Flex align="center" justify="space-around" wrap className="text-center">
+                <Flex vertical align="center" className="px-2">
+                  <Typography.Text>ความเร็ว</Typography.Text>
+                  <Typography.Text className="!text-xl font-bold">{info?.log?.speed || '--'}</Typography.Text>
+                </Flex>
+                <Flex vertical align="center" className="px-2">
+                  <Typography.Text>Lane</Typography.Text>
+                  <Typography.Text className="!text-xl font-bold">{info?.log?.lane || '--'}</Typography.Text>
+                </Flex>
+                <Flex vertical align="center" className="px-2">
+                  <Typography.Text>Front Overhang</Typography.Text>
+                  <Typography.Text className="!text-xl font-bold">{info?.log?.front_over_hang || '--'}</Typography.Text>
+                </Flex>
+                <Flex vertical align="center" className="px-2">
+                  <Typography.Text>Rear Overhang</Typography.Text>
+                  <Typography.Text className="!text-xl font-bold">{info?.log?.rear_over_hang || '--'}</Typography.Text>
+                </Flex>
+                <Flex vertical align="center" className="px-2">
+                  <Typography.Text>Length</Typography.Text>
+                  <Typography.Text className="!text-xl font-bold">{info?.log?.length || '--'}</Typography.Text>
+                </Flex>
+              </Flex>
+              {/* </Card> */}
+            </figure>
           </Col>
           {/* Right: License Plate Image */}
           <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-          <div className="flex flex-col gap-3">
-            <div className="border rounded-lg p-3 h-full lg:h-[18.7rem]">
-              <Typography.Title level={5}>รูปทะเบียนรถ</Typography.Title>
-              <figure className='h-60 relative overflow-hidden rounded-lg'>
-                <Image
-                  src={image1Url}
-                  alt='ทะเบียนรถ'
-                  height={'100%'}
-                  width={'100%'}
-                  className='object-contain object-center'
-                  onError={() => { handleError('image1') }}
-                  preview={!fallbacks.image1}
-                  fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+            <div className="flex flex-col gap-3">
+              <div className="border rounded-lg p-3 h-full lg:h-56">
+                <Typography.Title level={5}>รูปทะเบียนรถ</Typography.Title>
+                <figure className='h-40 relative overflow-hidden rounded-lg'>
+                  <Image
+                    src={image1Url}
+                    alt='ทะเบียนรถ'
+                    height={'100%'}
+                    width={'100%'}
+                    className='object-contain object-center'
+                    onError={() => { handleError('image1') }}
+                    preview={!fallbacks.image1}
+                    fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
                   />
-              </figure>
-            </div>
-            <div className="border rounded-lg p-3 h-full lg:h-[18.7rem] overflow-hidden">
-              <Typography.Title level={5}>รูปรถบรรทุก</Typography.Title>
-              <figure className='h-60 relative overflow-hidden rounded-lg flex items-center'>
-                <Image
-                  src={image2Url}
-                  alt='รถบรรทุก'
-                  width={'100%'}
-                  height={'100%'}
-                  className='object-contain object-center rounded-lg'
-                  onError={() => { handleError('image2') }}
-                  preview={!fallbacks.image2}
-                  fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
+                </figure>
+              </div>
+              <div className="border rounded-lg p-3 h-full lg:h-56 overflow-hidden">
+                <Typography.Title level={5}>รูปรถบรรทุก</Typography.Title>
+                <figure className='h-40 relative overflow-hidden rounded-lg flex items-center'>
+                  <Image
+                    src={image2Url}
+                    alt='รถบรรทุก'
+                    width={'100%'}
+                    height={'100%'}
+                    className='object-contain object-center rounded-lg'
+                    onError={() => { handleError('image2') }}
+                    preview={!fallbacks.image2}
+                    fallback={`${process.env.NEXT_PUBLIC_HOST_FRONT}/images/fallback.png`}
                   />
-              </figure>
+                </figure>
+              </div>
             </div>
-                  </div>
           </Col>
         </Row>
       </section>
@@ -218,7 +262,7 @@ const Content = (props) => {
                 </Card>
               </Col>
               {/* Weight Status */}
-              <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+              {/* <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <Card className="h-full" bordered>
                   <Flex align="center" justify="space-around" className="text-center">
                     <Flex vertical align="center">
@@ -235,7 +279,7 @@ const Content = (props) => {
                     </Flex>
                   </Flex>
                 </Card>
-              </Col>
+              </Col> */}
             </Row>
           </Col>
           {/* Right: Truck Image */}
@@ -245,7 +289,7 @@ const Content = (props) => {
         </Row>
       </section>
       {/* Row 3: Additional Information */}
-      <section className="mb-4">
+      {/* <section className="mb-4">
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Card className="h-full" bordered>
@@ -274,7 +318,7 @@ const Content = (props) => {
             </Card>
           </Col>
         </Row>
-      </section>
+      </section> */}
     </div>
   );
 };

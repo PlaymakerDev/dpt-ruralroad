@@ -228,7 +228,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านหน้า</Typography.Title>
           <Spin spinning={loadingFrontVehicle}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={frontVehicle[0]?.url ? frontVehicle[0].url : frontVehicle}
                 alt='collaboration-image'
@@ -286,7 +286,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านหลัง</Typography.Title>
           <Spin spinning={loadingBackVehicle}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={backVehicle[0]?.url ? backVehicle[0].url : backVehicle}
                 alt='collaboration-image'
@@ -343,7 +343,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านซ้าย</Typography.Title>
           <Spin spinning={loadingWeightSlip}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={weightSlip[0]?.url ? weightSlip[0].url : weightSlip}
                 alt='collaboration-image'
@@ -400,7 +400,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>รถด้านขวา</Typography.Title>
           <Spin spinning={loadingLeftVehicle}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={leftVehicle[0]?.url ? leftVehicle[0].url : leftVehicle}
                 alt='collaboration-image'
@@ -457,7 +457,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>สลิปน้ำหนัก</Typography.Title>
           <Spin spinning={loadingRightVehicle}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={rightVehicle[0]?.url ? rightVehicle[0].url : rightVehicle}
                 alt='collaboration-image'
@@ -515,7 +515,7 @@ const Content = (props) => {
         <div className="border rounded-lg p-3 h-full">
           <Typography.Title level={5}>ใบขับขี่</Typography.Title>
           <Spin spinning={loadingDrivingLicense}>
-            <figure className='h-72 relative overflow-hidden rounded-lg bg-[#101524]'>
+            <figure className='h-56 relative overflow-hidden rounded-lg bg-[#101524]'>
               <Image
                 src={drivingLicense[0]?.url ? drivingLicense[0].url : drivingLicense}
                 alt='collaboration-image'
