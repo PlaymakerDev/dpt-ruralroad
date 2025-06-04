@@ -142,26 +142,26 @@ const TableEstablishUnit = (props) => {
       width: 100,
       render: (item, record) => {
         // if (allowAdmin(role)) {
-          return (
-            <div className='inline-flex  items-center gap-5'>
-              <Edit
-                className='!cursor-pointer'
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpen({ open: true, is_updatable: true, info: record })
-                }
-                }
-              />
-              <Bin
-                className='!cursor-pointer !text-[#FF4a4a]'
-                onClick={(e) => {
-                  e.stopPropagation();
-                  confirm(record)
-                }
-                }
-              />
-            </div>
-          )
+        return (
+          <div className='inline-flex  items-center gap-5'>
+            <Edit
+              className='!cursor-pointer'
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen({ open: true, is_updatable: true, info: record })
+              }
+              }
+            />
+            <Bin
+              className='!cursor-pointer !text-[#FF4a4a]'
+              onClick={(e) => {
+                e.stopPropagation();
+                confirm(record)
+              }
+              }
+            />
+          </div>
+        )
         // }
       }
     },
@@ -206,6 +206,7 @@ const TableEstablishUnit = (props) => {
       columns={columns}
       scroll={{ x: 1600 }}
       loading={loading}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           setOpen({ open: true, is_updatable: true, info: record })

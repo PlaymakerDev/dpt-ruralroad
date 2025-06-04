@@ -239,9 +239,6 @@ const TableStationary = (props) => {
                 }
               </Col>
             </Row>
-
-
-
             // </div>
           )
         }
@@ -254,6 +251,7 @@ const TableStationary = (props) => {
       columns={columns}
       dataSource={data || []}
       loading={loading}
+      rowClassName='!cursor-pointer'
       onRow={(record) => {
         if (role === "ADMIN") {
           return {
@@ -274,7 +272,6 @@ const TableStationary = (props) => {
                 legal_weight: record?.vehicle_class?.legal_weight || '',
                 arrest_id: record?.arrest_record?.id || ''
               }
-      
               router.push({
                 pathname: `/admin/information/overweight-vehicle/update/${record?.td_id}`,
                 query: originalData

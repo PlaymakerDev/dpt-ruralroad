@@ -22,7 +22,6 @@ const TableAddnews = (props) => {
       dataIndex: "news_image",
       width: 50,
       render: (value, record, index) => {
-
         return (
           <figure className="relative overflow-hidden w-20 h-20 block m-auto"
             onClick={(e) => e.stopPropagation()}
@@ -92,8 +91,6 @@ const TableAddnews = (props) => {
       align: 'center',
       width: 100,
       render: (item, record) => {
-
-
         return (
           <div className='inline-flex flex-wrap items-center gap-5'>
             <Edit
@@ -122,6 +119,7 @@ const TableAddnews = (props) => {
       columns={columns}
       loading={loading}
       scroll={{ x: 1000 }}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           setOpen({ open: true, info: record })

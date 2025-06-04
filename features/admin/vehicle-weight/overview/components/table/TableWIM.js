@@ -149,6 +149,7 @@ const TableWIM = (props) => {
         showSizeChanger: false,
         position: ['bottomCenter']
       }}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           setDetailProps({

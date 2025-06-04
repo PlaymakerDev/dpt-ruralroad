@@ -163,6 +163,7 @@ const TableTrollway = (props) => {
       loading={loading}
       columns={columns}
       scroll={{ x: 1600 }}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           setOpen({ open: true, type: 'edit', data: record })

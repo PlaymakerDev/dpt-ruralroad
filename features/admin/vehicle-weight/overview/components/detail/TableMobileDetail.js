@@ -269,9 +269,29 @@ const TableMobileDetail = (props) => {
       width: 100,
       render: (item, record) => {
         return (
-
-          <Row className="w-full">
-            <Col className="w-full flex items-center justify-center" span={12}>
+          // <div className='flex items-center justify-between'>
+          //   {
+          //     filterDeptType(deptType, role) && <DeleteIcon
+          //       className='!cursor-pointer !text-[#FF4A4A]'
+          //       // onClick={() => confirmDelete(record.td_id)}
+          //       onClick={(e) => {
+          //         e.stopPropagation(); // Prevent row click
+          //         confirmDelete(record.td_id);
+          //       }}
+          //     />
+          //   }
+          //   <Button
+          //     type='primary'
+          //     icon={<TruckIcon customFill='#FFFFFF' />}
+          //     // onClick={() => setOpenVehicle({ open: true })}
+          //     onClick={(e) => {
+          //       e.stopPropagation();
+          //       openModalWithData(record)
+          //     }}
+          //   />
+          // </div>
+          <Row align={'middle'}>
+            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
               {
                 filterDeptType(deptType, role) && <DeleteIcon
                   className='!cursor-pointer !text-[#FF4A4A]'
@@ -282,12 +302,11 @@ const TableMobileDetail = (props) => {
                   }}
                 />
               }
-
             </Col>
-            <Col className="w-full" span={12}>
+            <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
               <Button
                 type='primary'
-                icon={<TruckIcon customFill='#FFFFFF' />}
+                icon={<TruckIcon color='#FFFFFF' />}
                 // onClick={() => setOpenVehicle({ open: true })}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -296,10 +315,6 @@ const TableMobileDetail = (props) => {
               />
             </Col>
           </Row>
-
-
-
-
         )
       }
     },
@@ -321,6 +336,7 @@ const TableMobileDetail = (props) => {
         showSizeChanger: false,
         position: ['bottomCenter']
       }}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           openModalWithData(record)

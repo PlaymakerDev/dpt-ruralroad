@@ -190,7 +190,7 @@ const TableWIMDetail = (props) => {
         return (
           <Button
             type='primary'
-            icon={<TruckIcon customFill='#FFFFFF' />}
+            icon={<TruckIcon color='#FFFFFF' />}
             // onClick={() => setOpen({ open: true })}
             onClick={() => openModalWithData(record)}
           />
@@ -214,6 +214,7 @@ const TableWIMDetail = (props) => {
         showSizeChanger: false,
         position: ['bottomCenter']
       }}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           openModalWithData(record)

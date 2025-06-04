@@ -269,14 +269,12 @@ const TableMobile = (props) => {
     },
   ];
 
-
-
-
   return (
     <Table
       columns={columns}
       dataSource={data || []}
       loading={loading}
+      rowClassName='!cursor-pointer'
       onRow={(record) => {
         if (role === "ADMIN") {
           return {
@@ -292,14 +290,11 @@ const TableMobile = (props) => {
                 lp_tail_province_id: Number(record?.lp_tail_province_id) || 0,
                 is_arrested: record?.is_arrested || '',
                 td_id: record?.td_id || '',
-
                 gross_weight_over: record?.gross_weight_over || '',
                 gross_weight: record?.gross_weight || '',
                 legal_weight: record?.vehicle_class?.legal_weight || '',
                 arrest_id: record?.arrest_record?.id || ''
-
               }
-
               router.push({
                 pathname: `/admin/information/overweight-vehicle/update/${record?.td_id}`,
                 query: {

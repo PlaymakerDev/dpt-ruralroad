@@ -194,6 +194,7 @@ const TableUser = (props) => {
       columns={columns}
       dataSource={data || []}
       loading={loading}
+      rowClassName='!cursor-pointer'
       onRow={(record) => ({
         onClick: () => {
           setOpen({ open: true, info: record })

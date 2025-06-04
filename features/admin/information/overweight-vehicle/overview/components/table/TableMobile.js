@@ -195,11 +195,11 @@ const TableMobile = (props) => {
                       className="!cursor-pointer"
                       onClick={async (e) => {
                         e.stopPropagation();
-                        console.log('table arres record',record?.arrest_record)
+                        console.log('table arres record', record?.arrest_record)
                         const originalData = {
                           ...formSearch,
                           type: 'mobile',
-                          type_id : 2,
+                          type_id: 2,
                           brand: data?.brand || '',
                           lp_head_no: record?.lp_head_no || '-',
                           lp_head_province_id: Number(record?.lp_head_province_id) || 0,
@@ -209,10 +209,10 @@ const TableMobile = (props) => {
                           td_id: record?.td_id || '',
 
                           gross_weight_over: record?.gross_weight_over || '',
-                          gross_weight : record?.gross_weight || '',
-                          legal_weight : record?.vehicle_class?.legal_weight || '',
+                          gross_weight: record?.gross_weight || '',
+                          legal_weight: record?.vehicle_class?.legal_weight || '',
 
-                          arrest_id : record?.arrest_record?.id || ''
+                          arrest_id: record?.arrest_record?.id || ''
                         };
 
                         router.push({
@@ -243,7 +243,7 @@ const TableMobile = (props) => {
                               end_date: formSearch.end_date,
                               department_id: formSearch.department_id,
                               page: formSearch.page,
-                              arrest_id : record?.arrest_record?.id || ''
+                              arrest_id: record?.arrest_record?.id || ''
                             },
                           });
                         }}
@@ -257,7 +257,7 @@ const TableMobile = (props) => {
             <Col className="w-12">
               <Button
                 type="primary"
-                icon={<TruckIcon customFill="#FFFFFF" />}
+                icon={<TruckIcon color="#FFFFFF" />}
                 onClick={(e) => {
                   e.stopPropagation();
                   setOpen({ open: true, td_id: record?.td_id });
@@ -280,6 +280,7 @@ const TableMobile = (props) => {
           setOpen({ open: true, td_id: record?.td_id })
         },
       })}
+      rowClassName='!cursor-pointer'
       pagination={{
         defaultCurrent: 1,
         defaultPageSize: 100,
