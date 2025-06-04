@@ -68,6 +68,17 @@ export const initialState = {
       online_cameras: '',
       offline_cameras: ''
     }
+  },
+  camera_status: {
+    search: {
+      department_id: '',
+    },
+    // data: []
+    data: {
+      online_cameras: '',
+      offline_cameras: '',
+      total_cameras: ''
+    }
   }
 }
 
@@ -101,6 +112,10 @@ export const slice = createSlice({
     getStationSum: (state, action) => {
       state.station_sum.data = action.payload.data.data
     },
+    getCameraStatus: (state, action) => {
+      state.camera_status.data = action.payload.data.data[0],
+        state.camera_status.search = action.payload.params
+    },
     clearDepartmentListSum: (state) => {
       state.deparment_list_sum = initialState.deparment_list_sum
     },
@@ -116,7 +131,8 @@ export const {
   getStationSum,
   clearDepartmentListSum,
   clearList,
-  clearStationSum
+  clearStationSum,
+  getCameraStatus
 } = slice.actions
 
 export default slice.reducer
