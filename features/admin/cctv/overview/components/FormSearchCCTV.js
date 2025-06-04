@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef } from 'react'
 import { Form, Field, useForm } from "@/components/form";
 
 const FormSearchCCTV = (props) => {
-  const { dptGroup, defaultSearch, apiGetData, cctvRef, clearSearch, setCCTVStatus } = props
+  const { dptGroup, defaultSearch, apiGetData, cctvRef, clearSearch, setCCTVStatus, apiGetCameraStatus } = props
   const submitRef = useRef()
 
   const form = useForm({
@@ -44,7 +44,9 @@ const FormSearchCCTV = (props) => {
       ...values,
       page_size: 100
     }, false)
-
+    apiGetCameraStatus('/api/v1/cctv/camera_status', {
+      ...values
+    }, false)
   }, [])
 
   return (
@@ -68,6 +70,7 @@ const FormSearchCCTV = (props) => {
           onChangeDptGroup(name, value)
           clearSearch()
           setCCTVStatus(null)
+          cctvRef.current = false
         }}
       />
       <button ref={submitRef} type="submit" hidden />

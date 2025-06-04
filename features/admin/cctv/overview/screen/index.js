@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Row, Col, Spin, Select, Tag } from 'antd'
 import { MenuCard, CCTVTable, CCTVListing, FormSearchCCTV, ContentCCTVLIst, ModalCCTV, ModalConfigCCTV } from '../components'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
-import { getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
+import { getCameraStatus, getCCTVStatus, getDepartmentGroup, getDepartmentListSum, getList, getStationSum as getStation } from '@/store/features/cctvSlice'
 import CCTVIconMenu from '@/components/icon/CCTVIconMenu'
 import { Failed, Success } from '@/components/icon'
 
@@ -36,6 +36,10 @@ const OverviewScreen = (props) => {
     funcDispatch: getList, reducerName: 'cctv', reducerKey: 'list'
   })
 
+  const [apiGetCameraStatus, loadingCameraStatus, cameraStatus] = useGetAPI('overlay', {
+    funcDispatch: getCameraStatus, reducerName: 'cctv', reducerKey: 'camera_status'
+  })
+
   useEffect(() => {
     apiGetData('/api/v1/cctv/list', {
       ...data.search,
@@ -51,6 +55,10 @@ const OverviewScreen = (props) => {
       ...departmentGroup.search,
     }, false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    apiGetCameraStatus('/api/v1/cctv/camera_status')
   }, [])
 
   const elemProps = {
@@ -153,6 +161,48 @@ const OverviewScreen = (props) => {
     )
   }, [departmentListSum, loadDepartmentListSum, value])
 
+  const renderInitDetail = useMemo(() => {
+    if (!loadingCameraStatus) {
+      return (
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+          <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
+            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+              <CCTVIconMenu width={42} height={40} className='mx-auto' />
+              <p className='font-bold'>กล้องทั้งหมด {cameraStatus.data.total_cameras || 0}</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Online')}>
+              <Success className='!text-2xl' />
+              <p className='font-bold text-[#22c55e]'>กล้องออนไลน์ {cameraStatus.data.online_cameras || 0}</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Offline')}>
+              <Failed className='!text-2xl' />
+              <p className='font-bold text-[#FF4A4A]'>กล้องออฟไลน์ {cameraStatus.data.offline_cameras || 0}</p>
+            </div>
+          </section>
+        </Col>
+      )
+    } else {
+      return (
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+          <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
+            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+              <CCTVIconMenu width={42} height={40} className='mx-auto' />
+              <p className='font-bold'>กล้องทั้งหมด 0</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Online')}>
+              <Success className='!text-2xl' />
+              <p className='font-bold text-[#22c55e]'>กล้องออนไลน์ 0</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Offline')}>
+              <Failed className='!text-2xl' />
+              <p className='font-bold text-[#FF4A4A]'>กล้องออฟไลน์ 0</p>
+            </div>
+          </section>
+        </Col>
+      )
+    }
+  }, [loadingCameraStatus, cameraStatus])
+
   const renderDetail = useMemo(() => {
     // CHECK IF REF RETURN FALSE
     if (!cctvRef.current) return
@@ -176,6 +226,25 @@ const OverviewScreen = (props) => {
           </section>
         </Col>
       )
+    } else {
+      return (
+        <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
+          <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
+            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+              <CCTVIconMenu width={42} height={40} className='mx-auto' />
+              <p className='font-bold'>กล้องทั้งหมด 0</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Online')}>
+              <Success className='!text-2xl' />
+              <p className='font-bold text-[#22c55e]'>กล้องออนไลน์ 0</p>
+            </div>
+            <div {...elemProps} onClick={() => setCCTVStatus('Offline')}>
+              <Failed className='!text-2xl' />
+              <p className='font-bold text-[#FF4A4A]'>กล้องออฟไลน์ 0</p>
+            </div>
+          </section>
+        </Col>
+      )
     }
   }, [loadStation, station, cctvRef])
 
@@ -191,10 +260,11 @@ const OverviewScreen = (props) => {
               cctvRef={cctvRef}
               clearSearch={() => setValue(INIT_SEARCH)}
               setCCTVStatus={setCCTVStatus}
+              apiGetCameraStatus={apiGetCameraStatus}
             />
           </Col>
           {renderSelect}
-          {renderDetail}
+          {!cctvRef.current ? renderInitDetail : renderDetail}
         </Row>
       </section>
       <section className='mt-5'>
