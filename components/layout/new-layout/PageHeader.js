@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, useState, useEffect } from 'react'
 import { Avatar, Typography, Menu, Modal } from 'antd'
-import { TruckOutlined, SettingOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, MenuOutlined, ProductOutlined } from '@ant-design/icons'
+import { TruckOutlined, SettingOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, MenuOutlined, ProductOutlined, ApiOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import DPTLogo from '@/public/images/dpt-logo.svg'
@@ -22,7 +22,8 @@ const mappingTransaction = {
   PaperIcon,
   SettingOutlined,
   CCTVIcon,
-  TruckIcon
+  TruckIcon,
+  ApiOutlined
 }
 
 const PageHeader = (props) => {
