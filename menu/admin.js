@@ -37,11 +37,11 @@ const menu = [
         path: '/admin/information/collaboration-and-integration',
         path_active: "/admin/information",
       },
-      {
-        label: 'ข้อมูลรถ GPS',
-        path: '/admin/information/vehicle-data-on-routes/overview',
-        path_active: "/admin/information",
-      },
+      // {
+      //   label: 'ข้อมูลรถ GPS',
+      //   path: '/admin/information/vehicle-data-on-routes/overview',
+      //   path_active: "/admin/information",
+      // },
       {
         label: 'รายงาน',
         path: '/admin/information/report/overview',
@@ -68,6 +68,15 @@ const menu = [
     path_list: [],
     label: "CCTV",
     label_key: "cctv",
+    default_color_icon: ''
+  },
+  {
+    icon: "ApiOutlined",
+    path: '/admin/gps/overview',
+    path_active: "/admin/gps",
+    path_list: [],
+    label: 'ข้อมูลรถ GPS',
+    label_key: "gps_route",
     default_color_icon: ''
   },
 ]

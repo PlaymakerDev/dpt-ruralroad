@@ -17,7 +17,8 @@ const VehicleOnRoute = (props) => {
               <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} key={index}>
                 <figure
                   className='border-solid border-2 border-lightblue rounded-lg p-2 cursor-pointer'
-                  onClick={() => router.push(`/admin/information/vehicle-data-on-routes/view/${item.road_code}`)}
+                  // onClick={() => router.push(`/admin/information/vehicle-data-on-routes/view/${item.road_code}`)}
+                  onClick={() => router.push(`/admin/gps/view/${item.road_code}`)}
                 >
                   <section className='flex flex-wrap justify-between'>
                     <Typography.Text className='!text-lg' strong underline>{item.road_code || '-'}</Typography.Text>
