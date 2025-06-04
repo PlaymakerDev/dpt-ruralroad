@@ -191,7 +191,6 @@ const Content = (props) => {
             />
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-
               <Field.TextEditor
                 label='รายละเอียดข่าวสาร'
                 name='article_description'
@@ -199,7 +198,6 @@ const Content = (props) => {
                 hideRequired={!errors.article_description}
                 className="border border-red !w-10"
               />
-
           </Col>
         </Row>
       </section>
