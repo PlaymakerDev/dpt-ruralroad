@@ -76,6 +76,7 @@ const TableDailyWeigh = (props) => {
       loading={loading}
       pagination={false}
       className="daily-weigh-table"
+      rowClassName='!cursor-pointer'
       onRow={(record) => {
         if (type === 'sum_wim' && !accessType) {
           return {
