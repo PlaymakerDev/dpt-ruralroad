@@ -13,9 +13,9 @@ const Controls = () => {
 
   return (
     <div className="absolute z-10 flex items-center gap-3 m-3">
-      <Button type="primary" className='bg-green-500' icon={<PlusOutlined />} onClick={() => zoomIn()}>ขยายเข้า</Button>
-      <Button type="primary" className='bg-red-500' icon={<MinusOutlined />} onClick={() => zoomOut()}>ขยายออก</Button>
-      <Button type="primary" className='bg-blue-500' icon={<HistoryOutlined />} onClick={() => resetTransform()}>คืนค่าเริ่มต้น</Button>
+      <Button type="primary" className='!bg-green-500' icon={<PlusOutlined />} onClick={() => zoomIn()}>ขยายเข้า</Button>
+      <Button type="primary" className='!bg-red-500' icon={<MinusOutlined />} onClick={() => zoomOut()}>ขยายออก</Button>
+      <Button type="primary" className='!bg-blue-500' icon={<HistoryOutlined />} onClick={() => resetTransform()}>คืนค่าเริ่มต้น</Button>
     </div>
   );
 };
