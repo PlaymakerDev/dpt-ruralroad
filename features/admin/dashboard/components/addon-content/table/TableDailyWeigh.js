@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Table, Modal, Typography, Button, message } from "antd";
+import { Table, Modal, Typography, Button, message, Tag } from "antd";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import Bin from "@/components/icon/Bin";
 import Edit from "@/components/icon/Edit";
@@ -10,17 +10,18 @@ import { useSelector } from 'react-redux'
 import dayjs from 'dayjs';
 import 'dayjs/locale/th'
 import { useRouter } from "next/router";
+import { RECENT_WEIGHT_STATUS } from "@/utils/constant";
 
 const TableDailyWeigh = (props) => {
   const { data, loading, page, perPage, total, onChange, type, accessType } = props
-  console.log("key", type)
+  // console.log("key", type)
   const router = useRouter()
 
-  console.log("[===", data)
+  // console.log("===", data)
 
   const columns = [
     {
-      title: '',
+      title: 'สถานี',
       key: 'name',
       dataIndex: 'name',
       // render: (item, record, index) => {
@@ -32,6 +33,7 @@ const TableDailyWeigh = (props) => {
       key: 'total',
       dataIndex: 'total',
       align: 'center',
+      sorter: (a, b) => a.total - b.total,
       render: (item) => {
         if (item) {
           return item
@@ -47,7 +49,7 @@ const TableDailyWeigh = (props) => {
       align: 'center',
       render: (item) => {
         if (item) {
-          return item
+          return <Tag color={RECENT_WEIGHT_STATUS["1"]?.color}>{item}</Tag>
         }
 
         return '-'
@@ -60,7 +62,7 @@ const TableDailyWeigh = (props) => {
       align: 'center',
       render: (item) => {
         if (item) {
-          return item
+          return <Tag color={RECENT_WEIGHT_STATUS["2"]?.color}>{item}</Tag>
         }
 
         return '-'
