@@ -1,13 +1,16 @@
-import React, { useCallback, useContext} from "react";
+import React, { useCallback, useContext } from "react";
 import { Form, Field, useForm } from "@/components/form";
 import { Button, Card, Col, Row, Typography } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { getStationType, getStation } from "@/store/features/masterSlice";
 import { DateContext } from "../tab-content/WIMWeighingUnit";
+import YellowTruck from '@/public/images/yellow-truck.svg'
+import Image from 'next/image'
+import stf from '@/utils/stringformat'
 
 const FormSearchWIM = (props) => {
-  const { initialValues, apiGetData, clearData, wim, dateRange } = props;
+  const { initialValues, apiGetData, clearData, wim, dateRange, percentage } = props;
   const { setDateRange } = useContext(DateContext)
   const form = useForm({
     initialValues: {
@@ -44,7 +47,7 @@ const FormSearchWIM = (props) => {
   }, [handlerChange, clearData])
 
   return (
-    <Card>
+    <Card className="relative">
       <Typography.Title level={5}>ค้นหา</Typography.Title>
       <Form form={form} handlerSubmit={[buildValue, handlerSubmit]}>
         <Row gutter={[16, 16]} align={'middle'}>
@@ -111,6 +114,20 @@ const FormSearchWIM = (props) => {
           </Col>
         </Row>
       </Form>
+      <div className='bg-[#030918] border-[#56E4EE50] border-[1px] rounded-md p-3 mt-5 2xl:mt-0 2xl:absolute top-9 right-5'>
+        <div className='flex gap-5 flex-wrap'>
+          <Image
+            src={YellowTruck}
+            alt='truck-inspect'
+            width={60}
+            height={60}
+          />
+          <div className='flex flex-col flex-grow justify-between flex-wrap'>
+            <h1 className='text-[clamp(1px, 4vw, 15px)] text-white'>รถน้ำหนักเกิน 10%</h1>
+            <p className='text-[clamp(1px, 4vw, 15px)] text-white'><span className='text-yellow-500 text-2xl font-bold'>{stf(percentage).normal() || '-'}</span> คัน</p>
+          </div>
+        </div>
+      </div>
     </Card>
   );
 };

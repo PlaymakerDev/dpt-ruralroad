@@ -132,6 +132,7 @@ const WIMWeighingUnit = (props) => {
                 dateRange={dateRange}
                 // MASTER DATA
                 wim={masterWIM}
+                percentage={data.overview.is_over10percent_count}
               />
             </section>
             <section className='mt-5'>
