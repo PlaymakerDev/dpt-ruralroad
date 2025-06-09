@@ -307,7 +307,8 @@ export const slice = createSlice({
     getWIM: (state, action) => {
       state.wim.overview.data = action.payload.data.data,
         state.wim.overview.meta = action.payload.data.meta,
-        state.wim.overview.search = action.payload.params
+        state.wim.overview.search = action.payload.params,
+        state.wim.overview.is_over10percent_count = action.payload.data.is_over10percent_count
     },
     getMobile: (state, action) => {
       state.mobile.overview.data = action.payload.data.data,
@@ -327,7 +328,7 @@ export const slice = createSlice({
     },
     clearWeightStationLog: (state, action) => {
       state.station.detail.table.data = [],
-        state.station.detail.table.meta = 
+        state.station.detail.table.meta =
         state.station.detail.table.search = {}
     },
     getWeightStationLogDetail: (state, action) => {
@@ -343,8 +344,8 @@ export const slice = createSlice({
     },
     clearWeightMobileCar: (state, action) => {
       state.mobile.detail.table.data = []
-        state.mobile.detail.table.meta = {}
-        state.mobile.detail.table.search = {}
+      state.mobile.detail.table.meta = {}
+      state.mobile.detail.table.search = {}
     },
     getWeightMobileCar: (state, action) => {
       state.mobile.detail.table.data = action.payload.data.data.data,
