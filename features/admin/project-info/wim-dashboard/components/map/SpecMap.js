@@ -6,9 +6,26 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, useMapEvent } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, useMapEvent, GeoJSON } from 'react-leaflet'
 // import { createControlComponent } from '@react-leaflet/core'
 import { useRouter } from "next/router";
+import THAI_GEOJSON from "@/features/admin/dashboard/mock/thailand.json"
+
+const DEFAULT_PATTERN = {
+	fillColor: 'gray',
+	weight: 1,
+	opacity: 1,
+	color: 'black',
+	fillOpacity: 0.4
+}
+
+const HOVER_PATTERN = {
+	weight: 5,
+	color: '#4287f5',
+	fillColor: '#4287f5',
+	dashArray: '',
+	fillOpacity: 0.5
+}
 
 const LocationMarker = (props) => {
 	const { item, icon, center, zoom } = props
@@ -58,13 +75,44 @@ const LocationMarker = (props) => {
 	return (
 		<Marker
 			position={[item.Latitude, item.Longtitude]}
+			// eventHandlers={{
+			// 	mouseover: (event) => event.target.openPopup(),
+			// 	click: () => map.flyTo([item.Latitude, item.Longtitude], 10)
+			// }}
 			eventHandlers={{
 				mouseover: (event) => event.target.openPopup(),
+				// mouseout: (event) => event.target.closePopup(),
+				mouseout: (event) => {
+					// Add delay before closing
+					setTimeout(() => {
+						if (!event.target.getPopup()._container?.matches(':hover')) {
+							event.target.closePopup();
+						}
+					}, 100);
+				},
 				click: () => map.flyTo([item.Latitude, item.Longtitude], 10)
 			}}
 			icon={icon}
 		>
-			<Popup className="w-60" autoPan={false}>
+			<Popup
+				className="w-60"
+				autoPan={false}
+				eventHandlers={{
+					add: (event) => {
+						const popupElement = event.target.getElement();
+
+						// Keep popup open when hovering over it
+						popupElement.addEventListener('mouseenter', () => {
+							event.target._source.openPopup();
+						});
+
+						// Close popup when mouse leaves the popup
+						popupElement.addEventListener('mouseleave', () => {
+							event.target._source.closePopup();
+						});
+					},
+				}}
+			>
 				{renderContent}
 			</Popup>
 		</Marker>
@@ -76,8 +124,10 @@ const SpecMap = (props) => {
 		center,
 		zoom,
 		data,
+		setProvinceDesc,
 		...mapProps
 	} = props
+	const mapRef = useRef();
 
 	const renderLocationMarker = useMemo(() => {
 		const loopData = data?.map((item, index) => {
@@ -114,6 +164,7 @@ const SpecMap = (props) => {
 				border: 0
 			}}
 			className="!rounded-lg"
+			ref={mapRef}
 			{...mapProps}
 		>
 			<TileLayer
@@ -121,6 +172,37 @@ const SpecMap = (props) => {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			{renderLocationMarker}
+			<GeoJSON
+				data={THAI_GEOJSON}
+				style={() => {
+					return DEFAULT_PATTERN
+				}}
+				onEachFeature={(feature, layer) => {
+					layer.on({
+						mouseover: (e) => {
+							const layer = e.target;
+							layer.setStyle(HOVER_PATTERN);
+
+							if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+								layer.bringToFront();
+							}
+							// SET TEXT
+							setProvinceDesc(feature.properties.NL_NAME_1)
+						},
+						mouseout: (e) => {
+							const layer = e.target;
+							// Reset to original style
+							layer.setStyle(DEFAULT_PATTERN);
+							setProvinceDesc(null)
+						},
+						click: (e) => {
+							if (mapRef.current) {
+								mapRef.current.fitBounds(e.target.getBounds());
+							}
+						}
+					});
+				}}
+			/>
 		</MapContainer>
 	);
 }

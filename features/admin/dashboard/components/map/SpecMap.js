@@ -102,7 +102,15 @@ const LocationMarker = (props) => {
 			position={[item.Latitude, item.Longtitude]}
 			eventHandlers={{
 				mouseover: (event) => event.target.openPopup(),
-				mouseout: (event) => event.target.closePopup(),
+				// mouseout: (event) => event.target.closePopup(),
+				mouseout: (event) => {
+					// Add delay before closing
+					setTimeout(() => {
+						if (!event.target.getPopup()._container?.matches(':hover')) {
+							event.target.closePopup();
+						}
+					}, 100);
+				},
 				click: () => {
 					map.flyTo([item.Latitude, item.Longtitude], 10);
 					if (type !== 'mobile') {
@@ -112,7 +120,25 @@ const LocationMarker = (props) => {
 			}}
 			icon={icon}
 		>
-			<Popup className="w-60" autoPan={false}>
+			<Popup
+				className="w-60"
+				autoPan={false}
+				eventHandlers={{
+					add: (event) => {
+						const popupElement = event.target.getElement();
+
+						// Keep popup open when hovering over it
+						popupElement.addEventListener('mouseenter', () => {
+							event.target._source.openPopup();
+						});
+
+						// Close popup when mouse leaves the popup
+						popupElement.addEventListener('mouseleave', () => {
+							event.target._source.closePopup();
+						});
+					},
+				}}
+			>
 				{renderContent}
 			</Popup>
 		</Marker>
