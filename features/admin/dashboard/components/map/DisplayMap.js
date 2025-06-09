@@ -4,6 +4,7 @@ import useGetAPI from '@/utils/hooks/api/useGetAPI';
 import { getPosition, getPositionProvince } from '@/store/features/dashboardSlice';
 import { /*Button, Dropdown,*/ Badge, ConfigProvider, Select, Spin } from 'antd';
 import { useDashboardContext } from '../context';
+import { PushpinOutlined } from '@ant-design/icons';
 // import { STATION_CODE, STATION_TYPE } from '@/utils/constant';
 // import { CloseOutlined } from '@ant-design/icons';
 const SpecMap = dynamic(() => import('@/features/admin/dashboard/components/map/SpecMap'), { ssr: false })
@@ -14,12 +15,14 @@ const SpecMap = dynamic(() => import('@/features/admin/dashboard/components/map/
 const INIT_TYPE = null
 const INIT_VALUE = null
 const INIT_POSITION = { location: [13.736717, 100.523186], zoom: 5 }
+const INIT_PROVINCE_DESC = null
 
 const DisplayMap = (props) => {
   const { } = props;
   const [stationType, setStationType] = useState(INIT_TYPE)
   const [value, setValue] = useState(INIT_VALUE)
   const [position, setPosition] = useState(INIT_POSITION)
+  const [provinceDesc, setProvinceDesc] = useState(INIT_PROVINCE_DESC)
   const { onClickPin } = useDashboardContext()
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
@@ -82,6 +85,7 @@ const DisplayMap = (props) => {
           wim={mapData.wim}
           station={mapData.station}
           onClickPin={onClickPin}
+          setProvinceDesc={setProvinceDesc}
         />
       )
     } else {
@@ -96,6 +100,7 @@ const DisplayMap = (props) => {
             wim={mapData.wim}
             station={mapData.station}
             onClickPin={onClickPin}
+            setProvinceDesc={setProvinceDesc}
           />
         </Spin>
       )
@@ -152,6 +157,11 @@ const DisplayMap = (props) => {
         />
       </div>
       <div className='absolute bottom-3 left-5 z-20'>
+        {!!provinceDesc &&
+          <div className='bg-[#00000080] px-3 py-2 rounded-md mb-3 flex items-center gap-3'>
+            <PushpinOutlined className='!text-lg' /><p>{provinceDesc}</p>
+          </div>
+        }
         <div className='bg-[#00000080] flex flex-col p-3 rounded-md'>
           <Badge
             color="#9C3CC8"

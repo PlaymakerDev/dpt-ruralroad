@@ -6,9 +6,26 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, useMapEvent } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap, useMapEvent, GeoJSON } from 'react-leaflet'
 // import { createControlComponent } from '@react-leaflet/core'
 import { useRouter } from "next/router";
+import THAI_GEOJSON from "../../mock/thailand.json"
+
+const DEFAULT_PATTERN = {
+	fillColor: 'gray',
+	weight: 1,
+	opacity: 1,
+	color: 'black',
+	fillOpacity: 0.4
+}
+
+const HOVER_PATTERN = {
+	weight: 5,
+	color: '#4287f5',
+	fillColor: '#4287f5',
+	dashArray: '',
+	fillOpacity: 0.5
+}
 
 const LocationMarker = (props) => {
 	const { item, type, icon, center, zoom, onClickPin } = props
@@ -85,7 +102,7 @@ const LocationMarker = (props) => {
 			position={[item.Latitude, item.Longtitude]}
 			eventHandlers={{
 				mouseover: (event) => event.target.openPopup(),
-				// mouseout: (event) => event.target.closePopup(),
+				mouseout: (event) => event.target.closePopup(),
 				click: () => {
 					map.flyTo([item.Latitude, item.Longtitude], 10);
 					if (type !== 'mobile') {
@@ -110,8 +127,10 @@ const SpecMap = (props) => {
 		wim,
 		station,
 		onClickPin,
+		setProvinceDesc,
 		...mapProps
 	} = props
+	const mapRef = useRef();
 
 	const renderStationMarker = useMemo(() => {
 		const loopStation = station?.map((item, index) => {
@@ -201,6 +220,7 @@ const SpecMap = (props) => {
 				border: 0
 			}}
 			className="!rounded-lg"
+			ref={mapRef}
 			{...mapProps}
 		>
 			<TileLayer
@@ -210,6 +230,37 @@ const SpecMap = (props) => {
 			{renderStationMarker}
 			{renderWIMMarker}
 			{renderMobileMarker}
+			<GeoJSON
+				data={THAI_GEOJSON}
+				style={() => {
+					return DEFAULT_PATTERN
+				}}
+				onEachFeature={(feature, layer) => {
+					layer.on({
+						mouseover: (e) => {
+							const layer = e.target;
+							layer.setStyle(HOVER_PATTERN);
+
+							if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+								layer.bringToFront();
+							}
+							// SET TEXT
+							setProvinceDesc(feature.properties.NL_NAME_1)
+						},
+						mouseout: (e) => {
+							const layer = e.target;
+							// Reset to original style
+							layer.setStyle(DEFAULT_PATTERN);
+							setProvinceDesc(null)
+						},
+						click: (e) => {
+							if (mapRef.current) {
+								mapRef.current.fitBounds(e.target.getBounds());
+							}
+						}
+					});
+				}}
+			/>
 		</MapContainer>
 	);
 }
