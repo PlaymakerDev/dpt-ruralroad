@@ -18,7 +18,7 @@
   flex-grow: 1 !important;
 }
 
-@media screen and (max-width: 1061px) {
+@media screen and (max-width: 1208px) {
   .navbarMenu {
     display: none !important;
   }
