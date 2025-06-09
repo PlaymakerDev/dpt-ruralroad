@@ -5,7 +5,7 @@ import TableDailyWeigh from '../table/TableDailyWeigh'
 const ModaldailyWeighed = (props) => {
   const { open, data, setOpen, accessType } = props
 
-  console.log("===",data)
+  // console.log("===",data)
 
   const renderTitle = () => {
     switch (data?.key) {
