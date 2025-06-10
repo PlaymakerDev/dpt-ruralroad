@@ -102,10 +102,12 @@ const OverviewScreen = (props) => {
   const filterCCTV = useMemo(() => {
     if (!loading) {
       let arr
-      if (!!cctvStatus) {
+      if (cctvStatus === 'Online' || cctvStatus === 'Offline') {
         arr = data?.data?.filter(item => item.camera_status === cctvStatus)
-      } else {
+      } else if (cctvStatus === 'ALL') {
         arr = data.data
+      } else {
+        arr = data.data?.filter(item => item.camera_status === 'Online')
       }
       return arr
     }
@@ -166,7 +168,7 @@ const OverviewScreen = (props) => {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
-            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+            <div {...elemProps} onClick={() => setCCTVStatus('ALL')}>
               <CCTVIconMenu width={42} height={40} className='mx-auto' />
               <p className='font-bold'>กล้องทั้งหมด {cameraStatus.data.total_cameras || 0}</p>
             </div>
@@ -185,7 +187,7 @@ const OverviewScreen = (props) => {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
-            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+            <div {...elemProps} onClick={() => setCCTVStatus('ALL')}>
               <CCTVIconMenu width={42} height={40} className='mx-auto' />
               <p className='font-bold'>กล้องทั้งหมด 0</p>
             </div>
@@ -211,7 +213,7 @@ const OverviewScreen = (props) => {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
-            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+            <div {...elemProps} onClick={() => setCCTVStatus('ALL')}>
               <CCTVIconMenu width={42} height={40} className='mx-auto' />
               <p className='font-bold'>กล้องทั้งหมด {station.data.total_cameras || 0}</p>
             </div>
@@ -230,7 +232,7 @@ const OverviewScreen = (props) => {
       return (
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <section className='flex flex-wrap justify-center lg:justify-end items-end h-full gap-5'>
-            <div {...elemProps} onClick={() => setCCTVStatus(null)}>
+            <div {...elemProps} onClick={() => setCCTVStatus('ALL')}>
               <CCTVIconMenu width={42} height={40} className='mx-auto' />
               <p className='font-bold'>กล้องทั้งหมด 0</p>
             </div>
