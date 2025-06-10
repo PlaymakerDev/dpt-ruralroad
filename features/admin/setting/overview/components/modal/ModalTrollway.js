@@ -160,13 +160,13 @@ const Content = (props) => {
             showSearch
             optionFilterProp="children"
             filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-            // onChange={(name, value) => {
-            //   handlerChange({
-            //     [name]: value,
-            //     district: '',
-            //     subdistrict: ''
-            //   })
-            // }}
+          // onChange={(name, value) => {
+          //   handlerChange({
+          //     [name]: value,
+          //     district: '',
+          //     subdistrict: ''
+          //   })
+          // }}
           />
         </Col>
         <Col xs={24} sm={24} md={12} lg={8} xl={8} xxl={8}>
@@ -241,7 +241,8 @@ const Content = (props) => {
             name="distance"
             placeholder="ระยะทาง"
             onChange={(n, v) => {
-              handlerChange({ [n]: v.replace(/[^0-9]/g, '') })
+              // handlerChange({ [n]: v.replace(/[^0-9]/g, '') })
+              handlerChange({ [n]: v.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1') })
             }}
           />
         </Col>
