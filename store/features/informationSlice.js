@@ -909,7 +909,35 @@ export const initialState = {
       }
     }
   },
-  report: {}
+  report: {},
+  gps: {
+    overview: {
+      search: {},
+      data: {
+        vehicle_count: {
+          normal_vehicle_count: 0,
+          not_moving_count: 0,
+          over_weight_history: 0
+        },
+        car_list: [],
+        roads: []
+      }
+    },
+    detail: {
+      search: {
+        way_name: ''
+      },
+      data: {
+        vehicle_count: {
+          normal_vehicle_count: 0,
+          not_moving_count: 0,
+          over_weight_history: 0
+        },
+        car_list: [],
+        geom_road: []
+      }
+    }
+  }
 }
 
 export const slice = createSlice({
@@ -1004,6 +1032,14 @@ export const slice = createSlice({
       state.vehicle_data_on_routes.current_vehicle_status2.search = action.payload.params,
         state.vehicle_data_on_routes.current_vehicle_status2.data = action.payload.data.data,
         state.vehicle_data_on_routes.current_vehicle_status2.meta = action.payload.data.meta
+    },
+    getGPSOverview: (state, action) => {
+      state.gps.overview.search = action.payload.params,
+        state.gps.overview.data = action.payload.data.data
+    },
+    getGPSDetail: (state, action) => {
+      state.gps.detail.search = action.payload.params,
+        state.gps.detail.data = action.payload.data.data
     }
   }
 })
@@ -1034,7 +1070,10 @@ export const {
   getRoadDetail,
   // VEHICLE STATUS
   getVehicleStatus,
-  getVehicleStatus2
+  getVehicleStatus2,
+  // GPS
+  getGPSOverview,
+  getGPSDetail
 } = slice.actions
 
 export default slice.reducer
