@@ -5,62 +5,21 @@ import { getItemSum/*, getTopVehicle*/, getVehicleStatus } from '@/store/feature
 import { Spin } from 'antd'
 
 const DetailCardSection = (props) => {
-  const { } = props
-
-  const [apiGetItemSum, loadItemSum, itemSum] = useGetAPI('overlay', {
-    funcDispatch: getItemSum, reducerName: 'information', reducerKey: 'vehicle_data_on_routes'
-  })
-
-  useEffect(() => {
-    apiGetItemSum('/api/v1/info/current_vehicle_status/itemsSum', { ...itemSum.item_sum.search, page: 1, page_size: 20 }, false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const renderVehicleData = useMemo(() => {
-    if (!loadItemSum) {
-      return (
-        <VehicleData
-          data={itemSum.item_sum.data}
-        />
-      )
-    } else {
-      return <Spin spinning={loadItemSum} />
-    }
-  }, [itemSum, loadItemSum])
-
-  // const renderTopVehicle = useMemo(() => {
-  //   if (!loadTopVehicle) {
-  //     return (
-  //       <VehicleOnRoute
-  //         data={topVehicle.top_vehicle.data}
-  //       />
-  //     )
-  //   } else {
-  //     return <Spin spinning={loadTopVehicle} />
-
-  //   }
-  // }, [topVehicle, loadTopVehicle])
-
-  const renderTopVehicle = useMemo(() => {
-    if (!loadItemSum) {
-      return (
-        <VehicleOnRoute
-          data={itemSum.item_sum.data.items}
-        />
-      )
-    } else {
-      return <Spin spinning={loadItemSum} />
-
-    }
-  }, [itemSum, loadItemSum])
+  const { data, loading } = props
 
   return (
     <div>
       <section>
-        {renderVehicleData}
+        <VehicleData
+          data={data.vehicle_count}
+          loading={loading}
+        />
       </section>
       <section className='mt-5'>
-        {renderTopVehicle}
+        <VehicleOnRoute
+          data={data.roads}
+          loading={loading}
+        />
       </section>
     </div>
   )

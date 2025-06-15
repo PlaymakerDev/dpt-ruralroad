@@ -1,67 +1,41 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import { RegionMap } from '../map'
-import useGetAPI from '@/utils/hooks/api/useGetAPI'
-import { getVehicleStatus } from '@/store/features/informationSlice'
-import { Button, Spin } from 'antd'
+import React, { useMemo, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { Spin } from 'antd'
+const SpecMap = dynamic(() => import('../map/SpecMap'), { ssr: false })
 
+const INIT_POSITION = { location: [13.736717, 100.523186], zoom: 5 }
 const MapSection = (props) => {
-  const { id, refSubmit } = props
-  const [apiGetRoad, loadingRoad, road] = useGetAPI('overlay', {
-    funcDispatch: getVehicleStatus, reducerName: 'information', reducerKey: 'vehicle_data_on_routes'
-  })
+  const { data, loading } = props
+  const [position, setPosition] = useState(INIT_POSITION)
 
-  useEffect(() => {
-    apiGetRoad(`/api/v1/info/current_vehicle_status`, {
-      ...road.search,
-      page: 1,
-      page_size: 5000,
-      is_on_assigned_road: true,
-      road_codes: [id]
-    }, false)
-    // const interval = setInterval(() => {
-    // }, 10000)
-    // return () => clearInterval(interval)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const onReloadMap = useCallback(() => {
-    apiGetRoad(`/api/v1/info/current_vehicle_status`, {
-      ...road.search,
-      page: 1,
-      page_size: 5000,
-      is_on_assigned_road: true,
-      road_codes: [id]
-    }, false)
-  }, [apiGetRoad, id, road.search])
-
-  const renderRegionMap = useMemo(() => {
-    if (!loadingRoad) {
+  const renderSpecMap = useMemo(() => {
+    if (!loading) {
       return (
-        <RegionMap
-          id={id}
-          data={road.current_vehicle_status}
+        <SpecMap
+          center={position.location}
+          zoom={position.zoom}
+          car={data.car_list}
+          road={data.geom_road}
         />
       )
     } else {
-      return <Spin spinning={loadingRoad} />
+      return (
+        <Spin spinning={loading}>
+          <SpecMap
+            center={position.location}
+            zoom={position.zoom}
+            car={data.car_list}
+            road={data.geom_road}
+          />
+        </Spin>
+      )
     }
-  }, [loadingRoad, road, id])
+  }, [loading, data, position])
 
 
   return (
-    <div className='h-full'>
-      <button ref={refSubmit} hidden onClick={() => onReloadMap()} />
-      {/* <section className='mb-3'>
-        <Button
-          type='primary'
-          htmlType='button'
-          onClick={() => onReloadMap()}
-          loading={loadingRoad}
-        >
-          อัปเดทข้อมูลสายทาง
-        </Button>
-      </section> */}
-      {renderRegionMap}
+    <div>
+      {renderSpecMap}
     </div>
   )
 }

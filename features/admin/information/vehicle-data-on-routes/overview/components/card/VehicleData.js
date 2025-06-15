@@ -7,68 +7,57 @@ import RedTruck from '@/public/images/red-truck.svg'
 import stf from '@/utils/stringformat'
 
 const VehicleData = (props) => {
-  const { data } = props
-
-  const gridProperties = {
-    className: '!w-full sm:!w-full md:!w-2/6 lg:!w-2/6 xl:!w-2/6 !text-center !border-none'
-  }
+  const { data, loading } = props
 
   return (
-    <Card
-      title={<Typography.Text className='!m-0 !text-white'>ข้อมูลรถในสายทาง</Typography.Text>}
-    >
-      <Card.Grid hoverable={false} {...gridProperties}>
-        <Typography.Title level={5}>รถวิ่งตามปกติ</Typography.Title>
+    <div className='card-container rounded-md grid grid-cols-3 gap-1 p-2'>
+      <figure className='flex flex-col justify-between border-[#56E4EE50] border-r'>
+        <h1 className='text-center font-bold'>รถวิ่งตามปกติ</h1>
         <Image
           src={GreenTruck}
           alt='truck-inspect'
-          className='block m-auto'
+          className='mx-auto'
         />
-        <section>
-          <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
-            <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.moving_vehicles).normal() || 0}</Typography.Text>
-              <Typography.Text> คัน</Typography.Text>
-            </div>
+        <section className='flex flex-col text-center'>
+          <p>จำนวนรถ</p>
+          <div className='flex justify-center items-baseline gap-2'>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.normal_vehicle_count).normal() || 0)}</p>
+            <p>คัน</p>
           </div>
         </section>
-      </Card.Grid>
-      <Card.Grid hoverable={false} {...gridProperties}>
-        <Typography.Title level={5}>รถที่จอดอยู่กับที่</Typography.Title>
+      </figure>
+
+      <figure className='flex flex-col justify-between border-[#56E4EE50] border-r'>
+        <h1 className='text-center font-bold'>รถที่จอดอยู่กับที่</h1>
         <Image
           src={YellowTruck}
           alt='truck-inspect'
-          className='block m-auto'
+          className='mx-auto'
         />
-        <section>
-          <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
-            <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.stationary_vehicles).normal() || 0}</Typography.Text>
-              <Typography.Text> คัน</Typography.Text>
-            </div>
+        <section className='flex flex-col text-center'>
+          <p>จำนวนรถ</p>
+          <div className='flex justify-center items-baseline gap-2'>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.not_moving_count).normal() || 0)}</p>
+            <p>คัน</p>
           </div>
         </section>
-      </Card.Grid>
-      <Card.Grid hoverable={false} {...gridProperties}>
-        <Typography.Title level={5}>รถที่มีประวัติน้ำหนักเกิน</Typography.Title>
+      </figure>
+      <figure className='flex flex-col justify-between border-[#56E4EE50]'>
+        <h1 className='text-center font-bold'>รถที่มีประวัติน้ำหนักเกิน</h1>
         <Image
           src={RedTruck}
           alt='truck-inspect'
-          className='block m-auto'
+          className='mx-auto'
         />
-        <section>
-          <div className='flex flex-col'>
-            <Typography.Text className='!font-IBMPlexSansThaiLight'>จำนวนรถ</Typography.Text>
-            <div className='mt-2'>
-              <Typography.Text className='!text-2xl' strong>{stf(data?.sum?.overweight_history).normal() || 0}</Typography.Text>
-              <Typography.Text> คัน</Typography.Text>
-            </div>
+        <section className='flex flex-col text-center'>
+          <p>จำนวนรถ</p>
+          <div className='flex justify-center items-baseline gap-2'>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.over_weight_history).normal() || 0)}</p>
+            <p>คัน</p>
           </div>
         </section>
-      </Card.Grid>
-    </Card>
+      </figure>
+    </div>
   )
 }
 

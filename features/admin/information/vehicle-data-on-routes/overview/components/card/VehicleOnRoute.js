@@ -8,53 +8,51 @@ const VehicleOnRoute = (props) => {
   const router = useRouter()
 
   return (
-    <Card className='!w-full !h-full'>
-      <Typography.Title level={4}>สายทางที่มีปริมาณรถมากที่สุด</Typography.Title>
-      <Row gutter={[16, 16]}>
-        {!!data?.length ?
-          data?.map((item, index) => {
-            return (
-              <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} key={index}>
-                <figure
-                  className='border-solid border-2 border-lightblue rounded-lg p-2 cursor-pointer'
-                  // onClick={() => router.push(`/admin/information/vehicle-data-on-routes/view/${item.road_code}`)}
-                  onClick={() => router.push(`/admin/gps/view/${item.road_code}`)}
-                >
-                  <section className='flex flex-wrap justify-between'>
-                    <Typography.Text className='!text-lg' strong underline>{item.road_code || '-'}</Typography.Text>
-                    <div className='flex items-center gap-3'>
-                      <Typography.Text>{stf(item.total_vehicles).normal() || 0} คัน</Typography.Text>
-                      <Typography.Text className='!text-lg'>&gt;</Typography.Text>
-                    </div>
-                  </section>
-                  <section>
-                    <Progress
-                      percent={item.percentage}
-                      size={{
-                        height: '0.4rem'
-                      }}
-                      strokeColor={'#56E4EE'}
-                      trailColor={'#294C4F'}
-                      percentPosition={{
-                        align: 'end',
-                        type: 'outer',
-                      }}
-                      showInfo={false}
-                    />
-                  </section>
-                </figure>
-              </Col>
-            )
-          })
-          :
-          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-            <Empty
-              description={<Typography.Text className='!text-white'>No Data</Typography.Text>}
-            />
-          </Col>
-        }
-      </Row>
-    </Card>
+    <div className="card-container rounded-md p-2">
+      <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>สายทางที่มีปริมาณรถมากที่สุด</h1>
+      <section className='mt-3 overflow-scroll overflow-x-hidden h-[23.5rem]'>
+        <Row gutter={[8, 8]}>
+          {!!data?.length ?
+            data?.map((item, index) => {
+              return (
+                <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} key={index}>
+                  <figure
+                    className='border-solid border-2 border-lightblue rounded-lg px-4 py-1 cursor-pointer'
+                    onClick={() => router.push(`/admin/gps/view/${item.road_code}`)}
+                  >
+                    <section className='flex flex-wrap justify-between'>
+                      <p className='text-[clamp(1px, 4vw, 15px)] font-bold underline'>{item.road_code}</p>
+                      <p className='text-[clamp(1px, 4vw, 15px)]'>{stf(item.count).normal() || 0} คัน &gt;</p>
+                    </section>
+                    <section>
+                      <Progress
+                        percent={item.count}
+                        size={{
+                          height: '0.4rem'
+                        }}
+                        strokeColor={'#56E4EE'}
+                        percentPosition={{
+                          align: 'end',
+                          type: 'outer',
+                        }}
+                        showInfo={false}
+                        trailColor={'#294C4F'}
+                      />
+                    </section>
+                  </figure>
+                </Col>
+              )
+            })
+            :
+            <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+              <Empty
+                description={<Typography.Text className='!text-white'>No Data</Typography.Text>}
+              />
+            </Col>
+          }
+        </Row>
+      </section>
+    </div>
   )
 }
 

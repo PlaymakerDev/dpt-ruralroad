@@ -1,10 +1,29 @@
-import React, { useRef } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Row, Col, Button } from 'antd'
 import { MapSection, DetailCardSection } from '../components/content'
+import { getGPSDetail } from '@/store/features/informationSlice'
+import { getRoadDetailByRoadCode } from '@/store/features/masterSlice'
+import useGetAPI from '@/utils/hooks/api/useGetAPI'
 
 const ViewScreen = (props) => {
   const { id } = props
-  const refSubmit = useRef(null)
+
+  const [apiGetData, loading, data] = useGetAPI('overlay', {
+    funcDispatch: getGPSDetail, reducerName: 'information', reducerKey: 'gps'
+  })
+
+  const [apiGetRoadDetail, loadRoadDetail, roadDetail] = useGetAPI('overlay', {
+    funcDispatch: getRoadDetailByRoadCode, reducerName: 'master', reducerKey: 'roads'
+  })
+
+  useEffect(() => {
+    apiGetData('/api/v1/info/vehical_location', { way_name: id }, false)
+    apiGetRoadDetail(`/api/v1/masters/roads/road_code/${id}`, {}, false)
+  }, [])
+
+  const onReload = useCallback(() => {
+    apiGetData('/api/v1/info/vehical_location', { way_name: id }, false)
+  }, [])
 
   return (
     <section>
@@ -12,7 +31,7 @@ const ViewScreen = (props) => {
         <Button
           type='primary'
           htmlType='button'
-          onClick={() => refSubmit.current.click()}
+          onClick={() => onReload()}
         >
           อัปเดทข้อมูลสายทาง
         </Button>
@@ -20,13 +39,18 @@ const ViewScreen = (props) => {
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <MapSection
-            id={id}
-            refSubmit={refSubmit}
+            data={data.detail.data}
+            loading={loading}
           />
         </Col>
         <Col xs={24} sm={24} md={24} lg={24} xl={12} xxl={12}>
           <DetailCardSection
-            id={id}
+            // DATA
+            data={data.detail.data}
+            detail={roadDetail.road_code}
+            // LOADING
+            loading={loading}
+            loadDetail={loadRoadDetail}
           />
         </Col>
       </Row>
