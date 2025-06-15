@@ -63,8 +63,8 @@ const ContentVehicleStat = (props) => {
 
   return (
     <>
-      <div className='card-container rounded-md grid grid-cols-4 gap-1 p-2'>
-        <figure className='flex flex-col justify-between border-r border-[#56E4EE50]'>
+      <div className='card-container rounded-md grid grid-cols-2 md:grid-cols-4 gap-1 p-2'>
+        <figure className='flex flex-col justify-between border-[#56E4EE50] border-r border-b md:border-b-0'>
           <h1 className='text-center font-bold'>รวมรถเข้าชั่งทั้งหมด</h1>
           <TruckOverAll className='mx-auto' />
           <section className='flex justify-evenly text-center'>
@@ -81,7 +81,7 @@ const ContentVehicleStat = (props) => {
           </section>
         </figure>
 
-        <figure className='flex flex-col justify-between border-r border-[#56E4EE50] cursor-pointer' onClick={() => GetSumStation()}>
+        <figure className='flex flex-col justify-between cursor-pointer border-[#56E4EE50] border-b md:border-b-0 md:border-r' onClick={() => GetSumStation()}>
           <h1 className='text-center font-bold'>สถานีตรวจสอบน้ำหนัก</h1>
           <section className='text-center'>
             <p>หน่วยงานที่เปิดอยู่ <span className={checkpoint?.station?.open > 0 ? '!text-[#90FF00]' : ''}>{checkpoint?.station?.open || 0}</span>/{checkpoint?.station?.total || 0}</p>
