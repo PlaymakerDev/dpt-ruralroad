@@ -40,7 +40,7 @@ const LineStringPolyline = (props) => {
       // Calculate bounds
       const lats = coordinates.map(coord => coord[0]);
       const lngs = coordinates.map(coord => coord[1]);
-      
+
       const bounds = [
         [Math.min(...lats), Math.min(...lngs)], // Southwest
         [Math.max(...lats), Math.max(...lngs)]  // Northeast
@@ -59,9 +59,9 @@ const LineStringPolyline = (props) => {
   if (!coordinates.length) return null;
 
   return (
-    <Polyline 
-      positions={coordinates} 
-      color={color} 
+    <Polyline
+      positions={coordinates}
+      color={color}
       weight={weight}
       opacity={opacity}
       smoothFactor={1.0}
@@ -99,15 +99,21 @@ const LocationMarker = (props) => {
   const renderContent = useMemo(() => {
     return (
       <figcaption>
-        <section className="text-center mb-2">
-          <h3 className={`font-IBMPlexSansThaiBold ${item?.plate_no ? 'underline' : ''} text-base`}>{getCarPlate(item.plate_no, item.plate_province)}</h3>
-          <p className="font-IBMPlexSansThaiBold text-base !m-0">{item.isoverweight === 'Y' ? 'น้ำหนักเกิน' : 'น้ำหนักปกติ'}</p>
+        <section>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลยานพาหนะ</h1>
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ทะเบียนรถ: <strong>{getCarPlate(item.plate_no, item.plate_province)}</strong></p>
+          {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สายทาง: <strong>{item.road_code}</strong></p> */}
         </section>
-        <hr />
-        <section className="grid grid-cols-2 mt-2 justify-items-center w-full">
-          {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0">กม. ที่ <strong>48</strong></p> */}
-          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ระยะทาง <strong>{Math.floor(item?.distance_from_road) || 0}</strong></p>
-          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ความเร็วที่ <strong>{item?.speed || 0}</strong></p>
+        <hr className='my-3' />
+        <section>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลการขับขี่</h1>
+          {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ระยะทาง: <strong>{Math.floor(item?.distance_from_road) || 0}</strong></p> */}
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ความเร็วที่: <strong>{item?.speed || 0}</strong></p>
+        </section>
+        <hr className='my-3' />
+        <section>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ประวัติการชั่งน้ำหนัก</h1>
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isoverweight === 'Y' ? 'รถน้ำหนักเกิน' : 'รถน้ำหนักปกติ'}</strong></p>
         </section>
       </figcaption>
     )

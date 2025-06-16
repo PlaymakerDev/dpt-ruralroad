@@ -10,6 +10,53 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, useMap,
 // import { createControlComponent } from '@react-leaflet/core'
 import { useRouter } from "next/router";
 import THAI_GEOJSON from "@/features/admin/dashboard/mock/thailand.json"
+import TH from '@/features/admin/dashboard/mock/th.json'
+
+// Function to create world overlay with Thailand hole
+const createWorldOverlayWithThailandHole = (thailandGeoJson) => {
+	if (!thailandGeoJson || !thailandGeoJson.features) return null;
+
+	// Extract Thailand coordinates and create holes
+	const holes = [];
+
+	thailandGeoJson.features.forEach(feature => {
+		if (feature.geometry.type === 'Polygon') {
+			// For Polygon, reverse the coordinates to create a hole
+			holes.push(feature.geometry.coordinates[0].slice().reverse());
+		} else if (feature.geometry.type === 'MultiPolygon') {
+			// For MultiPolygon, process each polygon
+			feature.geometry.coordinates.forEach(polygon => {
+				holes.push(polygon[0].slice().reverse());
+			});
+		}
+	});
+
+	// Create overlay that matches the restricted world bounds
+	return {
+		"type": "FeatureCollection",
+		"features": [
+			{
+				"type": "Feature",
+				"properties": {},
+				"geometry": {
+					"type": "Polygon",
+					"coordinates": [
+						// Outer ring (exact world bounds to match maxBounds)
+						[
+							[-180, -90],
+							[-180, 90],
+							[180, 90],
+							[180, -90],
+							[-180, -90]
+						],
+						// Inner rings (Thailand bounds - creates holes)
+						...holes
+					]
+				}
+			}
+		]
+	};
+};
 
 const DEFAULT_PATTERN = {
 	fillColor: 'gray',
@@ -125,9 +172,35 @@ const SpecMap = (props) => {
 		zoom,
 		data,
 		setProvinceDesc,
+		showThailandFocus = true, // Toggle Thailand focus on/off
+		overlayOpacity = 0.7, // Control overlay opacity (0.0 - 1.0)
+		thailandGeoJsonUrl = "https://simplemaps.com/static/svg/country/th/all/th.json", // SimpleMap Thailand GeoJSON
 		...mapProps
 	} = props
 	const mapRef = useRef();
+
+	// Create world overlay with Thailand hole
+	const worldOverlay = useMemo(() => {
+		if (!TH || !showThailandFocus) return null;
+
+		try {
+			const overlay = createWorldOverlayWithThailandHole(TH);
+			console.log('World overlay created:', overlay);
+			return overlay;
+		} catch (error) {
+			console.error('Error creating world overlay:', error);
+			return null;
+		}
+	}, [TH, showThailandFocus]);
+
+	// Style for the black overlay
+	const overlayStyle = useMemo(() => ({
+		fillColor: '#000000',
+		fillOpacity: overlayOpacity,
+		stroke: false,
+		interactive: false,
+		bubblingMouseEvents: false
+	}), [overlayOpacity]);
 
 	const renderLocationMarker = useMemo(() => {
 		const loopData = data?.map((item, index) => {
@@ -203,6 +276,16 @@ const SpecMap = (props) => {
 					});
 				}}
 			/>
+
+			{showThailandFocus && worldOverlay && (
+				<GeoJSON
+					data={worldOverlay}
+					style={overlayStyle}
+					pane="overlayPane"
+					interactive={false}
+					bubblingMouseEvents={false}
+				/>
+			)}
 		</MapContainer>
 	);
 }
