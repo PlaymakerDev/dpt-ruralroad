@@ -5,12 +5,14 @@ import { useAppSelector } from '@/store/hooks'
 import { getTasksRunning } from '@/store/features/tasksRunningSlice'
 import useRefreshToken from '@/utils/hooks/useRefreshToken'
 
-export const AppContext = createContext({ user: null, setStateUser: () => {} })
+export const AppContext = createContext({ user: null, setStateUser: () => { } })
 
 const AppProvider = (props) => {
   const { children, user } = props
   const [stateUser, setStateUser] = useState(user)
   const tasksRunning = useAppSelector((state) => state.tasksRunning)
+
+  useRefreshToken();
 
   const loading = useMemo(() => {
     return getTasksRunning(tasksRunning)?.loadingOverlay !== false
