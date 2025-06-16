@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Row, Col, Button } from 'antd'
 import { MapSection, DetailCardSection } from '../components/content'
 import { getGPSDetail } from '@/store/features/informationSlice'
@@ -7,6 +7,7 @@ import useGetAPI from '@/utils/hooks/api/useGetAPI'
 
 const ViewScreen = (props) => {
   const { id } = props
+  const isLoad = useRef(false)
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
     funcDispatch: getGPSDetail, reducerName: 'information', reducerKey: 'gps'
@@ -17,9 +18,20 @@ const ViewScreen = (props) => {
   })
 
   useEffect(() => {
+    if (isLoad.current === true) return
+
     apiGetData('/api/v1/info/vehical_location', { way_name: id }, false)
     apiGetRoadDetail(`/api/v1/masters/roads/road_code/${id}`, {}, false)
-  }, [])
+
+    return () => {
+      isLoad.current = true
+    }
+  }, [isLoad])
+
+  // useEffect(() => {
+  //   apiGetData('/api/v1/info/vehical_location', { way_name: id }, false)
+  //   apiGetRoadDetail(`/api/v1/masters/roads/road_code/${id}`, {}, false)
+  // }, [])
 
   const onReload = useCallback(() => {
     apiGetData('/api/v1/info/vehical_location', { way_name: id }, false)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Row, Col } from 'antd'
 import { MapSection, DetailCardSection } from '../components/content'
 import useGetAPI from '@/utils/hooks/api/useGetAPI'
@@ -6,14 +6,21 @@ import { getGPSOverview } from '@/store/features/informationSlice'
 
 const OverviewScreen = (props) => {
   const { } = props
+  const isLoad = useRef(false)
 
   const [apiGetData, loading, data] = useGetAPI('overlay', {
     funcDispatch: getGPSOverview, reducerName: 'information', reducerKey: 'gps'
   })
 
   useEffect(() => {
+    if (isLoad.current === true) return
+
     apiGetData('/api/v1/info/all_vehical_location', {}, false)
-  }, [])
+
+    return () => {
+      isLoad.current = true
+    }
+  }, [isLoad])
 
   return (
     <Row gutter={[16, 16]}>
