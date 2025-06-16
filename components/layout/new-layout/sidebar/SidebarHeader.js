@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, Typography } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import { CloseOutlined, UserOutlined } from '@ant-design/icons'
 import styles from '@/styles/components/layout/new-layout/Layout.module.css'
 import dayjs from 'dayjs'
 import 'dayjs/locale/th'
@@ -11,10 +11,10 @@ dayjs.extend(buddhistEra)
 dayjs.extend(customParseFormat);
 
 const SidebarHeader = (props) => {
-  const { title, description, extra } = props
+  const { title, description, extra, onClose } = props
 
   return (
-    <div className='flex flex-col flex-wrap items-center justify-center gap-3'>
+    <div className='flex flex-col flex-wrap items-center justify-center gap-3 relative'>
       <Avatar
         size={64}
         icon={<UserOutlined />}
@@ -30,6 +30,12 @@ const SidebarHeader = (props) => {
         </div>
       </section>
       {extra}
+      <div
+        className='absolute top-0 left-0 cursor-pointer'
+        onClick={onClose}
+      >
+        <CloseOutlined className='!text-white' />
+      </div>
     </div>
   )
 }

@@ -7,7 +7,8 @@ import {
   TruckOutlined,
   FileTextOutlined,
   SettingOutlined,
-  VideoCameraOutlined
+  VideoCameraOutlined,
+  ApiOutlined
 } from '@ant-design/icons'
 import { ConfigProvider, Menu } from 'antd';
 import { CCTVIcon, PaperIcon, TruckIcon } from '@/components/icon'
@@ -23,7 +24,8 @@ const mappingTransaction = {
   PaperIcon,
   SettingOutlined,
   CCTVIcon,
-  TruckIcon
+  TruckIcon,
+  ApiOutlined
 }
 
 const PageSidebar = (props) => {

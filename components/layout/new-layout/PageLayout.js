@@ -83,7 +83,13 @@ const PageLayout = (props) => {
         onTouchEnd={handleTouchEnd}
       >
         <Drawer
-          title={<Title title={renderProfile || 'Admin User'} description={query?.type ? EXTERNAL_USER_TYPE[query?.type] : (ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ')} />}
+          title={(
+            <Title
+              title={renderProfile || 'Admin User'}
+              description={query?.type ? EXTERNAL_USER_TYPE[query?.type] : (ROLE_TH[user.map_group_name] || 'ผู้ดูแลระบบ')}
+              onClose={_onClose}
+            />
+          )}
           closeIcon={false}
           open={open}
           onClose={_onClose}
