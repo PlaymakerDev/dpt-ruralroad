@@ -914,27 +914,54 @@ export const initialState = {
     overview: {
       search: {},
       data: {
-        vehicle_count: {
-          normal_vehicle_count: 0,
-          not_moving_count: 0,
-          over_weight_history: 0
-        },
-        car_list: [],
-        roads: []
+        list: [],
+        total: {
+          normal: 0,
+          stop: 0,
+          over_weight: 0,
+          unique_vehicles: 0
+        }
       }
+      // data: {
+      //   vehicle_count: {
+      //     normal_vehicle_count: 0,
+      //     not_moving_count: 0,
+      //     over_weight_history: 0
+      //   },
+      //   car_list: [],
+      //   roads: []
+      // }
     },
     detail: {
+      // search: {
+      //   way_name: ''
+      // },
+      // data: {
+      //   vehicle_count: {
+      //     normal_vehicle_count: 0,
+      //     not_moving_count: 0,
+      //     over_weight_history: 0
+      //   },
+      //   car_list: [],
+      //   geom_road: []
+      // }
       search: {
-        way_name: ''
+        road_id: '',
       },
-      data: {
+      vehicle_location: {
+        car_list: [],
         vehicle_count: {
           normal_vehicle_count: 0,
           not_moving_count: 0,
           over_weight_history: 0
-        },
-        car_list: [],
-        geom_road: []
+        }
+      },
+      geo_road: {
+        route_name: '',
+        road_code: '',
+        length_drr: '',
+        province: '',
+        position: []
       }
     }
   }
@@ -1040,6 +1067,14 @@ export const slice = createSlice({
     getGPSDetail: (state, action) => {
       state.gps.detail.search = action.payload.params,
         state.gps.detail.data = action.payload.data.data
+    },
+    getVehicleLocation: (state, action) => {
+      state.gps.detail.search = action.payload.params,
+        state.gps.detail.vehicle_location = action.payload.data.data
+    },
+    getGeoRoad: (state, action) => {
+      state.gps.detail.search = action.payload.params,
+        state.gps.detail.geo_road = action.payload.data.data
     }
   }
 })
@@ -1073,7 +1108,9 @@ export const {
   getVehicleStatus2,
   // GPS
   getGPSOverview,
-  getGPSDetail
+  getGPSDetail,
+  getVehicleLocation,
+  getGeoRoad
 } = slice.actions
 
 export default slice.reducer
