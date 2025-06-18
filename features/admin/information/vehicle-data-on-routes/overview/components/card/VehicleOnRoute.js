@@ -1,32 +1,62 @@
-import React from 'react'
-import { Card, Col, Empty, Progress, Row, Typography } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Card, Col, Empty, Input, Progress, Row, Typography } from 'antd'
 import { useRouter } from 'next/router'
 import stf from '@/utils/stringformat'
 
 const VehicleOnRoute = (props) => {
-  const { data } = props
+  const { data, loading } = props
   const router = useRouter()
+  const [stateData, setStateData] = useState(null)
+
+  useEffect(() => {
+    if (!loading) {
+      setStateData(data)
+    }
+  }, [loading, data])
+
+  const filterData = useCallback((value) => {
+    let defaultData = data
+
+    if (value.length) {
+      defaultData = data?.filter(item => item.road_code.includes(value))
+    }
+
+    return defaultData
+  }, [data])
 
   return (
     <div className="card-container rounded-md p-2">
-      <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>สายทางที่มีปริมาณรถมากที่สุด</h1>
+      <section className='grid grid-cols-1 md:grid-cols-2 items-center gap-3'>
+        <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>สายทางที่มีปริมาณรถมากที่สุด</h1>
+        <Input
+          placeholder="ค้นหาสายทาง"
+          onChange={(event) => {
+            setStateData(filterData(event.target.value))
+          }}
+        />
+      </section>
       <section className='mt-3 overflow-scroll overflow-x-hidden h-[23.5rem]'>
         <Row gutter={[8, 8]}>
-          {!!data?.length ?
-            data?.map((item, index) => {
+          {!!stateData?.length ?
+            stateData?.map((item, index) => {
               return (
                 <Col xs={24} sm={24} md={12} lg={12} xl={12} xxl={12} key={index}>
                   <figure
                     className='border-solid border-2 border-lightblue rounded-lg px-4 py-1 cursor-pointer'
-                    onClick={() => router.push(`/admin/gps/view/${item.road_code}`)}
+                    onClick={() => router.push({
+                      pathname: `/admin/gps/view/${item.road_id}`,
+                      query: {
+                        unique_vehicle: item.unique_vehicles
+                      }
+                    })}
                   >
                     <section className='flex flex-wrap justify-between'>
                       <p className='text-[clamp(1px, 4vw, 15px)] font-bold underline'>{item.road_code}</p>
-                      <p className='text-[clamp(1px, 4vw, 15px)]'>{stf(item.count).normal() || 0} คัน &gt;</p>
+                      <p className='text-[clamp(1px, 4vw, 15px)]'>{stf(item.unique_vehicles).normal() || 0} คัน &gt;</p>
                     </section>
                     <section>
                       <Progress
-                        percent={item.count}
+                        percent={item.unique_vehicles}
                         size={{
                           height: '0.4rem'
                         }}

@@ -9,6 +9,7 @@ import "leaflet-routing-machine";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
 import { createControlComponent } from '@react-leaflet/core'
 import TH from '@/features/admin/dashboard/mock/th.json'
+import stf from '@/utils/stringformat'
 
 // Function to create world overlay with Thailand hole
 const createWorldOverlayWithThailandHole = (thailandGeoJson) => {
@@ -66,41 +67,44 @@ const LocationMarker = (props) => {
     map.setView(center, zoom)
   }, [center, zoom])
 
-  const parsePointString = useCallback((lineString) => {
-    // Remove LINESTRING() wrapper and split coordinates
-    const coordsStr = lineString.replace('POINT(', '').replace(')', '');
-    const coordPairs = coordsStr.split(',');
+  // const parsePointString = useCallback((lineString) => {
+  //   // Remove LINESTRING() wrapper and split coordinates
+  //   const coordsStr = lineString.replace('POINT(', '').replace(')', '');
+  //   const coordPairs = coordsStr.split(',');
 
-    return coordPairs.map(pair => {
-      const [lng, lat] = pair.trim().split(' ').map(Number);
-      return [lat, lng]; // Leaflet uses [lat, lng] format
-    });
-  }, []);
+  //   return coordPairs.map(pair => {
+  //     const [lng, lat] = pair.trim().split(' ').map(Number);
+  //     return [lat, lng]; // Leaflet uses [lat, lng] format
+  //   });
+  // }, []);
 
-  const getCarPlate = useCallback((plateNo, plateProvince) => {
-    let textArr = [plateNo, plateProvince]
+  // const getCarPlate = useCallback((plateNo, plateProvince) => {
+  //   let textArr = [plateNo, plateProvince]
 
-    return textArr.join(' ')
-  }, [])
+  //   return textArr.join(' ')
+  // }, [])
 
   const renderContent = useMemo(() => {
     return (
       <figcaption>
         <section>
-          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลยานพาหนะ</h1>
-          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ทะเบียนรถ: <strong>{getCarPlate(item.plate_no, item.plate_province)}</strong></p>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลสายทาง</h1>
+          {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ทะเบียนรถ: <strong>{getCarPlate(item.plate_no, item.plate_province)}</strong></p> */}
           <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สายทาง: <strong>{item.road_code}</strong></p>
         </section>
         <hr className='my-3' />
         <section>
-          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลการขับขี่</h1>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลยานพาหนะ</h1>
           {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ระยะทาง: <strong>{Math.floor(item?.distance_from_road) || 0}</strong></p> */}
-          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ความเร็วที่: <strong>{item?.speed || 0}</strong></p>
+          {/* <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ความเร็วที่: <strong>{item?.speed || 0}</strong></p> */}
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">รถวิ่งตามปกติ: <strong>{stf(item.normal).normal() || 0}</strong></p>
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">รถที่จอดอยู่กับที่: <strong>{stf(item.stop).normal() || 0}</strong></p>
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">รถที่มีประวัติน้ำหนักเกิน: <strong>{stf(item.over_weight).normal() || 0}</strong></p>
         </section>
         <hr className='my-3' />
         <section>
-          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ประวัติการชั่งน้ำหนัก</h1>
-          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isoverweight === 'Y' ? 'รถน้ำหนักเกิน' : 'รถน้ำหนักปกติ'}</strong></p>
+          <h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>ข้อมูลรถรายวัน</h1>
+          <p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">จำนวนรถรายวัน: <strong>{stf(item.unique_vehicles).normal() || 0}</strong></p>
         </section>
       </figcaption>
     )
@@ -108,7 +112,8 @@ const LocationMarker = (props) => {
 
   return (
     <Marker
-      position={parsePointString(item.car_location)[0]}
+      // position={parsePointString(item.car_location)[0]}
+      position={[item.latitude, item.longitude]}
       // eventHandlers={{
       // 	mouseover: (event) => event.target.openPopup(),
       // 	click: () => map.flyTo([item.Latitude, item.Longtitude], 10)
@@ -124,9 +129,10 @@ const LocationMarker = (props) => {
             }
           }, 100);
         },
-        click: () => map.flyTo(parsePointString(item.car_location)[0], 10)
+        // click: () => map.flyTo(parsePointString(item.car_location)[0], 10)
+        click: () => map.flyTo([item.latitude, item.longitude], 10)
       }}
-      icon={icon}
+    // icon={icon}
     >
       <Popup
         className="w-60"
@@ -235,28 +241,28 @@ const SpecMap = (props) => {
   }), [overlayOpacity]);
 
   const renderLocationMarker = useMemo(() => {
-    const loopData = data?.map((item, index) => {
-      let icon
+    const loopData = data.slice(0, 20).map((item, index) => {
+      // let icon
 
-      if (item.isoverweight === 'Y') {
-        icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/red-truck.svg`
-      } else {
-        if (item.speed === 0) {
-          icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/yellow-truck.svg`
-        } else {
-          icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/green-truck.svg`
-        }
-      }
-      const pinIcon = new L.icon({
-        iconUrl: icon,
-        iconSize: [40, 33]
-      })
-      console.log(item)
+      // if (item.isoverweight === 'Y') {
+      //   icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/red-truck.svg`
+      // } else {
+      //   if (item.speed === 0) {
+      //     icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/yellow-truck.svg`
+      //   } else {
+      //     icon = `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/green-truck.svg`
+      //   }
+      // }
+      // const pinIcon = new L.icon({
+      //   // iconUrl: icon,
+      //   iconUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/green-truck.svg`,
+      //   iconSize: [40, 33]
+      // })
       return (
         <LocationMarker
           key={index + 1}
           item={item}
-          icon={pinIcon}
+          // icon={pinIcon}
           center={center}
           zoom={zoom}
         />
@@ -277,7 +283,7 @@ const SpecMap = (props) => {
         width: "100%",
         height: "100%",
         // minHeight: "496px",
-        minHeight: "40rem",
+        minHeight: "46rem",
         border: 0
       }}
       className="!rounded-lg"

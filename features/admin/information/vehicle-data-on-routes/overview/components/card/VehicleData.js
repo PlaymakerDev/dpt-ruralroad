@@ -21,7 +21,7 @@ const VehicleData = (props) => {
         <section className='flex flex-col text-center'>
           <p>จำนวนรถ</p>
           <div className='flex justify-center items-baseline gap-2'>
-            <p className='text-2xl'>{loading ? 0 : (stf(data.normal_vehicle_count).normal() || 0)}</p>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.normal).normal() || 0)}</p>
             <p>คัน</p>
           </div>
         </section>
@@ -37,7 +37,7 @@ const VehicleData = (props) => {
         <section className='flex flex-col text-center'>
           <p>จำนวนรถ</p>
           <div className='flex justify-center items-baseline gap-2'>
-            <p className='text-2xl'>{loading ? 0 : (stf(data.not_moving_count).normal() || 0)}</p>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.stop).normal() || 0)}</p>
             <p>คัน</p>
           </div>
         </section>
@@ -52,7 +52,7 @@ const VehicleData = (props) => {
         <section className='flex flex-col text-center'>
           <p>จำนวนรถ</p>
           <div className='flex justify-center items-baseline gap-2'>
-            <p className='text-2xl'>{loading ? 0 : (stf(data.over_weight_history).normal() || 0)}</p>
+            <p className='text-2xl'>{loading ? 0 : (stf(data.over_weight).normal() || 0)}</p>
             <p>คัน</p>
           </div>
         </section>

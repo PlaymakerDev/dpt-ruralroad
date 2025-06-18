@@ -15,21 +15,21 @@ const MapSection = (props) => {
         <SpecMap
           center={position.location}
           zoom={position.zoom}
-          data={data.car_list}
+          data={data.list}
         />
       )
     } else {
       return (
         <Spin spinning={loading}>
-          <SpecMap
+          {/* <SpecMap
             center={position.location}
             zoom={position.zoom}
-            data={data.car_list}
-          />
+            data={data.list}
+          /> */}
         </Spin>
       )
     }
-  }, [loading, data, position])
+  }, [loading, data.list, position])
 
   return (
     <div>
