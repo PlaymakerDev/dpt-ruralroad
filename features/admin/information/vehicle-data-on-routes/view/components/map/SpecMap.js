@@ -11,26 +11,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline } from '
 
 // Component to render LINESTRING directly as polyline with auto-fit
 const LineStringPolyline = (props) => {
-  const { geomText, color = "red", weight = 4, opacity = 0.8, autoFit = true } = props
+  const { coordinates, color = "red", weight = 4, opacity = 0.8, autoFit = true } = props
   const map = useMapEvents({});
-
-  const coordinates = useMemo(() => {
-    if (!geomText) return [];
-
-    try {
-      // Parse LINESTRING directly - much more efficient!
-      const coordsStr = geomText.replace('LINESTRING(', '').replace(')', '');
-      const coordPairs = coordsStr.split(',');
-
-      return coordPairs.map(pair => {
-        const [lng, lat] = pair.trim().split(' ').map(Number);
-        return [lat, lng]; // Leaflet uses [lat, lng] format
-      });
-    } catch (error) {
-      console.error('Error parsing LINESTRING:', error);
-      return [];
-    }
-  }, [geomText]);
 
   // Calculate bounds and fit map to polyline
   useEffect(() => {
@@ -180,19 +162,14 @@ const SpecMap = (props) => {
   const renderPolyLine = useMemo(() => {
     if (!road || !road.length) return null;
 
-    return road.map((roadItem, index) => {
-      if (!roadItem.geom_text) return null;
-
-      return (
-        <LineStringPolyline
-          key={`road-${index}-${roadItem.road_code || index}`}
-          geomText={roadItem.geom_text}
-          color="red"
-          weight={4}
-          opacity={0.8}
-        />
-      );
-    });
+    return (
+      <LineStringPolyline
+        coordinates={road}
+        color="red"
+        weight={4}
+        opacity={0.8}
+      />
+    );
   }, [road])
 
   const renderLocationMarker = useMemo(() => {

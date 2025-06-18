@@ -5,17 +5,17 @@ const SpecMap = dynamic(() => import('../map/SpecMap'), { ssr: false })
 
 const INIT_POSITION = { location: [13.736717, 100.523186], zoom: 5 }
 const MapSection = (props) => {
-  const { data, loading } = props
+  const { data, detail, loading, loadDetail } = props
   const [position, setPosition] = useState(INIT_POSITION)
 
   const renderSpecMap = useMemo(() => {
-    if (!loading) {
+    if (!loading || !loadDetail) {
       return (
         <SpecMap
           center={position.location}
           zoom={position.zoom}
           car={data.car_list}
-          road={data.geom_road}
+          road={detail.position}
         />
       )
     } else {
@@ -25,12 +25,12 @@ const MapSection = (props) => {
             center={position.location}
             zoom={position.zoom}
             car={data.car_list}
-            road={data.geom_road}
+            road={detail.position}
           />
         </Spin>
       )
     }
-  }, [loading, data, position])
+  }, [data, detail, loading, loadDetail, position])
 
 
   return (

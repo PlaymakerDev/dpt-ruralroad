@@ -41,7 +41,7 @@ const RouteData = (props) => {
               <TruckIcon width={23} height={16} customFill='#FFFFFF' />
               <section>
                 <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>ชื่อสายทาง</h1>
-                <p>{data?.road_name || '-'}</p>
+                <p>{data?.route_name || '-'}</p>
               </section>
             </div>
           </figcaption>
@@ -59,7 +59,7 @@ const RouteData = (props) => {
               <TruckIcon width={23} height={16} customFill='#FFFFFF' />
               <section>
                 <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>ระยะทาง</h1>
-                <p>{data?.distance || '-'}</p>
+                <p>{data?.length_drr || '-'}</p>
               </section>
             </div>
           </figcaption>
