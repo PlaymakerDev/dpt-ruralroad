@@ -89,7 +89,7 @@ const FormCreateUser = (props) => {
       role: ''
     },
     rules: {},
-    blackList: ['username', 'prefix', 'first_name', 'last_name']
+    // blackList: ['username', 'prefix', 'first_name', 'last_name']
   })
 
   const { handlerChange } = form
