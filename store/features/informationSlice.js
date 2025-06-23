@@ -912,7 +912,9 @@ export const initialState = {
   report: {},
   gps: {
     overview: {
-      search: {},
+      search: {
+        search: ''
+      },
       data: {
         list: [],
         total: {
