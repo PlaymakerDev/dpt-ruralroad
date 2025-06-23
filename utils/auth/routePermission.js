@@ -1,4 +1,5 @@
 export function validatePermissionRoute(user, roles) {
+  // console.log("=== userPerm ===",user)
   let canView = false
   if (user?.token) {
     if (user.token && roles.includes(user.map_group_name)) {

@@ -14,12 +14,14 @@ export async function setLoginSession(res, session, MAX_AGE) {
 }
 
 export async function getLoginSession(req) {
+  // console.log("=== req ===", req)
   const token = getTokenCookie(req)
 
   if (!token) return
 
+  // console.log("=== token ===",token)
   const session = await Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
-  console.log('session----->>>>> 222',session);
+  // console.log('session----->>>>> 222',session);
   return session
 }
 

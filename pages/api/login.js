@@ -10,7 +10,8 @@ const toLoginAgain = async (
   locale,
   role
 ) => {
-  const MAX_AGE = 4;
+  // const MAX_AGE = 4;
+  const MAX_AGE = 60 * 60 * 24;
   await setLoginSession(res, response, MAX_AGE);
   let p = config.basePath;
   if (locale === 'en') {
@@ -93,8 +94,8 @@ async function handler(
     // }
 
     const user = getUserSession(authUser);
-    console.log("=== user ===",user)
-    await setLoginSession(res, user, remember_me_checked === '1' ? MAX_AGE : 60 * 60);
+    // console.log("=== user ===", user)
+    await setLoginSession(res, user, remember_me_checked === '1' ? MAX_AGE : 60 * 60 * 24);
     let redirectURL = (config.basePath);
     if (locale === 'en') {
       redirectURL = redirectURL + '/en';

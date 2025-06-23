@@ -10,7 +10,8 @@ const setCookieErr = async (
   response,
   locale
 ) => {
-  const MAX_AGE = 4
+  // const MAX_AGE = 4
+  const MAX_AGE = 60 * 60 * 24
   await setLoginSession(res, response, MAX_AGE)
   let p = config.basePath
   if (locale === 'en') {

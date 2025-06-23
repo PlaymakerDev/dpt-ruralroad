@@ -2,7 +2,8 @@ import { serialize, parse, CookieSerializeOptions } from 'cookie'
 
 const TOKEN_NAME = 'vis-auth'
 
-export const MAX_AGE = 60 * 20
+// export const MAX_AGE = 60 * 20
+export const MAX_AGE = 60 * 60 * 24
 
 export function setTokenCookie(
   res,
