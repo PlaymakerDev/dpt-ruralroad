@@ -6,27 +6,29 @@ import { Spin } from 'antd'
 import stf from '@/utils/stringformat'
 
 const DetailCardSection = (props) => {
-  const { data, loading } = props
+  const { data, loading, onSearch } = props
 
-  const renderVehicleOnRoute = useMemo(() => {
-    if (!loading) {
-      return (
-        <VehicleOnRoute
-          data={data.list}
-          loading={loading}
-        />
-      )
-    } else {
-      return (
-        <Spin spinning={loading}>
-          <VehicleOnRoute
-            data={data.list}
-            loading={loading}
-          />
-        </Spin>
-      )
-    }
-  }, [data.list, loading])
+  // const renderVehicleOnRoute = useMemo(() => {
+  //   if (!loading) {
+  //     return (
+  //       <VehicleOnRoute
+  //         data={data.list}
+  //         loading={loading}
+  //         onSearch={onSearch}
+  //       />
+  //     )
+  //   } else {
+  //     return (
+  //       <Spin spinning={loading}>
+  //         <VehicleOnRoute
+  //           data={data.list}
+  //           loading={loading}
+  //           onSearch={onSearch}
+  //         />
+  //       </Spin>
+  //     )
+  //   }
+  // }, [data.list, loading, onSearch])
 
   return (
     <div>
@@ -38,12 +40,17 @@ const DetailCardSection = (props) => {
       </section>
       <section className='mt-5'>
         <div className='card-container rounded-md flex items-center justify-between gap-1 p-2'>
-          <h1 className='text-[clamp(1px, 4vw, 15px)] font-bold'>จำนวนรถเข้าชั่งรายวัน</h1>
-          <p><strong>{stf(data.total.unique_vehicles).normal() || 0}</strong> คัน</p>
+          <h1 className='text-lg font-bold'>จำนวนรถเข้าชั่งรายวัน</h1>
+          <p className='text-lg'><strong>{stf(data.total.unique_vehicles).normal() || 0}</strong> คัน</p>
         </div>
       </section>
       <section className='mt-5'>
-        {renderVehicleOnRoute}
+        {/* {renderVehicleOnRoute} */}
+        <VehicleOnRoute
+          data={data.list}
+          loading={loading}
+          onSearch={onSearch}
+        />
       </section>
     </div>
   )

@@ -15,7 +15,7 @@ const OverviewScreen = (props) => {
   useEffect(() => {
     if (isLoad.current === true) return
 
-    apiGetData('/api/v1/info/all_vehical_location', {}, false)
+    apiGetData('/api/v1/info/all_vehical_location', { search: '' }, false)
 
     return () => {
       isLoad.current = true
@@ -34,6 +34,7 @@ const OverviewScreen = (props) => {
         <DetailCardSection
           data={data.overview.data}
           loading={loading}
+          onSearch={apiGetData}
         />
       </Col>
     </Row>
