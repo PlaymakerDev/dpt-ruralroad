@@ -109,7 +109,7 @@ const ChartVehicleCount = (props) => {
             toolbar: {
               show: false,
             },
-            fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif',
+            fontFamily: 'IBM Plex Sans Thai, Arial, sans-serif',
             offsetX: 0,
             offsetY: 10,
           },

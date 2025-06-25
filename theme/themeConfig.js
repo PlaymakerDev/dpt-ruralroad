@@ -89,7 +89,7 @@ const theme = {
 	},
 	token: {
 		fontSize: 14,
-		fontFamily: 'IBMPlexSansThai-Regular',
+		fontFamily: 'IBM Plex Sans Thai',
 		colorPrimary: '#0075E9',
 	},
 }

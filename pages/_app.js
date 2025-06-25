@@ -41,7 +41,7 @@ ConfigProvider.config({
           token: {
             fontSize: 14,
             colorPrimary: '#FFFFFF',
-            fontFamily: 'IBMPlexSansThai-Regular'
+            fontFamily: 'IBM Plex Sans Thai'
           }
         }}
       >

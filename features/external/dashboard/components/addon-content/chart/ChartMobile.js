@@ -97,7 +97,7 @@ const ChartMobile = (props) => {
               toolbar: {
                 show: false,
               },
-              fontFamily: 'IBMPlexSansThai-Regular, Arial, sans-serif'
+              fontFamily: 'IBM Plex Sans Thai, Arial, sans-serif'
             },
             xaxis: {
               categories: areaDataNormalize?.categories || [],
