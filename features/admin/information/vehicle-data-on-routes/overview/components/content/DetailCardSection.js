@@ -40,7 +40,7 @@ const DetailCardSection = (props) => {
       </section>
       <section className='mt-5'>
         <div className='card-container rounded-md flex items-center justify-between gap-1 p-2'>
-          <h1 className='text-lg font-bold'>จำนวนรถเข้าชั่งรายวัน</h1>
+          <h1 className='text-lg font-bold'>จราจรรถบรรทุกรายวัน</h1>
           <p className='text-lg'><strong>{stf(data.total.unique_vehicles).normal() || 0}</strong> คัน</p>
         </div>
       </section>
