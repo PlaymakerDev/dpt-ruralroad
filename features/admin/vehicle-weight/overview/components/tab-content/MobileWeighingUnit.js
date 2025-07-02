@@ -38,7 +38,7 @@ const MobileWeighingUnit = (props) => {
   const [detailProps, setDetailProps] = useState(INIT_DETAIL_PROPS)
   const [imageTDID, setimageTDID] = useState(INIT_DETAIL_PROPS)
   // USE CONTEXT
-  const { step, setStep } = useContext(PageContext)
+  const { step, setStep, prevQuery } = useContext(PageContext)
   // REDUCER
   const dispatch = useAppDispatch()
 
@@ -74,12 +74,22 @@ const MobileWeighingUnit = (props) => {
 
   useEffect(() => {
     if (tabKey === 'mobile' && step === 1) {
-      apiGetData(`/api/v1/weight/mobile_master`, {
-        ...data.overview.search,
-        start_date: dayjs(dateRange[0]).format('YYYY-MM-DD'),
-        end_date: dayjs(dateRange[1]).format('YYYY-MM-DD'),
-      }, false, {})
-      apiGetMasterDepartment('/api/v1/masters/departments_all', {}, false, {})
+      if (prevQuery) {
+        apiGetData(`/api/v1/weight/mobile_master`, {
+          ...data.overview.search,
+          start_date: dayjs(prevQuery?.start_date).format('YYYY-MM-DD'),
+          end_date: dayjs(prevQuery?.end_date).format('YYYY-MM-DD'),
+          branch: prevQuery?.department_id
+        }, false, {})
+        apiGetMasterDepartment('/api/v1/masters/departments_all', {}, false, {})
+      } else {
+        apiGetData(`/api/v1/weight/mobile_master`, {
+          ...data.overview.search,
+          start_date: dayjs(dateRange[0]).format('YYYY-MM-DD'),
+          end_date: dayjs(dateRange[1]).format('YYYY-MM-DD'),
+        }, false, {})
+        apiGetMasterDepartment('/api/v1/masters/departments_all', {}, false, {})
+      }
     }
     if (tabKey === 'mobile' && step === 2) {
       apiGetDetailCard(`/api/v1/weight/weight_mobile_master_department/${detailProps.tid}`, {}, false, {})
@@ -92,7 +102,7 @@ const MobileWeighingUnit = (props) => {
       }, false, {})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabKey, step, detailProps])
+  }, [tabKey, step, detailProps, prevQuery])
 
 
   const onChangeTable = useCallback((page, perPage) => {

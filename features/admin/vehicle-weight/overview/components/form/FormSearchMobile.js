@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useContext} from "react";
+import React, { useCallback, useMemo, useState, useContext } from "react";
 import { Form, Field, useForm } from "@/components/form";
 import { Button, Card, Col, Row, Typography } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
@@ -6,17 +6,19 @@ import dayjs from "dayjs";
 import { DateContext } from "../tab-content/MobileWeighingUnit";
 import { getDepartment } from "@/store/features/masterSlice";
 import { useAppSelector } from "@/store/hooks";
+import { PageContext } from "@/pages/admin/vehicle-weight/overview";
 
 const FormSearchMobile = (props) => {
   const { setOpen, initialValues, apiGetData, clearData, department, dateRange } = props;
   const { setDateRange } = useContext(DateContext)
+  const { prevQuery } = useContext(PageContext)
   // const departments = useAppSelector(state => state.master.departments.overview.data)
 
   const form = useForm({
     initialValues: {
-      start_date: dayjs(dateRange[0]),
-      end_date: dayjs(dateRange[1]),
-      branch: ''
+      start_date: prevQuery ? dayjs(prevQuery?.start_date) : dayjs(dateRange[0]),
+      end_date: prevQuery ? dayjs(prevQuery?.end_date) : dayjs(dateRange[1]),
+      branch: prevQuery ? prevQuery?.department_id : ''
     },
     rules: {},
   });

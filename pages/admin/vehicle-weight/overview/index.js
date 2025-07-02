@@ -18,8 +18,15 @@ const VehicleWeightPage = (props) => {
   const router = useRouter()
   const [step, setStep] = useState(1)
   const [currentStep, setCurrentStep] = useState(INIT_STEP)
+  const [prevQuery, setPrevQuery] = useState(null)
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!router?.query) return
+
+    setPrevQuery(router?.query)
+  }, [router?.query])
+
+  useEffect(() => {
     if (!router.isReady) {
       return
     }
@@ -81,7 +88,7 @@ const VehicleWeightPage = (props) => {
     <PageLayout
       breadcrumb={renderBreadcrumb}
     >
-      <PageContext.Provider value={{ step, setStep }}>
+      <PageContext.Provider value={{ step, setStep, prevQuery }}>
         <VehicleWeightScreen
           setCurrentStep={setCurrentStep}
           tabBar={router?.query?.key}
