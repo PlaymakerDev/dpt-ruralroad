@@ -764,13 +764,16 @@ export const RECENT_WEIGHT_STATUS = {
   "0": {
     "description": "ปกติ",
     "color": "#22c55e",
+    "fontColor": "#FFFFFF",
   },
   "1": {
     "description": "น้ำหนักเกิน",
-    "color": "#ef4444",
+    "color": "#eab308",
+    "fontColor": "#000000",
   },
   "2": {
     "description": "นำหนักเกิน 10 %",
-    "color": "#eab308",
+    "color": "#ef4444",
+    "fontColor": "#FFFFFF",
   },
 }
