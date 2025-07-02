@@ -18,7 +18,7 @@ const INIT_POSITION = { location: [13.736717, 100.523186], zoom: 5 }
 const INIT_PROVINCE_DESC = null
 
 const DisplayMap = (props) => {
-  const { } = props;
+  const { accessType } = props;
   const [stationType, setStationType] = useState(INIT_TYPE)
   const [value, setValue] = useState(INIT_VALUE)
   const [position, setPosition] = useState(INIT_POSITION)
@@ -86,6 +86,7 @@ const DisplayMap = (props) => {
           station={mapData.station}
           onClickPin={onClickPin}
           setProvinceDesc={setProvinceDesc}
+          accessType={accessType}
         />
       )
     } else {
@@ -101,11 +102,12 @@ const DisplayMap = (props) => {
             station={mapData.station}
             onClickPin={onClickPin}
             setProvinceDesc={setProvinceDesc}
+            accessType={accessType}
           />
         </Spin>
       )
     }
-  }, [mapData, loading, position])
+  }, [mapData, loading, position, accessType])
 
   return (
     <div>

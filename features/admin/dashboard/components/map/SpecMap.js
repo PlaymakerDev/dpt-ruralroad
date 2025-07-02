@@ -75,7 +75,7 @@ const HOVER_PATTERN = {
 }
 
 const LocationMarker = (props) => {
-	const { item, type, icon, center, zoom, onClickPin } = props
+	const { item, type, icon, center, zoom, onClickPin, accessType } = props
 	// MAP CONTEXT
 	const map = useMapEvents({})
 	const router = useRouter()
@@ -92,20 +92,22 @@ const LocationMarker = (props) => {
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
 					</section>
-					<section className="text-center">
-						<p
-							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
-							underline
-							onClick={() => router.push({
-								pathname: `/admin/project-info/${type}-detail/${item.TID}`,
-								query: {
-									prev_name: item.WayID
-								}
-							})}
-						>
-							รายละเอียด
-						</p>
-					</section>
+					{!accessType &&
+						<section className="text-center">
+							<p
+								className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
+								underline
+								onClick={() => router.push({
+									pathname: `/admin/project-info/${type}-detail/${item.TID}`,
+									query: {
+										prev_name: item.WayID
+									}
+								})}
+							>
+								รายละเอียด
+							</p>
+						</section>
+					}
 				</figcaption>
 			)
 		} else {
@@ -126,23 +128,25 @@ const LocationMarker = (props) => {
 					<section>
 						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
 					</section>
-					<section className="text-center">
-						<p
-							className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
-							onClick={() => router.push({
-								pathname: `/admin/project-info/${type}-detail/${item.StationID}`,
-								query: {
-									prev_name: item.StationName
-								}
-							})}
-						>
-							รายละเอียด
-						</p>
-					</section>
+					{!accessType &&
+						<section className="text-center">
+							<p
+								className='font-IBMPlexSansThaiRegular text-blue-500 cursor-pointer underline'
+								onClick={() => router.push({
+									pathname: `/admin/project-info/${type}-detail/${item.StationID}`,
+									query: {
+										prev_name: item.StationName
+									}
+								})}
+							>
+								รายละเอียด
+							</p>
+						</section>
+					}
 				</figcaption>
 			)
 		}
-	}, [item, type])
+	}, [item, type, accessType])
 
 	return (
 		<Marker
@@ -201,6 +205,7 @@ const SpecMap = (props) => {
 		station,
 		onClickPin,
 		setProvinceDesc,
+		accessType,
 		showThailandFocus = true, // Toggle Thailand focus on/off
 		overlayOpacity = 0.7, // Control overlay opacity (0.0 - 1.0)
 		thailandGeoJsonUrl = "https://simplemaps.com/static/svg/country/th/all/th.json", // SimpleMap Thailand GeoJSON
@@ -234,7 +239,7 @@ const SpecMap = (props) => {
 	const renderStationMarker = useMemo(() => {
 		const loopStation = station?.map((item, index) => {
 			const pinIcon = new L.icon({
-				iconUrl: item.IsEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-violet.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
+				iconUrl: item.isEnable ? `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-violet.png` : `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-icon-2x-black.png`,
 				shadowUrl: `${process.env.NEXT_PUBLIC_HOST_FRONT}/images/marker/marker-shadow.png`,
 				iconSize: [25, 41],
 				iconAnchor: [12, 41],
@@ -250,6 +255,7 @@ const SpecMap = (props) => {
 					zoom={zoom}
 					onClickPin={onClickPin}
 					type='station'
+					accessType={accessType}
 				/>
 			)
 		})
@@ -275,6 +281,7 @@ const SpecMap = (props) => {
 					zoom={zoom}
 					onClickPin={onClickPin}
 					type='wim'
+					accessType={accessType}
 				/>
 			)
 		})
@@ -300,11 +307,12 @@ const SpecMap = (props) => {
 					zoom={zoom}
 					onClickPin={onClickPin}
 					type='mobile'
+					accessType={accessType}
 				/>
 			)
 		})
 		return loopMobile
-	}, [mobile, center, zoom])
+	}, [mobile, center, zoom, accessType])
 
 	return (
 		<MapContainer

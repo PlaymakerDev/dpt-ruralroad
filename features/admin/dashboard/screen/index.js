@@ -9,7 +9,7 @@ import CCTVSection from '../components/cctv/CCTVSection'
 // import { allowAdmin } from '@/utils/allowAdmin'
 
 const DashboardScreen = (props) => {
-  const { authType } = props
+  const { accessType } = props
   // USE SELECTOR
   // const user = useAppSelector(state => state.user)
 
@@ -22,14 +22,16 @@ const DashboardScreen = (props) => {
             <Row gutter={[16, 16]}>
               <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                 <CardVehicleStat
-                  authType={authType}
+                  accessType={accessType}
                 />
               </Col>
               <Col xs={24} sm={24} md={24} lg={7} xl={7} xxl={7}>
                 <CardOverWeightVehicle />
               </Col>
               <Col xs={24} sm={24} md={24} lg={17} xl={17} xxl={17}>
-                <DisplayMap />
+                <DisplayMap
+                  accessType={accessType}
+                />
               </Col>
             </Row>
           </Col>

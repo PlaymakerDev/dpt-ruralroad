@@ -48,8 +48,8 @@ const TableDailyWeigh = (props) => {
       dataIndex: 'over',
       align: 'center',
       render: (item) => {
-        if (item) {
-          return <Tag color={RECENT_WEIGHT_STATUS["1"]?.color}>{item}</Tag>
+        if (Number(item)) {
+          return <Tag color={RECENT_WEIGHT_STATUS["1"]?.color} style={{ color: RECENT_WEIGHT_STATUS["1"]?.fontColor }}>{item}</Tag>
         }
 
         return '-'
@@ -61,8 +61,8 @@ const TableDailyWeigh = (props) => {
       dataIndex: 'over_10percent',
       align: 'center',
       render: (item) => {
-        if (item) {
-          return <Tag color={RECENT_WEIGHT_STATUS["2"]?.color}>{item}</Tag>
+        if (Number(item)) {
+          return <Tag color={RECENT_WEIGHT_STATUS["2"]?.color} style={{ color: RECENT_WEIGHT_STATUS["2"]?.fontColor }}>{item}</Tag>
         }
 
         return '-'
@@ -78,7 +78,7 @@ const TableDailyWeigh = (props) => {
       loading={loading}
       pagination={false}
       className="daily-weigh-table"
-      rowClassName='!cursor-pointer'
+      rowClassName={!accessType ? '!cursor-pointer' : '!cursor-auto'}
       onRow={(record) => {
         if (type === 'sum_wim' && !accessType) {
           return {
@@ -112,9 +112,14 @@ const TableDailyWeigh = (props) => {
         } else if (type === 'sum_spot' && !accessType) {
           return {
             onClick: () => router.push({
-              pathname: `/admin/project-info/mobile-detail/${record.department_id}`,
+              // pathname: `/admin/project-info/mobile-detail/${record.department_id}`,
+              pathname: `/admin/vehicle-weight/overview`,
               query: {
-                prev_name: record.name
+                start_date: dayjs().format('YYYY-MM-DD'),
+                end_date: dayjs().format('YYYY-MM-DD'),
+                department_id: record.department_id,
+                key: 'mobile'
+                // prev_name: record.name
                 // total: record.total,
                 // over: record.over,
                 // over_10percent: record.over_10percent,
