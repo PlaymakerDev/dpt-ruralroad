@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 // IMPORTANT: the order matters!
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
@@ -84,13 +84,20 @@ const LocationMarker = (props) => {
 		map.setView(center, zoom)
 	}, [center, zoom])
 
+	const renderName = useCallback((firstName, lastName) => {
+		let fullName = [firstName, lastName]
+		
+		return fullName.join(' ').trim()
+	}, [])
+
 	const renderContent = useMemo(() => {
 		if (type === 'mobile') {
 			return (
 				<figcaption>
 					<section>
 						<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
-						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID}</strong></p>
+						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.WayID || '-'}</strong></p>
+						<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ผู้จัดตั้งด่าน: <strong>{renderName(item.first_name, item.last_name) || '-'}</strong></p>
 					</section>
 					{!accessType &&
 						<section className="text-center">
