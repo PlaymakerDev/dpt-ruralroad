@@ -180,7 +180,7 @@ const Content = (props) => {
             name='plan_year'
             placeholder='ปีงบประมาณ'
             picker="year"
-            format='YYYY'
+            format='BBBB'
             allowClear={false}
             disabled={info?.is_updatable}
             disabledDate={current => {
