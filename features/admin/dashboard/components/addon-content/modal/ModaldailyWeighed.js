@@ -10,11 +10,11 @@ const ModaldailyWeighed = (props) => {
   const renderTitle = () => {
     switch (data?.key) {
       case 'sum_station':
-        return 'สรุปข้อมูลสถานีตรวจสอบน้ำหนัก'
+        return 'สรุปข้อมูลสถานีตรวจสอบน้ำหนัก (รายวัน)'
       case 'sum_wim':
-        return 'สรุปข้อมูล Vehicle Inspection Station (VIS)'
+        return 'สรุปข้อมูล Vehicle Inspection Station (VIS) (รายวัน)'
       case 'sum_spot':
-        return 'สรุปข้อมูลหน่วยตรวจสอบน้ำหนักเคลื่อนที่'
+        return 'สรุปข้อมูลหน่วยตรวจสอบน้ำหนักเคลื่อนที่ (รายวัน)'
       default:
         return ''
     }
