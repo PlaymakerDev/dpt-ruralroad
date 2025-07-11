@@ -6,7 +6,9 @@ import { EditOutlined } from '@ant-design/icons';
 import { CAMERA_TYPE } from '@/utils/constant';
 
 const DetailContent = (props) => {
-  const { cctv, station, cctvRef, setOpen, onOpenConfig } = props;
+  const { cctv, station, cctvRef, setOpen, onOpenConfig, cctvStatus } = props;
+
+  console.log("inside ===",cctvStatus)
 
   const renderImageCard = useMemo(() => {
     let arrList = cctv
@@ -14,7 +16,11 @@ const DetailContent = (props) => {
     if (cctvRef.current) {
       arrList = cctv
     } else {
-      arrList = [...cctv]?.sort(() => Math.random() - 0.5).slice(0, 6)
+      if (cctvStatus === 'ALL' || cctvStatus === null) {
+        arrList = [...cctv]?.sort(() => Math.random() - 0.5).slice(0, 6)
+      } else {
+        arrList = cctv
+      }
     }
 
     // CHECK IF ARRLIST HAVE A LENGTH
@@ -87,7 +93,7 @@ const DetailContent = (props) => {
       }
     })
     return routeImage
-  }, [cctv, cctvRef, onOpenConfig, setOpen])
+  }, [cctv, cctvRef, onOpenConfig, setOpen, cctvStatus])
 
   // const checkAppropriateData = useMemo(() => {
   //   if (!!Number(station.total_cameras)) {
@@ -112,7 +118,7 @@ const DetailContent = (props) => {
 }
 
 const ContentCCTVList = (props) => {
-  const { cctv, station, cctvRef, setOpen, setConfig } = props
+  const { cctv, station, cctvRef, setOpen, setConfig, cctvStatus } = props
 
   return (
     <DetailContent
@@ -121,6 +127,7 @@ const ContentCCTVList = (props) => {
       cctvRef={cctvRef}
       setOpen={setOpen}
       onOpenConfig={setConfig}
+      cctvStatus={cctvStatus}
     />
   )
 }

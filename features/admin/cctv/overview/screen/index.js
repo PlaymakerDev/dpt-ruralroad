@@ -123,12 +123,13 @@ const OverviewScreen = (props) => {
           cctvRef={cctvRef}
           setOpen={setOpen}
           setConfig={setConfig}
+          cctvStatus={cctvStatus}
         />
       )
     } else {
       return <Spin spinning={loading || loadStation} />
     }
-  }, [loading, loadStation, data, station, cctvRef, filterCCTV])
+  }, [loading, loadStation, data, station, cctvRef, filterCCTV, cctvStatus])
 
   const renderSelect = useMemo(() => {
     return (
