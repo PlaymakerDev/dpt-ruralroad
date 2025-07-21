@@ -205,10 +205,7 @@ const ContentOverWeightVehicle = (props) => {
             <section className='sm:basis-full'>
               <div className='flex flex-col'>
                 <p className='text-[clamp(1px, 4vw, 15px)]'>น้ำหนักที่เกิน</p>
-                <p
-                  className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`}
-                  strong
-                >
+                <p className={`text-[clamp(1px, 4vw, 15px)] ${data?.data?.is_over_weight === 'Y' ? 'text-[#FF4A4A]' : 'text-[#56E4EE]'}`}>
                   {`${data?.data?.gross_weight_over || 0} ตัน (${data?.data?.gross_weight_over || 0}%)`}
                 </p>
               </div>
