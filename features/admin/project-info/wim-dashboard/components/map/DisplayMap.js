@@ -44,6 +44,11 @@ const DisplayMap = (props) => {
     } else {
       return (
         <Spin spinning={loading}>
+          {/* <figure
+            style={{
+              minHeight: '31rem'
+            }}
+          /> */}
           <SpecMap
             center={position.location}
             zoom={position.zoom}

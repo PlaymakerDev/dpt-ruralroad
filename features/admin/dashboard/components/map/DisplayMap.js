@@ -92,12 +92,12 @@ const DisplayMap = (props) => {
     } else {
       return (
         <Spin spinning={loading}>
-          <figure
+          {/* <figure
             style={{
               minHeight: '31rem'
             }}
-          />
-          {/* <SpecMap
+          /> */}
+          <SpecMap
             // center={[13.736717, 100.523186]}
             center={position.location}
             zoom={position.zoom}
@@ -108,7 +108,7 @@ const DisplayMap = (props) => {
             onClickPin={onClickPin}
             setProvinceDesc={setProvinceDesc}
             accessType={accessType}
-          /> */}
+          />
         </Spin>
       )
     }

@@ -21,11 +21,11 @@ const MapSection = (props) => {
     } else {
       return (
         <Spin spinning={loading}>
-          {/* <SpecMap
+          <SpecMap
             center={position.location}
             zoom={position.zoom}
             data={data.list}
-          /> */}
+          />
         </Spin>
       )
     }
