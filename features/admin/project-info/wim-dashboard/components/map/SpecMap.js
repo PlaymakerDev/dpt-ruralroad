@@ -90,7 +90,7 @@ const LocationMarker = (props) => {
 				<section>
 					<h1 className='font-IBMPlexSansThaiBold text-[clamp(1px, 4vw, 15px)] font-bold underline'>รายละเอียด</h1>
 					<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อสถานี: <strong>{item.StationName}</strong></p>
-					<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อ WIM: <strong>{item.LocationDescription}</strong></p>
+					<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ชื่อ VIS: <strong>{item.LocationDescription}</strong></p>
 				</section>
 				<hr className='my-3' />
 				<section>
@@ -101,6 +101,7 @@ const LocationMarker = (props) => {
 				<hr className='my-3' />
 				<section>
 					<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">สถานะ: <strong>{item.isEnable ? 'ออนไลน์' : 'ออฟไลน์'}</strong></p>
+					<p className="font-IBMPlexSansThaiRegular text-sm !m-0 w-full break-words">ปีที่สร้าง: <strong>-</strong></p>
 				</section>
 				<section className="text-center">
 					<p
@@ -173,7 +174,7 @@ const SpecMap = (props) => {
 		data,
 		setProvinceDesc,
 		showThailandFocus = true, // Toggle Thailand focus on/off
-		overlayOpacity = 0.7, // Control overlay opacity (0.0 - 1.0)
+		overlayOpacity = 1.0, // Control overlay opacity (0.0 - 1.0)
 		thailandGeoJsonUrl = "https://simplemaps.com/static/svg/country/th/all/th.json", // SimpleMap Thailand GeoJSON
 		...mapProps
 	} = props
@@ -195,7 +196,7 @@ const SpecMap = (props) => {
 
 	// Style for the black overlay
 	const overlayStyle = useMemo(() => ({
-		fillColor: '#000000',
+		fillColor: '#9E9E9E',
 		fillOpacity: overlayOpacity,
 		stroke: false,
 		interactive: false,

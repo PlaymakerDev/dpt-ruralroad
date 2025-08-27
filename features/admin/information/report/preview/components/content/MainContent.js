@@ -20,15 +20,14 @@ const MainContent = (props) => {
   const [apiGetwinData, winDataLoading, wimData] = useGetAPI('overlay', {
     funcDispatch: getWIM, reducerName: 'master', reducerKey: 'wim'
   })
+  
   const [apiGetdepartmentData, departmentDataLoading, departmentData] = useGetAPI('overlay', {
     funcDispatch: getDepartmentAll, reducerName: 'master', reducerKey: 'departments'
   })
+
   const [apiGetDepartmentFilter, loadingDepartmentFilter, departmentFilterData] = useGetAPI('overlay', {
     funcDispatch: getDepartment, reducerName: 'master', reducerKey: 'departments'
   })
-
-  
-
 
 
   const items = useMemo(() => [

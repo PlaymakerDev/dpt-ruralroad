@@ -52,7 +52,7 @@ const DetailCentralManagement = (props) => {
     },
     {
       key: '9',
-      description: 'ตารางสรุปการกำกับสถานีตรวจสอบน้ำหนักเครื่องชั่งอัตโนมัติ (WIM)',
+      description: 'ตารางสรุปการกำกับสถานีตรวจสอบน้ำหนักเครื่องชั่งอัตโนมัติ (VIS)',
       urlPreview: `/api/v1/reports/wim_sum_monthly?year_type=ce_year&plan_year=${yearNow}&file_type=pdf&station_id=1`
     },
     {
@@ -62,12 +62,12 @@ const DetailCentralManagement = (props) => {
     },
     {
       key: '11',
-      description: 'รายงานสรุปผลการตรวจสอบรถบรรทุกน้ำหนัก (WIM)',
+      description: 'รายงานสรุปผลการตรวจสอบรถบรรทุกน้ำหนัก (VIS)',
       urlPreview: `/api/v1/reports/wim_sum_daily?year_type=ce_year&plan_year=${yearNow}&file_type=pdf&option=cumulative&plan_month=${monthNow}&station_id=1`
     },
     {
       key: '12',
-      description: 'รายงานปริมาณบรรทุกที่ผ่านตามช่วงเวลา (WIM)',
+      description: 'รายงานปริมาณบรรทุกที่ผ่านตามช่วงเวลา (VIS)',
       urlPreview: '/api/v1/reports/wim_sum_period_daily?year_type=ce_year&plan_year=2023&file_type=pdf&station_id=1&plan_month=1'
     },
   ]

@@ -40,7 +40,7 @@ const VehicleWeightPage = (props) => {
       },
       {
         key: "wim",
-        tab: "ข้อมูลรถเข้าชั่ง WIM",
+        tab: "ข้อมูลรถเข้าชั่ง VIS",
       },
       {
         key: "mobile",

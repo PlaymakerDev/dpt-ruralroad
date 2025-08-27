@@ -98,7 +98,7 @@ const Content = (props) => {
       }
     },
     {
-      title: 'รถเข้าชั่ง WIM',
+      title: 'รถเข้าชั่ง VIS',
       key: 'wim_total',
       dataIndex: 'wim_total',
       width: 200,

@@ -135,7 +135,7 @@ const OverviewScreen = (props) => {
     return (
       <Col xs={24} sm={12} md={12} lg={12} xl={4} xxl={4}>
         <fieldset>
-          <label>สถานี WIM</label>
+          <label>สถานี VIS</label>
           <Select
             value={value}
             options={departmentListSum.data}
@@ -148,9 +148,9 @@ const OverviewScreen = (props) => {
             onChange={(value, options) => {
               getCCTV(options)
               setValue(value)
-              setCCTVStatus(null)
+              setCCTVStatus('ALL')
             }}
-            placeholder='สถานี WIM'
+            placeholder='สถานี VIS'
             allowClear={false}
             loading={loadDepartmentListSum}
             showSearch

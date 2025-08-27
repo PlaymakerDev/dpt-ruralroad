@@ -182,7 +182,7 @@ const ChartWeighingStation = (props) => {
       <section>
         <Row gutter={[16, 16]} align={'middle'}>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>
-            <Typography.Title level={4} className='!m-0' style={{ fontSize: 'clamp(1px, 4vw, 15px)' }}>ผลการตรวจสอบน้ำหนัก WIM</Typography.Title>
+            <Typography.Title level={4} className='!m-0' style={{ fontSize: 'clamp(1px, 4vw, 15px)' }}>ผลการตรวจสอบน้ำหนัก VIS</Typography.Title>
             <Typography.Text className='!text-[#FFFFFF80]'>ผลการดำเนินการจัดตั้ง 7 วันล่าสุด</Typography.Text>
           </Col>
           <Col xs={24} sm={24} md={12} lg={12} xl={24} xxl={12}>

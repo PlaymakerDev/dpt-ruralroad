@@ -8,8 +8,6 @@ import { CAMERA_TYPE } from '@/utils/constant';
 const DetailContent = (props) => {
   const { cctv, station, cctvRef, setOpen, onOpenConfig, cctvStatus } = props;
 
-  console.log("inside ===",cctvStatus)
-
   const renderImageCard = useMemo(() => {
     let arrList = cctv
     // SET DEFAULT DATA

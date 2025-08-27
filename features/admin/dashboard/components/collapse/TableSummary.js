@@ -26,7 +26,7 @@ const TableSummary = (props) => {
       key: 'process',
     },
     {
-      title: 'รถเข้าชั่ง WIM',
+      title: 'รถเข้าชั่ง VIS',
       dataIndex: 'wim_check',
       key: 'wim_check',
     },

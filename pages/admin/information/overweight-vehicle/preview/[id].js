@@ -22,7 +22,7 @@ const PreviewPage = (props) => {
       },
       {
         key: 'wim',
-        label: 'ข้อมูลรถเข้าชั่ง WIM',
+        label: 'ข้อมูลรถเข้าชั่ง VIS',
       },
       {
         key: 'mobile',
