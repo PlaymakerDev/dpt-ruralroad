@@ -7,7 +7,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet-defaulticon-compatibility";
 import "leaflet-routing-machine";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, GeoJSON } from 'react-leaflet'
-import { createControlComponent } from '@react-leaflet/core'
+// import { createControlComponent } from '@react-leaflet/core'
 import TH from '@/features/admin/dashboard/mock/th.json'
 import stf from '@/utils/stringformat'
 
@@ -166,7 +166,7 @@ const SpecMap = (props) => {
     data,
     setProvinceDesc,
     showThailandFocus = true, // Toggle Thailand focus on/off
-    overlayOpacity = 0.7, // Control overlay opacity (0.0 - 1.0)
+    overlayOpacity = 1.0, // Control overlay opacity (0.0 - 1.0)
     thailandGeoJsonUrl = "https://simplemaps.com/static/svg/country/th/all/th.json", // SimpleMap Thailand GeoJSON
     ...mapProps
   } = props
@@ -233,7 +233,7 @@ const SpecMap = (props) => {
 
   // Style for the black overlay
   const overlayStyle = useMemo(() => ({
-    fillColor: '#000000',
+    fillColor: '#9E9E9E',
     fillOpacity: overlayOpacity,
     stroke: false,
     interactive: false,
@@ -294,7 +294,6 @@ const SpecMap = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-
       {/* Thailand Focus Overlay - Black mask with Thailand hole */}
       {showThailandFocus && worldOverlay && (
         <GeoJSON
@@ -305,10 +304,8 @@ const SpecMap = (props) => {
           bubblingMouseEvents={false}
         />
       )}
-
       {/* Vehicle Markers */}
       {renderLocationMarker}
-
       {/* Loading indicator */}
       {/* {showThailandFocus && isLoadingGeoJson && (
         <div style={{

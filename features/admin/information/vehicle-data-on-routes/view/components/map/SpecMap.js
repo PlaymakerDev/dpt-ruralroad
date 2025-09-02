@@ -6,8 +6,56 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-routing-machine";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Polyline, GeoJSON } from 'react-leaflet'
 // import { createControlComponent } from '@react-leaflet/core'
+import TH from '@/features/admin/dashboard/mock/th.json'
+import stf from '@/utils/stringformat'
+
+// Function to create world overlay with Thailand hole
+const createWorldOverlayWithThailandHole = (thailandGeoJson) => {
+  if (!thailandGeoJson || !thailandGeoJson.features) return null;
+
+  // Extract Thailand coordinates and create holes
+  const holes = [];
+
+  thailandGeoJson.features.forEach(feature => {
+    if (feature.geometry.type === 'Polygon') {
+      // For Polygon, reverse the coordinates to create a hole
+      holes.push(feature.geometry.coordinates[0].slice().reverse());
+    } else if (feature.geometry.type === 'MultiPolygon') {
+      // For MultiPolygon, process each polygon
+      feature.geometry.coordinates.forEach(polygon => {
+        holes.push(polygon[0].slice().reverse());
+      });
+    }
+  });
+
+  // Create overlay that matches the restricted world bounds
+  return {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            // Outer ring (exact world bounds to match maxBounds)
+            [
+              [-180, -90],
+              [-180, 90],
+              [180, 90],
+              [180, -90],
+              [-180, -90]
+            ],
+            // Inner rings (Thailand bounds - creates holes)
+            ...holes
+          ]
+        }
+      }
+    ]
+  };
+};
 
 // Component to render LINESTRING directly as polyline with auto-fit
 const LineStringPolyline = (props) => {
@@ -155,9 +203,36 @@ const SpecMap = (props) => {
     car,
     road,
     setProvinceDesc,
+    showThailandFocus = true, // Toggle Thailand focus on/off
+    overlayOpacity = 1.0, // Control overlay opacity (0.0 - 1.0)
+    thailandGeoJsonUrl = "https://simplemaps.com/static/svg/country/th/all/th.json", // SimpleMap Thailand GeoJSON
     ...mapProps
   } = props
   const mapRef = useRef();
+
+  // Create world overlay with Thailand hole
+  const worldOverlay = useMemo(() => {
+    if (!TH || !showThailandFocus) return null;
+
+    try {
+      const overlay = createWorldOverlayWithThailandHole(TH);
+      console.log('World overlay created:', overlay);
+      return overlay;
+    } catch (error) {
+      console.error('Error creating world overlay:', error);
+      return null;
+    }
+  }, [TH, showThailandFocus]);
+
+  // Style for the black overlay
+  const overlayStyle = useMemo(() => ({
+    fillColor: '#9E9E9E',
+    fillOpacity: overlayOpacity,
+    stroke: false,
+    interactive: false,
+    bubblingMouseEvents: false
+  }), [overlayOpacity]);
+
 
   const renderPolyLine = useMemo(() => {
     if (!road || !road.length) return null;
@@ -207,6 +282,9 @@ const SpecMap = (props) => {
       center={center}
       zoom={zoom}
       scrollWheelZoom={false}
+      worldCopyJump={false} // Disable world map repetition
+      maxBounds={[[-90, -180], [90, 180]]} // Restrict to single world view
+      maxBoundsViscosity={1.0} // Make bounds strict
       style={{
         width: "100%",
         height: "100%",
@@ -222,6 +300,16 @@ const SpecMap = (props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {/* Thailand Focus Overlay - Black mask with Thailand hole */}
+      {showThailandFocus && worldOverlay && (
+        <GeoJSON
+          data={worldOverlay}
+          style={overlayStyle}
+          pane="overlayPane"
+          interactive={false}
+          bubblingMouseEvents={false}
+        />
+      )}
       {renderLocationMarker}
       {renderPolyLine}
     </MapContainer>
